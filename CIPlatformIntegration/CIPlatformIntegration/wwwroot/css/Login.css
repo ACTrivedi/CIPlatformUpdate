@@ -1,0 +1,34 @@
+﻿.loginimg {
+    width: 100%;
+}
+
+.mainform {
+    margin: 100px 30px 70px 40px;
+    text-align: center;
+}
+
+.p1 {
+    margin-top: 7%;
+    text-align: center;
+}
+
+.p2 {
+    text-align: center;
+}
+
+
+.privacy1 {
+    min-height: 63%;
+}
+
+    .privacy1 p {
+        font-size: 10px;
+        color: gray;
+        position: relative;
+        top: 120px;
+        text-align: center;
+    }
+
+a {
+    text-decoration: none
+}

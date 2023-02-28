@@ -1,0 +1,14 @@
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Entities\bin\Debug\net6.0\CIPlatformIntegration.Entities.deps.json
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Entities\bin\Debug\net6.0\CIPlatformIntegration.Entities.runtimeconfig.json
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Entities\bin\Debug\net6.0\CIPlatformIntegration.Entities.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Entities\bin\Debug\net6.0\CIPlatformIntegration.Entities.pdb
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Entities\obj\Debug\net6.0\CIPlatformIntegration.Entities.csproj.AssemblyReference.cache
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Entities\obj\Debug\net6.0\CIPlatformIntegration.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Entities\obj\Debug\net6.0\CIPlatformIntegration.Entities.AssemblyInfoInputs.cache
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Entities\obj\Debug\net6.0\CIPlatformIntegration.Entities.AssemblyInfo.cs
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Entities\obj\Debug\net6.0\CIPlatformIntegration.Entities.csproj.CoreCompileInputs.cache
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Entities\obj\Debug\net6.0\CIPlatformIntegration.Entities.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Entities\obj\Debug\net6.0\refint\CIPlatformIntegration.Entities.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Entities\obj\Debug\net6.0\CIPlatformIntegration.Entities.pdb
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Entities\obj\Debug\net6.0\CIPlatformIntegration.Entities.genruntimeconfig.cache
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Entities\obj\Debug\net6.0\ref\CIPlatformIntegration.Entities.dll
