@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CIPlatformIntegration.Entities.Models;
-
-public partial class Country
+namespace CIPlatformIntegration.Entities.Models
 {
-    public long CountryId { get; set; }
+    public partial class Country
+    {
+        public Country()
+        {
+            Cities = new HashSet<City>();
+            Missions = new HashSet<Mission>();
+        }
 
-    public string Name { get; set; } = null!;
+        public long CountryId { get; set; }
+        public string Name { get; set; } = null!;
+        public string? Iso { get; set; }
+        public byte[] CreatedAt { get; set; } = null!;
+        public DateTime? UpdatedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
 
-    public string? Iso { get; set; }
-
-    public byte[] CreatedAt { get; set; } = null!;
-
-    public DateTime? UpdatedAt { get; set; }
-
-    public DateTime? DeletedAt { get; set; }
-
-    public virtual ICollection<City> Cities { get; } = new List<City>();
-
-    public virtual ICollection<Mission> Missions { get; } = new List<Mission>();
+        public virtual ICollection<City> Cities { get; set; }
+        public virtual ICollection<Mission> Missions { get; set; }
+    }
 }

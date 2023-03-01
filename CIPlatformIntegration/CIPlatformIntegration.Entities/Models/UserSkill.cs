@@ -1,23 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CIPlatformIntegration.Entities.Models;
-
-public partial class UserSkill
+namespace CIPlatformIntegration.Entities.Models
 {
-    public long UserSkillId { get; set; }
+    public partial class UserSkill
+    {
+        public long UserSkillId { get; set; }
+        public long UserId { get; set; }
+        public long SkillId { get; set; }
+        public byte[] CreatedAt { get; set; } = null!;
+        public DateTime? UpdatedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
 
-    public long UserId { get; set; }
-
-    public long SkillId { get; set; }
-
-    public byte[] CreatedAt { get; set; } = null!;
-
-    public DateTime? UpdatedAt { get; set; }
-
-    public DateTime? DeletedAt { get; set; }
-
-    public virtual Skill Skill { get; set; } = null!;
-
-    public virtual User User { get; set; } = null!;
+        public virtual Skill Skill { get; set; } = null!;
+        public virtual User User { get; set; } = null!;
+    }
 }

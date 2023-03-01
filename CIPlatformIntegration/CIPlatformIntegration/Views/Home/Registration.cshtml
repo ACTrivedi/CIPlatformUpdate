@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model CIPlatformIntegration.Entities.Models.User;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -55,43 +57,50 @@
                 </div>
             </div>
             <div class="col-lg-4" style="position: relative;">
-                <form class=" mainform">
+
+                @using (Html.BeginForm("Registration", "Home", FormMethod.Post)) 
+                {
+              
 
                     <div class="form-group">
-                        <label for="">First Name</label>
-                        <input type="text" class="form-control" placeholder="First Name">
+                        <label for="firstname">First Name</label>
+                         @Html.TextBoxFor(x=>x.FirstName,new {@class="form-control", @placeholder="First"})
+
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="">Last Name</label>
-                        <input type="text" class="form-control" placeholder="Last name">
+                            @Html.TextBoxFor(x=>x.LastName,new {@class="form-control", @placeholder="Last"})
                     </div>
                     <div class="form-group mt-3">
                         <label for="">Phone Number</label>
-                        <input type="phone" class="form-control" placeholder="Phone Number">
+                            @Html.TextBoxFor(x=>x.PhoneNumber,new {@class="form-control", @placeholder="Number"})
                     </div>
                     <div class="form-group mt-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="xyz@gmail.com">
+                            @Html.TextBoxFor(x=>x.Email,new {@class="form-control", @placeholder="Email"})
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            @Html.PasswordFor(x=>x.Password,new {@class="form-control", @placeholder="Password"})
                     </div>
 
                     <div class="form-group  mt-3">
                         <label for="exampleInputPassword1">Confirm New Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                           var confirmpass=@Html.PasswordFor(x=>x.Password,new {@class="form-control", @placeholder="Password"})
                     </div>
 
-                    <button type="button" class="btn btn-outline-warning w-100 rounded-pill mt-4">Register</button>
+
+                    <button type="submit" class="btn btn-outline-warning w-100 rounded-pill mt-4">Register</button>
                     
 
                     <p class="alreadylogin mt-3">Already Register?<span><a href="/Home/Login">Login Now</a></span></p>
 
                     <p class="privacy">Privacy Policy</p>
-                </form>
+               
+
+                }
 
 
 

@@ -382,7 +382,6 @@ C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegra
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\refs\Microsoft.Extensions.Hosting.Abstractions.dll
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\refs\Microsoft.Extensions.Hosting.dll
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\refs\Microsoft.Extensions.Http.dll
-C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\refs\Microsoft.Extensions.Identity.Stores.dll
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\refs\Microsoft.Extensions.Localization.Abstractions.dll
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\refs\Microsoft.Extensions.Localization.dll
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\refs\Microsoft.Extensions.Logging.Abstractions.dll
@@ -569,3 +568,17 @@ C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegra
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\NToastNotify.dll
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\obj\Debug\net6.0\CIPlatformIntegration.MvcApplicationPartsAssemblyInfo.cs
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\Google.Protobuf.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\K4os.Compression.LZ4.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\K4os.Compression.LZ4.Streams.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\K4os.Hash.xxHash.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\MySql.Data.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\ZstdNet.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\comerr64.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\gssapi64.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\k5sprt64.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\krb5_64.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\krbcc64.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\BouncyCastle.Crypto.dll
