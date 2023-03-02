@@ -1,0 +1,36 @@
+﻿
+
+/* For Banner */
+
+.bannerimage {
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 40vh;
+    min-width: 100%;
+    object-fit: cover;
+    /*background-size: cover;*/
+    filter: brightness(40%);
+    object-position:50% 40%;
+}
+.banner:hover {
+    filter: brightness(80%);
+}
+
+
+
+.textblock {
+    position: absolute;
+    bottom: 50px;
+    right: 5vw;
+    left:5vw;
+    
+    color: white;
+  
+}
+
+.sharestorybutton:hover {
+    background-color:white;
+    color:black !important;
+}
+
+/* For Banner End */

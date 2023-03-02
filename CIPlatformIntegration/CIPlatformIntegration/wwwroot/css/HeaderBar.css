@@ -1,0 +1,79 @@
+﻿
+
+
+.bg-custom-1 {
+  background-color: #85144b;
+}
+
+.bg-custom-2 {
+background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+}
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+        .sidenav a:hover {
+            color: #000000;
+        }
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+}
+
+
+@media only screen and (max-width:430px) {
+    #chumantar {
+        display:none;
+    }
+
+
+    .s1 {
+        display:none;
+    }
+   .middle ,.middlebutton {
+       display:none !important;
+    }
+
+}
+
+@media (min-width:370px) and (max-width:976px) {
+
+    .middle, .middlebutton {
+        display: none !important;
+    }
+
+}

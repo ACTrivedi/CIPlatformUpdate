@@ -68,6 +68,7 @@
                     <div>
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
                         @Html.TextBoxFor(x=>x.Email,new {@class="form-control", @placeholder="email"})
+                        <span asp-validation-for="Email" class="text-danger"></span>
 
 
 
@@ -75,6 +76,7 @@
                     <div>
                         <label for="exampleInputPassword1" class="form-label">Password</label>
                         @Html.PasswordFor(m =>m.Password,new {@class="form-control", @placeholder="password"})
+                        <span asp-validation-for="Password" class="text-danger"></span>
 
                     </div>
 

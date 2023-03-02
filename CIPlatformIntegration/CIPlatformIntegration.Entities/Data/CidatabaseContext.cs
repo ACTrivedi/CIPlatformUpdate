@@ -962,9 +962,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.CountryId).HasColumnName("country_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")

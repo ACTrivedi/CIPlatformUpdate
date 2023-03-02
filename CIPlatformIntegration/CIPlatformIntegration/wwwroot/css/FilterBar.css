@@ -1,0 +1,71 @@
+﻿
+
+
+/*Additional code starts here*/
+
+
+/*Additional code ends here*/
+
+
+
+.fixed-nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 50px;
+    background-color: #FFFFFF;
+}
+/*.filterright {
+    margin-start:auto;
+
+}*/
+
+.filterinput {
+   /* width:100% !important;*/
+    border:none !important;
+    width:90%;
+}
+
+/*@media (min-width: 370px) and (max-width: 770px) {
+    body {
+        background-color:black;
+    }
+    .filternavbar {
+        background-color:black !important;
+        display: flex;
+        flex-direction: column;
+    }
+
+
+}*/
+
+@media only screen and (max-width:460px) {
+    body {
+        
+    }
+
+    .filterquery{
+        display:none !important;
+    }
+    .fc {
+        width: 20px;
+        height: 20px;
+        margin-top: 13px;
+    }
+
+    .fl {
+        font-size: 17px;
+    }
+
+
+}
+
+@media (min-width:460px)  {
+  
+
+    .menuicon {
+        display:none ;
+    }
+}

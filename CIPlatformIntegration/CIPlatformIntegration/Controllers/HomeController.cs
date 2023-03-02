@@ -14,7 +14,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.Net;
 using System.Net.Mail;
 using CIPlatformIntegration.Models;
-
+using NuGet.Common;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CIPlatformIntegration.Controllers
 {
@@ -54,24 +55,6 @@ namespace CIPlatformIntegration.Controllers
         }
 
 
-       
-
-
-
-
-
-        //For Forgotpassword
-
-
-        [HttpGet]
-        public IActionResult Resetpassword()
-        {
-            return View();
-        }
-       
-
-
-
 
         // For Registration start
 
@@ -85,29 +68,52 @@ namespace CIPlatformIntegration.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registration(User _user)
+        public IActionResult Registration(User user)
         {
-            
-                var userDetails = new User()
-                {
-                    FirstName = _user.FirstName,
-                    LastName = _user.LastName,
-                    PhoneNumber = _user.PhoneNumber,
-                    Email = _user.Email,
-                    Password = _user.Password,
-                    CityId = 4,
-                    CountryId = 4
-                };
-                _cidatabaseContext.Users.Add(userDetails);
+
+            /* var userDetails = new User()
+             {
+                 FirstName = _user.FirstName,
+                 LastName = _user.LastName,
+                 PhoneNumber = _user.PhoneNumber,
+                 Email = _user.Email,
+                 Password = _user.Password,
+                 CityId = 4,
+                 CountryId = 4
+             };
+             _cidatabaseContext.Users.Add(userDetails);
+             _cidatabaseContext.SaveChanges();
+             return RedirectToAction("Login", "Home");*/
+            User data = new User();
+            data.Email = user.Email;
+            data.Password = user.Password;
+            data.PhoneNumber = user.PhoneNumber;
+            data.CityId = 1;
+            data.CountryId = 1;
+            data.LastName = user.LastName;
+            data.FirstName = user.FirstName;
+      
+         
+
+            if (ModelState.IsValid)
+            {
+
+                _cidatabaseContext.Users.Add(data);
                 _cidatabaseContext.SaveChanges();
-                return RedirectToAction("Login", "Home");
-
-            
-
-          
+                return RedirectToAction("Login");
+            }
+            return View();
         }
 
+
+
+
+    
+
         // For Registration ends
+
+
+
 
 
         //For Forgotpassword start
@@ -122,7 +128,7 @@ namespace CIPlatformIntegration.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Forgotpassword(User _user)
         {
-            
+              
                 var useremailverify = _cidatabaseContext.Users.FirstOrDefault(u => u.Email == _user.Email);
                 if (useremailverify == null)
                 {
@@ -141,7 +147,13 @@ namespace CIPlatformIntegration.Controllers
                     Email = _user.Email,
                     Token = token
                 };
-                _cidatabaseContext.PasswordResets.Add(PasswordResetdetails);
+
+
+            //HttpSession for ForgetPassword
+            HttpContext.Session.SetString("Token", token);
+          
+
+            _cidatabaseContext.PasswordResets.Add(PasswordResetdetails);
                 _cidatabaseContext.SaveChanges();
 
                 // Send an email with the password reset link to the user's email address
@@ -149,7 +161,7 @@ namespace CIPlatformIntegration.Controllers
 
                 // Send email to user with reset password link
                 // ...
-                var fromAddress = new MailAddress("aakashtrivedi1552002@gmail.com", "Aakash");
+                var fromAddress = new MailAddress("agarichintan2002@gmail.com");
                 var toAddress = new MailAddress(_user.Email);
                 var subject = "Password reset request";
                 var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
@@ -161,7 +173,7 @@ namespace CIPlatformIntegration.Controllers
                 };
             using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
             {
-                smtp.Credentials = new NetworkCredential("tatvahl@gmail.com", "dvbexvljnrhcflfw");
+                smtp.Credentials = new NetworkCredential("mailto:agarichintan2002@gmail.com", "tdbibtboqrwrcahc");
                 smtp.EnableSsl = true;
                 smtp.Send(message);
             }
@@ -176,15 +188,162 @@ namespace CIPlatformIntegration.Controllers
 
         }
 
-    
-
-
-    //For Forgotpassword ends
 
 
 
+        //For Forgotpassword ends
 
-    public IActionResult Index()
+
+
+
+
+
+
+        //For Resetpassword starts
+
+
+        [HttpGet]
+        public IActionResult Resetpassword()
+        {
+            return View();
+        }
+
+        public IActionResult Resetpassword(PasswordReset PReset)
+        {
+            var token = HttpContext.Session.GetString("Token");
+          
+            var validateuser = _cidatabaseContext.PasswordResets.FirstOrDefault(m => m.Token == token);     
+            if (validateuser != null)
+            {
+                var userdata = _cidatabaseContext.Users.Where(m => m.Email == validateuser.Email).FirstOrDefault();
+                userdata.Password = PReset.Password;
+
+               
+                    _cidatabaseContext.Users.Update(userdata);
+                    _cidatabaseContext.SaveChanges();
+                    HttpContext.Session.Remove(token);
+                    return RedirectToAction("Login");
+
+                
+            }
+            return RedirectToAction("Index");
+        }
+
+
+        // For Resetpassword Ends
+
+
+
+        // For Homepage start
+
+
+        [HttpGet]
+        public IActionResult Homepage()
+        {
+
+
+            return View();
+        }
+
+        [HttpPost]
+        /* public IActionResult Homepage(User _user)
+         {
+
+             var userDetails = new User()
+             {
+                 FirstName = _user.FirstName,
+                 LastName = _user.LastName,
+                 PhoneNumber = _user.PhoneNumber,
+                 Email = _user.Email,
+                 Password = _user.Password,
+                 CityId = 4,
+                 CountryId = 4
+             };
+             _cidatabaseContext.Users.Add(userDetails);
+             _cidatabaseContext.SaveChanges();
+             return RedirectToAction("Login", "Home");
+
+         }*/
+
+        // For Homepage ends
+
+
+
+
+
+
+
+        // For VolunteerMissionPage start
+
+
+        [HttpGet]
+        public IActionResult VolunteeringMissionPage()
+        {
+
+
+            return View();
+        }
+
+        [HttpPost]
+        /* public IActionResult VolunteeringMissionPage(User _user)
+         {
+
+             var userDetails = new User()
+             {
+                 FirstName = _user.FirstName,
+                 LastName = _user.LastName,
+                 PhoneNumber = _user.PhoneNumber,
+                 Email = _user.Email,
+                 Password = _user.Password,
+                 CityId = 4,
+                 CountryId = 4
+             };
+             _cidatabaseContext.Users.Add(userDetails);
+             _cidatabaseContext.SaveChanges();
+             return RedirectToAction("Login", "Home");
+
+         }*/
+
+        // For VolunteeringMissionPage ends
+
+
+
+
+        // For StoryListingPage start
+
+
+        [HttpGet]
+        public IActionResult StoryListingPage()
+        {
+
+
+            return View();
+        }
+
+        [HttpPost]
+        /* public IActionResult StoryListingPage(User _user)
+         {
+
+             var userDetails = new User()
+             {
+                 FirstName = _user.FirstName,
+                 LastName = _user.LastName,
+                 PhoneNumber = _user.PhoneNumber,
+                 Email = _user.Email,
+                 Password = _user.Password,
+                 CityId = 4,
+                 CountryId = 4
+             };
+             _cidatabaseContext.Users.Add(userDetails);
+             _cidatabaseContext.SaveChanges();
+             return RedirectToAction("Login", "Home");
+
+         }*/
+
+        // For VolunteeringMissionPage ends
+
+
+        public IActionResult Index()
         {
 
             return View();

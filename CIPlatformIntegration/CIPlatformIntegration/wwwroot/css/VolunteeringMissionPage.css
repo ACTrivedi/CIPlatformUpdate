@@ -1,0 +1,220 @@
+﻿.targetimage {
+    height: 25px;
+    margin-right: 4px;
+}
+
+
+
+
+
+
+/*CSS FOR CARD GALLERY*/
+
+.carddetails {
+    box-sizing: border-box;
+    text-align:center;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+    position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+    cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+    text-align: center;
+    background-color: #222;
+    padding: 2px 16px;
+    color: white;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Six columns side by side */
+.column {
+    float: left;
+    width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+    opacity: 0.6;
+}
+
+    .active,
+    .demo:hover {
+        opacity: 1;
+    }
+
+.displayimage {
+    width:100%;
+   /* height:460px;*/
+}
+
+
+
+
+/*
+MY CSS*/
+
+* {
+    font-family: NotoSans-Light;
+}
+
+
+.heartaddicon {
+    height: 17px;
+    margin-right: 17px;
+    text-align:center;
+}
+
+.divClass {
+    width: auto;
+    height: auto;
+    min-width: 100px;
+}
+
+.ratingstarempty {
+    background-color: #F5F5F5;
+    text-align: center;
+    width: fit-content;
+    margin: auto;
+    margin-top: -30px;
+    position: relative;
+    height:50%;
+}
+.starempty {
+    width:25px;
+}
+
+.city {
+    font-size: 9px;
+    color:#757575;
+    text-align:left !important;
+}
+
+.citydetail{
+    font-size:15px;
+}
+
+.infoboxlogo {
+    text-align:left;
+    margin-left:1rem;
+}
+
+
+
+@media only screen and (min-width:770px) and (max-width:1440px) {
+
+    * {
+        /*background-color:cornflowerblue;*/
+    }
+
+
+    .displayimage {
+        height:460px;
+    }
+}
+
+
+
+
+
+
+@media only screen and (max-width:770px) {
+
+    * {
+        /*background-color:cornflowerblue;*/
+    }
+
+
+    .displayimage {
+        max-height:100%;
+    }
+}
+
+/*MOCTab*/
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 4px solid black;
+    border-bottom: 3px solid black !important; 
+    color:black;
+}
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+   
+    /*border-bottom: 3px solid black !important;*/
+    color:black;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    
+}
+.nav-link {
+    color:black;
+}
+
+
+
+
+.volimage {
+    margin-top:10%;
+    height:8vh;
+    margin-bottom:3%;
+}
+
+
