@@ -48,8 +48,12 @@ namespace CIPlatformIntegration.Controllers
             {
                 ViewBag.loginstatus = 0;
             }
-            else { 
-                return RedirectToAction("Homepage","Home");
+           
+            else {
+
+
+                HttpContext.Session.SetString("profile", status.FirstName);
+                return RedirectToAction("Homepage", "Home");
             }
             return View(_user);
         }
@@ -92,6 +96,8 @@ namespace CIPlatformIntegration.Controllers
             data.CountryId = 1;
             data.LastName = user.LastName;
             data.FirstName = user.FirstName;
+
+            
       
          
 
@@ -240,8 +246,7 @@ namespace CIPlatformIntegration.Controllers
         [HttpGet]
         public IActionResult Homepage()
         {
-
-
+            ViewBag.profilename=HttpContext.Session.GetString("profile");
             return View();
         }
 
@@ -341,6 +346,10 @@ namespace CIPlatformIntegration.Controllers
          }*/
 
         // For VolunteeringMissionPage ends
+
+
+
+
 
 
         public IActionResult Index()

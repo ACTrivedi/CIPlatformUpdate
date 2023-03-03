@@ -14,6 +14,8 @@ builder.Services.AddDbContext<CIDatabaseContext>(options => options.UseSqlServer
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<CIDatabaseContext>();
+
+
 builder.Services.AddSession();
 
 
