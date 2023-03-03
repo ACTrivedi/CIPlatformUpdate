@@ -16,6 +16,7 @@ using System.Net.Mail;
 using CIPlatformIntegration.Models;
 using NuGet.Common;
 using Microsoft.EntityFrameworkCore.Storage;
+using CIPlatformIntegration.Entities.ViewModel;
 
 namespace CIPlatformIntegration.Controllers
 {
@@ -167,7 +168,7 @@ namespace CIPlatformIntegration.Controllers
 
                 // Send email to user with reset password link
                 // ...
-                var fromAddress = new MailAddress("agarichintan2002@gmail.com");
+                var fromAddress = new MailAddress("ciplatform0001@gmail.com");
                 var toAddress = new MailAddress(_user.Email);
                 var subject = "Password reset request";
                 var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
@@ -179,7 +180,7 @@ namespace CIPlatformIntegration.Controllers
                 };
             using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
             {
-                smtp.Credentials = new NetworkCredential("mailto:agarichintan2002@gmail.com", "tdbibtboqrwrcahc");
+                smtp.Credentials = new NetworkCredential("ciplatform0001@gmail.com", "qtwcsnkysmnsubfq");
                 smtp.EnableSsl = true;
                 smtp.Send(message);
             }
@@ -251,10 +252,49 @@ namespace CIPlatformIntegration.Controllers
         }
 
         [HttpPost]
-        /* public IActionResult Homepage(User _user)
+        public IActionResult Homepage(MissionData missionData)
          {
 
-             var userDetails = new User()
+            var missions = _cidatabaseContext.Missions.ToList();
+            foreach (var m in missions)
+            {
+                var theme = _cidatabaseContext.MissionThemes.Where(x => x.MissionThemeId == m.ThemeId).SingleOrDefault();
+                var country = _cidatabaseContext.Countries.Where(x => x.CountryId== m.CountryId).SingleOrDefault();
+                var city = _cidatabaseContext.Cities.Where(x => x.CityId == m.CityId).SingleOrDefault();
+
+                missionData = new()
+                {
+                    Title = m.Title,
+                    ShortDescription = m.ShortDescription,
+                    StartDate = m.StartDate,
+                    EndDate = m.EndDate,
+                    MissionTheme = theme.Title,
+                    CountryName = country.Name,
+                    CityName = city.Name,
+
+                    
+                    
+                };
+
+
+            }
+
+            var lstMissions=new List<MissionData>();
+
+            return View();
+
+              
+
+         
+
+
+            
+
+
+
+
+
+             /*var userDetails = new User()
              {
                  FirstName = _user.FirstName,
                  LastName = _user.LastName,
@@ -266,9 +306,9 @@ namespace CIPlatformIntegration.Controllers
              };
              _cidatabaseContext.Users.Add(userDetails);
              _cidatabaseContext.SaveChanges();
-             return RedirectToAction("Login", "Home");
+             return RedirectToAction("Login", "Home");*/
 
-         }*/
+         }
 
         // For Homepage ends
 
