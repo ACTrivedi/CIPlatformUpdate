@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2nIDEWaign3XFtS/d7x3ZnSRAyp6l7+6Wj7XutEp944=",
+  "Hash": "KVpppxg5lDZiutL3EOxD5KmerwwL3781qXVPjNLWEFg=",
   "Source": "CIPlatformIntegration",
   "BasePath": "_content/CIPlatformIntegration",
   "Mode": "Default",
@@ -525,6 +525,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\right-arrow.png"
+    },
+    {
+      "Identity": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\search-icon.svg",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "images/search-icon.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\search-icon.svg"
     },
     {
       "Identity": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\Seats-left.png",

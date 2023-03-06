@@ -356,9 +356,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.CountryId).HasColumnName("country_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -411,19 +411,19 @@ namespace CIPlatformIntegration.Entities.Data
                     .WithMany(p => p.Missions)
                     .HasForeignKey(d => d.CityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_mission_city_id");
+                    .HasConstraintName("FK_mission_city");
 
                 entity.HasOne(d => d.Country)
                     .WithMany(p => p.Missions)
                     .HasForeignKey(d => d.CountryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_mission_country_id");
+                    .HasConstraintName("FK_mission_country");
 
                 entity.HasOne(d => d.Theme)
                     .WithMany(p => p.Missions)
                     .HasForeignKey(d => d.ThemeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_mission_theme_id");
+                    .HasConstraintName("FK_mission_mission_theme");
             });
 
             modelBuilder.Entity<MissionApplication>(entity =>

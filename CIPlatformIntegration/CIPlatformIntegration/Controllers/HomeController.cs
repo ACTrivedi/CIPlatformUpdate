@@ -43,7 +43,9 @@ namespace CIPlatformIntegration.Controllers
         public IActionResult Login(User _user)
         {
 
-         
+            
+
+
             var status = _cidatabaseContext.Users.Where(m=>m.Email == _user.Email && m.Password == _user.Password).FirstOrDefault();
             if (status == null)
             {
@@ -52,7 +54,7 @@ namespace CIPlatformIntegration.Controllers
            
             else {
 
-
+                HttpContext.Session.SetString("Loggedin", "True");
                 HttpContext.Session.SetString("profile", status.FirstName);
                 return RedirectToAction("Homepage", "Home");
             }
@@ -215,6 +217,7 @@ namespace CIPlatformIntegration.Controllers
             return View();
         }
 
+        [HttpPost]
         public IActionResult Resetpassword(PasswordReset PReset)
         {
             var token = HttpContext.Session.GetString("Token");
@@ -243,71 +246,48 @@ namespace CIPlatformIntegration.Controllers
 
         // For Homepage start
 
-
-        [HttpGet]
-        public IActionResult Homepage()
-        {
-            ViewBag.profilename=HttpContext.Session.GetString("profile");
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Homepage(MissionData missionData)
+        public IActionResult Homepage(string Cardsearch)
          {
+            ViewData["countries"] = _cidatabaseContext.Countries.ToList();
+            ViewData["cities"] = _cidatabaseContext.Cities.ToList();
+            ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
+            ViewData["skills"] = _cidatabaseContext.Skills.ToList();
 
-            var missions = _cidatabaseContext.Missions.ToList();
-            foreach (var m in missions)
+            var verifieduser = HttpContext.Session.GetString("Loggedin");
+            if (verifieduser == "True")
             {
-                var theme = _cidatabaseContext.MissionThemes.Where(x => x.MissionThemeId == m.ThemeId).SingleOrDefault();
-                var country = _cidatabaseContext.Countries.Where(x => x.CountryId== m.CountryId).SingleOrDefault();
-                var city = _cidatabaseContext.Cities.Where(x => x.CityId == m.CityId).SingleOrDefault();
 
-                missionData = new()
+                ViewBag.profilename=HttpContext.Session.GetString("profile");
+
+
+                IEnumerable<Mission> missionobj = _cidatabaseContext.Missions.ToList();
+
+                foreach (var mission1 in missionobj)
                 {
-                    Title = m.Title,
-                    ShortDescription = m.ShortDescription,
-                    StartDate = m.StartDate,
-                    EndDate = m.EndDate,
-                    MissionTheme = theme.Title,
-                    CountryName = country.Name,
-                    CityName = city.Name,
+                    _cidatabaseContext.Entry(mission1).Reference(c => c.City).Load();
+                    _cidatabaseContext.Entry(mission1).Reference(c => c.Country).Load();
+                    _cidatabaseContext.Entry(mission1).Reference(t => t.Theme).Load();
+                
+                }
 
+                if (!String.IsNullOrEmpty(Cardsearch))
+                {
                     
-                    
-                };
+                
+                    return View(missionobj.Where(x => x.Theme.Title == Cardsearch));
+                }
 
+                return View(missionobj);
 
-            }
-
-            var lstMissions=new List<MissionData>();
-
-            return View();
 
               
+            }
 
-         
-
+            else {  
+                return RedirectToAction("Login", "Home");
+            }
 
             
-
-
-
-
-
-             /*var userDetails = new User()
-             {
-                 FirstName = _user.FirstName,
-                 LastName = _user.LastName,
-                 PhoneNumber = _user.PhoneNumber,
-                 Email = _user.Email,
-                 Password = _user.Password,
-                 CityId = 4,
-                 CountryId = 4
-             };
-             _cidatabaseContext.Users.Add(userDetails);
-             _cidatabaseContext.SaveChanges();
-             return RedirectToAction("Login", "Home");*/
-
          }
 
         // For Homepage ends

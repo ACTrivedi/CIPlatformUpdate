@@ -1,4 +1,6 @@
-﻿<html>
+﻿@using CIPlatformIntegration.Entities.Models;
+
+<html>
     <head>
    @* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -18,11 +20,14 @@
         <div class="col-lg-8 col-sm-12 ">
             <nav class="navbar navbar-light bg-light">
                 <div class="container">
-                    <form class="d-flex ">
-                        <div>
-                        <input class="form-control me-2 filterinput justify-content-center" id="searching" type="search" placeholder="Search" aria-label="Search">
-                        </div>
-                    </form>
+                                <form>
+                                    <button type="submit">Search</button>
+                                    <input type="search" placeholder="Search..." name="Cardsearch">
+
+                                </form>
+                                
+                            
+                    
                         
                         @* <button class="btn btn-outline-success" type="submit">Search</button>*@
                         <div id="mySidenav" class="sidenav">
@@ -196,14 +201,15 @@
                 Country
             </button>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                    <hr class="dropdown-divider" />
-                </li>
-                <li>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </li>
+                
+                   
+                      @foreach( var i in ViewData["countries"] as IList<Country>){
+                        <li><a class="dropdown-item" href="#">@i.Name</a></li>
+                          }
+                    
+                <li><a class="dropdown-item" href="#"></a></li>
+                    <li><a class="dropdown-item" href="#"></a></li>
+                
             </ul>
             </div>
 
@@ -212,16 +218,18 @@
                     id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 City
             </button>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                    <hr class="dropdown-divider" />
-                </li>
-                <li>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-            </ul>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+
+                    @foreach (var i in ViewData["cities"] as IList<City>)
+                    {
+                        <li><a class="dropdown-item" href="#">@i.Name</a></li>
+                    }
+
+                    <li><a class="dropdown-item" href="#"></a></li>
+                    <li><a class="dropdown-item" href="#"></a></li>
+
+                </ul>
             </div>
 
             <div class="ml-3">
@@ -229,16 +237,18 @@
                     id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Themes
             </button>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                    <hr class="dropdown-divider" />
-                </li>
-                <li>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-            </ul>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+
+                    @foreach (var i in ViewData["themes"] as IList<MissionTheme>)
+                    {
+                        <li><a class="dropdown-item" href="#">@i.Title</a></li>
+                    }
+
+                    <li><a class="dropdown-item" href="#"></a></li>
+                    <li><a class="dropdown-item" href="#"></a></li>
+
+                </ul>
             </div>
 
 
@@ -247,16 +257,18 @@
                     id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Skills
             </button>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                    <hr class="dropdown-divider" />
-                </li>
-                <li>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-            </ul>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+
+                  @*  @foreach (var i in ViewData["skills"] as IList<Skill>)
+                    {
+                        <li><a class="dropdown-item" href="#">@i.Name</a></li>
+                    }*@
+
+                    <li><a class="dropdown-item" href="#"></a></li>
+                    <li><a class="dropdown-item" href="#"></a></li>
+
+                </ul>
 
             </div>
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace CIPlatformIntegration.Entities.Models
 {
@@ -41,9 +41,7 @@ namespace CIPlatformIntegration.Entities.Models
         [Required(ErrorMessage = "Confirm Password is required")]
         [DataType(DataType.Password)]
         [Compare("Password")]
-        public string Confirmpassword { get; set; } = null!;
-
-
+        public string Confirmpassword { get; set; } = null!; 
         public int PhoneNumber { get; set; }
         public string? Avatar { get; set; }
         public string? WhyIVolunteer { get; set; }

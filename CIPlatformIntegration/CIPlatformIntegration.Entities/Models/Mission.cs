@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CIPlatformIntegration.Entities.Models
 {
     public partial class Mission
     {
-        public Mission()
+        /*public Mission()
         {
             Comments = new HashSet<Comment>();
             FavoriteMissions = new HashSet<FavoriteMission>();
@@ -18,7 +19,7 @@ namespace CIPlatformIntegration.Entities.Models
             MissionSkills = new HashSet<MissionSkill>();
             Stories = new HashSet<Story>();
             Timesheets = new HashSet<Timesheet>();
-        }
+        }*/
 
         public long MissionId { get; set; }
         public long ThemeId { get; set; }
@@ -27,14 +28,14 @@ namespace CIPlatformIntegration.Entities.Models
         public string Title { get; set; } = null!;
         public string? ShortDescription { get; set; }
         public string? Description { get; set; }
-        public DateTime? StartDate { get; set; }
+        public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string MissionType { get; set; } = null!;
         public int Status { get; set; }
         public string? OrganizationName { get; set; }
         public string? OrganizationDetail { get; set; }
         public string? Availability { get; set; }
-        public byte[] CreatedAt { get; set; } = null!;
+        public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
 
