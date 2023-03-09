@@ -1,4 +1,6 @@
-﻿
+﻿@using CIPlatformIntegration.Entities.Models;
+
+
 <html>
 <head>
     <title>
@@ -42,6 +44,10 @@
     
 
     <div class="container-fluid">
+        
+        @foreach (var modeldetail in  Model )
+{
+        
         <div class="row">
             <div class=" col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <!-- Container for the image gallery -->
@@ -114,19 +120,10 @@
             </div>
             <div class="carddetails col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <div class="card-body">
-                    <p class="card-title" style="font-size:25px;">Grow tress-For environmental sustainability </p>
-                    <p class="card-text" style="color:#757575;  margin-bottom:2rem; font-size:18px">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-title" style="font-size:25px;"> @modeldetail.Title </p>
+                    <p class="card-text" style="color:#757575;  margin-bottom:2rem; font-size:18px">@modeldetail.ShortDescription</p>
 
-                   @* <div class="d-flex justify-content-between">
-                        <div>Tree Canada</div>
-                        <div class="flex">
-                            <img src="~/images/selected-star.png" />
-                            <img src="~/images/selected-star.png" />
-                            <img src="~/images/selected-star.png" />
-                            <img src="~/images/selected-star.png" />
-                            <img src="~/images/selected-star.png" />
-                        </div>
-                    </div>*@
+                 
 
                     <div class="SEDdiv">
 
@@ -535,7 +532,7 @@ Opportunity</pre>
             <div style="margin:auto"><h3>Related Missions</h3></div>
         </div>
 
-
+        }
 
   </div>
 

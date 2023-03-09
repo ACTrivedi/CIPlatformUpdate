@@ -193,85 +193,43 @@
 
         <!--Additional ends here-->
 
-            <div class="col-lg-4 d-flex justify-content-center filterquery">
-
-            <div>
-            <button class="nav-link dropdown-toggle border-0 bg-transparent dropdown-toggle p-3 text-black-50"
-                    id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Country
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                   
-                      @foreach( var i in ViewData["countries"] as IList<Country>){
-                        <li><a class="dropdown-item" href="#">@i.Name</a></li>
-                          }
+            <div class="col-lg-4 col-md-12 d-flex filterquery justify-content-center">
+            <div class="row">
+                <div class="col-3  col-md-3 d-flex vertical-center">
+                    <select class="form-control" id="Country"   style="border:none">
+                        <option>Country</option>
+                        
+                    </select>
                     
-                <li><a class="dropdown-item" href="#"></a></li>
-                    <li><a class="dropdown-item" href="#"></a></li>
-                
-            </ul>
-            </div>
+                </div>
+             
+                <div class="col-3 col-md-3 themedropdown" id="cityArea">
+                    <button class="themedropdown-btn" style="background:none;">City</button>
+                    <div class="themedropdown-content" id="City">
+                       
+                    </div>
+                </div>
+                <div class="col-3 col-md-3 themedropdown">
+                    <button class="themedropdown-btn" style="background:none;">Themes</button>
+                    <div class="themedropdown-content" id="theme">
+                       
+                    </div>
+                </div>
+                <div class="col-3 col-md-3">
+                    <select class="form-control" id="Skill" style="border:none">
+                        <option>Skills</option>
+                    </select>
+                </div>
+            </div>    
 
-            <div class="ml-3">
-                <button class="nav-link dropdown-toggle border-0 bg-transparent dropdown-toggle p-3 text-black-50 "
-                    id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                City
-            </button>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-
-                    @foreach (var i in ViewData["cities"] as IList<City>)
-                    {
-                        <li><a class="dropdown-item" href="#">@i.Name</a></li>
-                    }
-
-                    <li><a class="dropdown-item" href="#"></a></li>
-                    <li><a class="dropdown-item" href="#"></a></li>
-
-                </ul>
-            </div>
-
-            <div class="ml-3">
-                <button class="nav-link dropdown-toggle border-0 bg-transparent dropdown-toggle p-3 text-black-50"
-                    id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Themes
-            </button>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            
+     
+           
 
 
-                    @foreach (var i in ViewData["themes"] as IList<MissionTheme>)
-                    {
-                        <li><a class="dropdown-item" href="#">@i.Title</a></li>
-                    }
-
-                    <li><a class="dropdown-item" href="#"></a></li>
-                    <li><a class="dropdown-item" href="#"></a></li>
-
-                </ul>
-            </div>
 
 
-            <div class="ml-3">
-                <button class="nav-link dropdown-toggle border-0 bg-transparent dropdown-toggle p-3 text-black-50
-                    id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Skills
-            </button>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-
-                  @*  @foreach (var i in ViewData["skills"] as IList<Skill>)
-                    {
-                        <li><a class="dropdown-item" href="#">@i.Name</a></li>
-                    }*@
-
-                    <li><a class="dropdown-item" href="#"></a></li>
-                    <li><a class="dropdown-item" href="#"></a></li>
-
-                </ul>
-
-            </div>
-
+           
 
             
         </div>
@@ -280,8 +238,93 @@
     </nav>
 
    @* additional code*@
-    
-</body>
-<script src="~/js/Filterbar.js"></script>
 
+   <style>
+
+        // Get the dropdown button and content
+        const dropdownBtn = document.querySelector(".dropdown-btn");
+        const dropdownContent = document.querySelector(".dropdown-content");
+
+        // Add a click event listener to the dropdown button
+        dropdownBtn.addEventListener("click", function () {
+            dropdownContent.classList.toggle("show");
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        window.addEventListener("click", function (event) {
+            if (!event.target.matches(".dropdown-btn")) {
+                const dropdowns = document.querySelectorAll(".dropdown-content");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const dropdown = dropdowns[i];
+                    if (dropdown.classList.contains("show")) {
+                        dropdown.classList.remove("show");
+                    }
+                }
+            }
+        });
+
+    </style>
+
+    <script type="text/javascript">
+       
+        //var SaveItems=function(){
+
+        //    alert('Hi');
+
+        //    var ItemIdArray=[];
+        //    var ItemsIdsCommaSeparated="";
+        //    $("cityArea input[type=checkbox]").each(function(index,val){
+            
+        //        var Id=$(val).attr("id");
+        //        var ischecked=$("#" + Id).is(":checked",true);
+        //        if(ischecked){
+        //            var array=Id.split("_");
+        //            var ItemId=array[1];
+        //            ItemIdArray.push(ItemId);
+
+                
+        //        }
+        //        ItemsIdsCommaSeparated=ItemIdArray.toString();
+            
+        //    })
+
+        //    if(ItemIdArray.length !=0){
+        //        $.ajax({
+        //            type: 'POST',
+        //            url: '/Home/Mission',
+        //            dataType: 'json',
+        //            contentType: "application/json; charset=utf-8",
+        //            success: function (data) {
+        //                console.log(data);
+        //                $.each(data, function (i, data) {
+        //                    $('#Country').append(' <Option value= ' + data.countryId + '>' + data.name + '</Option>');
+        //                });
+        //            },
+        //            error: function (ex) {
+        //                var r = jQuery.parseJSON(response.responseText);
+        //                alert("Message: " + r.Message);
+        //                alert("StackTrace: " + r.StackTrace);
+        //                alert("ExceptionType: " + r.ExceptionType);
+        //            }
+        //        });
+            
+        //    }
+
+
+
+
+        //}
+
+
+
+    </script>
+
+
+
+
+</body>
+@*<script src="~/wwwroot/js/Filterbar.js"></script>*@
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/Cascade.js"> </script>
 </html>

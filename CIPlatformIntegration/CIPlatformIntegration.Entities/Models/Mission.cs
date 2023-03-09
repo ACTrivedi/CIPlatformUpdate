@@ -39,6 +39,12 @@ namespace CIPlatformIntegration.Entities.Models
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
 
+        [NotMapped]
+        public List<int> FilterCheckIds { get; set;}
+
+
+
+
         public virtual City City { get; set; } = null!;
         public virtual Country Country { get; set; } = null!;
         public virtual MissionTheme Theme { get; set; } = null!;

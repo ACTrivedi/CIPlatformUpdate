@@ -1,4 +1,52 @@
 ﻿
+.themedropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.themedropdown-btn {
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.themedropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    margin-top: 5px;
+}
+
+    .themedropdown-content label {
+        margin-bottom: 5px;
+    }
+
+.themedropdown:hover .themedropdown-content {
+    display: block;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*Additional code starts here*/
@@ -47,29 +95,38 @@ button[type="submit"] {
     height: 50px;
     background-color: #FFFFFF;
 }
-/*.filterright {
-    margin-start:auto;
 
-}*/
 
 .filterinput {
-   /* width:100% !important;*/
+  
     border:none !important;
     width:90%;
 }
 
-/*@media (min-width: 370px) and (max-width: 770px) {
-    body {
-        background-color:black;
-    }
-    .filternavbar {
-        background-color:black !important;
-        display: flex;
-        flex-direction: column;
-    }
 
 
-}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media only screen and (max-width:460px) {
     body {
@@ -99,3 +156,9 @@ button[type="submit"] {
         display:none ;
     }
 }
+
+
+
+
+
+

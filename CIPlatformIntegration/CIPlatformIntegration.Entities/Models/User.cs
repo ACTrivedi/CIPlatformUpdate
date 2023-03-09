@@ -41,7 +41,9 @@ namespace CIPlatformIntegration.Entities.Models
         [Required(ErrorMessage = "Confirm Password is required")]
         [DataType(DataType.Password)]
         [Compare("Password")]
-        public string Confirmpassword { get; set; } = null!; 
+        public string Confirmpassword { get; set; } = null!;
+
+        [Required(ErrorMessage = "Contact Number is required")]
         public int PhoneNumber { get; set; }
         public string? Avatar { get; set; }
         public string? WhyIVolunteer { get; set; }

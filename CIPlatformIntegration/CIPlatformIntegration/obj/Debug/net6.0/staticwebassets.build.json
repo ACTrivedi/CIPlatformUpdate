@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "KVpppxg5lDZiutL3EOxD5KmerwwL3781qXVPjNLWEFg=",
+  "Hash": "gEhXupZw3rQ/z75oiJnNFQZbmxzCcfnp6LXPhYqdWpo=",
   "Source": "CIPlatformIntegration",
   "BasePath": "_content/CIPlatformIntegration",
   "Mode": "Default",
@@ -406,6 +406,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\deadline.png"
+    },
+    {
+      "Identity": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\downward-arrow.svg",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "images/downward-arrow.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\downward-arrow.svg"
     },
     {
       "Identity": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\Education-Supplies-for-Every--Pair-of-Shoes-Sold.png",
@@ -816,12 +833,12 @@
       "OriginalItemSpec": "wwwroot\\images\\web.png"
     },
     {
-      "Identity": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\js\\Filterbar.js",
+      "Identity": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\js\\Cascade.js",
       "SourceId": "CIPlatformIntegration",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
       "BasePath": "_content/CIPlatformIntegration",
-      "RelativePath": "js/Filterbar.js",
+      "RelativePath": "js/Cascade.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -830,7 +847,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\Filterbar.js"
+      "OriginalItemSpec": "wwwroot\\js\\Cascade.js"
     },
     {
       "Identity": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\js\\Homepage.js",
