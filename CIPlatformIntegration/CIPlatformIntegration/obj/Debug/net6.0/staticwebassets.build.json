@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gEhXupZw3rQ/z75oiJnNFQZbmxzCcfnp6LXPhYqdWpo=",
+  "Hash": "wEd1t0Ty5/SRS9UA7DKTRyE9sDk/vAYS4HpV6MpHO08=",
   "Source": "CIPlatformIntegration",
   "BasePath": "_content/CIPlatformIntegration",
   "Mode": "Default",
@@ -391,6 +391,23 @@
       "OriginalItemSpec": "wwwroot\\images\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png"
     },
     {
+      "Identity": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png"
+    },
+    {
       "Identity": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\deadline.png",
       "SourceId": "CIPlatformIntegration",
       "SourceType": "Discovered",
@@ -440,6 +457,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Education-Supplies-for-Every--Pair-of-Shoes-Sold.png"
+    },
+    {
+      "Identity": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png"
     },
     {
       "Identity": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\filter.png",

@@ -77,6 +77,9 @@ namespace CIPlatformIntegration.Controllers
         public IActionResult Registration(User user)
         {
 
+            
+            
+            
             User data = new User();
             data.Email = user.Email;
             data.Password = user.Password;
@@ -108,7 +111,7 @@ namespace CIPlatformIntegration.Controllers
             return View();
         }
         [HttpPost]
-        [AllowAnonymous]
+       
      
         public ActionResult Forgotpassword(User _user)
         {
@@ -125,6 +128,9 @@ namespace CIPlatformIntegration.Controllers
             // Generate a password reset token for the user
             var token = Guid.NewGuid().ToString();
 
+     /*       HttpContext.Session.SetString("Emailpassing", _user.Email);*/
+            TempData["email"] = useremailverify.Email;
+
             // Store the token in the password resets table with the user's email
             var PasswordResetdetails = new Entities.Models.PasswordReset
             {
@@ -134,7 +140,9 @@ namespace CIPlatformIntegration.Controllers
 
 
             //HttpSession for ForgetPassword
-            HttpContext.Session.SetString("Token", token);
+           /* HttpContext.Session.SetString("Token", token);*/
+
+            
 
 
             _cidatabaseContext.PasswordResets.Add(PasswordResetdetails);
@@ -188,9 +196,10 @@ namespace CIPlatformIntegration.Controllers
         [HttpPost]
         public IActionResult Resetpassword(PasswordReset PReset)
         {
-            var token = HttpContext.Session.GetString("Token");
+            /*var token = HttpContext.Session.GetString("Token");*/
+            var emaildetail = TempData["email"];
 
-            var validateuser = _cidatabaseContext.PasswordResets.FirstOrDefault(m => m.Token == token);
+            var validateuser = _cidatabaseContext.PasswordResets.FirstOrDefault(m => m.Email==emaildetail);
             if (validateuser != null)
             {
                 var userdata = _cidatabaseContext.Users.Where(m => m.Email == validateuser.Email).FirstOrDefault();
@@ -219,6 +228,7 @@ namespace CIPlatformIntegration.Controllers
             ViewData["cities"] = _cidatabaseContext.Cities.ToList();
             ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
             ViewData["skills"] = _cidatabaseContext.Skills.ToList();
+            ViewData["goalMission"] = _cidatabaseContext.GoalMissions.ToList();
 
            var verifieduser = HttpContext.Session.GetString("Loggedin");
             if (verifieduser == "True")
@@ -293,7 +303,11 @@ namespace CIPlatformIntegration.Controllers
         [HttpGet]
         public IActionResult VolunteeringMissionPage(int missionid)
         {
-
+            ViewData["countries"] = _cidatabaseContext.Countries.ToList();
+            ViewData["cities"] = _cidatabaseContext.Cities.ToList();
+            ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
+            ViewData["skills"] = _cidatabaseContext.Skills.ToList();
+            ViewData["goalMission"] = _cidatabaseContext.GoalMissions.ToList();
             IEnumerable<Mission> missionobj1 = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid);
             return View(missionobj1);
         }

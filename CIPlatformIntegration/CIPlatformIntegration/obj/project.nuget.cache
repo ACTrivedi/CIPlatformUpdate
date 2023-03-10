@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "P8aTJUv68YLAFePl98YHf029lZTQLCz7ODMmbKapq1Z5IWUmd1LEZDYdae4ElXEYohBG+IvkGRFj2I51P6y6og==",
+  "dgSpecHash": "WSPRrmiPOZM8QrTqUr4x6Fg/M3ic+aG/8ueihPURTyTxnYanaKcq9L6UUw/OuKJA8T21cAyiMgdAv6gGR6O2jQ==",
   "success": true,
   "projectFilePath": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\aakas\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\aakas\\.nuget\\packages\\dotnetopenauth.aspnet\\4.3.4.13329\\dotnetopenauth.aspnet.4.3.4.13329.nupkg.sha512",
     "C:\\Users\\aakas\\.nuget\\packages\\dotnetopenauth.core\\4.3.4.13329\\dotnetopenauth.core.4.3.4.13329.nupkg.sha512",
     "C:\\Users\\aakas\\.nuget\\packages\\dotnetopenauth.oauth.consumer\\4.3.4.13329\\dotnetopenauth.oauth.consumer.4.3.4.13329.nupkg.sha512",
@@ -52,6 +53,7 @@
     "C:\\Users\\aakas\\.nuget\\packages\\microsoft.aspnetcore.responsecaching.abstractions\\2.2.0\\microsoft.aspnetcore.responsecaching.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\aakas\\.nuget\\packages\\microsoft.aspnetcore.routing\\2.2.0\\microsoft.aspnetcore.routing.2.2.0.nupkg.sha512",
     "C:\\Users\\aakas\\.nuget\\packages\\microsoft.aspnetcore.routing.abstractions\\2.2.0\\microsoft.aspnetcore.routing.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\aakas\\.nuget\\packages\\microsoft.aspnetcore.session\\2.2.0\\microsoft.aspnetcore.session.2.2.0.nupkg.sha512",
     "C:\\Users\\aakas\\.nuget\\packages\\microsoft.aspnetcore.staticfiles\\2.2.0\\microsoft.aspnetcore.staticfiles.2.2.0.nupkg.sha512",
     "C:\\Users\\aakas\\.nuget\\packages\\microsoft.aspnetcore.webutilities\\2.2.0\\microsoft.aspnetcore.webutilities.2.2.0.nupkg.sha512",
     "C:\\Users\\aakas\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",

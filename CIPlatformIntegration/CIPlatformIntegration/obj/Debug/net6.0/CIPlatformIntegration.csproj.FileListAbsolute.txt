@@ -584,3 +584,4 @@ C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegra
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\BouncyCastle.Crypto.dll
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\MailKit.dll
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\MimeKit.dll
+C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\BCrypt.Net-Next.dll

@@ -44,17 +44,17 @@
     @{
         Pager pager = new Pager();
 
-        int pageNo=0;
+        int pageNo = 0;
 
         if (ViewBag.Pager != null)
-        {   
-            pager=ViewBag.Pager;
+        {
+            pager = ViewBag.Pager;
             pageNo = pager.CurrentPage;
         }
 
     }
 
-    
+
 
 
     @*Mission info*@
@@ -74,9 +74,9 @@
                         Sort-by
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" asp-route-id="1">orderby startdate</a>
-                        <a class="dropdown-item" asp-route-id="2">orderby enddate</a>
-                        <a class="dropdown-item" asp-route-id="3">orderby creteddate</a>
+                        <a class="dropdown-item" asp-route-id="1">Start Date</a>
+                        <a class="dropdown-item" asp-route-id="2">End Date</a>
+                        <a class="dropdown-item" asp-route-id="3">Created Date</a>
                     </div>
                 </div>
 
@@ -94,80 +94,132 @@
         @* Mission info End*@
 
         <div class="container-fluid">
-        <div class="card-cont row justify-content-sm-evenly" id="">
-        @{
-
-            foreach (var modeldetail in  Model )
-            {
+            <div class="card-cont row justify-content-sm-evenly" id="">
+                @{
+                    var goalmissions = @ViewData["goalMission"];
+                    foreach (var modeldetail in Model)
+                    {
 
                         <div class="col-info col-12 col-md-6 col-lg-4">
-                                                        <div class="card1 card my-5">
-                                                            <div class="mission-img" style="position:relative;">
-                                                    <div class="rounded-pill p-1" id="location" style="position:absolute;right:8px; top:3%; background-color:black;opacity:0.6; color:white">
-                                                                <img src="~/images/pin1.png" />&nbsp;<span>@modeldetail.City.Name</span>
-                                                            </div>
-                                                <div class="rounded-circle p-2 " id="location" style="position:absolute;right:8px; top:35%; background-color:black;opacity:0.6; color:white ">
-                                                                <img src="~/images/heart1.png" />
-                                                            </div>
-                                            <div class="rounded-circle p-2" id="location" style="position:absolute;right:8px; top:55%; background-color:black;opacity:0.6; color:white ">
-                                                                <img src="~/images/add1.png" />
-                                                            </div>
-                                                                <img class="cardimage card-img-top w-100 h-100" src="~/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png" alt="Card image cap">
-                                                                <div class="justify-content-center d-flex">
-                                                        <div class="px-5 p-1 rounded-pill " style="background-color: white;margin-top: -16px;"><p>@modeldetail.Theme.Title</p> </div>
-                                                                </div>
+                            <div class="card1 card my-5">
+                                <div class="mission-img" style="position:relative;">
+                                    <div class="rounded-pill p-1" id="location" style="position:absolute;right:8px; top:3%; background-color:black;opacity:0.6; color:white">
+                                        <img src="~/images/pin1.png" />&nbsp;<span>@modeldetail.City.Name</span>
+                                    </div>
+                                    <div class="rounded-circle p-2 " id="location" style="position:absolute;right:8px; top:35%; background-color:black;opacity:0.6; color:white ">
+                                        <img src="~/images/heart1.png" />
+                                    </div>
+                                    <div class="rounded-circle p-2" id="location" style="position:absolute;right:8px; top:55%; background-color:black;opacity:0.6; color:white ">
+                                        <img src="~/images/add1.png" />
+                                    </div>
+                                    <img class="cardimage card-img-top w-100 h-100" src="~/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png" alt="Card image cap">
+                                    <div class="justify-content-center d-flex">
+                                        <div class="px-5 p-1 rounded-pill " style="background-color: white;margin-top: -16px;"><p>@modeldetail.Theme.Title</p> </div>
+                                    </div>
 
-                                                            </div>
-                                                            <div class="card-body pt-0">
-                                                    <p class="card-title" style="font-size:26px;">@modeldetail.Title </p>
-                                                    <p class="card-text" style="color:#757575">@modeldetail.ShortDescription</p>
+                                </div>
+                                <div class="card-body pt-0">
+                                    <p class="card-title" style="font-size:26px;">@modeldetail.Title </p>
+                                    <p class="card-text" style="color:#757575">@modeldetail.ShortDescription</p>
 
-                                                                <div class="d-flex justify-content-between mb-3">
-                                                        <div><p>@modeldetail.Country.Name</p></div>
-                                                                    <div class="flex">
-                                                                        <img src="~/images/selected-star.png" />
-                                                                        <img src="~/images/selected-star.png" />
-                                                                        <img src="~/images/selected-star.png" />
-                                                                        <img src="~/images/selected-star.png" />
-                                                                        <img src="~/images/selected-star.png" />
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="SEDdiv">
-
-                                                                    <hr class="mt-3">
-                                                <div class="rounded-pill" style="background-color:#F5F5F5; text-align:center">From @Convert.ToDateTime(modeldetail.StartDate).ToString("dd/mm/yyyy") to @Convert.ToDateTime(modeldetail.EndDate).ToString("dd/mm/yyyy")</div>
-                                                                    <hr class="mt-3">
-
-                                                                </div>
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <div><p>@modeldetail.Country.Name</p></div>
+                                        <div class="flex">
+                                            <img src="~/images/selected-star.png" />
+                                            <img src="~/images/selected-star.png" />
+                                            <img src="~/images/selected-star.png" />
+                                            <img src="~/images/selected-star.png" />
+                                            <img src="~/images/selected-star.png" />
+                                        </div>
+                                    </div>
 
 
-                                                                <div class="mt-1 d-flex justify-content-between">
-                                                                    <div>
-                                                                        <img src="~/images/Seats-left.png" />
-                                                                        <span>10</span>
-                                                                        <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Seats left</p>
+                                    @if (modeldetail.MissionType == "goal")
+                                    {
+                                        @foreach (var i in goalmissions as IEnumerable<GoalMission>)
 
-                                                                    </div>
-                                                                    <div>
-                                                                        <img src="~/images/deadline.png" />
-                                                                        <span>10/21/21</span>
-                                                                        <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Deadline</p>
+                                        {
+                                            if (i.MissionId == modeldetail.MissionId)
+                                            {
+                                                <div class="SEDdiv">
 
-                                                                    </div>
+                                                    <hr class="mt-3">
+                                                    <div class="rounded-pill" style="background-color:#F5F5F5; text-align:center">@i.GoalObjectiveText</div>
+                                                    <hr class="mt-3">
 
-                                                                </div>
-                                                                <hr class="mt-0" />
+                                                </div>
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    @if (modeldetail.MissionType == "time")
+                                    {
+                                        <div class="SEDdiv">
+
+                                            <hr class="mt-3">
+                                            <div class="rounded-pill" style="background-color:#F5F5F5; text-align:center">From @Convert.ToDateTime(modeldetail.StartDate).ToString("dd/mm/yyyy") to @Convert.ToDateTime(modeldetail.EndDate).ToString("dd/mm/yyyy")</div>
+                                            <hr class="mt-3">
+
+                                        </div>
+
+                                    }
+
+
+                                    <div class="mt-1 d-flex justify-content-between">
+                                        <div>
+                                            <img src="~/images/Seats-left.png" />
+                                            <span>10</span>
+                                            <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Seats left</p>
+
+                                        </div>
 
 
 
-                                                                <div>
-                                        <a asp-action="VolunteeringMissionPage" class="btn border-warning rounded-pill" style="position: relative;left: 30%;" asp-route-missionid= "@modeldetail.MissionId">
-                                                                        <span style="color:orange">Apply &nbsp; </span> <img src="~/images/right-arrow.png" />
-                                                                    </a>
-                                                                </div>
-                                                            </div>
+
+                                        @if (modeldetail.MissionType == "goal")
+                                        {
+                                            @foreach (var i in goalmissions as IEnumerable<GoalMission>)
+
+                                            {
+                                                if (i.MissionId == modeldetail.MissionId)
+                                                {
+                                                    <div>
+                                                        <div class="w-90 progress my-1">
+                                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+
                                                         </div>
+                                                        <span>8000 achieved</span>
+                                                    </div>
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        @if (modeldetail.MissionType == "time")
+                                        {
+                                            <div>
+                                                <img src="~/images/deadline.png" />
+                                                <span>@modeldetail.EndDate.ToShortDateString() </span>
+                                                <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Deadline</p>
+
+                                            </div>
+
+                                        }
+
+
+
+
+                                    </div>
+                                    <hr class="mt-0" />
+
+
+
+                                    <div>
+                                        <a asp-action="VolunteeringMissionPage" class="btn border-warning rounded-pill" style="position: relative;left: 30%;" asp-route-missionid="@modeldetail.MissionId">
+                                            <span style="color:orange">Apply &nbsp; </span> <img src="~/images/right-arrow.png" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     }
@@ -183,25 +235,25 @@
 
         <div class="container">
             @{
-                   
+
                 if (pager.TotalPages > 0)
                 {
                     <ul class="pagination justify-content-center">
-                        
-                    @for(var pge=pager.StartPage;pge<=pager.EndPage;pge++)
-                    {
-                        <li class="page-item  @(pge==pager.CurrentPage ? "active":"") ">
-                            <a class="page-link" asp-controller="Home" asp-action="Homepage" asp-route-pg="@pge">@pge</a>
-                          
-                        </li>
-                    }
 
-                        
+                        @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                        {
+                            <li class="page-item  @(pge==pager.CurrentPage ? "active":"") ">
+                                <a class="page-link" asp-controller="Home" asp-action="Homepage" asp-route-pg="@pge">@pge</a>
+
+                            </li>
+                        }
+
+
                     </ul>
                 }
             }
-        </d>
-          <script>
+            </d>
+            <script>
                 $(document).ready(function () {
                     var value_array = [];
                     var count;
@@ -218,10 +270,10 @@
 
                         count = 0;
                         if (searchIDs.length > 0) {
-                            $(".card1").hide();
+                            $(".card1").parent().hide();
                             $.each(searchIDs, function (Index, value) {
 
-                                $('.card1:contains("' + value + '")').show();
+                                $('.card1:contains("' + value + '")').parent().show();
 
                                 console.log($('.card1:contains("' + value + '")').length);
                                 count = count + $('.card1:contains("' + value + '")').length;
@@ -242,12 +294,12 @@
                 });
 
 
-              </script>
+            </script>
 
 
-    </body>
+</body>
 
-    <script src="~/js/Homepage.js"></script>
+<script src="~/js/Homepage.js"></script>
 
-    </html>
+</html>
 
