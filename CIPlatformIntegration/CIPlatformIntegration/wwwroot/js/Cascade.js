@@ -30,6 +30,7 @@
         });
     });
     GetTheme();
+  
    
 });
 
@@ -107,4 +108,26 @@ function GetTheme() {
 
 
 
+function ClickButton1() {
+    alert("ButtonClicked");
+    $.ajax(
+        {
+            type: 'GET',
+            /*dataType: 'JSON',*/
+            url: '/Home/AddToFavourites',
+            /*data: { missionid: missionid },*/
+            success:
+                function (/*response*/) {
+                    // Generate HTML table.
+                    /* convertJsonToHtmlTable(JSON.parse(response), $("#TableId"));*/
+
+                    var els = document.querySelectorAll("a[href='https://localhost:7296/Home/VolunteeringMissionPage']");
+                    alert("Mission Success");
+                },
+            error:
+                function (response) {
+                    alert("Error: " + response);
+                }
+        });
+}
 

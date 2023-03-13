@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Net.Mail;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
-using User =CIPlatformIntegration.Entities.Models.User;
+using User = CIPlatformIntegration.Entities.Models.User;
 
 using Microsoft.AspNetCore.Authorization;
 using System.Net;
@@ -17,9 +17,12 @@ using CIPlatformIntegration.Models;
 using NuGet.Common;
 using Microsoft.EntityFrameworkCore.Storage;
 using CIPlatformIntegration.Entities.ViewModel;
+using MySqlX.XDevAPI;
+using Microsoft.AspNetCore.Identity;
 
 namespace CIPlatformIntegration.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -42,24 +45,34 @@ namespace CIPlatformIntegration.Controllers
         [HttpPost]
         public IActionResult Login(User _user)
         {
+            var emailstatus = _cidatabaseContext.Users.FirstOrDefault(m => m.Email == _user.Email);
 
-
-
-
-            var status = _cidatabaseContext.Users.Where(m => m.Email == _user.Email && m.Password == _user.Password).FirstOrDefault();
+            bool verified = BCrypt.Net.BCrypt.Verify(_user.Password, emailstatus.Password);
+            var status = _cidatabaseContext.Users.Where(m => m.Email == _user.Email && verified).FirstOrDefault();
             if (status == null)
             {
                 ViewBag.loginstatus = 0;
             }
+            else
+            {
+                TempData["Toastlogin"] = "Login Successfull";
 
-            else {
+                HttpContext.Session.SetString("Loggedin", _user.Email);
 
-                HttpContext.Session.SetString("Loggedin", "True");
+                /* HttpContext.Session.SetString("Loggedin", "True");*/
                 HttpContext.Session.SetString("profile", status.FirstName);
+                HttpContext.Session.SetString("Loggedin", _user.Email);
                 return RedirectToAction("Homepage", "Home");
             }
+
             return View(_user);
+
         }
+
+
+
+
+
 
 
 
@@ -77,17 +90,17 @@ namespace CIPlatformIntegration.Controllers
         public IActionResult Registration(User user)
         {
 
-            
-            
-            
             User data = new User();
             data.Email = user.Email;
-            data.Password = user.Password;
+            data.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
             data.PhoneNumber = user.PhoneNumber;
             data.CityId = 1;
             data.CountryId = 1;
             data.LastName = user.LastName;
             data.FirstName = user.FirstName;
+
+            TempData["favuserid"]=data.UserId;
 
 
             if (ModelState.IsValid)
@@ -111,8 +124,8 @@ namespace CIPlatformIntegration.Controllers
             return View();
         }
         [HttpPost]
-       
-     
+
+
         public ActionResult Forgotpassword(User _user)
         {
 
@@ -128,7 +141,7 @@ namespace CIPlatformIntegration.Controllers
             // Generate a password reset token for the user
             var token = Guid.NewGuid().ToString();
 
-     /*       HttpContext.Session.SetString("Emailpassing", _user.Email);*/
+            HttpContext.Session.SetString("Emailpassing", _user.Email);
             TempData["email"] = useremailverify.Email;
 
             // Store the token in the password resets table with the user's email
@@ -140,9 +153,9 @@ namespace CIPlatformIntegration.Controllers
 
 
             //HttpSession for ForgetPassword
-           /* HttpContext.Session.SetString("Token", token);*/
 
-            
+
+
 
 
             _cidatabaseContext.PasswordResets.Add(PasswordResetdetails);
@@ -171,6 +184,8 @@ namespace CIPlatformIntegration.Controllers
                 smtp.Send(message);
             }
 
+            HttpContext.Session.SetString("Token", token);
+
 
 
             /*return RedirectToAction("", "Home");*/
@@ -196,24 +211,27 @@ namespace CIPlatformIntegration.Controllers
         [HttpPost]
         public IActionResult Resetpassword(PasswordReset PReset)
         {
-            /*var token = HttpContext.Session.GetString("Token");*/
-            var emaildetail = TempData["email"];
+            var token = HttpContext.Session.GetString("Token");
 
-            var validateuser = _cidatabaseContext.PasswordResets.FirstOrDefault(m => m.Email==emaildetail);
-            if (validateuser != null)
+            var validateuser = _cidatabaseContext.PasswordResets.FirstOrDefault(m => m.Email == PReset.Email);
+            if (validateuser == null)
             {
-                var userdata = _cidatabaseContext.Users.Where(m => m.Email == validateuser.Email).FirstOrDefault();
-                userdata.Password = PReset.Password;
-
-
-                _cidatabaseContext.Users.Update(userdata);
-                _cidatabaseContext.SaveChanges();
-
-                return RedirectToAction("Login");
-
-
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+
+
+            var userdata = _cidatabaseContext.Users.Where(m => m.Email == validateuser.Email).FirstOrDefault();
+            userdata.Password = PReset.Password;
+
+
+            _cidatabaseContext.Users.Update(userdata);
+            _cidatabaseContext.SaveChanges();
+
+            return RedirectToAction("Login");
+
+
+
+
         }
 
         // For Resetpassword Ends
@@ -221,48 +239,55 @@ namespace CIPlatformIntegration.Controllers
 
         // For Homepage start
 
-        public IActionResult Homepage(string Cardsearch,int pg=1,int id=0)
+        public IActionResult Homepage(string Cardsearch, int pg = 1, int id = 0)
         {
-           
+            var verifieduser = HttpContext.Session.GetString("Loggedin");
+            if (verifieduser == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+
+
+
             ViewData["countries"] = _cidatabaseContext.Countries.ToList();
             ViewData["cities"] = _cidatabaseContext.Cities.ToList();
             ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
             ViewData["skills"] = _cidatabaseContext.Skills.ToList();
             ViewData["goalMission"] = _cidatabaseContext.GoalMissions.ToList();
 
-           var verifieduser = HttpContext.Session.GetString("Loggedin");
-            if (verifieduser == "True")
-            {
 
-                ViewBag.profilename = HttpContext.Session.GetString("profile");
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
 
 
-                IEnumerable<Mission> missionobj = _cidatabaseContext.Missions.ToList();
+            IEnumerable<Mission> missionobj = _cidatabaseContext.Missions.ToList();
 
             switch (id)
             {
-                case 1:missionobj = _cidatabaseContext.Missions.OrderBy(p => p.StartDate).ToList();
+                case 1:
+                    missionobj = _cidatabaseContext.Missions.OrderBy(p => p.StartDate).ToList();
                     break;
-                case 2: missionobj = _cidatabaseContext.Missions.OrderBy(p => p.EndDate).ToList();
+                case 2:
+                    missionobj = _cidatabaseContext.Missions.OrderBy(p => p.EndDate).ToList();
                     break;
                 case 3:
                     missionobj = _cidatabaseContext.Missions.OrderBy(p => p.CreatedAt).ToList();
                     break;
             }
 
-                foreach (var mission1 in missionobj)
-                {
-                    _cidatabaseContext.Entry(mission1).Reference(c => c.City).Load();
-                    _cidatabaseContext.Entry(mission1).Reference(c => c.Country).Load();
-                    _cidatabaseContext.Entry(mission1).Reference(t => t.Theme).Load();
+            foreach (var mission1 in missionobj)
+            {
+                _cidatabaseContext.Entry(mission1).Reference(c => c.City).Load();
+                _cidatabaseContext.Entry(mission1).Reference(c => c.Country).Load();
+                _cidatabaseContext.Entry(mission1).Reference(t => t.Theme).Load();
 
-                }
+            }
 
-                if (!String.IsNullOrEmpty(Cardsearch))
-                {
+            if (!String.IsNullOrEmpty(Cardsearch))
+            {
 
                 return View(missionobj.Where(x => x.Theme.Title == Cardsearch));
-                }
+            }
 
             //Extra Code for the Pagination
 
@@ -284,12 +309,7 @@ namespace CIPlatformIntegration.Controllers
 
             return View(missionobj);
 
-
-           }
-
-            else {
-                return RedirectToAction("Login", "Home");
-            }
+            /* HttpContext.Session.Remove("Loggedin");*/
 
 
         }
@@ -308,7 +328,10 @@ namespace CIPlatformIntegration.Controllers
             ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
             ViewData["skills"] = _cidatabaseContext.Skills.ToList();
             ViewData["goalMission"] = _cidatabaseContext.GoalMissions.ToList();
+          
             IEnumerable<Mission> missionobj1 = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid);
+            TempData["favmissionid"] = missionid; 
+
             return View(missionobj1);
         }
 
@@ -384,7 +407,7 @@ namespace CIPlatformIntegration.Controllers
         }
 
 
-        
+
         public JsonResult City(int id)
         {
             var st = _cidatabaseContext.Cities.Where(e => e.CountryId == id).ToList();
@@ -399,8 +422,26 @@ namespace CIPlatformIntegration.Controllers
 
         public JsonResult MissionTheme()
         {
+
+          
             var themevar = _cidatabaseContext.MissionThemes.ToList();
             return new JsonResult(themevar);
+        }
+
+        public void AddToFavourites(int favuserid=11)
+        {
+            /*var favuserid = TempData["favuserid"];*/
+            var favmissionid = TempData["favmissionid"];
+            FavoriteMission favoriteMission=new FavoriteMission();
+            
+            Console.WriteLine("Heyy from controller");
+            
+            favoriteMission.MissionId = (int)favmissionid;
+            favoriteMission.UserId=(int)favuserid;
+
+            _cidatabaseContext.Add(favoriteMission);
+            _cidatabaseContext.SaveChanges();
+
         }
 
 

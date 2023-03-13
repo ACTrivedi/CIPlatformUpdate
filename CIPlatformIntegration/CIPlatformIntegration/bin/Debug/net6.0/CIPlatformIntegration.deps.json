@@ -51,6 +51,7 @@
           "MimeKit": "3.6.0",
           "MySql.Data": "8.0.32",
           "NToastNotify": "8.0.0",
+          "toastr": "2.1.1",
           "Microsoft.AspNetCore.Antiforgery.Reference": "6.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "6.0.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies.Reference": "6.0.0.0",
@@ -458,6 +459,7 @@
           }
         }
       },
+      "jQuery/1.6.3": {},
       "K4os.Compression.LZ4/1.2.6": {
         "dependencies": {
           "System.Memory": "4.5.5"
@@ -3448,6 +3450,11 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
+      "toastr/2.1.1": {
+        "dependencies": {
+          "jQuery": "1.6.3"
+        }
+      },
       "CIPlatformIntegration.Entities/1.0.0": {
         "dependencies": {
           "BCrypt.Net-Next": "4.0.3",
@@ -3459,7 +3466,8 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.14",
           "Microsoft.Extensions.Identity.Core": "6.0.14",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.12",
-          "MimeKit": "3.6.0"
+          "MimeKit": "3.6.0",
+          "toastr": "2.1.1"
         },
         "runtime": {
           "CIPlatformIntegration.Entities.dll": {}
@@ -3480,7 +3488,8 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.14",
           "Microsoft.Extensions.Identity.Core": "6.0.14",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.12",
-          "MimeKit": "3.6.0"
+          "MimeKit": "3.6.0",
+          "toastr": "2.1.1"
         },
         "runtime": {
           "CIPlatformIntegration.Repository.dll": {}
@@ -5264,6 +5273,13 @@
       "path": "humanizer.core/2.8.26",
       "hashPath": "humanizer.core.2.8.26.nupkg.sha512"
     },
+    "jQuery/1.6.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vb0p7+eRmc2evBCT9W7PCUupqWiDMi9/ofBHN99LraRzLY5jPKMeFzFYBoMgwA8TiwRoFDke5hiDDLsvae7qMg==",
+      "path": "jquery/1.6.3",
+      "hashPath": "jquery.1.6.3.nupkg.sha512"
+    },
     "K4os.Compression.LZ4/1.2.6": {
       "type": "package",
       "serviceable": true,
@@ -6873,6 +6889,13 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
+    },
+    "toastr/2.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-h/688XvzYk1xVYn213ryU+HCElE4n/drYzAHJkAi9LsSUPS3EbI6wGlvCglBUt7i4h5iESgAVarYaigjQmVpqg==",
+      "path": "toastr/2.1.1",
+      "hashPath": "toastr.2.1.1.nupkg.sha512"
     },
     "CIPlatformIntegration.Entities/1.0.0": {
       "type": "project",

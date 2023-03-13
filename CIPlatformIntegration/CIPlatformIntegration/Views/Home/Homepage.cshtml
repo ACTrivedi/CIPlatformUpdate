@@ -33,6 +33,21 @@
     @Html.Partial("_HeaderBar")
     @Html.Partial("_FilterBar")
 
+    @{
+        if (TempData["Toastlogin"] != null)
+        {
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+            <script type="text/javascript">
+                toastr.success('@TempData["Toastlogin"]');
+            </script>
+
+        }
+
+
+    }
+
 
     @* Logic for individual card showing*@
 
@@ -94,7 +109,7 @@
         @* Mission info End*@
 
         <div class="container-fluid">
-            <div class="card-cont row justify-content-sm-evenly" id="">
+            <div class="card-cont row" id="">
                 @{
                     var goalmissions = @ViewData["goalMission"];
                     foreach (var modeldetail in Model)
