@@ -1,6 +1,7 @@
 ﻿@using CIPlatformIntegration.Entities.Models;
 
 
+
 <html>
 <head>
     <title>
@@ -47,7 +48,10 @@
 
         @foreach (var modeldetail in Model)
         {
-            
+
+            <input value=@modeldetail.UserId type="hidden" id="missionidforvol" />
+
+
             var goalmissions = @ViewData["goalMission"];
 
             <div class="row">
@@ -216,8 +220,37 @@
                             <button class="btn border border-secondary w-100 rounded-pill col-lg-6 col-md-6 col-sm-12" id="add-to-favourites-btn" onclick="ClickButton1()">
 
                                 <img src="~/images/heart1.png" />
-                                Add to Favorite
+
+                                @{
+                                    // Check if the item is already in the user's favorites
+
+                                    bool isTrue = (bool)TempData["Isfav1"];
+
+                                    if (isTrue)
+                                    {
+
+                                        @Html.ActionLink("Remove to favorites", "Toggle", "Home", new { missionId = @modeldetail.MissionId }, null)
+
+                                    }
+                                    else
+
+                                    { 
+                                        @Html.ActionLink("Add to favorites", "Toggle", "Home", new { missionId = @modeldetail.MissionId }, null)
+                                                                            
+                                    }
+
+                                }
+
+
+
+
+
+
+
                             </button>
+
+
+
                             <button class="btn border border-secondary w-100 rounded-pill divclass col-lg-6 col-md-6 col-sm-12">
                                 <img src="~/images/add1.png" />
                                 Recommend a to co-worker
@@ -283,7 +316,7 @@
                                     </div>
                                     <div class="citydetail">
                                         <pre>Ongoing 
-    Opportunity</pre>
+        Opportunity</pre>
 
                                     </div>
                                 </div>
@@ -602,6 +635,20 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>*@
 </body>
+
+<script type="text/javascript">
+    function ClickButton1() {
+        alert("Button");
+
+
+    }
+
+</script>
+
+
+
+
+
 
 <script src="~/js/VolunteerMissionPage.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>

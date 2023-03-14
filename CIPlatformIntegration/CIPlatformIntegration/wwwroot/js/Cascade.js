@@ -107,27 +107,33 @@ function GetTheme() {
 }
 
 
-
+/*
 function ClickButton1() {
     alert("ButtonClicked");
     $.ajax(
         {
-            type: 'GET',
-            /*dataType: 'JSON',*/
-            url: '/Home/AddToFavourites',
-            /*data: { missionid: missionid },*/
-            success:
-                function (/*response*/) {
-                    // Generate HTML table.
-                    /* convertJsonToHtmlTable(JSON.parse(response), $("#TableId"));*/
+            *//*type: 'POST',
+          
+            url: '/Home/AddToFavourites/missionid = '+$("missionidforvol").val(),*//*
 
-                    var els = document.querySelectorAll("a[href='https://localhost:7296/Home/VolunteeringMissionPage']");
+            var missionID = $("missionidforvol").val(); 
+
+            type: 'GET',
+            contentType: "application/json; charset=utf-8",
+            url: '/Home/AddToFavourites',
+            dataType: 'JSON',
+            data: { missionID: missionID },
+   
+           *//* data: { missionid: missionid },*//*
+            success:
+                function () {
+                    
                     alert("Mission Success");
                 },
             error:
                 function (response) {
-                    alert("Error: " + response);
+                    alert("Error: ");
                 }
         });
 }
-
+*/

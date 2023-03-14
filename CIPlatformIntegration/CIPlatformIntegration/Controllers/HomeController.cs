@@ -19,6 +19,11 @@ using Microsoft.EntityFrameworkCore.Storage;
 using CIPlatformIntegration.Entities.ViewModel;
 using MySqlX.XDevAPI;
 using Microsoft.AspNetCore.Identity;
+using System.Reflection;
+using System.Numerics;
+using Org.BouncyCastle.Crypto.Tls;
+using Microsoft.AspNetCore.Http;
+using System.Diagnostics.Tracing;
 
 namespace CIPlatformIntegration.Controllers
 {
@@ -46,6 +51,11 @@ namespace CIPlatformIntegration.Controllers
         public IActionResult Login(User _user)
         {
             var emailstatus = _cidatabaseContext.Users.FirstOrDefault(m => m.Email == _user.Email);
+            
+
+
+
+            HttpContext.Session.SetString("farfavuserid", emailstatus.UserId.ToString());
 
             bool verified = BCrypt.Net.BCrypt.Verify(_user.Password, emailstatus.Password);
             var status = _cidatabaseContext.Users.Where(m => m.Email == _user.Email && verified).FirstOrDefault();
@@ -59,21 +69,19 @@ namespace CIPlatformIntegration.Controllers
 
                 HttpContext.Session.SetString("Loggedin", _user.Email);
 
+              
+
+               /* HttpContext.Session.SetInt32("forfavuserid", (int)_user.UserId);*/
+
                 /* HttpContext.Session.SetString("Loggedin", "True");*/
                 HttpContext.Session.SetString("profile", status.FirstName);
-                HttpContext.Session.SetString("Loggedin", _user.Email);
+                HttpContext.Session.SetString("Loggedin", _user.Email); 
                 return RedirectToAction("Homepage", "Home");
             }
 
             return View(_user);
 
         }
-
-
-
-
-
-
 
 
         // For Registration start
@@ -99,8 +107,6 @@ namespace CIPlatformIntegration.Controllers
             data.CountryId = 1;
             data.LastName = user.LastName;
             data.FirstName = user.FirstName;
-
-            TempData["favuserid"]=data.UserId;
 
 
             if (ModelState.IsValid)
@@ -248,14 +254,11 @@ namespace CIPlatformIntegration.Controllers
             }
 
 
-
-
             ViewData["countries"] = _cidatabaseContext.Countries.ToList();
             ViewData["cities"] = _cidatabaseContext.Cities.ToList();
             ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
             ViewData["skills"] = _cidatabaseContext.Skills.ToList();
             ViewData["goalMission"] = _cidatabaseContext.GoalMissions.ToList();
-
 
             ViewBag.profilename = HttpContext.Session.GetString("profile");
 
@@ -328,9 +331,10 @@ namespace CIPlatformIntegration.Controllers
             ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
             ViewData["skills"] = _cidatabaseContext.Skills.ToList();
             ViewData["goalMission"] = _cidatabaseContext.GoalMissions.ToList();
-          
+
             IEnumerable<Mission> missionobj1 = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid);
-            TempData["favmissionid"] = missionid; 
+
+            TempData["Isfav1"]=TempData["Isfav"];
 
             return View(missionobj1);
         }
@@ -377,27 +381,10 @@ namespace CIPlatformIntegration.Controllers
             return View();
         }
 
-        [HttpPost]
-        /* public IActionResult StoryListingPage(User _user)
-         {
+        // For StoryListingPage ends
 
-             var userDetails = new User()
-             {
-                 FirstName = _user.FirstName,
-                 LastName = _user.LastName,
-                 PhoneNumber = _user.PhoneNumber,
-                 Email = _user.Email,
-                 Password = _user.Password,
-                 CityId = 4,
-                 CountryId = 4
-             };
-             _cidatabaseContext.Users.Add(userDetails);
-             _cidatabaseContext.SaveChanges();
-             return RedirectToAction("Login", "Home");
 
-         }*/
 
-        // For VolunteeringMissionPage ends
 
         [HttpGet]
         public JsonResult Country()
@@ -428,39 +415,62 @@ namespace CIPlatformIntegration.Controllers
             return new JsonResult(themevar);
         }
 
-        public void AddToFavourites(int favuserid=11)
-        {
-            /*var favuserid = TempData["favuserid"];*/
-            var favmissionid = TempData["favmissionid"];
-            FavoriteMission favoriteMission=new FavoriteMission();
-            
-            Console.WriteLine("Heyy from controller");
-            
-            favoriteMission.MissionId = (int)favmissionid;
-            favoriteMission.UserId=(int)favuserid;
 
-            _cidatabaseContext.Add(favoriteMission);
-            _cidatabaseContext.SaveChanges();
+
+
+        public async Task<IActionResult> Toggle(int missionid)
+        {
+
+            var userid=long.Parse(HttpContext.Session.GetString("farfavuserid"));
+
+           
+
+            FavoriteMission favorite = await _cidatabaseContext.FavoriteMissions.FirstOrDefaultAsync(f => f.UserId == userid && f.MissionId == missionid );
+            if (favorite != null)
+            {
+                // Remove the item from the user's favorites
+                _cidatabaseContext.FavoriteMissions.Remove(favorite);
+                await _cidatabaseContext.SaveChangesAsync();
+            }
+
+            else
+            {
+                FavoriteMission favorite2= new FavoriteMission();
+                favorite2.UserId = userid;
+                favorite2.MissionId = missionid;
+
+                _cidatabaseContext.Add(favorite2);
+                _cidatabaseContext.SaveChanges();
+
+                TempData["Isfav"] = true;
+
+            }
+
+
+
+
+            return RedirectToAction("VolunteeringMissionPage", new {missionid=missionid });
+
 
         }
 
 
 
         public IActionResult Index()
-        {
+{
 
-            return View();
-        }
+return View();
+}
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+public IActionResult Privacy()
+{
+return View();
+}
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
+[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+public IActionResult Error()
+{
+return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+}
+}
 }

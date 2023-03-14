@@ -42,6 +42,13 @@ namespace CIPlatformIntegration.Entities.Models
         [NotMapped]
         public List<int> FilterCheckIds { get; set;}
 
+        [NotMapped]
+        public bool IsFavorite { get; set; }
+
+
+        [NotMapped]
+        public int UserId { get; set; }
+
 
 
 
