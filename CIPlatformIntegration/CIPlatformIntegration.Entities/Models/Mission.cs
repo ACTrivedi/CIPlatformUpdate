@@ -49,6 +49,9 @@ namespace CIPlatformIntegration.Entities.Models
         [NotMapped]
         public int UserId { get; set; }
 
+        [NotMapped]
+        public int ratingAns { get; set; }
+
 
 
 

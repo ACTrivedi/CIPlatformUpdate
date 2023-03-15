@@ -51,9 +51,6 @@ namespace CIPlatformIntegration.Controllers
         public IActionResult Login(User _user)
         {
             var emailstatus = _cidatabaseContext.Users.FirstOrDefault(m => m.Email == _user.Email);
-            
-
-
 
             HttpContext.Session.SetString("farfavuserid", emailstatus.UserId.ToString());
 
@@ -67,15 +64,11 @@ namespace CIPlatformIntegration.Controllers
             {
                 TempData["Toastlogin"] = "Login Successfull";
 
-                HttpContext.Session.SetString("Loggedin", _user.Email);
-
-              
-
-               /* HttpContext.Session.SetInt32("forfavuserid", (int)_user.UserId);*/
+             /*   HttpContext.Session.SetString("Loggedin", _user.Email);*/
 
                 /* HttpContext.Session.SetString("Loggedin", "True");*/
                 HttpContext.Session.SetString("profile", status.FirstName);
-                HttpContext.Session.SetString("Loggedin", _user.Email); 
+                HttpContext.Session.SetString("Loggedin", _user.Email);
                 return RedirectToAction("Homepage", "Home");
             }
 
@@ -326,18 +319,57 @@ namespace CIPlatformIntegration.Controllers
         [HttpGet]
         public IActionResult VolunteeringMissionPage(int missionid)
         {
+
+           
+            //Start Session for passing missionID to StarRating
+            HttpContext.Session.SetInt32("starmissionid", missionid);
+            //End Session for passing missionID to StarRating
+
+
+
+
+           
             ViewData["countries"] = _cidatabaseContext.Countries.ToList();
             ViewData["cities"] = _cidatabaseContext.Cities.ToList();
             ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
             ViewData["skills"] = _cidatabaseContext.Skills.ToList();
             ViewData["goalMission"] = _cidatabaseContext.GoalMissions.ToList();
+            ViewData["favMission"] = _cidatabaseContext.FavoriteMissions.ToList();
+            ViewData["useridcheck"] = long.Parse(HttpContext.Session.GetString("farfavuserid"));
+
+
+
+
+
+
+
+           
 
             IEnumerable<Mission> missionobj1 = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid);
 
-            TempData["Isfav1"]=TempData["Isfav"];
 
             return View(missionobj1);
+            
+
+
         }
+        /*STar RAting*/
+        public IActionResult StarRating(int s)
+        {
+            var missionId=HttpContext.Session.GetInt32("starmissionid");
+            var userId = long.Parse(HttpContext.Session.GetString("farfavuserid"));
+            var star = new MissionRating()
+            {
+                UserId = userId,
+                MissionId = (long)missionId,
+                Rating = s
+            };
+            _cidatabaseContext.MissionRatings.Add(star);
+            _cidatabaseContext.SaveChanges();
+            return RedirectToAction("Index", "Home");
+
+        }
+        /*sTar Rating ends */
 
         [HttpPost]
         /* public IActionResult VolunteeringMissionPage(User _user)
@@ -410,7 +442,7 @@ namespace CIPlatformIntegration.Controllers
         public JsonResult MissionTheme()
         {
 
-          
+
             var themevar = _cidatabaseContext.MissionThemes.ToList();
             return new JsonResult(themevar);
         }
@@ -421,11 +453,11 @@ namespace CIPlatformIntegration.Controllers
         public async Task<IActionResult> Toggle(int missionid)
         {
 
-            var userid=long.Parse(HttpContext.Session.GetString("farfavuserid"));
+            var userid = long.Parse(HttpContext.Session.GetString("farfavuserid"));
 
-           
+            
 
-            FavoriteMission favorite = await _cidatabaseContext.FavoriteMissions.FirstOrDefaultAsync(f => f.UserId == userid && f.MissionId == missionid );
+            FavoriteMission favorite = await _cidatabaseContext.FavoriteMissions.FirstOrDefaultAsync(f => f.UserId == userid && f.MissionId == missionid);
             if (favorite != null)
             {
                 // Remove the item from the user's favorites
@@ -435,42 +467,37 @@ namespace CIPlatformIntegration.Controllers
 
             else
             {
-                FavoriteMission favorite2= new FavoriteMission();
+                FavoriteMission favorite2 = new FavoriteMission();
                 favorite2.UserId = userid;
                 favorite2.MissionId = missionid;
 
                 _cidatabaseContext.Add(favorite2);
                 _cidatabaseContext.SaveChanges();
 
-                TempData["Isfav"] = true;
+               
 
             }
 
-
-
-
-            return RedirectToAction("VolunteeringMissionPage", new {missionid=missionid });
-
-
+            return RedirectToAction("VolunteeringMissionPage", new { missionid = missionid });
         }
 
 
 
         public IActionResult Index()
-{
+        {
 
-return View();
-}
+            return View();
+        }
 
-public IActionResult Privacy()
-{
-return View();
-}
+        public IActionResult Privacy()
+        {
+            return View();
+        }
 
-[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-public IActionResult Error()
-{
-return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-}
-}
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+    }
 }
