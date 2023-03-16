@@ -209,6 +209,10 @@ namespace CIPlatformIntegration.Entities.Data
                     .HasColumnName("approval_status")
                     .HasDefaultValueSql("('PENDING')");
 
+                entity.Property(e => e.CommentText)
+                    .HasColumnType("text")
+                    .HasColumnName("comment_text");
+
                 entity.Property(e => e.CreatedAt)
                     .IsRowVersion()
                     .IsConcurrencyToken()

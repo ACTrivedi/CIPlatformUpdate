@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CIPlatformIntegration.Entities.Models
 {
@@ -15,7 +14,5 @@ namespace CIPlatformIntegration.Entities.Models
 
         public virtual Mission Mission { get; set; } = null!;
         public virtual User User { get; set; } = null!;
-
-        
     }
 }

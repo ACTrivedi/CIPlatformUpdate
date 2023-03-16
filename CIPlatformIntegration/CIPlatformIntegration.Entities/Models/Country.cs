@@ -11,7 +11,6 @@ namespace CIPlatformIntegration.Entities.Models
             Missions = new HashSet<Mission>();
         }
 
-        
         public long CountryId { get; set; }
         public string Name { get; set; } = null!;
         public string? Iso { get; set; }

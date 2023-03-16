@@ -87,7 +87,11 @@ namespace CIPlatformIntegration.Controllers
             return View();
         }
 
-        [HttpPost]
+
+       
+
+
+       [HttpPost]
         public IActionResult Registration(User user)
         {
 
@@ -320,7 +324,7 @@ namespace CIPlatformIntegration.Controllers
         public IActionResult VolunteeringMissionPage(int missionid)
         {
 
-           
+
             //Start Session for passing missionID to StarRating
             HttpContext.Session.SetInt32("starmissionid", missionid);
             //End Session for passing missionID to StarRating
@@ -328,25 +332,21 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-           
+
             ViewData["countries"] = _cidatabaseContext.Countries.ToList();
             ViewData["cities"] = _cidatabaseContext.Cities.ToList();
             ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
             ViewData["skills"] = _cidatabaseContext.Skills.ToList();
             ViewData["goalMission"] = _cidatabaseContext.GoalMissions.ToList();
             ViewData["favMission"] = _cidatabaseContext.FavoriteMissions.ToList();
+            ViewData["comments"] = _cidatabaseContext.Comments.Where(c=>c.MissionId==missionid).ToList();
             ViewData["useridcheck"] = long.Parse(HttpContext.Session.GetString("farfavuserid"));
-
-
-
-
-
-
-
+          
            
 
-            IEnumerable<Mission> missionobj1 = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid);
 
+            IEnumerable<Mission> missionobj1 = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid);
+            
 
             return View(missionobj1);
             
@@ -481,6 +481,32 @@ namespace CIPlatformIntegration.Controllers
             return RedirectToAction("VolunteeringMissionPage", new { missionid = missionid });
         }
 
+
+
+
+        [HttpPost]
+        public IActionResult Createcomment(String formData) 
+        {
+            var missionIdforcomment = HttpContext.Session.GetInt32("starmissionid");
+
+            var userIdforcomment= long.Parse(HttpContext.Session.GetString("farfavuserid"));
+
+            var commenttable = new Comment()
+            {
+                UserId = userIdforcomment,
+                MissionId = (long)missionIdforcomment,
+                ApprovalStatus = "Published",
+                CommentText = formData
+
+            };
+ 
+            _cidatabaseContext.Add(commenttable);
+            _cidatabaseContext.SaveChanges();
+
+
+
+            return Json(new { success = true });
+        }
 
 
         public IActionResult Index()

@@ -12,6 +12,7 @@ namespace CIPlatformIntegration.Entities.Models
         public byte[] CreatedAt { get; set; } = null!;
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
+        public string? CommentText { get; set; }
 
         public virtual Mission Mission { get; set; } = null!;
         public virtual User User { get; set; } = null!;

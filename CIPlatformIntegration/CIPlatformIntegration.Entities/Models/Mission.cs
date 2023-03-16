@@ -6,7 +6,7 @@ namespace CIPlatformIntegration.Entities.Models
 {
     public partial class Mission
     {
-        /*public Mission()
+        public Mission()
         {
             Comments = new HashSet<Comment>();
             FavoriteMissions = new HashSet<FavoriteMission>();
@@ -19,7 +19,7 @@ namespace CIPlatformIntegration.Entities.Models
             MissionSkills = new HashSet<MissionSkill>();
             Stories = new HashSet<Story>();
             Timesheets = new HashSet<Timesheet>();
-        }*/
+        }
 
         public long MissionId { get; set; }
         public long ThemeId { get; set; }
@@ -39,8 +39,10 @@ namespace CIPlatformIntegration.Entities.Models
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
 
+
+
         [NotMapped]
-        public List<int> FilterCheckIds { get; set;}
+        public List<int> FilterCheckIds { get; set; }
 
         [NotMapped]
         public bool IsFavorite { get; set; }
