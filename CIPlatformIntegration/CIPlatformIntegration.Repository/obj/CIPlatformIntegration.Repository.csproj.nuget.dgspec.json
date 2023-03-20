@@ -1,20 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration.Repository\\CIPlatformIntegration.Repository.csproj": {}
+    "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration.Repository\\CIPlatformIntegration.Repository.csproj": {}
   },
   "projects": {
-    "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration.Entities\\CIPlatformIntegration.Entities.csproj": {
+    "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration.Entities\\CIPlatformIntegration.Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration.Entities\\CIPlatformIntegration.Entities.csproj",
+        "projectUniqueName": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration.Entities\\CIPlatformIntegration.Entities.csproj",
         "projectName": "CIPlatformIntegration.Entities",
-        "projectPath": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration.Entities\\CIPlatformIntegration.Entities.csproj",
-        "packagesPath": "C:\\Users\\aakas\\.nuget\\packages\\",
-        "outputPath": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration.Entities\\obj\\",
+        "projectPath": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration.Entities\\CIPlatformIntegration.Entities.csproj",
+        "packagesPath": "C:\\Users\\pci234\\.nuget\\packages\\",
+        "outputPath": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration.Entities\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\aakas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\pci234\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -103,8 +108,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -113,21 +117,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration.Repository\\CIPlatformIntegration.Repository.csproj": {
+    "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration.Repository\\CIPlatformIntegration.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration.Repository\\CIPlatformIntegration.Repository.csproj",
+        "projectUniqueName": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration.Repository\\CIPlatformIntegration.Repository.csproj",
         "projectName": "CIPlatformIntegration.Repository",
-        "projectPath": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration.Repository\\CIPlatformIntegration.Repository.csproj",
-        "packagesPath": "C:\\Users\\aakas\\.nuget\\packages\\",
-        "outputPath": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration.Repository\\obj\\",
+        "projectPath": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration.Repository\\CIPlatformIntegration.Repository.csproj",
+        "packagesPath": "C:\\Users\\pci234\\.nuget\\packages\\",
+        "outputPath": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration.Repository\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\aakas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\pci234\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -141,8 +150,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration.Entities\\CIPlatformIntegration.Entities.csproj": {
-                "projectPath": "C:\\Aakash's Work\\TatvaSoft\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration.Entities\\CIPlatformIntegration.Entities.csproj"
+              "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration.Entities\\CIPlatformIntegration.Entities.csproj": {
+                "projectPath": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration.Entities\\CIPlatformIntegration.Entities.csproj"
               }
             }
           }
@@ -220,8 +229,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -230,7 +238,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

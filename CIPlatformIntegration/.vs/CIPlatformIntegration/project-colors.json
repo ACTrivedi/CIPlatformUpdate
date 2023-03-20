@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "2e4d0d49-9353-42b2-849c-206468e2ac44": {
+      "ProjectGuid": "2e4d0d49-9353-42b2-849c-206468e2ac44",
+      "DisplayName": "CIPlatformIntegration.Entities",
+      "ColorIndex": 0
+    },
+    "0c475f70-d901-4271-ab10-1319e89514c8": {
+      "ProjectGuid": "0c475f70-d901-4271-ab10-1319e89514c8",
+      "DisplayName": "CIPlatformIntegration",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

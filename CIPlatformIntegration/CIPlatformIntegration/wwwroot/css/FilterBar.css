@@ -1,25 +1,31 @@
 ﻿
+
 .checkbox-dropdown {
     width: 200px;
-    border: 1px solid #aaa;
+    display: flex;
+    align-items: center;
     padding: 10px;
     position: relative;
     margin: 0 auto;
     user-select: none;
+    border-right:0.5px solid;
+   
 }
-
-    /* Display CSS arrow to the right of the dropdown text */
-    .checkbox-dropdown:after {
-        content: '';
-        height: 0;
-        position: absolute;
-        width: 0;
-        border: 6px solid transparent;
-        border-top-color: #000;
-        top: 50%;
-        right: 10px;
-        margin-top: -3px;
-    }
+#countryleftborder {
+    border-left:0.5px solid;
+}
+/* Display CSS arrow to the right of the dropdown text */
+.checkbox-dropdown:after {
+    content: '';
+    height: 0;
+    position: absolute;
+    width: 0;
+    border: 6px solid transparent;
+    border-top-color: #000;
+    top: 50%;
+    right: 10px;
+    margin-top: -3px;
+}
 
     /* Reverse the CSS arrow when the dropdown is active */
     .checkbox-dropdown.is-active:after {
@@ -34,7 +40,7 @@
     padding: 0;
     position: absolute;
     top: 100%; /* align the dropdown right below the dropdown text */
-    border: inherit;
+    border: none;
     border-top: none;
     left: -1px; /* align the dropdown to the left */
     right: -1px; /* align the dropdown to the right */

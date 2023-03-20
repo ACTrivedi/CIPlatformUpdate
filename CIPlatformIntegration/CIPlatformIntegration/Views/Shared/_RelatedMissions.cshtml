@@ -1,4 +1,6 @@
-﻿
+﻿@using CIPlatformIntegration.Entities.Models;
+@using CIPlatformIntegration.Entities.ViewModel
+
 <html>
 <head>
     <title>
@@ -24,187 +26,101 @@
 <body>
     <div class="container-fluid">
         <div class="card-cont row justify-content-sm-evenly" id="">
-            <div class="col-info col-12 col-md-6 col-lg-4">
-                <div class="card1 card my-5">
-                    <img class="cardimage card-img-top" src="~/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png" alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-title" style="font-size:18px;">Grow tress-For environmental sustainability </p>
-                        <p class="card-text" style="color:#757575; font-size:11px">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 
-                        <div class="d-flex justify-content-between">
-                            <div>Tree Canada</div>
-                            <div class="flex">
-                                <img src="~/images/selected-star.png" />
-                                <img src="~/images/selected-star.png" />
-                                <img src="~/images/selected-star.png" />
-                                <img src="~/images/selected-star.png" />
-                                <img src="~/images/selected-star.png" />
+
+            @{
+                var relatedmissions = @ViewBag.relatedmission;
+
+                foreach (var modeldetail in relatedmissions)
+
+                {
+
+                    var countries=@ViewData["countries"];
+                    var cities = @ViewData["cities"];
+                    var themes = ViewData["themes"];
+                    var skills = @ViewData["skills"];
+                    var goalMission = ViewData["goalMission"]; 
+
+
+
+
+                    <div class="col-info col-12 col-md-6 col-lg-4">
+                        <div class="card1 card my-5">
+                            <img class="cardimage card-img-top" src="~/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png" alt="Card image cap">
+                            <div class="justify-content-center d-flex">
+                            @{
+                               
+
+                                foreach (var i in themes as IEnumerable<MissionTheme>)
+                                {
+                                    if(@i.Title== modeldetail.Title)
+                                    {
+                                    <div class="px-5 p-1 rounded-pill " style="background-color: white;margin-top: -16px;"><p>@i.Title</p> </div>
+                                    }
+                                }
+                            }
+
+                                
                             </div>
-                        </div>
+                            <div class="card-body">
+                                <p class="card-title" style="font-size:18px;">@modeldetail.Title </p>
+                                <p class="card-text" style="color:#757575; font-size:11px">@modeldetail.ShortDescription</p>
 
-                        <div class="SEDdiv">
-
-                            <hr>
-                            <div class="p-1 rounded-pill my-3" style="background-color:#F5F5F5; text-align:center">Ongoing Opportunity</div>
-                            <hr>
-
-                        </div>
-
-
-                        <div class="d-flex justify-content-between">
-                            <div class="">
-                                <img src="~/images/Seats-left.png" />
-                                <span>10</span>
-                                <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Seats left</p>
-
-                            </div>
-
-                            <div class=" d-flex justify-content-end">
-                                <img class="w-10 targetimage" src="~/images/achieved.png"/>
-                                <div>
-                                <div class="w-90 progress my-1">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                    
+                                <div class="d-flex justify-content-between">
+                                    <div>Tree Canada</div>
+                                    <div class="flex">
+                                        <img src="~/images/selected-star.png" />
+                                        <img src="~/images/selected-star.png" />
+                                        <img src="~/images/selected-star.png" />
+                                        <img src="~/images/selected-star.png" />
+                                        <img src="~/images/selected-star.png" />
+                                    </div>
                                 </div>
-                                <span>8000 achieved</span>
+
+                                <div class="SEDdiv">
+
+                                    <hr>
+                                    <div class="p-1 rounded-pill my-3" style="background-color:#F5F5F5; text-align:center">Ongoing Opportunity</div>
+                                    <hr>
+
                                 </div>
 
-                            </div>
 
-                        </div>
-
-
-
-                        <div>
-                            <a href="#" class="btn border-warning rounded-pill" style="position: relative;left: 30%;">
-                                <span style="color:orange">Apply &nbsp; </span> <img src="~/images/right-arrow.png" />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="col-info col-12 col-md-6 col-lg-4">
-                <div class="card1 card my-5">
-                    <img class="cardimage card-img-top" src="~/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png" alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-title" style="font-size:18px;">Grow tress-For environmental sustainability </p>
-                        <p class="card-text" style="color:#757575; font-size:11px">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
-                        <div class="d-flex justify-content-between">
-                            <div>Tree Canada</div>
-                            <div class="flex">
-                                <img src="~/images/selected-star.png" />
-                                <img src="~/images/selected-star.png" />
-                                <img src="~/images/selected-star.png" />
-                                <img src="~/images/selected-star.png" />
-                                <img src="~/images/selected-star.png" />
-                            </div>
-                        </div>
-
-                        <div class="SEDdiv">
-
-                            <hr>
-                            <div class="p-1 rounded-pill my-3" style="background-color:#F5F5F5; text-align:center">Ongoing Opportunity</div>
-                            <hr>
-
-                        </div>
-
-
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <img src="~/images/Seats-left.png" />
-                                <span>10</span>
-                                <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Seats left</p>
-
-                            </div>
-                            <div class=" d-flex justify-content-end">
-                                <img class="w-10 targetimage" src="~/images/achieved.png" />
-                                <div>
-                                    <div class="w-90 progress my-1">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="">
+                                        <img src="~/images/Seats-left.png" />
+                                        <span>10</span>
+                                        <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Seats left</p>
 
                                     </div>
-                                    <span>8000 achieved</span>
-                                </div>
 
-                            </div>
+                                    <div class=" d-flex justify-content-end">
+                                        <img class="w-10 targetimage" src="~/images/achieved.png" />
+                                        <div>
+                                            <div class="w-90 progress my-1">
+                                                <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 
-                        </div>
-
-
-
-                        <div>
-                            <a href="#" class="btn border-warning rounded-pill" style="position: relative;left: 30%;">
-                                <span style="color:orange">Apply &nbsp; </span> <img src="~/images/right-arrow.png" />
-                            </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="col-info col-12 col-md-6 col-lg-4">
-                    <div class="card1 card my-5">
-                        <img class="cardimage card-img-top" src="~/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-title" style="font-size:18px;">Grow tress-For environmental sustainability </p>
-                            <p class="card-text" style="color:#757575; font-size:11px">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
-                            <div class="d-flex justify-content-between">
-                                <div>Tree Canada</div>
-                                <div class="flex">
-                                    <img src="~/images/selected-star.png" />
-                                    <img src="~/images/selected-star.png" />
-                                    <img src="~/images/selected-star.png" />
-                                    <img src="~/images/selected-star.png" />
-                                    <img src="~/images/selected-star.png" />
-                                </div>
-                            </div>
-
-                            <div class="SEDdiv">
-
-                                <hr>
-                                <div class="p-1 rounded-pill my-3" style="background-color:#F5F5F5; text-align:center">Ongoing Opportunity</div>
-                                <hr>
-
-                            </div>
-
-
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <img src="~/images/Seats-left.png" />
-                                    <span>10</span>
-                                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Seats left</p>
-
-                                </div>
-                            <div class=" d-flex justify-content-end">
-                                <img class="w-10 targetimage" src="~/images/achieved.png" />
-                                <div>
-                                    <div class="w-90 progress my-1">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <span>8000 achieved</span>
+                                        </div>
 
                                     </div>
-                                    <span>8000 achieved</span>
+
                                 </div>
 
+
+
+                                <div>
+                                    <a href="#" class="btn border-warning rounded-pill" style="position: relative;left: 30%;">
+                                        <span style="color:orange">Apply &nbsp; </span> <img src="~/images/right-arrow.png" />
+                                    </a>
+                                </div>
                             </div>
-
-                            </div>
-
-
-                            <div>
-                                <a href="#" class="btn border-warning rounded-pill" style="position: relative;left: 30%;">
-                                    <span style="color:orange">Apply &nbsp; </span> <img src="~/images/right-arrow.png" />
-                                </a>
-                            </div>
-
                         </div>
                     </div>
-                </div>
+
+                }
+            }
 
 
 
@@ -214,9 +130,14 @@
 
 
 
-                @*For Second row*@
 
-               
+
+
+
+
+            @*For Second row*@
+
+
         </div>
 
 </body>

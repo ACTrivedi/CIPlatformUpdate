@@ -330,7 +330,8 @@ namespace CIPlatformIntegration.Controllers
                 MissionSkills = _cidatabaseContext.MissionSkills.ToList(),
                 GoalMission = _cidatabaseContext.GoalMissions.ToList()
             };
-           
+
+          
             return View(model);
         }
 
@@ -339,7 +340,7 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-        public IActionResult GetMissions(string[]? country, string[]? city, string[]? theme, string? searchTerm, string? sortValue)
+        public IActionResult GetMissions(string[]? country, string[]? city, string[]? theme, string? searchTerm, string? sortValue, int pg = 1)
         {   
             HomePageViewModel model = new HomePageViewModel
             {
@@ -374,6 +375,30 @@ namespace CIPlatformIntegration.Controllers
             int totalCount = miss.Count();
             ViewBag.TotalCount = totalCount;
             model.Missions = miss;
+
+
+          
+
+            //Extra Code for the Pagination
+
+            const int pageSize = 9;
+            if (pg < 1)
+                pg = 1;
+
+            int recsCount = miss.Count();
+
+            var pager = new Pager(recsCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = miss.Skip(recSkip).Take(pager.PageSize).ToList();
+
+            this.ViewBag.Pager = pager;
+
+            model.Missions = data;
+
+
+
 
             return PartialView("_Cards", model);
 
@@ -440,7 +465,7 @@ namespace CIPlatformIntegration.Controllers
         // For VolunteerMissionPage start
 
 
-        [HttpGet]
+        [HttpGet]   
         public IActionResult VolunteeringMissionPage(int missionid)
         {
 
@@ -450,8 +475,21 @@ namespace CIPlatformIntegration.Controllers
             //End Session for passing missionID to StarRating
 
 
+            var missiontheme=_cidatabaseContext.Missions.Where(m => m.MissionId==missionid).FirstOrDefault();
 
 
+            var missionthemeid = missiontheme.ThemeId;
+            var missionthemenameid= _cidatabaseContext.MissionThemes.Where(m => m.MissionThemeId == missionthemeid).FirstOrDefault();
+
+            var missionthemename=missionthemenameid.Title;
+
+            var modeltheme = _cidatabaseContext.MissionThemes.Where(m => m.MissionThemeId==missionthemeid).FirstOrDefault();
+            var missionthemenames = modeltheme.Title;
+
+            var x = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid).FirstOrDefault();
+            var theem = x.Theme.Title;
+
+            ViewBag.relatedmission = _cidatabaseContext.Missions.Where( m=>m.Theme.Title==theem).Take(3).ToList();
 
             ViewData["countries"] = _cidatabaseContext.Countries.ToList();
             ViewData["cities"] = _cidatabaseContext.Cities.ToList();
@@ -468,9 +506,34 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-           
+            ViewBag.skills = (from n in _cidatabaseContext.MissionSkills
+                              join c in _cidatabaseContext.Skills on n.SkillId equals c.SkillId
+                              where n.MissionId == missionid
+                              select new
+                              {
+                                  c.SkillName
 
-         
+                              }).ToArray();
+
+
+
+
+
+            var count = _cidatabaseContext.MissionRatings.Where(r => r.MissionId == missionid).Count();
+            
+                if (count != 0)
+                {
+                    ViewBag.Avgratingview = (from m in _cidatabaseContext.MissionRatings where m.MissionId == missionid select m.Rating).Average();
+                }
+                else
+                {
+                    ViewBag.Avgratingview = 0;
+                }
+            
+
+
+             
+
 
             ViewData["useridcheck"] = long.Parse(HttpContext.Session.GetString("farfavuserid"));
             
@@ -491,14 +554,25 @@ namespace CIPlatformIntegration.Controllers
         {
             var missionId=HttpContext.Session.GetInt32("starmissionid");
             var userId = long.Parse(HttpContext.Session.GetString("farfavuserid"));
-            var star = new MissionRating()
+            var ratedmission=_cidatabaseContext.MissionRatings.Where(m=>m.MissionId==missionId && m.UserId==userId).FirstOrDefault();
+            if (ratedmission != null)
             {
-                UserId = userId,
-                MissionId = (long)missionId,
-                Rating = s
-            };
-            _cidatabaseContext.MissionRatings.Add(star);
-            _cidatabaseContext.SaveChanges();
+                ratedmission.Rating = s;
+                _cidatabaseContext.Update(ratedmission);
+                _cidatabaseContext.SaveChanges();
+            }
+            else
+            {
+                var star = new MissionRating()
+                {
+                    UserId = userId,
+                    MissionId = (long)missionId,
+                    Rating = s
+                };
+                _cidatabaseContext.MissionRatings.Add(star);
+                _cidatabaseContext.SaveChanges();
+            }
+            
             return RedirectToAction("Index", "Home");
 
         }
@@ -641,7 +715,7 @@ namespace CIPlatformIntegration.Controllers
                 mail.From = new MailAddress("ciplatformmailsender@gmail.com");
                 mail.To.Add(new MailAddress(userEmail));
                 mail.Subject = "Test mail";
-                mail.Body = "<html><body>Click here<a href='" + "https://localhost:7296/Home/VolunteeringMissionPage?missionid=" + missionID + "'>Reset Password</a></body></html>";
+                mail.Body = "<html><body>Click here<a href='" + "https://localhost:7296/Home/VolunteeringMissionPage?missionid=" + missionID + "'> to recommend this mission</a></body></html>";
                 mail.IsBodyHtml = true;
 
                 SmtpClient myclient = new SmtpClient();
@@ -705,6 +779,10 @@ namespace CIPlatformIntegration.Controllers
 
             return Json(new { success = true });
         }
+
+
+
+       
 
 
         public IActionResult Index()

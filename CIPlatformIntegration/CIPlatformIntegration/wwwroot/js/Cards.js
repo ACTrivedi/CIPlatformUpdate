@@ -21,7 +21,7 @@ $("#search").on("keyup", function (e) {
 
 function LoadMission(sortValue) {
     var country = [];
-    alert(country);
+ 
         
     console.log(country);
 

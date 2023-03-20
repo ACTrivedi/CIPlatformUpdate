@@ -15,3 +15,20 @@ C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegra
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Repository\obj\Debug\net6.0\CIPlatformIntegration.Repository.pdb
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Repository\obj\Debug\net6.0\CIPlatformIntegration.Repository.genruntimeconfig.cache
 C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration.Repository\obj\Debug\net6.0\ref\CIPlatformIntegration.Repository.dll
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\bin\Debug\net6.0\CIPlatformIntegration.Repository.deps.json
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\bin\Debug\net6.0\CIPlatformIntegration.Repository.runtimeconfig.json
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\bin\Debug\net6.0\CIPlatformIntegration.Repository.dll
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\bin\Debug\net6.0\ref\CIPlatformIntegration.Repository.dll
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\bin\Debug\net6.0\CIPlatformIntegration.Repository.pdb
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\bin\Debug\net6.0\CIPlatformIntegration.Entities.dll
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\bin\Debug\net6.0\CIPlatformIntegration.Entities.pdb
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\obj\Debug\net6.0\CIPlatformIntegration.Repository.csproj.AssemblyReference.cache
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\obj\Debug\net6.0\CIPlatformIntegration.Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\obj\Debug\net6.0\CIPlatformIntegration.Repository.AssemblyInfoInputs.cache
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\obj\Debug\net6.0\CIPlatformIntegration.Repository.AssemblyInfo.cs
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\obj\Debug\net6.0\CIPlatformIntegration.Repository.csproj.CoreCompileInputs.cache
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\obj\Debug\net6.0\CIPlatformIntegration.Repository.csproj.CopyComplete
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\obj\Debug\net6.0\CIPlatformIntegration.Repository.dll
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\obj\Debug\net6.0\ref\CIPlatformIntegration.Repository.dll
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\obj\Debug\net6.0\CIPlatformIntegration.Repository.pdb
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration.Repository\obj\Debug\net6.0\CIPlatformIntegration.Repository.genruntimeconfig.cache

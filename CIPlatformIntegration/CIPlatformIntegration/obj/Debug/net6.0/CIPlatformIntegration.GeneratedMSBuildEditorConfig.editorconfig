@@ -8,85 +8,85 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CIPlatformIntegration
 build_property.RootNamespace = CIPlatformIntegration
-build_property.ProjectDir = C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\
+build_property.ProjectDir = D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = true
-build_property.MSBuildProjectDirectory = C:\Aakash's Work\TatvaSoft\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration
+build_property.MSBuildProjectDirectory = D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Home/Forgotpassword.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Home/Forgotpassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGb3Jnb3RwYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Home/Homepage.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Home/Homepage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lcGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Home/Index.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Home/Login.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Home/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Home/Privacy.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Home/Registration.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Home/Registration.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZWdpc3RyYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Home/Resetpassword.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Home/Resetpassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZXNldHBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Home/StoryListingPage.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Home/StoryListingPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdG9yeUxpc3RpbmdQYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Home/VolunteeringMissionPage.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Home/VolunteeringMissionPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxWb2x1bnRlZXJpbmdNaXNzaW9uUGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/Error.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/_Cards.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/_Cards.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DYXJkcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/_FilterBar.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/_FilterBar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9GaWx0ZXJCYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/_HeaderBar.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/_HeaderBar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFkZXJCYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/_Nomissionfound.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/_Nomissionfound.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Ob21pc3Npb25mb3VuZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/_RelatedMissions.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/_RelatedMissions.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9SZWxhdGVkTWlzc2lvbnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/_ViewImports.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/_ViewStart.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Aakash's Work/TatvaSoft/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/_Layout.cshtml]
+[D:/CIPlatformInt/CIPlatformIntegration/CIPlatformIntegration/CIPlatformIntegration/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-a18gczduw6
