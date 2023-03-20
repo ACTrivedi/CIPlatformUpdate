@@ -24,8 +24,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
-        @*CSS and JS file for Volunteering Mission Page itself*@
-    <link rel="stylesheet" href="~/css/VolunteeringMissionPage.css" /></link>
+     
 
 
     @*CSS file for HeaderBar*@
@@ -35,8 +34,12 @@
 
 
 
+
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
+        @*CSS and JS file for Volunteering Mission Page itself*@
+    <link rel="stylesheet" href="~/css/VolunteeringMissionPage.css" /></link>
 
 </head>
 
@@ -55,6 +58,8 @@
             var goalmissions = @ViewData["goalMission"];
             var favmission = @ViewData["favMission"];
             var comments = @ViewData["comments"];
+            var usertable2 = ViewData["usertable2"];
+
 
             <div class="row">
                 <div class=" col-lg-6 col-md-12 col-sm-12 col-xs-12">
@@ -185,28 +190,28 @@
                                     {
                                         if (i.MissionId == modeldetail.MissionId)
                                         {
-                                                        <div class=" d-flex justify-content-end">
-                                                            <img class="w-10 targetimage" src="~/images/achieved.png" />
-                                                            <div>
-                                                                <div class="w-90 progress my-1">
-                                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        <div class=" d-flex justify-content-end">
+                                                                            <img class="w-10 targetimage" src="~/images/achieved.png" />
+                                                                            <div>
+                                                                                <div class="w-90 progress my-1">
+                                                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 
-                                                                </div>
-                                                                <span>8000 achieved</span>
-                                                            </div>
+                                                                                </div>
+                                                                                <span>8000 achieved</span>
+                                                                            </div>
 
-                                                        </div>
+                                                                        </div>
                                         }
                                     }
                                 }
-                                            @if (modeldetail.MissionType == "time")
+                                                            @if (modeldetail.MissionType == "time")
                                 {
-                                                <div>
-                                                    <img src="~/images/deadline.png" />
-                                                    <span>@modeldetail.EndDate.ToShortDateString() </span>
-                                                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Deadline</p>
+                                                                <div>
+                                                                    <img src="~/images/deadline.png" />
+                                                                    <span>@modeldetail.EndDate.ToShortDateString() </span>
+                                                                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Deadline</p>
 
-                                                </div>
+                                                                </div>
 
                                 }
                             }
@@ -224,17 +229,15 @@
 
                             <button class="btn border border-secondary w-100 rounded-pill col-lg-6 col-md-6 col-sm-12" id="add-to-favourites-btn" onclick="ClickButton1()">
 
-
-
-
                                 @{
+
                                     var useridcheck = (long)ViewData["useridcheck"];
                                     var countfordelete = false;
                                     var countforadd = false;
                                     foreach (var i in favmission as IEnumerable<FavoriteMission>)
 
                                     {
-
+                                        
                                         if (i.MissionId == modeldetail.MissionId && useridcheck == i.UserId)
                                         {
 
@@ -252,16 +255,22 @@
                                     }
                                     if (countfordelete == true)
                                     {
-                                                    <i class="fa fa-heart" style="font-size:23px;color:red;vertical-align:bottom;"></i>
-                                                    @Html.ActionLink("Remove from favorites", "Toggle", "Home", new { missionId = @modeldetail.MissionId} ,new {@class = "text-dark text-decoration-none"  })
-                                        countforadd = false;
+                                                                    <i class="fa fa-heart" style="font-size:23px;color:red;vertical-align:bottom;"></i>
+                                        //@Html.ActionLink("Remove from favorites", "Toggle", "Home", new { missionId = @modeldetail.MissionId} ,new {@class = "text-dark text-decoration-none"  })
+
+                                                                    <a onclick="addtofav(@modeldetail.MissionId)">Remove From Favourites</a>
+
+                                                 countforadd = false;
 
                                     }
                                     if (countforadd == true)
                                     {
-                                                    <img src="~/images/heart1.png" />
-                                                    @Html.ActionLink("Add to favorites", "Toggle", "Home", new { missionId = @modeldetail.MissionId },new {@class = "text-dark text-decoration-none"  })
-                                        countfordelete = false;
+                                                                    <img src="~/images/heart1.png" />
+                                                //@Html.ActionLink("Add to favorites", "Toggle", "Home", new { missionId = @modeldetail.MissionId },new {@class = "text-dark text-decoration-none"  })
+
+                                                                     <a onclick="addtofav(@modeldetail.MissionId)">Add to Favourites</a>
+                                                
+                                                countfordelete = false;
 
                                     }
 
@@ -288,21 +297,29 @@
                                             </button>
                                         </div>
 
-                                        <div class="modal-body">
+                                        
 
-                                            @{
+                                        @{
+                                            
+                                           foreach(var i in usertable2 as IEnumerable<Userdatum>)
+                                           {
+                                                                   <div class="modal-body d-flex justify-content-between">
 
-                                            }
+                                                                   <div>@i.Email</div>
+                                                                        <div><button type="button" class="btn btn-primary send" value="@i.Email" >Send</button></div>
 
-                                        </div>
+                                                                   </div>
+                                           }
+                                        
+                                        
+                                        }
+
+                                        
 
 
 
 
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Recommend</button>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -311,13 +328,18 @@
                         <div>
 
                             <hr class="mt-3">
-                            <div class="d-flex ratingstarempty text-warning gap-2">
+                            <div class="d-flex ratingstarempty text-warning gap-2" >
+
+
 
                                 <i class="ratingStar far fa-star" style="font-size:25px" data-value="1"></i>
                                 <i class="ratingStar far fa-star" style="font-size:25px" data-value="2"></i>
                                 <i class="ratingStar far fa-star" style="font-size:25px" data-value="3"></i>
                                 <i class="ratingStar far fa-star" style="font-size:25px" data-value="4"></i>
                                 <i class="ratingStar far fa-star" style="font-size:25px" data-value="5"></i>
+
+
+                               
 
                             </div>
 
@@ -414,11 +436,11 @@
                     </nav>
                     <div class="tab-content mt-3" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                            <h5>Introduction</h5>Stet consetetur labore mazim amet eirmod tincidunt odio sadipscing dolore adipiscing et dolor dolore aliquyam sit labore gubergren nostrud eos ut et stet quod sadipscing nonumy voluptua ut suscipit aliquyam sit dolore ex ea sea aliquyam gubergren diam duis diam sea consetetur ipsum zzril ullamcorper kasd labore nulla amet est
+                            <h5>Introduction</h5> @modeldetail.Title
                             <h5 class="mt-3">Challenge</h5>Est regren aliquyam duo consetetur doming ex amet accusam sadipscing iusto dolor et vero diam lorem dolores vel nulla takimata dolores sea vel diam magna diam eos consectetuer euismod diam at gubergren clita erat nibh sit accusam et magna sit tempor facilisi dolores et et liber dolor vero elitr magna no tation eos sanctus kasd gubergren magna et tempor est eos duo hendrerit eum sit clita labore tempor dolor feugait labore feugait luptatum accusam ipsum nulla diam et delenit eum tempor amet in amet duo minim tempor liber amet ut et tempor est at delenit ea justo nulla dolore et erat ipsum stet et aliquyam duo consetetur sit lorem labore et no dolor exerci sit takimata sadipscing consetetur tincidunt lorem ullamcorper dolor invidunt no dolore duis lorem dolor et nisl no et et nonummy et eirmod invidunt sanctus enim blandit iusto invidunt soluta duo ea nibh nisl minim sanctus et at vero duo lorem elit sea erat lobortis ut ipsum stet dignissim dolor erat quod invidunt elitr at est delenit accusam dolore autem sanctus ad eos iriure dolor consetetur consetetur elitr elitr invidunt soluta nonummy labore ea clita sit vel gubergren sit qui kasd aliquip dolor te labore sadipscing sed amet at nisl facilisi amet consetetur amet amet esse sea duis gubergren gubergren diam kasd et sit elitr sed gubergren accusam magna erat sed lorem sit dolore vulputate stet veniam stet duis gubergren amet tempor et est clita ea eu diam ipsum at nonumy justo amet sed eirmod labore dolore velit erat sadipscing amet takimata nisl zzril lorem ipsum lorem consequat takimata vero sea consetetur et consectetuer gubergren nonumy sed amet eos voluptua diam et amet sanctus diam laoreet lorem duis mazim ex aliquam erat
                             <h5 class="mt-3">Documents</h5>Diam duo gubergren lorem no est ut ipsum sit sanctus lorem nonumy et elitr tempor quod veniam et ipsum lorem takimata tempor stet hendrerit dolores sit ut diam eos molestie et dolor consetetur imperdiet eirmod feugait euismod mazim accusam eos amet euismod congue nulla nostrud takimata sea no sed at
                         </div>
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><h5>Organization Details</h5>Sanctus feugiat kasd ut tempor odio eirmod suscipit dolore sed magna takimata euismod magna accusam takimata consetetur in accusam sedJusto duo amet erat lorem delenit magna lorem labore gubergren rebum diam dolor dolor tincidunt nam invidunt magna sed molestie accusam et eros zzril labore et lorem dolores tempor dolor minim luptatum iusto rebum sanctus eirmod nonummy dolore ut nonumy ipsum ut euismod et voluptua consetetur lorem vero dolor illum tempor diam duis dignissim et ipsum sadipscing invidunt laoreet sed kasd ullamcorper et dolore ut vel laoreet eirmod sed lorem aliquyam tempor justo ipsum ipsum est gubergren ipsum eirmod sed qui id consequat tempor rebum voluptua dolor duo elitr dolor nulla at sed sanctus nihil gubergren sit eum et ipsum</div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><h5>@modeldetail.OrganizationName</h5>@modeldetail.OrganizationDetail</div>
                         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                             <div class="comment-area">
 
@@ -429,35 +451,35 @@
                                     <form method="post" id="comment-form">
 
                                         <textarea class="form-control" placeholder="Enter your comments" rows="4" id="commentdata"></textarea>
-                                       
+
                                     </form>
 
-                                     <button class="btn btn-outline-warning rounded-pill  mt-3 ml-1"  onclick="getComment()" > Post a Comment</button>
+                                    <button class="btn btn-outline-warning rounded-pill  mt-3 ml-1" onclick="getComment()"> Post a Comment</button>
 
 
                                     @{
 
-                                    //var missionIdforcomment = (long)ViewData["missionIdforcomment"];
+                                        //var missionIdforcomment = (long)ViewData["missionIdforcomment"];
                                         //var userIdforcomment = (long)ViewData["userIdforcomment"];
 
 
-                                            foreach (var c in comments as IEnumerable<Comment>)
-                                            {
-                                                 
-                                                <div class="d-flex my-3" style="background-color:white; box-shadow: 2px 2px 10px #E6E6E6, 0px 0px 0px #E6E6E6, 0px 0px 0px #E6E6E6;">
-                                                    <div class="pl-5">
-                                                        <img class="rounded-circle mt-3" src="~/images/volunteer7.png" style="width:8vh;" />
-                                                    </div>
-                                                    <div class="ml-3">
-                                                        <h5 class="mt-1 mb-0">@c</h5>
-                                                        
-                                                        <p>Time</p>
-                                                        <p>@c.CommentText</p>
+                                        foreach (var c in comments as IEnumerable<Comment>)
+                                        {
 
-                                                    </div>
-                                                </div>
+                                                                        <div class="d-flex my-3" style="background-color:white; box-shadow: 2px 2px 10px #E6E6E6, 0px 0px 0px #E6E6E6, 0px 0px 0px #E6E6E6;">
+                                                                            <div class="pl-5">
+                                                                                <img class="rounded-circle mt-3" src="~/images/volunteer7.png" style="width:8vh;" />
+                                                                            </div>
+                                                                            <div class="ml-3">
+                                                                                <h5 class="mt-1 mb-0">@c</h5>
 
-                                            }
+                                                                                <p>Time</p>
+                                                                                <p>@c.CommentText</p>
+
+                                                                            </div>
+                                                                        </div>
+
+                                        }
 
                                     }
 
@@ -624,12 +646,6 @@
 
 
 
-
-
-
-
-
-
     <div class="container">
         @Html.Partial("_RelatedMissions")
     </div>
@@ -643,15 +659,15 @@
             $(".ratingStar").addClass("far").removeClass("fas");
 
 
-            $(this).addClass("fas").removeClass("far");
-            $(this).prevAll('.ratingStar').addClass("fas").removeClass("far");
+           $(this).addClass("fas").removeClass("far");
+           $(this).prevAll('.ratingStar').addClass("fas").removeClass("far");
 
         });
 
 
         $(".ratingStar").click(function () {
 
-            var starValue = $(this).attr("data-value");
+            var starValue = $(this).attr('data-value');
 
 
             $.ajax({
@@ -662,6 +678,7 @@
                 },
                 success: function () {
                     alert("You gave rating=" + starValue);
+
                 },
                 error: function () {
                     alert("error");
@@ -673,11 +690,13 @@
 
 
 
+
+
             $("#ratingsValue").val(starValue);
         });
 
 
-     
+
 
         function getComment() {
             alert("Hey, Thankyou for Commenting!");
@@ -685,7 +704,7 @@
             $.ajax({
                 url: '/Home/Createcomment',
                 type: 'POST',
-                data: {"formData":formData},
+                data: { "formData": formData },
                 success: function (result) {
                     location.reload();
                 },
@@ -696,14 +715,58 @@
             });
         }
 
-                   
+
+
+        function addtofav(missionid){
+            alert("Hey, Thankyou for fav!");
+            var missionID = missionid;
+            $.ajax({
+                url: '/Home/Toggle',
+                type: 'POST',
+                data: { "missionID": missionID },
+                success: function (result) {
+                    location.reload();
+                },
+                error: function (error) {
+                    alert("Error");
+                }
+
+            });        
+
+        }
+
+        
+        
+        $('.send').on('click',function(){
+        
+        console.log($(this).val());
+        var userEmail=$(this).val();
+            $.ajax({
+                url: '/Home/Recommendtoworker',
+                type: 'POST',
+                data: { "userEmail" :userEmail },
+                success: function (result) {
+                   alert("success");
+                },
+                error: function (error) {
+                    alert("Error");
+                }
+
+            });
+
+
+        
+        })
+
+
+      
+
+
+
 
 
     </script>
 </body>
-
-
-
 
 
 

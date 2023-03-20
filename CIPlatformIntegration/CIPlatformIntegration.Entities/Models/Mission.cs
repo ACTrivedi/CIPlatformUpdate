@@ -39,8 +39,6 @@ namespace CIPlatformIntegration.Entities.Models
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
 
-
-
         [NotMapped]
         public List<int> FilterCheckIds { get; set; }
 
@@ -53,6 +51,9 @@ namespace CIPlatformIntegration.Entities.Models
 
         [NotMapped]
         public int ratingAns { get; set; }
+
+
+
 
 
 

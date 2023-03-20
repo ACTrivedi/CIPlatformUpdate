@@ -41,6 +41,7 @@ namespace CIPlatformIntegration.Entities.Data
         public virtual DbSet<Timesheet> Timesheets { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserSkill> UserSkills { get; set; } = null!;
+        public virtual DbSet<Userdatum> Userdata { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1067,6 +1068,32 @@ namespace CIPlatformIntegration.Entities.Data
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_user_skill_user_id");
+            });
+
+            modelBuilder.Entity<Userdatum>(entity =>
+            {
+                entity.HasKey(e => e.UserId);
+
+                entity.ToTable("userdata");
+
+                entity.Property(e => e.UserId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("user_id");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("email");
+
+                entity.Property(e => e.FirstName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("first_name");
+
+                entity.Property(e => e.LastName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("last_name");
             });
 
             OnModelCreatingPartial(modelBuilder);

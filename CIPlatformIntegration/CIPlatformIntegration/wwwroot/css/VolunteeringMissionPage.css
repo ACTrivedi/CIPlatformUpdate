@@ -1,4 +1,58 @@
-﻿.targetimage {
+﻿
+
+
+.success-box {
+    margin: 50px 0;
+    padding: 10px 10px;
+    border: 1px solid #eee;
+    background: #f9f9f9;
+}
+
+    .success-box img {
+        margin-right: 10px;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .success-box > div {
+        vertical-align: top;
+        display: inline-block;
+        color: #888;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.targetimage {
     height: 25px;
     margin-right: 4px;
 }
@@ -160,6 +214,18 @@ MY CSS*/
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

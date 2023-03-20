@@ -1,245 +1,280 @@
 ﻿@using CIPlatformIntegration.Entities.Models;
+@model CIPlatformIntegration.Entities.ViewModel.HomePageViewModel
 
 <html>
-    <head>
-   @* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<head>
+    @* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>*@
 
     <link rel="stylesheet" href="~/css/FilterBar.css" />
-    
-    </head>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+
+</head>
 
 
 <body>
-    
-     <div class="row border-bottom border-top">@*
-    <nav class="navbar navbar-expand-xl navbar-light bg-light border-bottom">*@
+
+    <div class="row border-bottom border-top">
+        @*
+        <nav class="navbar navbar-expand-xl navbar-light bg-light border-bottom">*@
         <!--Additional code-->
         <div class="col-lg-8 col-sm-12 ">
             <nav class="navbar navbar-light bg-light">
                 <div class="container">
-                                <form>
-                                    <button type="submit">Search</button>
-                                    <input type="search" placeholder="Search..." name="Cardsearch">
+                    <form>
+                        <button type="submit">Search</button>
+                        <input type="search" placeholder="Search..." name="Cardsearch" id="search">
 
-                                </form>
-                                
-                            
-                    
-                        
-                        @* <button class="btn btn-outline-success" type="submit">Search</button>*@
-                        <div id="mySidenav" class="sidenav">
-                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-
-                            <ul class="list-unstyled ps-0">
-                                <li class="mb-1 ms-3">
-                                    <button class="border-0 btn-toggle align-items-center  collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-                                        Country
-                                    </button>
-                                    <div class="collapse show" id="home-collapse">
-                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4">
-                                            <li>
-                                                <a href="#" class="link-dark rounded text-black">
-                                                    <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                        India
-                                                    </label>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="link-dark rounded text-black">
-                                                    <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                        USA
-                                                    </label>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="link-dark rounded text-black">
-                                                    <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                        UK
-                                                    </label>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
+                    </form>
 
 
-                                <li class="mb-1 ms-3">
-                                    <button class="border-0 btn-toggle align-items-center  collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#home-collapse2" aria-expanded="true">
-                                        City
-                                    </button>
-                                    <div class="collapse show" id="home-collapse2">
-                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4">
-                                            <li>
-                                                <a href="#" class="link-dark rounded text-black">
-                                                    <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                        Ahmedabad
-                                                    </label>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="link-dark rounded text-black">
-                                                    <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                        Baroda
-                                                    </label>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="link-dark rounded text-black">
-                                                    <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                        Surat
-                                                    </label>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-
-                                <li class="mb-1 ms-3">
-                                    <button class="border-0 btn-toggle align-items-center  collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#home-collapse3" aria-expanded="true">
-                                        Theme
-                                    </button>
-                                    <div class="collapse show" id="home-collapse3">
-                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4">
-                                            <li>
-                                                <a href="#" class="link-dark rounded text-black">
-                                                    <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault" >
-                                                    <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                        Sport
-                                                    </label>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="link-dark rounded text-black">
-                                                    <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                        Helping NGOs
-                                                    </label>
-                                                </a>
-                                            </li>
-                                            <li> 
-                                                <a href="#" class="link-dark rounded text-black">
-                                                    <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label ms-3 ml-3 fl " for="flexCheckDefault">
-                                                        Self
-                                                    </label>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-
-                                <li class="mb-1 ms-3">
-                                    <button class="border-0 btn-toggle align-items-center  collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#home-collapse4" aria-expanded="true">
-                                        Skills
-                                    </button>
-                                    <div class="collapse show" id="home-collapse4">
-                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4">
-                                            <li>
-                                                <a href="#" class="link-dark rounded text-black">
-                                                    <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                        Dance
-                                                    </label>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="link-dark rounded text-black">
-                                                    <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                        Music
-                                                    </label>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="link-dark rounded text-black">
-                                                    <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label ms-3 ml-3 fl " for="flexCheckDefault">
-                                                        Art
-                                                    </label>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                            
-                        </div>
 
 
-                        <span style="font-size:30px;cursor:pointer" onclick="openNav()" class="menuicon"><img src="~/images/filter.png"/></span>
+                    @* <button class="btn btn-outline-success" type="submit">Search</button>*@
+                    <div id="mySidenav" class="sidenav">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
-                        <script>
-                            function openNav() {
-                                document.getElementById("mySidenav").style.width = "250px";
-                            }
+                        <ul class="list-unstyled ps-0">
+                            <li class="mb-1 ms-3">
+                                <button class="border-0 btn-toggle align-items-center  collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                                    Country
+                                </button>
+                                <div class="collapse show" id="home-collapse">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4">
+                                        <li>
+                                            <a href="#" class="link-dark rounded text-black">
+                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
+                                                    India
+                                                </label>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="link-dark rounded text-black">
+                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
+                                                    USA
+                                                </label>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="link-dark rounded text-black">
+                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
+                                                    UK
+                                                </label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
 
-                            function closeNav() {
-                                document.getElementById("mySidenav").style.width = "0";
-                            }
-                        </script>
-                    
+
+                            <li class="mb-1 ms-3">
+                                <button class="border-0 btn-toggle align-items-center  collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#home-collapse2" aria-expanded="true">
+                                    City
+                                </button>
+                                <div class="collapse show" id="home-collapse2">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4">
+                                        <li>
+                                            <a href="#" class="link-dark rounded text-black">
+                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
+                                                    Ahmedabad
+                                                </label>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="link-dark rounded text-black">
+                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
+                                                    Baroda
+                                                </label>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="link-dark rounded text-black">
+                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
+                                                    Surat
+                                                </label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li class="mb-1 ms-3">
+                                <button class="border-0 btn-toggle align-items-center  collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#home-collapse3" aria-expanded="true">
+                                    Theme
+                                </button>
+                                <div class="collapse show" id="home-collapse3">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4">
+                                        <li>
+                                            <a href="#" class="link-dark rounded text-black">
+                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
+                                                    Sport
+                                                </label>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="link-dark rounded text-black">
+                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
+                                                    Helping NGOs
+                                                </label>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="link-dark rounded text-black">
+                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label ms-3 ml-3 fl " for="flexCheckDefault">
+                                                    Self
+                                                </label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li class="mb-1 ms-3">
+                                <button class="border-0 btn-toggle align-items-center  collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#home-collapse4" aria-expanded="true">
+                                    Skills
+                                </button>
+                                <div class="collapse show" id="home-collapse4">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4">
+                                        <li>
+                                            <a href="#" class="link-dark rounded text-black">
+                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
+                                                    Dance
+                                                </label>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="link-dark rounded text-black">
+                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
+                                                    Music
+                                                </label>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="link-dark rounded text-black">
+                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label ms-3 ml-3 fl " for="flexCheckDefault">
+                                                    Art
+                                                </label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+
+
+                    <span style="font-size:30px;cursor:pointer" onclick="openNav()" class="menuicon"><img src="~/images/filter.png" /></span>
+
+                    <script>
+                        function openNav() {
+                            document.getElementById("mySidenav").style.width = "250px";
+                        }
+
+                        function closeNav() {
+                            document.getElementById("mySidenav").style.width = "0";
+                        }
+                    </script>
+
                 </div>
             </nav>
         </div>
 
         <!--Additional ends here-->
 
-            <div class="col-lg-4 col-md-12 d-flex filterquery justify-content-center">
+        <div class="col-lg-4 col-md-12 d-flex filterquery justify-content-center">
             <div class="row">
                 <div class="col-3  col-md-3 d-flex vertical-center">
-                    <select class="form-control" id="Country"   style="border:none; margin-top:8px">
-                        <option>Country</option>
-                        
-                    </select>
-                    
+                    <div class="checkbox-dropdown">
+                        Country
+                        <ul class="checkbox-dropdown-list" id="countryList" onchange="LoadMission()">
+                           @{
+                               foreach(var i in Model.Country)
+                               {
+                                    <li>
+
+                                        <input type="checkbox" value="@i.Name" name="country" id="" />@i.Name
+
+                                    </li>
+                               }
+                           } 
+                         
+                        </ul>
+                    </div>
+
                 </div>
-             
-                <div class="col-3 col-md-3 themedropdown" id="cityArea">
-                    <button class="themedropdown-btn" style="background:none; margin-top:5px;">City</button>
-                    <div class="themedropdown-content" id="City">
-                       
+
+                <div class="col-3 col-md-3  d-flex vertical-center">
+                    <div class="checkbox-dropdown">
+                        City
+                        <ul class="checkbox-dropdown-list" id="cityList" onchange="LoadMission()">
+                            @{
+                                foreach (var i in Model.City)
+                                {
+                                    <li>
+
+                                        <input type="checkbox" value="@i.Name" name="city" id="" />@i.Name
+
+                                    </li>
+                                }
+                            }
+
+                        </ul>
                     </div>
                 </div>
-                <div class="col-3 col-md-3 themedropdown">
-                    <button class="themedropdown-btn" style="background:none; margin-top: 5px;">Themes</button>
-                    <div class="themedropdown-content" id="theme">
-                       
+                <div class="col-3 col-md-3 d-flex vertical-center">
+                    <div class="checkbox-dropdown">
+                        Themes
+                        <ul class="checkbox-dropdown-list" id="cityList" onchange="LoadMission()">
+                            @{
+                                foreach (var i in Model.MissionThemes)
+                                {
+                                    <li>
+
+                                        <input type="checkbox" value="@i.Title" name="themes" id="" />@i.Title
+
+                                    </li>
+                                }
+                            }
+
+
+                        </ul>
                     </div>
                 </div>
-                <div class="col-3 col-md-3">
-                    <select class="form-control" id="Skill" style="border:none;     margin-top: 10px;">
-                        <option>Skills</option>
-                    </select>
+                <div class="col-3 col-md-3 d-flex vertical-center">
+                    <div class="checkbox-dropdown">
+                        Skills
+                        <ul class="checkbox-dropdown-list" id="themeList" onchange="LoadMission()">
+                           
+                        </ul>
+                    </div>
                 </div>
-            </div>    
-
-            
-     
-           
+            </div>
 
 
 
-
-           
-
-            
         </div>
 
-        </div>
+    </div>
     </nav>
 
-   @* additional code*@
+    @* additional code*@
 
-   <style>
+    <style>
 
         // Get the dropdown button and content
         const dropdownBtn = document.querySelector(".dropdown-btn");
@@ -247,73 +282,46 @@
 
         // Add a click event listener to the dropdown button
         dropdownBtn.addEventListener("click", function () {
-            dropdownContent.classList.toggle("show");
-        });
+                            dropdownContent.classList.toggle("show");
+                        });
 
         // Close the dropdown if the user clicks outside of it
         window.addEventListener("click", function (event) {
-            if (!event.target.matches(".dropdown-btn")) {
-                const dropdowns = document.querySelectorAll(".dropdown-content");
-                for (let i = 0; i < dropdowns.length; i++) {
-                    const dropdown = dropdowns[i];
-                    if (dropdown.classList.contains("show")) {
-                        dropdown.classList.remove("show");
-                    }
-                }
-            }
-        });
-
+                            if (!event.target.matches(".dropdown-btn")) {
+                                const dropdowns = document.querySelectorAll(".dropdown-content");
+                                for (let i = 0; i < dropdowns.length; i++) {
+                                    const dropdown = dropdowns[i];
+                                    if (dropdown.classList.contains("show")) {
+                                        dropdown.classList.remove("show");
+                                    }
+                                }
+                            }
+                        });
     </style>
 
     <script type="text/javascript">
-       
-        //var SaveItems=function(){
 
-        //    alert('Hi');
+        $(".checkbox-dropdown").click(function () {
+            $(this).toggleClass("is-active");
+        });
 
-        //    var ItemIdArray=[];
-        //    var ItemsIdsCommaSeparated="";
-        //    $("cityArea input[type=checkbox]").each(function(index,val){
-            
-        //        var Id=$(val).attr("id");
-        //        var ischecked=$("#" + Id).is(":checked",true);
-        //        if(ischecked){
-        //            var array=Id.split("_");
-        //            var ItemId=array[1];
-        //            ItemIdArray.push(ItemId);
-
-                
-        //        }
-        //        ItemsIdsCommaSeparated=ItemIdArray.toString();
-            
-        //    })
-
-        //    if(ItemIdArray.length !=0){
-        //        $.ajax({
-        //            type: 'POST',
-        //            url: '/Home/Mission',
-        //            dataType: 'json',
-        //            contentType: "application/json; charset=utf-8",
-        //            success: function (data) {
-        //                console.log(data);
-        //                $.each(data, function (i, data) {
-        //                    $('#Country').append(' <Option value= ' + data.countryId + '>' + data.name + '</Option>');
-        //                });
-        //            },
-        //            error: function (ex) {
-        //                var r = jQuery.parseJSON(response.responseText);
-        //                alert("Message: " + r.Message);
-        //                alert("StackTrace: " + r.StackTrace);
-        //                alert("ExceptionType: " + r.ExceptionType);
-        //            }
-        //        });
-            
-        //    }
+        $(".checkbox-dropdown ul").click(function (e) {
+            e.stopPropagation();
+        });
 
 
 
 
-        //}
+
+
+
+
+        
+
+
+
+
+    
 
 
 
@@ -321,10 +329,11 @@
 
 
 
+<script src="~/js/Cards.js"> </script>
 
 </body>
 @*<script src="~/wwwroot/js/Filterbar.js"></script>*@
 
-<script src="~/lib/jquery/dist/jquery.js"></script>
+
 <script src="~/js/Cascade.js"> </script>
 </html>

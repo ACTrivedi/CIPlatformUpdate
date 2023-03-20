@@ -24,6 +24,7 @@ namespace CIPlatformIntegration.Entities.Models
 
         public long UserId { get; set; }
 
+
         [Required(ErrorMessage = "Firstname is required")]
         public string? FirstName { get; set; }
 
@@ -34,6 +35,8 @@ namespace CIPlatformIntegration.Entities.Models
         public string Email { get; set; } = null!;
 
         [Required(ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
+
         public string Password { get; set; } = null!;
 
         [NotMapped]
@@ -42,8 +45,12 @@ namespace CIPlatformIntegration.Entities.Models
         [Compare("Password")]
         public string Confirmpassword { get; set; } = null!;
 
+
+
+
         [Required(ErrorMessage = "Contact Number is required")]
         public int PhoneNumber { get; set; }
+
         public string? Avatar { get; set; }
         public string? WhyIVolunteer { get; set; }
         public string? EmployeeId { get; set; }

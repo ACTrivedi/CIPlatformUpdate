@@ -24,6 +24,9 @@ using System.Numerics;
 using Org.BouncyCastle.Crypto.Tls;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics.Tracing;
+using Org.BouncyCastle.Asn1.UA;
+using MailKit.Security;
+using MimeKit;
 
 namespace CIPlatformIntegration.Controllers
 {
@@ -110,7 +113,9 @@ namespace CIPlatformIntegration.Controllers
             {
 
                 _cidatabaseContext.Users.Add(data);
+              
                 _cidatabaseContext.SaveChanges();
+
                 return RedirectToAction("Login");
             }
             return View();
@@ -242,7 +247,7 @@ namespace CIPlatformIntegration.Controllers
 
         // For Homepage start
 
-        public IActionResult Homepage(string Cardsearch, int pg = 1, int id = 0)
+        /*public IActionResult Homepage(string Cardsearch, int pg = 1, int id = 0)
         {
             var verifieduser = HttpContext.Session.GetString("Loggedin");
             if (verifieduser == null)
@@ -309,10 +314,125 @@ namespace CIPlatformIntegration.Controllers
 
             return View(missionobj);
 
-            /* HttpContext.Session.Remove("Loggedin");*/
+            *//* HttpContext.Session.Remove("Loggedin");*//*
 
+
+        }*/
+
+        public IActionResult Homepage() {
+
+            HomePageViewModel model = new HomePageViewModel
+            {
+                Missions = _cidatabaseContext.Missions.ToList(),
+                Country = _cidatabaseContext.Countries.ToList(),
+                City = _cidatabaseContext.Cities.ToList(),
+                MissionThemes = _cidatabaseContext.MissionThemes.ToList(),
+                MissionSkills = _cidatabaseContext.MissionSkills.ToList(),
+                GoalMission = _cidatabaseContext.GoalMissions.ToList()
+            };
+           
+            return View(model);
+        }
+
+
+
+
+
+
+        public IActionResult GetMissions(string[]? country, string[]? city, string[]? theme, string? searchTerm, string? sortValue)
+        {   
+            HomePageViewModel model = new HomePageViewModel
+            {
+                Missions = _cidatabaseContext.Missions.ToList(),
+                Country = _cidatabaseContext.Countries.ToList(),
+                City = _cidatabaseContext.Cities.ToList(),
+                MissionThemes = _cidatabaseContext.MissionThemes.ToList(),
+                MissionSkills = _cidatabaseContext.MissionSkills.ToList(),
+                GoalMission = _cidatabaseContext.GoalMissions.ToList()
+            };
+
+            List<Mission> miss = _cidatabaseContext.Missions.ToList();
+
+            Debug.WriteLine(searchTerm);
+
+            if (country.Count() > 0 || city.Count() > 0 || theme.Count() > 0)
+            {
+                miss = GetFilteredMission(miss, country, city, theme);
+            }
+
+           
+
+            if (searchTerm != null)
+            {
+                miss = miss.Where(m => m.Title.ToLower().Contains(searchTerm)).ToList();
+
+            }
+
+            miss = GetSortedMissions(miss, sortValue);
+
+
+            int totalCount = miss.Count();
+            ViewBag.TotalCount = totalCount;
+            model.Missions = miss;
+
+            return PartialView("_Cards", model);
 
         }
+
+        public List<Mission> GetSortedMissions(List<Mission> miss, string sortValue)
+        {
+            switch (sortValue)
+            {
+                case "Newest":
+                    return miss.OrderBy(m => m.StartDate).ToList();
+                case "Oldest":
+                    return miss.OrderByDescending(m => m.StartDate).ToList();
+                case "lowest":
+                    return miss.OrderBy(m => m.Availability).ToList();
+                case "highest":
+                    return miss.OrderByDescending(m => m.Availability).ToList();
+                default:
+                    return miss.ToList();
+
+            }
+        }
+
+        public List<Mission> GetFilteredMission(List<Mission> miss, string[] country, string[] city, string[] theme)
+        {
+            if (country.Length > 0)
+            {
+                miss = miss.Where(m => country.Contains(m.Country.Name)).ToList();
+            }
+
+            if (city.Length > 0)
+            {
+                miss = miss.Where(m => city.Contains(m.City.Name)).ToList();
+            }
+
+            if (theme.Length > 0)
+            {
+                miss = miss.Where(m => theme.Contains(m.Theme.Title)).ToList();
+            }
+
+            return miss;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // For Homepage ends
 
@@ -339,8 +459,21 @@ namespace CIPlatformIntegration.Controllers
             ViewData["skills"] = _cidatabaseContext.Skills.ToList();
             ViewData["goalMission"] = _cidatabaseContext.GoalMissions.ToList();
             ViewData["favMission"] = _cidatabaseContext.FavoriteMissions.ToList();
+
+
+            ViewData["usertable2"] = _cidatabaseContext.Userdata.ToList();
+
+
             ViewData["comments"] = _cidatabaseContext.Comments.Where(c=>c.MissionId==missionid).ToList();
+
+
+
+           
+
+         
+
             ViewData["useridcheck"] = long.Parse(HttpContext.Session.GetString("farfavuserid"));
+            
           
            
 
@@ -369,6 +502,20 @@ namespace CIPlatformIntegration.Controllers
             return RedirectToAction("Index", "Home");
 
         }
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
         /*sTar Rating ends */
 
         [HttpPost]
@@ -450,14 +597,14 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-        public async Task<IActionResult> Toggle(int missionid)
+        public async Task<IActionResult> Toggle(int missionID)
         {
 
             var userid = long.Parse(HttpContext.Session.GetString("farfavuserid"));
 
             
 
-            FavoriteMission favorite = await _cidatabaseContext.FavoriteMissions.FirstOrDefaultAsync(f => f.UserId == userid && f.MissionId == missionid);
+            FavoriteMission favorite = await _cidatabaseContext.FavoriteMissions.FirstOrDefaultAsync(f => f.UserId == userid && f.MissionId == missionID);
             if (favorite != null)
             {
                 // Remove the item from the user's favorites
@@ -469,7 +616,7 @@ namespace CIPlatformIntegration.Controllers
             {
                 FavoriteMission favorite2 = new FavoriteMission();
                 favorite2.UserId = userid;
-                favorite2.MissionId = missionid;
+                favorite2.MissionId = missionID;
 
                 _cidatabaseContext.Add(favorite2);
                 _cidatabaseContext.SaveChanges();
@@ -478,8 +625,59 @@ namespace CIPlatformIntegration.Controllers
 
             }
 
-            return RedirectToAction("VolunteeringMissionPage", new { missionid = missionid });
+            return RedirectToAction("VolunteeringMissionPage", new { missionid = missionID });
         }
+
+
+
+        public IActionResult Recommendtoworker(string userEmail)
+        {
+            var to_userID = _cidatabaseContext.Users.Where(u => u.Email == userEmail).Select(u => u.UserId).SingleOrDefault();
+            var userid = long.Parse(HttpContext.Session.GetString("farfavuserid"));
+            var missionID = HttpContext.Session.GetInt32("starmissionid");
+            if (to_userID != null)
+            {
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress("ciplatformmailsender@gmail.com");
+                mail.To.Add(new MailAddress(userEmail));
+                mail.Subject = "Test mail";
+                mail.Body = "<html><body>Click here<a href='" + "https://localhost:7296/Home/VolunteeringMissionPage?missionid=" + missionID + "'>Reset Password</a></body></html>";
+                mail.IsBodyHtml = true;
+
+                SmtpClient myclient = new SmtpClient();
+                myclient.Host = "smtp.gmail.com";
+                myclient.Port = 587;
+                myclient.Credentials = new
+                System.Net.NetworkCredential("ciplatformmailsender@gmail.com", "muarmclnmmtdzxqh");
+                myclient.EnableSsl = true;
+                myclient.Send(mail);
+
+
+
+                MissionInvite inviteobj = new MissionInvite();
+                inviteobj.MissionId = (long)missionID;
+                inviteobj.ToUserId = to_userID;
+                inviteobj.FromUserId = userid;
+
+                _cidatabaseContext.MissionInvites.Add(inviteobj);
+                _cidatabaseContext.SaveChanges();
+
+
+
+            }
+            return RedirectToAction("VolunteeringMissionPage", new { missionid = missionID });
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
