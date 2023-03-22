@@ -1,0 +1,166 @@
+﻿@using CIPlatformIntegration.Entities.Models;
+@using CIPlatformIntegration.Entities.ViewModel;
+@model StoryListingViewModel;
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoryAdding</title>
+
+
+
+    @*For Bootstrap*@
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" /></link>
+
+
+    @*CSS file for HeaderBar*@
+    <link rel="stylesheet" href="~/css/HeaderBar.css"></link>
+
+
+    @*CSS file for StoryAddingPage*@
+    <link rel="stylesheet" href="~/css/StoryAddingPage.css"></link>
+
+
+
+</head>
+
+<body>
+
+    @Html.Partial("_HeaderBar")
+
+    <div class="container">
+
+        <form class="row g-5">
+
+            <h2>Share your Story</h2>
+
+
+
+            @using (Html.BeginForm("StoryAddingPage", "StoryListing", FormMethod.Post))
+            {
+                <div class="col-lg-4">
+                    <label for="inputState" class="form-label">Select Mission</label>
+                    <select id="inputState" class="form-select">
+                    @{
+                        foreach(var i in Model.Users)
+                        {
+
+                        <option>@i.FirstName</option>
+
+                        }
+                     }   
+                    </select>
+                </div>
+
+               @* <div class="col-lg-4">
+                   <label asp-for="Email">My Story Title</label>
+                    @Html.TextBoxFor(x=>,new {@class="form-control", @placeholder="Last Name"})
+                </div>*@
+
+                //<div class="col-lg-4">
+                //    <label asp-for="Email">Date</label>
+                //    @Html.TextBoxFor(x=>x.LastName,new {@class="form-control", @placeholder="Last Name"})
+                //</div>
+
+
+
+
+                //<div class="col-lg-12">
+                //    <div class="d-flex flex-column">
+                //        <label for="story_text">My Story</label>
+
+                //        <textarea name="textarea" id="default" name="story_text"></textarea>
+                //        @* <input type="submit" value="submit">*@
+
+                //    </div>
+                //</div>
+
+                //<div class="col-lg-12">
+                //    <label asp-for="Email">Enter Video URL</label>
+                //    @Html.TextBoxFor(x=>x.LastName,new {@class="form-control", @placeholder="Last Name"})
+                //</div>
+
+                //<div class="col-lg-12">
+
+                //    <input type="file" id="image-input" multiple>
+
+                //</div>
+
+            }
+
+
+
+
+
+
+
+
+
+
+        </form>
+    </div>
+
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+        selector: 'textarea#default',
+
+        height: 300,
+        plugins: [
+        'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'prewiew', 'anchor', 'pagebreak',
+        'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
+        'table', 'emoticons', 'template', 'codesample'
+        ],
+        toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' +
+        'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+        'forecolor backcolor emoticons',
+        menu: {
+        favs: { title: 'menu', items: 'code visualaid | searchreplace | emoticons' }
+        },
+        menubar: 'favs file edit view insert format tools table',
+        content_style: 'body{font-family:Helvetica,Arial,sans-serif; font-size:16px}'
+        });
+    </script>
+
+    <script>
+                var imageInput = document.getElementById('image-input');
+
+        imageInput.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.add('dragover');
+        });
+
+        imageInput.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.remove('dragover');
+        });
+
+        imageInput.addEventListener('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.remove('dragover');
+
+            var files = e.dataTransfer.files;
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                // Do something with the file, such as uploading it to a server
+            }
+        });
+
+
+    </script>
+
+
+    @* For Bootstrap*@
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+
+
+
+</html>

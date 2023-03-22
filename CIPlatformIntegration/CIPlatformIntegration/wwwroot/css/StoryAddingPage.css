@@ -1,0 +1,12 @@
+﻿body {
+    font-family: NotoSans-Light;
+}
+.tox .tox-notification--warn, .tox .tox-notification--warning {
+    display: none;
+}
+
+
+.tox .tox-statusbar {
+    display: none;
+   
+}

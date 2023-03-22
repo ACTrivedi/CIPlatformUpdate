@@ -1,4 +1,7 @@
-﻿
+﻿.dropdown-menu {
+    left:-110px !important;
+    min-width:12rem !important;
+}
 
 
 .bg-custom-1 {

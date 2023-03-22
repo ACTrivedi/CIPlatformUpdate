@@ -3,7 +3,8 @@
 @model HomePageViewModel
 
 
- @{
+
+    @{
         Pager pager = new Pager();
 
         int pageNo = 0;
@@ -15,6 +16,7 @@
         }
 
     }
+
 
 
 
@@ -191,30 +193,31 @@
 
         </div>
 
-        <div class="container">
-            @{
-
-                if (pager.TotalPages > 0)
-                {
-                    <ul class="pagination justify-content-center">
-
-                        @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
-                        {
-                            <li class="page-item  @(pge==pager.CurrentPage ? "active":"") ">
-                                <a class="page-link" asp-controller="Home" asp-action="Homepage" asp-route-pg="@pge">@pge</a>
-
-                            </li>
-                        }
-
-
-                    </ul>
-                }
-            }
-            </div>
 
 
     </div>
     
+
+    <div class="container">
+        @{
+
+            if (pager.TotalPages > 0)
+            {
+                <ul class="pagination justify-content-center">
+
+                    @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                    {
+                        <li class="page-item  @(pge==pager.CurrentPage ? "active":"") ">
+                            <a class="page-link" onclick="LoadMission(sortValue,pge=@pge)">@pge</a>
+
+                        </li>
+                    }
+
+
+                </ul>
+            }
+        }
+    </div>
         
 
           

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CIPlatformIntegration.Entities.Models
 {
-    public partial class User
+    public  class User
     {
         public User()
         {
@@ -45,9 +45,6 @@ namespace CIPlatformIntegration.Entities.Models
         [Compare("Password")]
         public string Confirmpassword { get; set; } = null!;
 
-
-
-
         [Required(ErrorMessage = "Contact Number is required")]
         public int PhoneNumber { get; set; }
 
@@ -76,5 +73,7 @@ namespace CIPlatformIntegration.Entities.Models
         public virtual ICollection<StoryInvite> StoryInviteToUsers { get; set; }
         public virtual ICollection<Timesheet> Timesheets { get; set; }
         public virtual ICollection<UserSkill> UserSkills { get; set; }
-    }
+    
+        
+        }
 }

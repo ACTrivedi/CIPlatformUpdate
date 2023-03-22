@@ -19,12 +19,15 @@ $("#search").on("keyup", function (e) {
 
 
 
-function LoadMission(sortValue) {
+function LoadMission(sortValue, pge) {
     var country = [];
  
         
     console.log(country);
+    console.log(pge);
 
+    
+    
 
     $("#countryList").find("input:checked").each(function (i, obj) {
 
@@ -51,7 +54,7 @@ function LoadMission(sortValue) {
         url: '/Home/GetMissions',
         method: "POST",
         dataType: "html",
-        data: { "searchTerm": searchTerm, "sortValue": sortValue, "country": country, "city": city, "theme": theme },
+        data: { "searchTerm": searchTerm, "sortValue": sortValue, "country": country, "city": city, "theme": theme, "pg":pge },
         success: function (data) {
             $("#test").html("");
             $("#test").html(data);
@@ -61,4 +64,11 @@ function LoadMission(sortValue) {
         }
 
     })
+
+
+
+
+
+
+
 }
