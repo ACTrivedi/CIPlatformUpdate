@@ -41,14 +41,14 @@ namespace CIPlatformIntegration.Entities.Data
         public virtual DbSet<Timesheet> Timesheets { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserSkill> UserSkills { get; set; } = null!;
-        public virtual DbSet<Userdatum> Userdata { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                //optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefualtConnection");
                 optionsBuilder.UseSqlServer("Server=PCI234\\SQL2017;Initial Catalog=CIDatabase ;User ID=sa;Password=tatva123;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
+
             }
         }
 
@@ -1068,32 +1068,6 @@ namespace CIPlatformIntegration.Entities.Data
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_user_skill_user_id");
-            });
-
-            modelBuilder.Entity<Userdatum>(entity =>
-            {
-                entity.HasKey(e => e.UserId);
-
-                entity.ToTable("userdata");
-
-                entity.Property(e => e.UserId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("user_id");
-
-                entity.Property(e => e.Email)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("email");
-
-                entity.Property(e => e.FirstName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("first_name");
-
-                entity.Property(e => e.LastName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("last_name");
             });
 
             OnModelCreatingPartial(modelBuilder);

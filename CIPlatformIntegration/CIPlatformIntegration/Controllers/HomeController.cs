@@ -520,9 +520,10 @@ namespace CIPlatformIntegration.Controllers
             ViewData["favMission"] = _cidatabaseContext.FavoriteMissions.ToList();
             ViewData["appliedMissions"]=_cidatabaseContext.MissionApplications.ToList();
             ViewData["missionRating"]=_cidatabaseContext.MissionRatings.ToList();
+            ViewData["users"]=_cidatabaseContext.Users.ToList();
 
 
-            ViewData["usertable2"] = _cidatabaseContext.Userdata.ToList();
+            
 
 
             ViewData["comments"] = _cidatabaseContext.Comments.Where(c=>c.MissionId==missionid).ToList();

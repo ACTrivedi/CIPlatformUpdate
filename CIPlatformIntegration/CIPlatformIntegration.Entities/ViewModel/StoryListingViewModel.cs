@@ -11,6 +11,8 @@ namespace CIPlatformIntegration.Entities.ViewModel
     {
         public List<Mission> Missions { get; set; }
 
+        public List<Story> Stories { get; set; }
+
        public List<User> Users { get; set; }
 
      

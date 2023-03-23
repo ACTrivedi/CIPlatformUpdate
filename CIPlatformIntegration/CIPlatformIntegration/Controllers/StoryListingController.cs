@@ -26,11 +26,14 @@ namespace CIPlatformIntegration.Controllers
         public IActionResult StoryAddingPage()
         {
 
-            HomePageViewModel model = new HomePageViewModel();
+            StoryListingViewModel model = new StoryListingViewModel();
+
+          /*  List<User> User= _cidatabaseContext.Users.ToList();*/
 
             model.Missions = _cidatabaseContext.Missions.ToList();
             model.Users = _cidatabaseContext.Users.ToList();
-
+            
+            model.Stories=_cidatabaseContext.Stories.ToList();
 
             return View(model);        
         }

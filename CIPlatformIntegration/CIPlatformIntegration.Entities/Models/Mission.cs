@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CIPlatformIntegration.Entities.Models
 {
@@ -38,25 +37,6 @@ namespace CIPlatformIntegration.Entities.Models
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
-
-        [NotMapped]
-        public List<int> FilterCheckIds { get; set; }
-
-        [NotMapped]
-        public bool IsFavorite { get; set; }
-
-
-        [NotMapped]
-        public int UserId { get; set; }
-
-        [NotMapped]
-        public int ratingAns { get; set; }
-
-
-
-
-
-
 
         public virtual City City { get; set; } = null!;
         public virtual Country Country { get; set; } = null!;

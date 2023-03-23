@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="~/css/StoryAddingPage.css"></link>
 
 
+    @*File for the StoryAddingPage*@
+    <script type="text/javascript" src="~/js/StoryAddingPage.js"></script>
+
 
 </head>
 
@@ -45,50 +48,94 @@
                 <div class="col-lg-4">
                     <label for="inputState" class="form-label">Select Mission</label>
                     <select id="inputState" class="form-select">
-                    @{
-                        foreach(var i in Model.Users)
-                        {
+                        @{
+                            foreach (var i in Model.Missions)
+                            {
 
-                        <option>@i.FirstName</option>
+                                <option>@i.Title</option>
 
+                            }
                         }
-                     }   
                     </select>
                 </div>
 
-               @* <div class="col-lg-4">
-                   <label asp-for="Email">My Story Title</label>
-                    @Html.TextBoxFor(x=>,new {@class="form-control", @placeholder="Last Name"})
-                </div>*@
+                <div class="col-lg-4">
 
-                //<div class="col-lg-4">
-                //    <label asp-for="Email">Date</label>
-                //    @Html.TextBoxFor(x=>x.LastName,new {@class="form-control", @placeholder="Last Name"})
-                //</div>
+                    <label for="inputState" class="form-label">Title</label>
+                    <input type="text" class="form-control" placeholder="Title">
 
 
 
 
-                //<div class="col-lg-12">
-                //    <div class="d-flex flex-column">
-                //        <label for="story_text">My Story</label>
+                </div>
 
-                //        <textarea name="textarea" id="default" name="story_text"></textarea>
-                //        @* <input type="submit" value="submit">*@
+                <div class="col-lg-4">
 
-                //    </div>
-                //</div>
+                    <label for="inputState" class="form-label">Date</label>
+                    <input type="text" class="form-control" placeholder="Enter Date">
 
-                //<div class="col-lg-12">
-                //    <label asp-for="Email">Enter Video URL</label>
-                //    @Html.TextBoxFor(x=>x.LastName,new {@class="form-control", @placeholder="Last Name"})
-                //</div>
+                </div>
 
-                //<div class="col-lg-12">
 
-                //    <input type="file" id="image-input" multiple>
 
-                //</div>
+
+
+                <div class="col-lg-12">
+                    <div class="d-flex flex-column">
+                        <label for="story_text">My Story</label>
+
+                        <textarea name="textarea" id="default" name="story_text"></textarea>
+
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <label for="inputState" class="form-label">Enter Video URL</label>
+                    <input type="text" class="form-control" placeholder="Video URL">
+                </div>
+
+                <div class="col-lg-12">
+                </div>
+
+                <div class="col-lg-12 input-div d-flex flex-column">
+                    <div>
+                        <img src="~/images/add.png" />
+                    </div>
+                    <p>Drag & drop pictures here or <strong>Browse</strong></p>
+                    <input type="file" id="selectedfile" class="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg">
+                </div>
+
+                <output></output>
+
+
+                <div class="col-lg-12 justify-content-between d-flex mt-0">
+
+
+                    <div class="" style="">
+                        <a href="#" class="btn btn-outline-dark rounded-pill">
+                            <span>Cancel</span>
+                        </a>
+                    </div>
+
+
+                    <div class="d-flex">
+                        <div class="" style="margin-right:20%">
+                            <a href="#" class=" btn border-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px;">
+                                <span style="color:orange">Save</span>
+                            </a>
+                        </div>
+
+                        <div class="" style="">
+                            <a href="#" class="btn border-warning rounded-pill" style="margin-right:20px">
+                                <span style="color:orange">Submit</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+
 
             }
 
@@ -127,33 +174,52 @@
     </script>
 
     <script>
-                var imageInput = document.getElementById('image-input');
+                const inputDiv = document.querySelector(".input-div")
+        let input = document.querySelector("#selectedfile")
 
-        imageInput.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.classList.add('dragover');
-        });
+        console.log(inputDiv)
+        const output = document.querySelector("output")
+        let imagesArray = []
 
-        imageInput.addEventListener('dragleave', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.classList.remove('dragover');
-        });
-
-        imageInput.addEventListener('drop', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.classList.remove('dragover');
-
-            var files = e.dataTransfer.files;
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                // Do something with the file, such as uploading it to a server
+        input.addEventListener("change", () => {
+            alert("dddd")
+            const files = input.files
+            console.log(files)
+            for (let i = 0; i < files.length; i++) {
+                imagesArray.push(files[i])
             }
-        });
+            displayImages()
+        })
 
 
+        inputDiv.addEventListener("drop", () => {
+            e.preventDefault()
+            const files = e.dataTransfer.files
+            for (let i = 0; i < files.length; i++) {
+                if (!files[i].type.match("image")) continue;
+
+                if (imagesArray.every(image => image.name !== files[i].name))
+                    imagesArray.push(files[i])
+            }
+            displayImages()
+        })
+
+        function displayImages() {
+            let images = ""
+            imagesArray.forEach((image, index) => {
+                images += `<div class="image">
+                        <img src="${URL.createObjectURL(image)}" alt="image">
+                        <span onclick="deleteImage(${index})">&times;</span>
+                      </div>`
+            })
+            output.innerHTML = images
+        }
+
+
+        function deleteImage(index) {
+            imagesArray.splice(index, 1)
+            displayImages()
+        }
     </script>
 
 

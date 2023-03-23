@@ -54,7 +54,7 @@
         @foreach (var modeldetail in Model as IEnumerable<Mission>)
         {
 
-            <input value=@modeldetail.UserId type="hidden" id="missionidforvol" />
+            @*  <input value=@modeldetail.UserId type="hidden" id="missionidforvol" />*@
 
 
             var goalmissions = @ViewData["goalMission"];
@@ -65,6 +65,7 @@
             var missionRating = @ViewData["missionRating"];
             var countries = @ViewData["countries"];
             var cities = @ViewData["cities"];
+            var users = @ViewData["users"];
             var skills = @ViewBag.skills;
 
 
@@ -306,9 +307,9 @@
 
                                         @{
 
-                                            foreach (var i in usertable2 as IEnumerable<Userdatum>)
+                                            foreach (var i in users as IEnumerable<User>)
                                             {
-                                                <div class="modal-body d-flex justify-content-between">
+                                                <div class="modal-body d-flex justify-content-between modal-dialog-scrollable">
 
                                                     <div>@i.FirstName</div>
                                                     <div><button type="button" class="btn btn-primary send" value="@i.Email">Recommend</button></div>
@@ -319,7 +320,7 @@
 
                                         }
 
-
+                                        
                                     </div>
                                 </div>
                             </div>
