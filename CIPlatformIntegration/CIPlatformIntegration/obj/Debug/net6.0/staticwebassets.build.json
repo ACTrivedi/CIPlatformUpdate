@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EDbzV913iecegoEj9FLdXUm6VUG9NdCWkQlNwte1IMk=",
+  "Hash": "6ul0KyjyLISVljLg3gUuZIkZcTp4UsnRcaJXw0PRXAU=",
   "Source": "CIPlatformIntegration",
   "BasePath": "_content/CIPlatformIntegration",
   "Mode": "Default",
@@ -729,6 +729,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\selected-star.png"
+    },
+    {
+      "Identity": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\shimla.jfif",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "images/shimla.jfif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\shimla.jfif"
     },
     {
       "Identity": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\sidebar.png",

@@ -641,25 +641,6 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-        // For StoryListingPage start
-
-
-        [HttpGet]
-        public IActionResult StoryListingPage()
-        {
-
-            ViewData["countries"] = _cidatabaseContext.Countries.ToList();
-            ViewData["cities"] = _cidatabaseContext.Cities.ToList();
-            ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
-            ViewData["skills"] = _cidatabaseContext.Skills.ToList();
-
-
-
-            return View();
-        }
-
-        // For StoryListingPage ends
-
 
 
 
