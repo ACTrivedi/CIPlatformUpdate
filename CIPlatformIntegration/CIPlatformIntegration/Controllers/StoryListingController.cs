@@ -14,28 +14,46 @@ namespace CIPlatformIntegration.Controllers
         private readonly CIDatabaseContext _cidatabaseContext;
 
 
-        public StoryListingController(ILogger<StoryListingController> logger,CIDatabaseContext cIDatabaseContext)
+        public StoryListingController(ILogger<StoryListingController> logger, CIDatabaseContext cIDatabaseContext)
         {
             _logger = logger;
-            _cidatabaseContext= cIDatabaseContext;
+            _cidatabaseContext = cIDatabaseContext;
 
         }
-
-
 
         public IActionResult StoryAddingPage()
         {
 
-            StoryListingViewModel model = new StoryListingViewModel();
+            ViewData["missions"] = _cidatabaseContext.Missions.ToList();
+            return View();
+        }
 
-          /*  List<User> User= _cidatabaseContext.Users.ToList();*/
 
-            model.Missions = _cidatabaseContext.Missions.ToList();
-            model.Users = _cidatabaseContext.Users.ToList();
+        [HttpPost]
+        public IActionResult StoryAddingPageCall(string title, string date, string storydescription,int selectedFromDropdown)
+        {
+
+            ViewData["missions"] = _cidatabaseContext.Missions.ToList();
+
+            var missionIdForStoryAdd = selectedFromDropdown;
+            var userIdForStoryAdd = long.Parse(HttpContext.Session.GetString("farfavuserid"));
             
-            model.Stories=_cidatabaseContext.Stories.ToList();
+            var convertedDate = Convert.ToDateTime(date);
 
-            return View(model);        
+
+            Story model = new Story();
+
+            model.UserId = userIdForStoryAdd;
+            model.MissionId = missionIdForStoryAdd;
+            model.Title = title;
+            model.Description = storydescription;
+            model.Status = "DRAFT";
+
+
+            _cidatabaseContext.Stories.Add(model);
+            _cidatabaseContext.SaveChanges();
+
+            return View(model);
         }
     }
 }

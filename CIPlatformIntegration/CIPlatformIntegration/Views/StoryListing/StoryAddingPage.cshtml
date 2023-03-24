@@ -1,6 +1,6 @@
 ﻿@using CIPlatformIntegration.Entities.Models;
 @using CIPlatformIntegration.Entities.ViewModel;
-@model StoryListingViewModel;
+@model Story;
 
 
 <html>
@@ -24,10 +24,7 @@
     @*CSS file for StoryAddingPage*@
     <link rel="stylesheet" href="~/css/StoryAddingPage.css"></link>
 
-
-    @*File for the StoryAddingPage*@
-    <script type="text/javascript" src="~/js/StoryAddingPage.js"></script>
-
+   
 
 </head>
 
@@ -40,116 +37,106 @@
         <form class="row g-5">
 
             <h2>Share your Story</h2>
-
-
-
-            @using (Html.BeginForm("StoryAddingPage", "StoryListing", FormMethod.Post))
-            {
+            @{
+                var missions = ViewData["missions"];
                 <div class="col-lg-4">
                     <label for="inputState" class="form-label">Select Mission</label>
                     <select id="inputState" class="form-select">
-                        @{
-                            foreach (var i in Model.Missions)
-                            {
 
-                                <option>@i.Title</option>
 
-                            }
+                        @foreach (var i in missions as IEnumerable<Mission>)
+                        {
+
+                            <option value="@i.MissionId">@i.Title</option>
+
                         }
+
                     </select>
                 </div>
+            }
+            <div class="col-lg-4">
 
-                <div class="col-lg-4">
-
-                    <label for="inputState" class="form-label">Title</label>
-                    <input type="text" class="form-control" placeholder="Title">
+                <label for="inputState" class="form-label">Title</label>
+                <input type="text" class="form-control" placeholder="Title" id="title">
 
 
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <label for="inputState" class="form-label">Date</label>
+                <input type="date" class="form-control" placeholder="dd/mm/yyyy" id="date">
+
+            </div>
+
+
+
+
+            <div class="col-lg-12">
+                <div class="d-flex flex-column">
+                    <label for="">My Story</label>
+
+                    <textarea name="textarea" id="default" name="story_text"></textarea>
 
 
                 </div>
+            </div>
 
-                <div class="col-lg-4">
+            <div class="col-lg-12">
+                <label for="inputState" class="form-label">Enter Video URL</label>
+                <input type="text" class="form-control" placeholder="Video URL" id="videoURL">
+            </div>
 
-                    <label for="inputState" class="form-label">Date</label>
-                    <input type="text" class="form-control" placeholder="Enter Date">
+           
 
+            <div class="col-lg-12 input-div d-flex flex-column">
+                <div>
+                    <img src="~/images/add.png" />
+                </div>
+                <p>Drag & drop pictures here or <strong>Browse</strong></p>
+                <input type="file" id="selectedfile" class="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg">
+            </div>
+
+            <output></output>
+
+
+            <div class="col-lg-12 justify-content-between d-flex mt-0">
+
+
+                <div class="" style="">
+                    <a href="#" class="btn btn-outline-dark rounded-pill">
+                        <span>Cancel</span>
+                    </a>
                 </div>
 
 
-
-
-
-                <div class="col-lg-12">
-                    <div class="d-flex flex-column">
-                        <label for="story_text">My Story</label>
-
-                        <textarea name="textarea" id="default" name="story_text"></textarea>
-
-
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    <label for="inputState" class="form-label">Enter Video URL</label>
-                    <input type="text" class="form-control" placeholder="Video URL">
-                </div>
-
-                <div class="col-lg-12">
-                </div>
-
-                <div class="col-lg-12 input-div d-flex flex-column">
-                    <div>
-                        <img src="~/images/add.png" />
-                    </div>
-                    <p>Drag & drop pictures here or <strong>Browse</strong></p>
-                    <input type="file" id="selectedfile" class="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg">
-                </div>
-
-                <output></output>
-
-
-                <div class="col-lg-12 justify-content-between d-flex mt-0">
-
-
-                    <div class="" style="">
-                        <a href="#" class="btn btn-outline-dark rounded-pill">
-                            <span>Cancel</span>
+                <div class="d-flex">
+                    <div class="" style="margin-right:20%">
+                        <a href="#" class=" btn border-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px;">
+                            <span style="color:orange">Save</span>
                         </a>
                     </div>
 
+                    <div>
 
-                    <div class="d-flex">
-                        <div class="" style="margin-right:20%">
-                            <a href="#" class=" btn border-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px;">
-                                <span style="color:orange">Save</span>
-                            </a>
-                        </div>
-
-                        <div class="" style="">
-                            <a href="#" class="btn border-warning rounded-pill" style="margin-right:20px">
-                                <span style="color:orange">Submit</span>
-                            </a>
-                        </div>
+                        <a href="#" class=" btn border-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px;" id="sharestorybtn">
+                            <span style="color:orange">Submit</span>
+                        </a>
+                       
                     </div>
-
                 </div>
 
-
-
-            }
-
-
-
-
-
-
+            </div>
 
 
 
 
         </form>
     </div>
+
+     @*For SweetAlert*@
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
@@ -174,7 +161,7 @@
     </script>
 
     <script>
-                const inputDiv = document.querySelector(".input-div")
+        const inputDiv = document.querySelector(".input-div")
         let input = document.querySelector("#selectedfile")
 
         console.log(inputDiv)
@@ -223,8 +210,15 @@
     </script>
 
 
+
+
+
     @* For Bootstrap*@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/StoryAddingPage.js"></script>
+
+
 </body>
 
 
