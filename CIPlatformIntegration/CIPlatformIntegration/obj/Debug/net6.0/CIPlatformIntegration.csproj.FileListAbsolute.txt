@@ -1169,3 +1169,7 @@ D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegrati
 D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration\obj\Debug\net6.0\ref\CIPlatformIntegration.dll
 D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration\obj\Debug\net6.0\CIPlatformIntegration.pdb
 D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration\obj\Debug\net6.0\CIPlatformIntegration.genruntimeconfig.cache
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\Microsoft.OpenApi.dll
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\CIPlatformInt\CIPlatformIntegration\CIPlatformIntegration\CIPlatformIntegration\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll

@@ -21,7 +21,7 @@ namespace CIPlatformIntegration.Controllers
 
         }
 
-
+ 
         // For StoryListingPage start
 
 
@@ -35,7 +35,10 @@ namespace CIPlatformIntegration.Controllers
             ViewData["skills"] = _cidatabaseContext.Skills.ToList();
             ViewData["users"] = _cidatabaseContext.Users.ToList();
 
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
+
             var model = _cidatabaseContext.Stories.ToList();
+
             return View(model);
            
         }
@@ -44,11 +47,47 @@ namespace CIPlatformIntegration.Controllers
 
 
 
+        public IActionResult _CardsStoryListing(int pg)
+        {
+
+
+            ViewData["countries"] = _cidatabaseContext.Countries.ToList();
+            ViewData["cities"] = _cidatabaseContext.Cities.ToList();
+            ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
+            ViewData["skills"] = _cidatabaseContext.Skills.ToList();
+            ViewData["users"] = _cidatabaseContext.Users.ToList();
+            //Extra Code for the Pagination
+
+            const int pageSize = 9;
+            if (pg < 1)
+                pg = 1;
+
+            var model = _cidatabaseContext.Stories.ToList();
+
+            int recsCount = model.Count();
+
+            var pager = new Pager(recsCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = model.Skip(recSkip).Take(pager.PageSize).ToList();
+
+            this.ViewBag.Pager = pager;
+
+            model = data;
+
+            return PartialView("_CardsStoryListing", model);
+
+
+        }
+
+
+
 
         public IActionResult StoryAddingPage()
         {
-           
 
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
             ViewData["missions"] = _cidatabaseContext.Missions.ToList();
             return View();
         }
@@ -64,17 +103,19 @@ namespace CIPlatformIntegration.Controllers
 
             string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
 
+            
+
+            HttpContext.Session.SetString("uploadpath", uploadpath);
+
             var stream = new FileStream(uploadpath, FileMode.Create);
 
             formFile.CopyToAsync(stream);
 
             
 
-
-
-
-
             ViewData["missions"] = _cidatabaseContext.Missions.ToList();
+
+
 
             var missionIdForStoryAdd = selectedFromDropdown;
             var userIdForStoryAdd = long.Parse(HttpContext.Session.GetString("farfavuserid"));
@@ -85,20 +126,46 @@ namespace CIPlatformIntegration.Controllers
             Story model = new Story();
 
             model.UserId = userIdForStoryAdd;
-            model.MissionId = 1;
+            model.MissionId = missionIdForStoryAdd;
             model.Title = title;
             model.Description = textarea;
             model.Status = "DRAFT";
+            
 
-            StoryMedium storyMedium = new StoryMedium();
-            storyMedium.Path = uploadpath;
-            storyMedium.StoryId = 10;
-            storyMedium.Type = ".jfif";
-            _cidatabaseContext.StoryMedia.Add(storyMedium);
             _cidatabaseContext.Stories.Add(model);
+           
             _cidatabaseContext.SaveChanges();
 
-            return View(model);
+
+            /*return View(model);*/
+
+            long story_id = model.StoryId;
+
+            StoryMedia(story_id);
+
+            return RedirectToAction("StoryListingPage","StoryListing");
+
+            
+        }
+
+
+        public void StoryMedia(long story_id) 
+        {
+
+
+            StoryMedium storyMedium = new StoryMedium();
+
+            var path = HttpContext.Session.GetString("uploadpath");
+            storyMedium.Path = path;
+
+            storyMedium.StoryId = story_id;
+
+            string ext = Path.GetExtension(path);
+             storyMedium.Type = ext;
+
+            _cidatabaseContext.StoryMedia.Add(storyMedium);
+            _cidatabaseContext.SaveChanges();
+
         }
     }
 }

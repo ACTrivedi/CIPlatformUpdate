@@ -41,13 +41,13 @@
                 var missions = ViewData["missions"];
                 <div class="col-lg-4">
                     <label for="inputState" class="form-label">Select Mission</label>
-                    <select id="inputState" class="form-select">
+                    <select id="inputState" class="form-select" name="selectedFromDropdown">
 
 
                         @foreach (var i in missions as IEnumerable<Mission>)
                         {
 
-                            <option value="@i.MissionId" name="selectedFromDropdown">@i.Title</option>
+                            <option value="@i.MissionId">@i.Title</option>
 
                         }
 

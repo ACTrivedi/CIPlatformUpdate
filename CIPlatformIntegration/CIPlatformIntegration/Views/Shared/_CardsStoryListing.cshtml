@@ -1,0 +1,109 @@
+﻿@using CIPlatformIntegration.Entities.Models;
+@using CIPlatformIntegration.Entities.ViewModel;
+@model IEnumerable<CIPlatformIntegration.Entities.Models.Story>;
+
+
+    @{
+    Pager pager = new Pager();
+
+    int pageNo = 0;
+
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+
+}
+
+
+    <div class="container mt-5">
+        <div class="row">
+
+            @{
+                var users = @ViewData["users"];
+                foreach (var i in Model)
+                {
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-3">
+                        <div class="card">
+                            <img style="position:relative" src="~/images/Animal-welfare-_-save-birds-campaign.png" class="card-img-top" alt="...">
+
+
+                            <a asp-controller="StoryListing" asp-action="StoryAddingPage" style="position:absolute; left:35%; top:26%;">
+                                <button class="btn border border-white rounded-pill sharestorybutton" id="submitButton" type="submit" style="color:white;">View Details <img src="~/images/right-arrow.png" /></button>
+                            </a>
+
+
+
+                            <div class="card-body">
+                                <h5 class="card-title">@i.Title</h5>
+                                <p class="card-text">@Html.Raw(@i.Description)</p>
+
+                                <div class="d-flex">
+                                    <div><img class="rounded-circle" src="~/images/volunteer1.png" style="height:33px" /></div>
+
+                                    @{
+                                        foreach (var y in users as IEnumerable<User>)
+                                        {
+                                            if (y.UserId == i.UserId)
+                                            {
+                                                <div style="position:relative; left:5%;"><p class="mb-0">@y.FirstName</p></div>
+                                            }
+                                            continue;
+                                        }
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <div class="container mt-5">
+        @{
+
+            if (pager.TotalPages > 0)   
+            {
+                <ul class="pagination justify-content-center">
+
+                    @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                    {
+                        <li class="page-item  @(pge==pager.CurrentPage ? "active":"") ">
+                            <a class="page-link" onclick="nextPage(pge=@pge)">@pge</a>
+
+                        </li>
+                    }
+
+
+                </ul>
+            }
+        }
+    </div>
+
+
+    <script type="text/javascript">
+
+
+    
+    
+       
+
+
+
+   
+}
+    </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"/>
+  
+    

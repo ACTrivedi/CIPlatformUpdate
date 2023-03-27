@@ -560,9 +560,9 @@ namespace CIPlatformIntegration.Controllers
 
 
             ViewData["useridcheck"] = long.Parse(HttpContext.Session.GetString("farfavuserid"));
-            
-          
-           
+
+
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
 
 
             IEnumerable<Mission> missionobj1 = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid);
