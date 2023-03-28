@@ -32,9 +32,4 @@
     <ProjectReference Include="..\CIPlatformIntegration.Entities\CIPlatformIntegration.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interface\" />
-    <Folder Include="Repository\" />
-  </ItemGroup>
-
 </Project>

@@ -1,4 +1,6 @@
 using CIPlatformIntegration.Entities.Data;
+using CIPlatformIntegration.Repository.Interface;
+using CIPlatformIntegration.Repository.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NToastNotify;
@@ -17,7 +19,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 
 
 builder.Services.AddSession();
-
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

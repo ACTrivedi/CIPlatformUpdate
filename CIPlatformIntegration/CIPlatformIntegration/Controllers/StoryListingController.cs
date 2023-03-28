@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CIPlatformIntegration.Controllers
 {
-    public class StoryListingController : Controller
+    public class StoryListingController : Controller    
 
     {
 
@@ -118,8 +118,8 @@ namespace CIPlatformIntegration.Controllers
 
 
             var missionIdForStoryAdd = selectedFromDropdown;
-            var userIdForStoryAdd = long.Parse(HttpContext.Session.GetString("farfavuserid"));
-            
+            var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
+
             var convertedDate = Convert.ToDateTime(postingdate);
 
 
@@ -166,6 +166,23 @@ namespace CIPlatformIntegration.Controllers
             _cidatabaseContext.StoryMedia.Add(storyMedium);
             _cidatabaseContext.SaveChanges();
 
+        }
+
+
+        public IActionResult StoryDetailPage(int storyid)
+        {
+
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
+
+
+            StoryDetailViewModel storyDetailViewModel = new StoryDetailViewModel();
+            storyDetailViewModel.Missions=_cidatabaseContext.Missions.ToList();
+            storyDetailViewModel.Users= _cidatabaseContext.Users.ToList();
+            storyDetailViewModel.Stories=_cidatabaseContext.Stories.Where(s=>s.StoryId==storyid).ToList();
+
+
+
+            return View();
         }
     }
 }

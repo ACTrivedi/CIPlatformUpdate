@@ -3,7 +3,7 @@
 @model IEnumerable<CIPlatformIntegration.Entities.Models.Story>;
 
 
-    @{
+ @{
     Pager pager = new Pager();
 
     int pageNo = 0;
@@ -23,13 +23,13 @@
             @{
                 var users = @ViewData["users"];
                 foreach (var i in Model)
-                {
+                { 
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-3">
                         <div class="card">
                             <img style="position:relative" src="~/images/Animal-welfare-_-save-birds-campaign.png" class="card-img-top" alt="...">
 
 
-                            <a asp-controller="StoryListing" asp-action="StoryAddingPage" style="position:absolute; left:35%; top:26%;">
+                            <a asp-controller="StoryListing" asp-action="StoryDetailPage" asp-route-storyid="@i.StoryId" style="position:absolute; left:35%; top:26%;">
                                 <button class="btn border border-white rounded-pill sharestorybutton" id="submitButton" type="submit" style="color:white;">View Details <img src="~/images/right-arrow.png" /></button>
                             </a>
 

@@ -1,5 +1,7 @@
 ﻿@model CIPlatformIntegration.Entities.Models.User;
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,9 +13,38 @@
     <link rel="stylesheet" href="~/CSS/Registration.css ">
 
     <script src="JS/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Registration</title>
 </head>
 <body>
+
+
+    @{
+        if ( ViewData["userExists"] != null)
+        {
+
+            <script type="text/javascript">
+                 const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 2000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+
+                Toast.fire({
+                  icon: 'error',
+                  title: 'User Already Exists!'
+                })
+            </script>
+        }
+
+
+    }
     <div class="container-fluid p-0">
         <div class="row align-items-center p-0">
             <div class="col-lg-8 p-0">
@@ -62,7 +93,7 @@
                 {
 
                     <div class="form-group">
-                        <label for="firstname">First Name</label>
+                        <label for="FirstName">First Name</label>
                             @Html.TextBoxFor(x=>x.FirstName,new {@class="form-control", @placeholder="First Name"})
                          <span asp-validation-for="FirstName" class="text-danger"></span>
 
@@ -71,12 +102,12 @@
                     </div>
 
                     <div class="form-group mt-3">
-                        <label for="">Last Name</label>
+                        <label for="LastName">Last Name</label>
                             @Html.TextBoxFor(x=>x.LastName,new {@class="form-control", @placeholder="Last Name"})
                         <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="">Phone Number</label>
+                        <label for="PhoneNumber">Phone Number</label>
                             @Html.TextBoxFor(x=>x.PhoneNumber,new {@class="form-control", @placeholder="Contact Number"})
                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>

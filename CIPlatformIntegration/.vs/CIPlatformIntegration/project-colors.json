@@ -20,7 +20,12 @@
       "ProjectGuid": "919fd655-f067-4ba2-b932-d926e85dd6b4",
       "DisplayName": "Script Documents",
       "ColorIndex": 2
+    },
+    "6165fb83-4e5a-4646-bbf4-3d0b903febde": {
+      "ProjectGuid": "6165fb83-4e5a-4646-bbf4-3d0b903febde",
+      "DisplayName": "CIPlatformIntegration.Repository",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 4
 }
