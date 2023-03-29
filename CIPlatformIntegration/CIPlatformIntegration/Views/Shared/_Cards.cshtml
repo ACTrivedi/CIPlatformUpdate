@@ -5,17 +5,17 @@
 
 
     @{
-        Pager pager = new Pager();
+    Pager pager = new Pager();
 
-        int pageNo = 0;
+    int pageNo = 0;
 
-        if (ViewBag.Pager != null)
-        {
-            pager = ViewBag.Pager;
-            pageNo = pager.CurrentPage;
-        }
-
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
     }
+
+}
 
 
 
@@ -68,12 +68,81 @@
                     <div class="col-info col-12 col-md-6 col-lg-4">
                         <div class="card1 card my-5">
                             <div class="mission-img" style="position:relative;">
+
+                                @{
+
+                                    int counter = 0;
+                                    foreach (var i in Model.missionApplications)
+                                    {
+                                        if (@modeldetail.MissionId == @i.MissionId)
+                                        {
+                                            counter++;
+                                        }
+                                        else
+                                        {
+                                            continue;
+                                        }
+
+                                    }
+
+                                    if (counter != 0)
+                                    {
+                                        <div class="top-left-applied">
+                                            APPLIED
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        
+                                    }
+
+                                }
+
+
+                                
+
+
                                 <div class="rounded-pill p-1" id="location" style="position:absolute;right:8px; top:3%; background-color:black;opacity:0.6; color:white">
                                     <img src="~/images/pin1.png" />&nbsp;<span>@modeldetail.City.Name</span>
                                 </div>
-                                <div class="rounded-circle p-2 " id="location" style="position:absolute;right:8px; top:35%; background-color:black;opacity:0.6; color:white ">
-                                    <img src="~/images/heart1.png" />
-                                </div>
+
+                                @{
+                                    int cnt = 0;
+                                    foreach (var i in Model.FavoriteMissions)
+                                    {
+                                        if (@modeldetail.MissionId == @i.MissionId)
+                                        {
+                                            cnt++;
+                                        }
+                                        else
+                                        {
+                                            continue;
+                                        }
+
+                                    }
+
+                                    if (cnt != 0)
+                                    {
+                                        <div class="rounded-circle p-2 " id="location" style="position:absolute;right:8px; top:35%; background-color:black;opacity:0.6; color:white ">
+                                            <i class="fa fa-heart" style="font-size:23px;color:red;vertical-align:bottom;"></i>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="rounded-circle p-2 " id="location" style="position:absolute;right:8px; top:35%; background-color:black;opacity:0.6; color:white ">
+                                            <img src="~/images/heart1.png" />
+                                        </div>
+                                    }
+                                }
+
+
+
+
+
+
+
                                 <div class="rounded-circle p-2" id="location" style="position:absolute;right:8px; top:55%; background-color:black;opacity:0.6; color:white ">
                                     <img src="~/images/add1.png" />
                                 </div>
@@ -196,7 +265,7 @@
 
 
     </div>
-    
+
 
     <div class="container">
         @{
@@ -218,6 +287,5 @@
             }
         }
     </div>
-        
 
-          
+

@@ -86,7 +86,9 @@ namespace CIPlatformIntegration.Controllers
 
         public IActionResult StoryAddingPage()
         {
+            var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
 
+            ViewData["appliedMissions"] = _cidatabaseContext.MissionApplications.Where(x => x.UserId == userIdForStoryAdd).ToList();
             ViewBag.profilename = HttpContext.Session.GetString("profile");
             ViewData["missions"] = _cidatabaseContext.Missions.ToList();
             return View();
@@ -94,31 +96,19 @@ namespace CIPlatformIntegration.Controllers
 
 
         [HttpPost]
-        public IActionResult StoryAddingPageCall(IFormFile formFile,string title, string postingdate, string textarea, int selectedFromDropdown)
+        public IActionResult StoryAddingPageCall(List<IFormFile> formFile,string title, string postingdate, string textarea, int selectedFromDropdown)
         {
 
 
-
-            string fileName = Path.GetFileName(formFile.FileName);
-
-            string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
-
+            var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
+          
             
-
-            HttpContext.Session.SetString("uploadpath", uploadpath);
-
-            var stream = new FileStream(uploadpath, FileMode.Create);
-
-            formFile.CopyToAsync(stream);
-
-            
-
-            ViewData["missions"] = _cidatabaseContext.Missions.ToList();
+           
 
 
 
             var missionIdForStoryAdd = selectedFromDropdown;
-            var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
+           
 
             var convertedDate = Convert.ToDateTime(postingdate);
 
@@ -137,11 +127,41 @@ namespace CIPlatformIntegration.Controllers
             _cidatabaseContext.SaveChanges();
 
 
-            /*return View(model);*/
-
             long story_id = model.StoryId;
 
-            StoryMedia(story_id);
+            if (formFile.Count > 0)
+            {
+                foreach (var file in formFile)
+                {
+
+                    string fileName = Path.GetFileName(file.FileName);
+
+                   
+
+                    string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
+
+                    string ImageURL = "\\images\\" + fileName;
+
+
+                    HttpContext.Session.SetString("uploadpath", ImageURL);
+
+                    var stream = new FileStream(uploadpath, FileMode.Create);
+
+                    file.CopyToAsync(stream);
+
+                    
+
+                    StoryMedia(story_id);
+                }
+            }
+
+
+
+
+
+            /*return View(model);*/
+
+            
 
             return RedirectToAction("StoryListingPage","StoryListing");
 
@@ -151,8 +171,6 @@ namespace CIPlatformIntegration.Controllers
 
         public void StoryMedia(long story_id) 
         {
-
-
             StoryMedium storyMedium = new StoryMedium();
 
             var path = HttpContext.Session.GetString("uploadpath");
@@ -173,16 +191,21 @@ namespace CIPlatformIntegration.Controllers
         {
 
             ViewBag.profilename = HttpContext.Session.GetString("profile");
-
+            var userIdForStoryDetail = (long)HttpContext.Session.GetInt32("farfavuserid");
 
             StoryDetailViewModel storyDetailViewModel = new StoryDetailViewModel();
-            storyDetailViewModel.Missions=_cidatabaseContext.Missions.ToList();
-            storyDetailViewModel.Users= _cidatabaseContext.Users.ToList();
-            storyDetailViewModel.Stories=_cidatabaseContext.Stories.Where(s=>s.StoryId==storyid).ToList();
 
+            var userID = _cidatabaseContext.Stories.FirstOrDefault(s => s.StoryId == storyid).UserId;
+            storyDetailViewModel.Users = _cidatabaseContext.Users.Where(u => u.UserId == userID).ToList();
 
+            var missionID =_cidatabaseContext.Stories.FirstOrDefault(s => s.StoryId==storyid).MissionId;
+            storyDetailViewModel.Missions=_cidatabaseContext.Missions.Where(m=>m.MissionId==missionID).ToList();
+                        
+            storyDetailViewModel.Stories=_cidatabaseContext.Stories.Where(s=>s.StoryId == storyid).ToList();
 
-            return View();
+            storyDetailViewModel.storyMedia=_cidatabaseContext.StoryMedia.Where(sm=>sm.StoryId==storyid).ToList();
+
+            return View(storyDetailViewModel);
         }
     }
 }

@@ -281,6 +281,7 @@ namespace CIPlatformIntegration.Controllers
 
         public IActionResult GetMissions(string[]? country, string[]? city, string[]? theme, string? searchTerm, string? sortValue, int pg)
         {
+            var userIdForFav = (long)HttpContext.Session.GetInt32("farfavuserid");
             HomePageViewModel model = new HomePageViewModel
             {
                 Missions = _cidatabaseContext.Missions.ToList(),
@@ -288,7 +289,11 @@ namespace CIPlatformIntegration.Controllers
                 City = _cidatabaseContext.Cities.ToList(),
                 MissionThemes = _cidatabaseContext.MissionThemes.ToList(),
                 MissionSkills = _cidatabaseContext.MissionSkills.ToList(),
-                GoalMission = _cidatabaseContext.GoalMissions.ToList()
+                GoalMission = _cidatabaseContext.GoalMissions.ToList(),
+                FavoriteMissions = _cidatabaseContext.FavoriteMissions.Where(f => f.UserId == userIdForFav).ToList(),
+                missionApplications = _cidatabaseContext.MissionApplications.Where(ma => ma.UserId == userIdForFav).ToList()
+                
+                
             };
 
             List<Mission> miss = _cidatabaseContext.Missions.ToList();
@@ -334,9 +339,6 @@ namespace CIPlatformIntegration.Controllers
             this.ViewBag.Pager = pager;
 
             model.Missions = data.ToList();
-
-
-
 
 
 

@@ -56,37 +56,28 @@
                 <!-- Container for the image gallery -->
                 <div class="container">
 
+                    @{
+                        foreach (var i in Model.storyMedia)
+                        {
+                            <!-- Full-width images with number text -->
+                            <div class="mySlides">
+                                
+                                <img class="displayimage" src="@i.Path" style="width:100%; ">
+                            </div>
+
+                        }
+                    }
+
+
 
                     <!-- Full-width images with number text -->
-                    <div class="mySlides">
-                        <div class="numbertext">1 / 6</div>
-                        <img class="displayimage" src="~/images/Animal-welfare-_-save-birds-campaign-1.png" style="width:100%; ">
-                    </div>
 
-                    <div class="mySlides">
-                        <div class="numbertext">2 / 6</div>
-                        <img class="displayimage" src="~/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png" style="width:100%; ">
-                    </div>
+                    <!-- <div class="mySlides">
+                    <div class="numbertext">1 / 6</div>
+                    <img class="displayimage" src="~/images/Animal-welfare-_-save-birds-campaign-1.png" style="width:100%; ">
+                    </div> -->
 
-                    <div class="mySlides">
-                        <div class="numbertext">3 / 6</div>
-                        <img class="displayimage" src="~/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" style="width:100%; ">
-                    </div>
 
-                    <div class="mySlides">
-                        <div class="numbertext">4 / 6</div>
-                        <img class="displayimage" src="~/images/Animal-welfare-_-save-birds-campaign-1.png" style="width:100%;">
-                    </div>
-
-                    <div class="mySlides">
-                        <div class="numbertext">5 / 6</div>
-                        <img class="displayimage" src="~/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" style="width:100%; ">
-                    </div>
-
-                    <div class="mySlides">
-                        <div class="numbertext">6 / 6</div>
-                        <img class="displayimage" src="~/images/Animal-welfare-_-save-birds-campaign-1.png" style="width:100%;  ">
-                    </div>
 
                     <!-- Next and previous buttons -->
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -100,24 +91,17 @@
                     <!-- Thumbnail images -->
                     <div class="row py-3">
 
-                        <div class="column pr-0">
-                            <img class="demo cursor" src="~/images/Animal-welfare-_-save-birds-campaign.png" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
+                        @{
+                            var count=0;
+                            foreach (var i in Model.storyMedia)
+                            {
+                                count++;
+                                <div class="column pr-0">
+                            <img class="demo cursor" src="@i.Path" style="width:100%" onclick="currentSlide(@count)" alt="The Woods">
                         </div>
-                        <div class="column pr-0">
-                            <img class="demo cursor" src="~/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png" style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">
-                        </div>
-                        <div class="column pr-0">
-                            <img class="demo cursor" src="~/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
-                        </div>
-                        <div class="column pr-0">
-                            <img class="demo cursor" src="~/images/Animal-welfare-_-save-birds-campaign.png" style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
-                        </div>
-                        <div class="column pr-0">
-                            <img class="demo cursor" src="~/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png" style="width:100%" onclick="currentSlide(5)" alt="Nature and sunrise">
-                        </div>
-                        <div class="column pr-0">
-                            <img class="demo cursor" src="~/images/Animal-welfare-_-save-birds-campaign.png" style="width:100%" onclick="currentSlide(6)" alt="Snowy Mountains">
-                        </div>
+
+                        }
+                    }
                     </div>
                 </div>
             </div>
@@ -128,8 +112,16 @@
                         <img src="/images/user-img.png" class="rounded-circle" style="width:100px; height:100px;" />
 
                         <div class="d-flex flex-row justify-content-between mt-3">
+
                             <div style="padding-left:3%">
-                                @ViewBag.profilename
+                                @{
+                                    foreach (var i in @Model.Users)
+                                    {
+                                        @i.FirstName
+                                    }
+                                }
+
+
                             </div>
 
 
@@ -143,25 +135,13 @@
 
                 <div class="container">
                     <p class="mt-3">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever s
-                        ince the 1500s,
-                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but a
-                        lso the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset she
-                        ets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ip
-                        sum.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever s
-                        ince the 1500s,
-                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but a
-                        lso the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset she
-                        ets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ip
-                        sum.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever s
-                        ince the 1500s,
-                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but a
-                        lso the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset she
-                        ets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ip
-                        sum.
+                        @{
+                            foreach (var i in Model.Users)
+                            {
+                                @i.WhyIVolunteer
+                            }
 
+                        }
                     </p>
 
                     <div class="d-flex pt-3 justify-content-evenly">
@@ -187,27 +167,24 @@
 
 
         <div class=" mt-5">
-            <h2>Grow more trees for environment</h2>
+            <h2>
+                @{
+                    foreach (var i in @Model.Missions)
+                    {
+                        @i.Title
+                    }
+                }
+
+            </h2>
             <hr />
             <p>
-                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever s
-                        ince the 1500s,
-                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but a
-                        lso the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset she
-                        ets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ip
-                        sum.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever s
-                        ince the 1500s,
-                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but a
-                        lso the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset she
-                        ets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ip
-                        sum.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever s
-                        ince the 1500s,
-                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but a
-                        lso the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset she
-                        ets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ip
-                        sum.
+                @{
+                    foreach (var i in Model.Stories)
+                    {
+                        @Html.Raw(@i.Description)
+
+                    }
+                }
             </p>
         </div>
     </div>

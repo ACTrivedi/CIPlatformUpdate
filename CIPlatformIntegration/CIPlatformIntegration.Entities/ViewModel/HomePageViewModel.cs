@@ -24,6 +24,8 @@ namespace CIPlatformIntegration.Entities.ViewModel
         public List<GoalMission> GoalMission { get; set; }
         public List<User> Users { get; set; }
 
+        public List<MissionApplication> missionApplications { get; set; }
+
         public bool IsFavorite { get; set; }
 
     }

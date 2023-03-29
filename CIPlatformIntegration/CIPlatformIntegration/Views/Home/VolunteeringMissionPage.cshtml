@@ -46,7 +46,7 @@
     @Html.Partial("_HeaderBar")
 
 
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
 
         @foreach (var modeldetail in Model as IEnumerable<Mission>)
         {
@@ -230,7 +230,7 @@
 
 
 
-                            <button class="btn border border-secondary w-100 rounded-pill col-lg-6 col-md-6 col-sm-12" id="add-to-favourites-btn" onclick="ClickButton1()">
+                            <button class="btn border border-secondary w-100 rounded-pill col-lg-6 col-md-6 col-sm-12" id="add-to-favourites-btn" onclick="addtofav(@modeldetail.MissionId)">
 
                                 @{
 

@@ -38,18 +38,39 @@
 
             <h2>Share your Story</h2>
             @{
-                var missions = ViewData["missions"];
+                var missions = ViewData["appliedMissions"];
                 <div class="col-lg-4">
                     <label for="inputState" class="form-label">Select Mission</label>
+
+
+
+
                     <select id="inputState" class="form-select" name="selectedFromDropdown">
 
-
-                        @foreach (var i in missions as IEnumerable<Mission>)
+                        if (missions.Count()==0)
                         {
-
-                            <option value="@i.MissionId">@i.Title</option>
+                            <option>No applied missions</option>
+                        }
+                        else
+                        {
+                            
+                        @foreach (var i in missions as IList<MissionApplication>)
+                        {
+                            if (@i.MissionId == @i.Mission.MissionId)
+                            {
+                                <option value="@i.MissionId">@i.Mission.Title</option>
+                            }
+                            else
+                            {
+                                continue;
+                            }
 
                         }
+
+                        }
+
+
+
 
                     </select>
                 </div>
@@ -113,9 +134,7 @@
 
                 <div class="d-flex">
                     <div class="" style="margin-right:20%">
-                        <a href="#" class=" btn border-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px;">
-                            <span style="color:orange">Save</span>
-                        </a>
+                         <input type="submit" class=" btn border-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px;" value="Save"/>
                     </div>
 
                     <div>
@@ -168,7 +187,7 @@
         let imagesArray = []
 
         input.addEventListener("change", () => {
-            alert("dddd")
+            
             const files = input.files
             console.log(files)
             for (let i = 0; i < files.length; i++) {

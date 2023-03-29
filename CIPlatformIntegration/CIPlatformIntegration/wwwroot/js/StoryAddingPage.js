@@ -1,4 +1,4 @@
-﻿alert("Javascript is loaded")
+﻿
 
 /*
 $("#sharestorybtn").on('click', function () {

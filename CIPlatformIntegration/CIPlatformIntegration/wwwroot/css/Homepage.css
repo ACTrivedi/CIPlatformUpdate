@@ -1,9 +1,27 @@
-﻿body {
+﻿
+
+
+
+
+body {
    
 }
+
+
+.top-left-applied {
+    position: absolute;
+    top: 15px;
+    left: 0px;
+    background-color: forestgreen;
+    color: #FFFFFF;
+    border-radius: 0px 15px 15px 0px;
+    padding: 5px 10px;
+}
+
+
 .button1, .button2 {
-    border:2px black;
-    height:44px;
+    border: 2px black;
+    height: 44px;
 }
 
 .new{
