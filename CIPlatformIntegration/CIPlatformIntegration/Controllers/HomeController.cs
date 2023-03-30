@@ -49,10 +49,9 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-        [HttpGet]
+     
         public IActionResult Login()
         {
-
 
             return View();
         }

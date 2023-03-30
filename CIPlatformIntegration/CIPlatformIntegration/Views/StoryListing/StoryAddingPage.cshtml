@@ -24,11 +24,17 @@
     @*CSS file for StoryAddingPage*@
     <link rel="stylesheet" href="~/css/StoryAddingPage.css"></link>
 
-   
 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    
+    <script src="~/js/StoryAddingPage.js"></script>
+    
+   
 </head>
 
 <body>
+    
 
     @Html.Partial("_HeaderBar")
 
@@ -45,30 +51,16 @@
 
 
 
-                    <select id="inputState" class="form-select" name="selectedFromDropdown">
+                    <select id="inputState" class="form-select" name="selectedFromDropdown" onchange="getOptionValue()">
 
-                        if (missions.Count()==0)
-                        {
-                            <option>No applied missions</option>
-                        }
-                        else
-                        {
+                       
                             
                         @foreach (var i in missions as IList<MissionApplication>)
                         {
-                            if (@i.MissionId == @i.Mission.MissionId)
-                            {
-                                <option value="@i.MissionId">@i.Mission.Title</option>
-                            }
-                            else
-                            {
-                                continue;
-                            }
-
+                            <option class="drop-value" value="@i.MissionId">@i.Mission.Title</option>
                         }
 
-                        }
-
+                        
 
 
 
@@ -153,9 +145,11 @@
         </form>
     </div>
 
+    
+
      @*For SweetAlert*@
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+   
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
@@ -227,14 +221,16 @@
         }
     </script>
 
+    
+
 
 
 
 
     @* For Bootstrap*@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/StoryAddingPage.js"></script>
+    
+   
 
 
 </body>

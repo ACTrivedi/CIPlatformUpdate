@@ -1,47 +1,33 @@
 ﻿
 
-/*
-$("#sharestorybtn").on('click', function () {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You want to post the story!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes'
-    }).then((result) => {
-        if (result.isConfirmed) {
-           
+function getOptionValue() {
 
-            var title = document.getElementById("title").value;
-            var date = document.getElementById("date").value;
-            var storydescription = tinyMCE.get("default").getContent();
-            var videoURL = document.getElementById("videoURL").value;
-
-            var selectedFromDropdown = $('.form-select').find(":selected").val();
-
-            
-
-            console.log(selectedFromDropdown)
-
-            $.ajax({
-                url: '/StoryListing/StoryAddingPageCall',
-                type: 'POST',
-                data: { title: title, date: date, storydescription: storydescription, videoURL: videoURL, selectedFromDropdown: selectedFromDropdown },
-                success: function () {
-                 alert("success")
-                },
-                error: function (error) {
-                    
-                }
-
-            });
+   
 
 
-            
-        }
-    })
+    $("#inputState").find("option:selected").each(function (i, v) {
+        var missionIdSelected= $(v).val();
     
-});
-*/
+       
+        $.ajax({
+            url: '/StoryListing/StoryByDraft',
+            type: "GET",
+            data: {
+                missionIdSelected: missionIdSelected
+            },
+            success: function (draftDetails) {
+
+                alert("success");
+
+                console.log(draftDetails.title);
+                console.log(draftDetails.path);
+                console.log(draftDetails.description);
+
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    })
+}
+
