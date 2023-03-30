@@ -112,9 +112,10 @@ namespace CIPlatformIntegration.Controllers
                 draft.title = draftCheck.Title;
                 draft.description = draftCheck.Description;
                 draft.path = storyMedium.Where(m => m.StoryId == draftCheck.StoryId).Select(m => m.Path).FirstOrDefault();
+                draft.date = draftCheck.PublishedAt.ToString();
 
 
-                var draftDetails = new { title = draft.title, description = draft.description, path= draft.path };
+                var draftDetails = new { title = draft.title, description = draft.description, path= draft.path, date= draft.date };
 
                 return Json(draftDetails);
             }
