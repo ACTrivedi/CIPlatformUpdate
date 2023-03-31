@@ -2,40 +2,57 @@
 
 function getOptionValue() {
 
-   
+
 
 
     $("#inputState").find("option:selected").each(function (i, v) {
-        var missionIdSelected= $(v).val();
-    
-       
+        var missionIdSelected = $(v).val();
+
+        
+
         $.ajax({
-            url: '/StoryListing/StoryByDraft',
-            type: "GET",
+            url: '/StoryListing/DraftDecide',
+            type: "POST",
+            dataType:"json",
             data: {
                 missionIdSelected: missionIdSelected
             },
-            success: function (draftDetails) {
+            success: function (res) {
 
-                alert("success");
-
-               
+                document.getElementById("disabled").disabled = false;
 
 
-                $('#title').val(draftDetails.title);
-               
-                tinyMCE.get('default').setContent(draftDetails.description);
+                console.log(res.value.title);
+                console.log(res.value.date);
+                console.log(res.value.description);
+                console.log(res.value.path);
 
-                var shortDate = draftDetails.date.split(" ")[0];
+                //For Title
+                $('#title').val(res.value.title);
+
+                //For Date
+                var shortDate = res.value.date.split(" ")[0];
                 var shortDateFormat = shortDate.split("-").reverse().join("-");
                 $('#date').val(shortDateFormat);
 
+                //For Description
+                tinyMCE.get('default').setContent(res.value.description);
 
+                //For Images
+                let images = ""
+                for (var i = 0; i < res.value.path.length; i++) {
+                    console.log(i);
+                    images += `<div class="image">
+                    <img src="${res.value.path[i]}" alt="image">
+                    <span onclick="removeimg(${i})">&times;</span>
+                    </div>`
 
-                console.log(draftDetails.title);
-                console.log(draftDetails.path);
-                console.log(draftDetails.description);
-                console.log(shortDateFormat)
+                    console.log(res.value.path[i]);
+                }
+
+                $("output").append(images);
+                
+
 
             },
             error: function () {

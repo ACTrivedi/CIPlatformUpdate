@@ -14,7 +14,7 @@
 
     @*For Bootstrap*@
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" /></link>
+    <link rel="stylesheet" hre!importantmportant="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" /></link>
 
 
     @*CSS file for HeaderBar*@
@@ -27,20 +27,20 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
-    
+
     <script src="~/js/StoryAddingPage.js"></script>
-    
-   
+
+
 </head>
 
 <body>
-    
+
 
     @Html.Partial("_HeaderBar")
 
     <div class="container">
 
-        <form class="row g-5" method="post" action="StoryAddingPageCall" enctype = "multipart/form-data">
+        <form class="row g-5" method="post" action="StoryAddingPageCall" enctype="multipart/form-data">
 
             <h2>Share your Story</h2>
             @{
@@ -53,14 +53,14 @@
 
                     <select id="inputState" class="form-select" name="selectedFromDropdown" onchange="getOptionValue()">
 
-                       
-                            
+
+
                         @foreach (var i in missions as IList<MissionApplication>)
                         {
                             <option class="drop-value" value="@i.MissionId">@i.Mission.Title</option>
                         }
 
-                        
+
 
 
 
@@ -98,17 +98,17 @@
 
             <div class="col-lg-12">
                 <label for="inputState" class="form-label">Enter Video URL</label>
-                <input type="text" class="form-control" placeholder="Video URL" id="videoURL" name="videoUrl" >
+                <input type="text" class="form-control" placeholder="Video URL" id="videoURL" name="videoUrl">
             </div>
 
-           
+
 
             <div class="col-lg-12 input-div d-flex flex-column">
-                <div>
+                <div class="image">
                     <img src="~/images/add.png" />
                 </div>
                 <p>Drag & drop pictures here or <strong>Browse</strong></p>
-                <input type="file" id="selectedfile" class="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg"  name="formFile">
+                <input type="file" id="selectedfile" class="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg" name="formFile">
             </div>
 
             <output></output>
@@ -126,14 +126,14 @@
 
                 <div class="d-flex">
                     <div class="" style="margin-right:20%">
-                         <input type="submit" class=" btn border-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px;" value="Save"/>
+                        <input type="submit" class="btn btn-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px; border-color:black !important;" value="Save" />
                     </div>
 
                     <div>
 
-                        <input type="submit" class=" btn border-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px;" value="Submit"/>
-                         
-                       
+                        <input id="disabled" disabled type="submit" class=" btn btn-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px; border-color:black !important;" value="Submit" />
+
+
                     </div>
                 </div>
 
@@ -145,11 +145,11 @@
         </form>
     </div>
 
-    
 
-     @*For SweetAlert*@
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   
+
+    @*For SweetAlert*@
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
@@ -181,7 +181,7 @@
         let imagesArray = []
 
         input.addEventListener("change", () => {
-            
+
             const files = input.files
             console.log(files)
             for (let i = 0; i < files.length; i++) {
@@ -221,7 +221,7 @@
         }
     </script>
 
-    
+
 
 
 
@@ -229,8 +229,8 @@
 
     @* For Bootstrap*@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    
-   
+
+
 
 
 </body>

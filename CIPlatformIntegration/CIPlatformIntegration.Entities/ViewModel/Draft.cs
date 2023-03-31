@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace CIPlatformIntegration.Entities.ViewModel
 {
     public class Draft
@@ -13,6 +14,8 @@ namespace CIPlatformIntegration.Entities.ViewModel
 
         public string date { get; set; }
 
-        public string path { get; set; }
+        public IEnumerable<string> Paths { get; set; }
+
+       
     }
 }

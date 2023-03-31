@@ -94,9 +94,30 @@ namespace CIPlatformIntegration.Controllers
             return View();
         }
 
+
+        public IActionResult DraftDecide(int missionIdSelected)
+        {
+
+            var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
+
+            var storyCheck = _cidatabaseContext.Stories.Where(s => s.UserId == userIdForStoryAdd && s.MissionId == missionIdSelected).ToList();
+            if (storyCheck.Count!=0)
+            {
+                var draftDetails=  StoryByDraft(missionIdSelected);
+                return Json(draftDetails);
+
+            }
+            else
+            {
+                return RedirectToAction("StoryAddingPage","StoryListing");
+            }
+
+        }
+
+
         
         
-        public JsonResult StoryByDraft(int missionIdSelected)
+        public IActionResult StoryByDraft(int missionIdSelected)
         {
             Draft draft = new Draft();
 
@@ -104,6 +125,7 @@ namespace CIPlatformIntegration.Controllers
 
             var draftCheck = _cidatabaseContext.Stories.Where(s => s.MissionId == missionIdSelected && s.UserId == userIdForStoryAdd).FirstOrDefault();
             var storyMedium = _cidatabaseContext.StoryMedia.ToList();
+            IEnumerable<string> paths= storyMedium.Where(m => m.StoryId == draftCheck.StoryId).Select(m => m.Path).ToList();
 
 
             if (draftCheck != null)
@@ -111,11 +133,14 @@ namespace CIPlatformIntegration.Controllers
 
                 draft.title = draftCheck.Title;
                 draft.description = draftCheck.Description;
-                draft.path = storyMedium.Where(m => m.StoryId == draftCheck.StoryId).Select(m => m.Path).FirstOrDefault();
                 draft.date = draftCheck.PublishedAt.ToString();
+                draft.Paths = paths;
+                
 
 
-                var draftDetails = new { title = draft.title, description = draft.description, path= draft.path, date= draft.date };
+
+
+                var draftDetails = new { title = draft.title, description = draft.description, path= draft.Paths, date= draft.date };
 
                 return Json(draftDetails);
             }
@@ -138,68 +163,70 @@ namespace CIPlatformIntegration.Controllers
         [HttpPost]
         public IActionResult StoryAddingPageCall(List<IFormFile> formFile, string title, string postingdate, string textarea, int selectedFromDropdown)
         {
-
-
+            
             var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
 
-            var missionIdForStoryAdd = selectedFromDropdown;
+
+                var missionIdForStoryAdd = selectedFromDropdown;
+
+                var convertedDate = Convert.ToDateTime(postingdate);
 
 
-            var convertedDate = Convert.ToDateTime(postingdate);
+                Story model = new Story();
+
+                model.UserId = userIdForStoryAdd;
+                model.MissionId = missionIdForStoryAdd;
+                model.Title = title;
+                model.Description = textarea;
+                model.Status = "DRAFT";
+                model.PublishedAt = convertedDate;
 
 
-            Story model = new Story();
+                _cidatabaseContext.Stories.Add(model);
 
-            model.UserId = userIdForStoryAdd;
-            model.MissionId = missionIdForStoryAdd;
-            model.Title = title;
-            model.Description = textarea;
-            model.Status = "DRAFT";
-            model.PublishedAt = convertedDate;
+                _cidatabaseContext.SaveChanges();
 
 
-            _cidatabaseContext.Stories.Add(model);
+                long story_id = model.StoryId;
 
-            _cidatabaseContext.SaveChanges();
-
-
-            long story_id = model.StoryId;
-
-            if (formFile.Count > 0)
-            {
-                foreach (var file in formFile)
+                if (formFile.Count > 0)
                 {
+                    foreach (var file in formFile)
+                    {
 
-                    string fileName = Path.GetFileName(file.FileName);
-
-
-
-                    string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
-
-                    string ImageURL = "\\images\\" + fileName;
-
-
-                    HttpContext.Session.SetString("uploadpath", ImageURL);
-
-                    var stream = new FileStream(uploadpath, FileMode.Create);
-
-                    file.CopyToAsync(stream);
+                        string fileName = Path.GetFileName(file.FileName);
 
 
 
-                    StoryMedia(story_id);
+                        string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
+
+                        string ImageURL = "\\images\\" + fileName;
+
+
+                        HttpContext.Session.SetString("uploadpath", ImageURL);
+
+                        var stream = new FileStream(uploadpath, FileMode.Create);
+
+                        file.CopyToAsync(stream);
+
+
+
+                        StoryMedia(story_id);
+                    }
                 }
-            }
 
 
 
 
 
-            /*return View(model);*/
+                /*return View(model);*/
 
 
 
-            return RedirectToAction("StoryListingPage", "StoryListing");
+                return RedirectToAction("StoryListingPage", "StoryListing");
+            
+           
+
 
 
         }
