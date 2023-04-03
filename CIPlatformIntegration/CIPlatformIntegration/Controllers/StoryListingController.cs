@@ -101,22 +101,22 @@ namespace CIPlatformIntegration.Controllers
             var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
 
             var storyCheck = _cidatabaseContext.Stories.Where(s => s.UserId == userIdForStoryAdd && s.MissionId == missionIdSelected).ToList();
-            if (storyCheck.Count!=0)
+            if (storyCheck.Count != 0)
             {
-                var draftDetails=  StoryByDraft(missionIdSelected);
+                var draftDetails = StoryByDraft(missionIdSelected);
                 return Json(draftDetails);
 
             }
             else
             {
-                return RedirectToAction("StoryAddingPage","StoryListing");
+                return RedirectToAction("StoryAddingPage", "StoryListing");
             }
 
         }
 
 
-        
-        
+
+
         public IActionResult StoryByDraft(int missionIdSelected)
         {
             Draft draft = new Draft();
@@ -125,7 +125,7 @@ namespace CIPlatformIntegration.Controllers
 
             var draftCheck = _cidatabaseContext.Stories.Where(s => s.MissionId == missionIdSelected && s.UserId == userIdForStoryAdd).FirstOrDefault();
             var storyMedium = _cidatabaseContext.StoryMedia.ToList();
-            IEnumerable<string> paths= storyMedium.Where(m => m.StoryId == draftCheck.StoryId).Select(m => m.Path).ToList();
+            IEnumerable<string> paths = storyMedium.Where(m => m.StoryId == draftCheck.StoryId).Select(m => m.Path).ToList();
 
 
             if (draftCheck != null)
@@ -135,12 +135,12 @@ namespace CIPlatformIntegration.Controllers
                 draft.description = draftCheck.Description;
                 draft.date = draftCheck.PublishedAt.ToString();
                 draft.Paths = paths;
-                
 
 
 
 
-                var draftDetails = new { title = draft.title, description = draft.description, path= draft.Paths, date= draft.date };
+
+                var draftDetails = new { title = draft.title, description = draft.description, path = draft.Paths, date = draft.date };
 
                 return Json(draftDetails);
             }
@@ -163,69 +163,69 @@ namespace CIPlatformIntegration.Controllers
         [HttpPost]
         public IActionResult StoryAddingPageCall(List<IFormFile> formFile, string title, string postingdate, string textarea, int selectedFromDropdown)
         {
-            
+
             var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
 
 
-                var missionIdForStoryAdd = selectedFromDropdown;
+            var missionIdForStoryAdd = selectedFromDropdown;
 
-                var convertedDate = Convert.ToDateTime(postingdate);
-
-
-                Story model = new Story();
-
-                model.UserId = userIdForStoryAdd;
-                model.MissionId = missionIdForStoryAdd;
-                model.Title = title;
-                model.Description = textarea;
-                model.Status = "DRAFT";
-                model.PublishedAt = convertedDate;
+            var convertedDate = Convert.ToDateTime(postingdate);
 
 
-                _cidatabaseContext.Stories.Add(model);
+            Story model = new Story();
 
-                _cidatabaseContext.SaveChanges();
+            model.UserId = userIdForStoryAdd;
+            model.MissionId = missionIdForStoryAdd;
+            model.Title = title;
+            model.Description = textarea;
+            model.Status = "DRAFT";
+            model.PublishedAt = convertedDate;
 
 
-                long story_id = model.StoryId;
+            _cidatabaseContext.Stories.Add(model);
 
-                if (formFile.Count > 0)
+            _cidatabaseContext.SaveChanges();
+
+
+            long story_id = model.StoryId;
+
+            if (formFile.Count > 0)
+            {
+                foreach (var file in formFile)
                 {
-                    foreach (var file in formFile)
-                    {
 
-                        string fileName = Path.GetFileName(file.FileName);
+                    string fileName = Path.GetFileName(file.FileName);
 
 
 
-                        string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
+                    string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", fileName);
 
-                        string ImageURL = "\\images\\" + fileName;
-
-
-                        HttpContext.Session.SetString("uploadpath", ImageURL);
-
-                        var stream = new FileStream(uploadpath, FileMode.Create);
-
-                        file.CopyToAsync(stream);
+                    string ImageURL = "\\images\\StoryImages\\" + fileName;
 
 
+                    HttpContext.Session.SetString("uploadpath", ImageURL);
 
-                        StoryMedia(story_id);
-                    }
+                    var stream = new FileStream(uploadpath, FileMode.Create);
+
+                    file.CopyToAsync(stream);
+
+
+
+                    StoryMedia(story_id);
                 }
+            }
 
 
 
 
 
-                /*return View(model);*/
+            /*return View(model);*/
 
 
 
-                return RedirectToAction("StoryListingPage", "StoryListing");
-            
-           
+            return RedirectToAction("StoryListingPage", "StoryListing");
+
+
 
 
 
@@ -269,6 +269,47 @@ namespace CIPlatformIntegration.Controllers
             storyDetailViewModel.storyMedia = _cidatabaseContext.StoryMedia.Where(sm => sm.StoryId == storyid).ToList();
 
             return View(storyDetailViewModel);
+        }
+
+
+        [HttpGet]
+        public IActionResult UserEditProfile()
+        {
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
+        
+            var userUpdate = _cidatabaseContext.Users.Where(u => u.UserId == userIdForUserEdit).FirstOrDefault();
+
+            var userViewModel = new UserEditProfileViewModel();
+            userViewModel.IndividualUser = userUpdate;
+
+            return View(userViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult UserEditProfile(string name,string surname,string employeeID,string manager,string title,string department,string profile,string linkedInUrl)
+        {
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+            var userUpdate = _cidatabaseContext.Users.Where(u => u.UserId == userIdForUserEdit).FirstOrDefault();
+            userUpdate.FirstName = name;
+            userUpdate.LastName = surname;
+            userUpdate.EmployeeId = employeeID;
+            userUpdate.Title = title;
+            userUpdate.Department = department;
+            userUpdate.LinkedInUrl= linkedInUrl;
+
+
+
+
+            _cidatabaseContext.Users.Update(userUpdate);
+            _cidatabaseContext.SaveChanges();
+
+          
+
+            var userViewModel = new UserEditProfileViewModel();
+
+            return View(userViewModel);
+
         }
     }
 }

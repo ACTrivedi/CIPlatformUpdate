@@ -41,9 +41,14 @@
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">View Profile</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#"><button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Logout", "Home")'"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp; Logout</button></a>
+                         <a class="dropdown-item" asp-controller="StoryListing" asp-action="UserEditProfile">
+                           Add Profile
+                        </a>
+                       
+                        <a class="dropdown-item " href="#" style="color:orange">Volunteering Timesheet</a>
+                        
+                        
+                        <a class="dropdown-item " href="#"><button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Logout", "Home")'"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp; Logout</button></a>
                     </div>
                 </div>
             </div>

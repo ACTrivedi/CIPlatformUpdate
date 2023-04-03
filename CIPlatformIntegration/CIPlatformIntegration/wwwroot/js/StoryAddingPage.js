@@ -56,7 +56,7 @@ function getOptionValue() {
 
             },
             error: function () {
-                alert("error");
+                
             }
         });
     })
