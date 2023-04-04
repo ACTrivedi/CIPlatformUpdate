@@ -42,3 +42,62 @@ $(function () {
     });
 
 });
+
+
+
+//For password
+
+function changePassword() {
+    
+
+    var oldPassword = $('#oldPassword').val();
+    var newPassword = $('#newPassword').val();
+    var confirmNewPassword = $('#confirmNewPassword').val();
+
+    $.ajax({
+        url: '/StoryListing/UserChangePassword',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            oldPassword: oldPassword, newPassword: newPassword, confirmNewPassword: confirmNewPassword
+        },
+        success: function (response) {
+            
+
+            // Check if the operation succeeded
+            if (response.success) {
+                // Do something on success
+                console.log('Operation succeeded.');
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Password Changed Successfully',
+                   
+
+                })
+
+                $("#cancelPrompt").click();
+               
+
+            } else {
+                // Do something on failure
+                console.log('Operation failed: ' + response.message);
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'INVALID CREDENTIALS!',
+
+                })
+
+            }
+
+
+
+        },
+        error: function () {
+
+        }
+    });
+
+}

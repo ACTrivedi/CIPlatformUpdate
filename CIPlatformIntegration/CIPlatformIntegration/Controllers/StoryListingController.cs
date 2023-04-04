@@ -277,7 +277,7 @@ namespace CIPlatformIntegration.Controllers
         {
             var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
             ViewBag.profilename = HttpContext.Session.GetString("profile");
-        
+
             var userUpdate = _cidatabaseContext.Users.Where(u => u.UserId == userIdForUserEdit).FirstOrDefault();
 
             var userViewModel = new UserEditProfileViewModel();
@@ -287,16 +287,20 @@ namespace CIPlatformIntegration.Controllers
         }
 
         [HttpPost]
-        public IActionResult UserEditProfile(string name,string surname,string employeeID,string manager,string title,string department,string profile,string linkedInUrl)
+        public IActionResult UserEditProfile(string name, string surname, string employeeID, string manager, string title, string department, string profile, string linkedInUrl)
         {
+
             var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
             var userUpdate = _cidatabaseContext.Users.Where(u => u.UserId == userIdForUserEdit).FirstOrDefault();
             userUpdate.FirstName = name;
             userUpdate.LastName = surname;
             userUpdate.EmployeeId = employeeID;
             userUpdate.Title = title;
             userUpdate.Department = department;
-            userUpdate.LinkedInUrl= linkedInUrl;
+            userUpdate.LinkedInUrl = linkedInUrl;
+
+
 
 
 
@@ -304,12 +308,50 @@ namespace CIPlatformIntegration.Controllers
             _cidatabaseContext.Users.Update(userUpdate);
             _cidatabaseContext.SaveChanges();
 
-          
+
 
             var userViewModel = new UserEditProfileViewModel();
+            userViewModel.IndividualUser = userUpdate;
 
             return View(userViewModel);
 
+        }
+
+
+        [HttpPost]
+        public IActionResult UserChangePassword(string oldPassword, string newPassword, string confirmNewPassword)
+        {
+
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+           
+            var userUpdate = _cidatabaseContext.Users.Where(u => u.UserId == userIdForUserEdit).FirstOrDefault();
+            
+
+            bool verified = BCrypt.Net.BCrypt.Verify(oldPassword, userUpdate.Password);
+
+
+            if (verified == true)
+            {
+                if (newPassword == confirmNewPassword)
+                {
+                    var updatedPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                    userUpdate.Password = updatedPassword;
+
+                    _cidatabaseContext.Users.Update(userUpdate);
+                    _cidatabaseContext.SaveChanges();
+
+                    return Json(new { success = true });
+
+                }
+                else
+                { 
+                    return Json(new { success = false, message = "Your password and confirm password doesn't matched." });
+                }
+            }
+            else
+            {
+                return Json(new { success = false, message = "An error occurred while doing something." });
+            }
         }
     }
 }
