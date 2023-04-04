@@ -2,6 +2,7 @@
 using CIPlatformIntegration.Entities.Models;
 using CIPlatformIntegration.Entities.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mail;
 
 namespace CIPlatformIntegration.Controllers
 {
@@ -37,7 +38,7 @@ namespace CIPlatformIntegration.Controllers
 
             ViewBag.profilename = HttpContext.Session.GetString("profile");
 
-            var model = _cidatabaseContext.Stories.ToList();
+            var model = _cidatabaseContext.Stories.Where(s=>s.Status=="APPROVED").ToList();
 
             return View(model);
 
@@ -62,7 +63,7 @@ namespace CIPlatformIntegration.Controllers
             if (pg < 1)
                 pg = 1;
 
-            var model = _cidatabaseContext.Stories.ToList();
+            var model = _cidatabaseContext.Stories.Where(s => s.Status == "APPROVED").ToList();
 
             int recsCount = model.Count();
 
@@ -100,7 +101,7 @@ namespace CIPlatformIntegration.Controllers
 
             var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
 
-            var storyCheck = _cidatabaseContext.Stories.Where(s => s.UserId == userIdForStoryAdd && s.MissionId == missionIdSelected).ToList();
+            var storyCheck = _cidatabaseContext.Stories.Where(s => s.UserId == userIdForStoryAdd && s.MissionId == missionIdSelected && s.Status=="DRAFT").ToList();
             if (storyCheck.Count != 0)
             {
                 var draftDetails = StoryByDraft(missionIdSelected);
@@ -123,7 +124,7 @@ namespace CIPlatformIntegration.Controllers
 
             var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
 
-            var draftCheck = _cidatabaseContext.Stories.Where(s => s.MissionId == missionIdSelected && s.UserId == userIdForStoryAdd).FirstOrDefault();
+            var draftCheck = _cidatabaseContext.Stories.Where(s => s.MissionId == missionIdSelected && s.UserId == userIdForStoryAdd).OrderBy(s=>s.StoryId).LastOrDefault();
             var storyMedium = _cidatabaseContext.StoryMedia.ToList();
             IEnumerable<string> paths = storyMedium.Where(m => m.StoryId == draftCheck.StoryId).Select(m => m.Path).ToList();
 
@@ -135,6 +136,7 @@ namespace CIPlatformIntegration.Controllers
                 draft.description = draftCheck.Description;
                 draft.date = draftCheck.PublishedAt.ToString();
                 draft.Paths = paths;
+                
 
 
 
@@ -155,13 +157,8 @@ namespace CIPlatformIntegration.Controllers
 
         }
 
-
-
-
-
-
-        [HttpPost]
-        public IActionResult StoryAddingPageCall(List<IFormFile> formFile, string title, string postingdate, string textarea, int selectedFromDropdown)
+        //For Draft
+        public IActionResult StoryAddingPageCallForDraft(List<IFormFile> formFile, string title, string postingdate, string textarea, int selectedFromDropdown)
         {
 
             var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
@@ -232,6 +229,78 @@ namespace CIPlatformIntegration.Controllers
         }
 
 
+
+
+        [HttpPost]
+        public IActionResult StoryAddingPageCall(List<IFormFile> formFile, string title, string postingdate, string textarea, int selectedFromDropdown)
+        {
+
+            var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
+
+
+            var missionIdForStoryAdd = selectedFromDropdown;
+
+            var convertedDate = Convert.ToDateTime(postingdate);
+
+
+            Story model = new Story();
+
+            model.UserId = userIdForStoryAdd;
+            model.MissionId = missionIdForStoryAdd;
+            model.Title = title;
+            model.Description = textarea;
+            model.Status = "APPROVED";
+            model.PublishedAt = convertedDate;
+
+
+            _cidatabaseContext.Stories.Add(model);
+
+            _cidatabaseContext.SaveChanges();
+
+
+            long story_id = model.StoryId;
+
+            if (formFile.Count > 0)
+            {
+                foreach (var file in formFile)
+                {
+
+                    string fileName = Path.GetFileName(file.FileName);
+
+                    string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", fileName);
+
+                    string ImageURL = "\\images\\StoryImages\\" + fileName;
+
+
+                    HttpContext.Session.SetString("uploadpath", ImageURL);
+
+                    var stream = new FileStream(uploadpath, FileMode.Create);
+
+                    file.CopyToAsync(stream);
+
+
+
+                    StoryMedia(story_id);
+                }
+            }
+
+
+
+
+
+            /*return View(model);*/
+
+
+
+            return RedirectToAction("StoryListingPage", "StoryListing");
+
+
+
+
+
+        }
+
+
         public void StoryMedia(long story_id)
         {
             StoryMedium storyMedium = new StoryMedium();
@@ -255,11 +324,15 @@ namespace CIPlatformIntegration.Controllers
 
             ViewBag.profilename = HttpContext.Session.GetString("profile");
             var userIdForStoryDetail = (long)HttpContext.Session.GetInt32("farfavuserid");
+            HttpContext.Session.SetInt32("storyID", storyid);
 
             StoryDetailViewModel storyDetailViewModel = new StoryDetailViewModel();
 
             var userID = _cidatabaseContext.Stories.FirstOrDefault(s => s.StoryId == storyid).UserId;
             storyDetailViewModel.Users = _cidatabaseContext.Users.Where(u => u.UserId == userID).ToList();
+
+            storyDetailViewModel.recommendUser = _cidatabaseContext.Users.ToList();
+
 
             var missionID = _cidatabaseContext.Stories.FirstOrDefault(s => s.StoryId == storyid).MissionId;
             storyDetailViewModel.Missions = _cidatabaseContext.Missions.Where(m => m.MissionId == missionID).ToList();
@@ -270,6 +343,37 @@ namespace CIPlatformIntegration.Controllers
 
             return View(storyDetailViewModel);
         }
+
+        [HttpPost]
+        public IActionResult Recommendtoworker(string userEmail)
+        {
+            var to_userID = _cidatabaseContext.Users.Where(u => u.Email == userEmail).Select(u => u.UserId).SingleOrDefault();
+            var userid = (long)HttpContext.Session.GetInt32("farfavuserid");
+            var missionID = HttpContext.Session.GetInt32("starmissionid");
+            var storyID = (long)HttpContext.Session.GetInt32("storyID");
+            if (to_userID != null)
+            {
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress("ciplatformmailsender@gmail.com");
+                mail.To.Add(new MailAddress(userEmail));
+                mail.Subject = "Test mail";
+                mail.Body = "<html><body>Click here<a href='" + "https://localhost:7296/StoryListing/StoryDetailPage?storyid=" + storyID + "'> to recommend this mission</a></body></html>";
+                mail.IsBodyHtml = true;
+
+                SmtpClient myclient = new SmtpClient();
+                myclient.Host = "smtp.gmail.com";
+                myclient.Port = 587;
+                myclient.Credentials = new
+                System.Net.NetworkCredential("ciplatformmailsender@gmail.com", "muarmclnmmtdzxqh");
+                myclient.EnableSsl = true;
+                myclient.Send(mail);
+
+
+
+            }
+            return RedirectToAction("StoryDetailPage", "StoryListing", new { storyid = storyID });
+        }
+
 
 
         [HttpGet]

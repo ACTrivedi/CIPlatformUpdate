@@ -1,5 +1,5 @@
 ﻿body {
-    font-family: NotoSans-Light;
+    font-size:20px;
 }
 .tox .tox-notification--warn, .tox .tox-notification--warning {
     display: none;

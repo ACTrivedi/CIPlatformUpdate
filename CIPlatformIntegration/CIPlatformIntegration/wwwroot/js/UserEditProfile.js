@@ -5,14 +5,14 @@ $(function () {
     $('body').on('click', '.list-group .list-group-item', function () {
         $(this).toggleClass('active');
     });
-    $('.list-arrows button').click(function () {
+    $('.list-arrows a').click(function () {
         
         var $button = $(this), actives = '';
         
         if ($button.hasClass('move-left')) {
             actives = $('.list-right ul li.active');
             actives.clone().appendTo('.list-left ul');
-            actives.remove();
+            actives.remove();  
         } else if ($button.hasClass('move-right')) {
             actives = $('.list-left ul li.active');
             actives.clone().appendTo('.list-right ul');

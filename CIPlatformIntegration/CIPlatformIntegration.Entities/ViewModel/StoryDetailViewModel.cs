@@ -16,5 +16,7 @@ namespace CIPlatformIntegration.Entities.ViewModel
         public List<Story> Stories { get; set; }
 
         public List<StoryMedium> storyMedia { get; set; }
+
+        public List<User> recommendUser { get; set; }
     }
 }

@@ -23,17 +23,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
-@*    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-*@
+    @*    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    *@
 
 
     @*CSS file for HeaderBar*@
     <link rel="stylesheet" href="~/css/HeaderBar.css"></link>
 
 
-@*
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-*@
+    @*
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    *@
     @*CSS and JS file for Volunteering Mission Page itself*@
     <link rel="stylesheet" href="~/css/StoryDetailPage.css" /></link>
 
@@ -57,7 +57,7 @@
                         {
                             <!-- Full-width images with number text -->
                             <div class="mySlides">
-                                
+
                                 <img class="displayimage" src="@i.Path" style="width:100%; ">
                             </div>
 
@@ -67,14 +67,10 @@
 
 
                     <!-- Full-width images with number text -->
-
                     <!-- <div class="mySlides">
                     <div class="numbertext">1 / 6</div>
                     <img class="displayimage" src="~/images/Animal-welfare-_-save-birds-campaign-1.png" style="width:100%; ">
                     </div> -->
-
-
-
                     <!-- Next and previous buttons -->
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                     <a class="next" onclick="plusSlides(1)">&#10095;</a>
@@ -88,16 +84,16 @@
                     <div class="row py-3">
 
                         @{
-                            var count=0;
+                            var count = 0;
                             foreach (var i in Model.storyMedia)
                             {
                                 count++;
                                 <div class="column pr-0">
-                            <img class="demo cursor" src="@i.Path" style="width:100%" onclick="currentSlide(@count)" alt="The Woods">
-                        </div>
+                                    <img class="demo cursor" src="@i.Path" style="width:100%" onclick="currentSlide(@count)" alt="The Woods">
+                                </div>
 
+                            }
                         }
-                    }
                     </div>
                 </div>
             </div>
@@ -142,14 +138,55 @@
 
                     <div class="d-flex pt-3 justify-content-evenly">
 
-                        <button class="btn border border-secondary  rounded-pill px-5">
+
+
+                        <button class="btn border border-secondary w-100 rounded-pill divclass col-lg-6 col-md-6 col-sm-12" data-toggle="modal" data-target="#exampleModalCenter">
                             <img src="~/images/add1.png" />
                             Recommend a to co-worker
                         </button>
 
-                        <button class="btn border border-warning  rounded-pill  px-5">
-                            <span style="color:orange">Open Mission &nbsp; </span> <img src="~/images/right-arrow.png" />
-                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content" style="overflow-x: hidden;height: 65vh;">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+
+
+                                    @{
+
+                                        foreach (var i in Model.recommendUser as IEnumerable<User>)
+                                        {
+                                            <div class="modal-body d-flex justify-content-between modal-dialog-scrollable">
+
+                                                <div>@i.FirstName</div>
+                                                <div><button type="button" class="btn btn-primary send" value="@i.Email">Recommend</button></div>
+
+                                            </div>
+                                        }
+
+
+                                    }
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        @{
+                            foreach (var i in Model.Missions)
+                            {
+                                <a asp-controller="Home" asp-action="VolunteeringMissionPage" asp-route-missionid="@i.MissionId" class="btn border border-warning  rounded-pill  px-5">
+                                    <span style="color:orange">Open Mission &nbsp; </span> <img src="~/images/right-arrow.png" />
+                                </a>
+                            }
+                        }
+
 
                     </div>
 
@@ -192,7 +229,33 @@
 
     <script src="~/js/VolunteerMissionPage.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/js/Cascade.js"> </script>
+
+    <script>
+
+        //For Recommend
+        $('.send').on('click', function () {
+
+            console.log($(this).val());
+            var userEmail = $(this).val();
+            $.ajax({
+                url: '/StoryListing/Recommendtoworker',
+                type: 'POST',
+                data: { "userEmail": userEmail },
+                success: function (result) {
+                    alert("success");
+                },
+                error: function (error) {
+                    alert("Error");
+                }
+
+            });
+
+
+
+        })
+    </script>
+
+
 </body>
 
 

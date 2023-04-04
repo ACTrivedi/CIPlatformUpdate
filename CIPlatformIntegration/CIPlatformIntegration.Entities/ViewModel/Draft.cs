@@ -16,6 +16,8 @@ namespace CIPlatformIntegration.Entities.ViewModel
 
         public IEnumerable<string> Paths { get; set; }
 
+        public string status { get; set; }
+
        
     }
 }
