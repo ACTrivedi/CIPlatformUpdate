@@ -15,9 +15,6 @@ namespace CIPlatformIntegration.Entities.ViewModel
 
        public List<User> Users { get; set; }
 
-       
-
-     
 
     }
 }

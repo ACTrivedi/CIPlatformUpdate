@@ -710,6 +710,7 @@ namespace CIPlatformIntegration.Controllers
 
         public IActionResult Logout()
         {
+            HttpContext.Session.Clear();
             HttpContext.Session.Remove("Loggedin");
             return RedirectToAction("Login", "Home");
         }

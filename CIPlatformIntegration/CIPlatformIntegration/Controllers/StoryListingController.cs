@@ -171,12 +171,19 @@ namespace CIPlatformIntegration.Controllers
 
             Story model = new Story();
 
-            model.UserId = userIdForStoryAdd;
-            model.MissionId = missionIdForStoryAdd;
-            model.Title = title;
-            model.Description = textarea;
-            model.Status = "DRAFT";
-            model.PublishedAt = convertedDate;
+            if (model != null)
+            {
+                model.UserId = userIdForStoryAdd;
+                model.MissionId = missionIdForStoryAdd;
+                model.Title = title;
+                model.Description = textarea;
+                model.Status = "DRAFT";
+                model.PublishedAt = convertedDate;
+            }
+            
+               
+           
+            
 
 
             _cidatabaseContext.Stories.Add(model);
@@ -191,24 +198,26 @@ namespace CIPlatformIntegration.Controllers
                 foreach (var file in formFile)
                 {
 
-                    string fileName = Path.GetFileName(file.FileName);
+                    /*string fileName = Path.GetFileName(file.FileName);*/
 
+                    FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-
-                    string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", fileName);
-
-                    string ImageURL = "\\images\\StoryImages\\" + fileName;
+/*                    string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", fileName);
+*/
+                    string ImageURL = "\\images\\StoryImages\\" + Path.GetFileName(file.FileName);
 
 
                     HttpContext.Session.SetString("uploadpath", ImageURL);
 
-                    var stream = new FileStream(uploadpath, FileMode.Create);
+                    /*var stream = new FileStream(uploadpath, FileMode.Create);*/
 
-                    file.CopyToAsync(stream);
+                    file.CopyToAsync(FileStream);
 
 
 
                     StoryMedia(story_id);
+
+                    FileStream.Close();
                 }
             }
 
@@ -265,22 +274,29 @@ namespace CIPlatformIntegration.Controllers
                 foreach (var file in formFile)
                 {
 
-                    string fileName = Path.GetFileName(file.FileName);
+                    /*string fileName = Path.GetFileName(file.FileName);*/
 
-                    string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", fileName);
+                    FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-                    string ImageURL = "\\images\\StoryImages\\" + fileName;
+                    /*                    string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", fileName);
+                    */
+                    string ImageURL = "\\images\\StoryImages\\" + Path.GetFileName(file.FileName);
 
 
                     HttpContext.Session.SetString("uploadpath", ImageURL);
 
-                    var stream = new FileStream(uploadpath, FileMode.Create);
+                    /*var stream = new FileStream(uploadpath, FileMode.Create);*/
 
-                    file.CopyToAsync(stream);
+                    file.CopyToAsync(FileStream);
 
 
 
                     StoryMedia(story_id);
+
+
+                    FileStream.Close();
+
+
                 }
             }
 
