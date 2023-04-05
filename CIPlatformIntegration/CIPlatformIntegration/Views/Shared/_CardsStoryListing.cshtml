@@ -20,13 +20,30 @@
     <div class="container-fluid mt-3" style="max-width:80vw">
         <div class="row">
 
-            @{
-                var users = @ViewData["users"];
-                foreach (var i in Model)
+        @{
+            var users = @ViewData["users"];
+            var storyMedium = @ViewData["storyMedium"];
+            foreach (var i in Model)
                 { 
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-3">
                         <div class="card">
-                            <img style="position:relative" src="~/images/Animal-welfare-_-save-birds-campaign.png" class="card-img-top" alt="...">
+
+                        @{
+                            foreach (var item in storyMedium as IEnumerable<StoryMedium>)
+                            {
+                                if (@item.StoryId == @i.StoryId)
+                                {
+                                    <img style="position:relative" src="@item.Path" class="card-img-top" alt="...">
+                                     break;
+                                }
+                                
+                               
+                            }
+
+                        }
+
+
+                           
 
 
                             <a asp-controller="StoryListing" asp-action="StoryDetailPage" asp-route-storyid="@i.StoryId" style="position:absolute; left:35%; top:26%;">

@@ -57,6 +57,8 @@ namespace CIPlatformIntegration.Controllers
             ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
             ViewData["skills"] = _cidatabaseContext.Skills.ToList();
             ViewData["users"] = _cidatabaseContext.Users.ToList();
+            ViewData["storyMedium"] = _cidatabaseContext.StoryMedia.ToList();
+
             //Extra Code for the Pagination
 
             const int pageSize = 9;
@@ -181,10 +183,8 @@ namespace CIPlatformIntegration.Controllers
                 model.PublishedAt = convertedDate;
             }
             
-               
+              
            
-            
-
 
             _cidatabaseContext.Stories.Add(model);
 
