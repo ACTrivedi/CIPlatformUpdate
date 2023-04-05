@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "dKiPr+ZpkPgtkczwfTu/SLRwybGvGQl2zMnvvoWkLUU=",
+  "Hash": "K+5yjTj76DRkmQMKx+Y+sDHmcxAaCO2kp/TVH/6h9bE=",
   "Source": "CIPlatformIntegration",
   "BasePath": "_content/CIPlatformIntegration",
   "Mode": "Default",
@@ -440,6 +440,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Animal-welfare-_-save-birds-campaign-1.png"
+    },
+    {
+      "Identity": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\AvatarAakash.jfif",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "images/AvatarAakash.jfif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\AvatarAakash.jfif"
     },
     {
       "Identity": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\bell.png",

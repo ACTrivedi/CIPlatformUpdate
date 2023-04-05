@@ -19,5 +19,8 @@ namespace CIPlatformIntegration.Entities.ViewModel
         public List<StoryMedium> storyMedia { get; set; }
 
         public User IndividualUser { get; set; }
+
+        public List<Skill> skills { get; set; } 
+
     }
 }

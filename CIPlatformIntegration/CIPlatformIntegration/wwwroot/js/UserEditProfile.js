@@ -23,10 +23,10 @@ $(function () {
         var $checkBox = $(this);
         if (!$checkBox.hasClass('selected')) {
             $checkBox.addClass('selected').closest('.well').find('ul li:not(.active)').addClass('active');
-            $checkBox.children('i').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+            
         } else {
             $checkBox.removeClass('selected').closest('.well').find('ul li.active').removeClass('active');
-            $checkBox.children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+           
         }
     });
     $('[name="SearchDualList"]').keyup(function (e) {
@@ -100,4 +100,33 @@ function changePassword() {
         }
     });
 
+}
+
+
+
+function addToTextArea()
+{
+   
+    var dataValues = []; 
+
+    $('.findByList').find('li').each(function () {
+        if ($(this).hasClass('active')) {
+            var dataValue = $(this).data('value');
+            dataValues.push(dataValue);
+        }
+        
+        
+    });
+
+    console.log(dataValues);
+
+    var skillString = dataValues.join(", ");
+   
+    $('#skillTextArea').val(skillString);
+    console.log(skillString);
+   
+   
+
+
+    
 }

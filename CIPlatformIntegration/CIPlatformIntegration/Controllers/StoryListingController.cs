@@ -402,6 +402,7 @@ namespace CIPlatformIntegration.Controllers
 
             var userViewModel = new UserEditProfileViewModel();
             userViewModel.IndividualUser = userUpdate;
+            userViewModel.skills = _cidatabaseContext.Skills.ToList();
 
             return View(userViewModel);
         }
@@ -432,6 +433,7 @@ namespace CIPlatformIntegration.Controllers
 
             var userViewModel = new UserEditProfileViewModel();
             userViewModel.IndividualUser = userUpdate;
+            userViewModel.skills = _cidatabaseContext.Skills.ToList();
 
             return View(userViewModel);
 
