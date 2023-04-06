@@ -28,6 +28,28 @@ function showSlides(n) {
     }
     slides[slideIndex - 1].style.display = "block";
     dots[slideIndex - 1].className += " active";
-    captionText.innerHTML = dots[slideIndex - 1].alt;
+   /* captionText.innerHTML = dots[slideIndex - 1].alt;*/
 }
+
+
+// For Views
+  // static count = 0;
+$(document).ready(function () {
+        
+        count++;
+        $.ajax({
+            
+            url: '/StoryListing/IncrementViewCount',
+            data: count,
+            success: function (data) {
+                
+                alert(data);
+
+                   /* $('#viewCount').text(viewCount);*/
+            }
+        });
+    });
+
+
+
 
