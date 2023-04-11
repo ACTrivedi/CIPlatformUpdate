@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "QPl47EfZuXVktUhqtUU3aR2xvaNrl5tLkc1lVAGkmys=",
+  "Hash": "W8c9ygNzRNgXOZG9Rr/pP9OSEz3Q35gVwQHRgO8OEfg=",
   "Source": "CIPlatformIntegration",
   "BasePath": "_content/CIPlatformIntegration",
   "Mode": "Default",
@@ -1307,6 +1307,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\StoryDetailPage.js"
+    },
+    {
+      "Identity": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\js\\StoryListing.js",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "js/StoryListing.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\StoryListing.js"
     },
     {
       "Identity": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\js\\UserEditProfile.js",

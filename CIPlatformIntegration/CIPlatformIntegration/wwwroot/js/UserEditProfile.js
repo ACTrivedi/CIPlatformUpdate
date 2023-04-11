@@ -130,3 +130,52 @@ function addToTextArea()
 
     
 }
+
+
+
+$(document).ready(function () {
+    forCity();
+        $("#ddlCountry li a").click(function () {
+            var countryId = $(this).data("country-id");
+            var countryName = $(this).text();
+            console.log(countryId);
+            console.log(countryName);
+
+
+            $("#dropdownCountry").text(countryName);
+            $.ajax({
+                type: "POST",
+                dataType : "JSON",
+                url: '/StoryListing/GetCitiesByCountryId',
+                data: { countryId: countryId },
+                success: function (cities) {
+                    console.log(cities);
+                    alert("success");
+                    
+                    
+                    var citiesSelect = $("#ddlCity");
+                    citiesSelect.html('');
+                    citiesSelect.append($('<option></option>').val('').html('Select your city'));
+                   
+                    
+                    $.each(cities, function (i, city) {
+                        console.log(city)
+                        citiesSelect.append($('<option></option>').val(city.cityId).html(city.name));
+                    });
+                   
+                }
+            });
+        });
+});
+
+function forCity() {
+
+    $("#ddlCity").change(function () {
+        
+        var cityId = $(this).val();
+        var cityName = $(this).find("option:selected").text();
+        console.log("Selected city ID: " + cityId);
+        console.log("Selected city name: " + cityName);
+    });
+       
+}

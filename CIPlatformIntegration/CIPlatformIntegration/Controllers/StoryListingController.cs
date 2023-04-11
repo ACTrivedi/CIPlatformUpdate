@@ -3,6 +3,7 @@ using CIPlatformIntegration.Entities.Models;
 using CIPlatformIntegration.Entities.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
+using System.Text;
 
 namespace CIPlatformIntegration.Controllers
 {
@@ -27,7 +28,7 @@ namespace CIPlatformIntegration.Controllers
 
 
         [HttpGet]
-        public IActionResult StoryListingPage()
+        public IActionResult StoryListingPage(int pg = 1)
         {
 
             ViewData["countries"] = _cidatabaseContext.Countries.ToList();
@@ -35,12 +36,15 @@ namespace CIPlatformIntegration.Controllers
             ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
             ViewData["skills"] = _cidatabaseContext.Skills.ToList();
             ViewData["users"] = _cidatabaseContext.Users.ToList();
+            ViewData["storyMedium"] = _cidatabaseContext.StoryMedia.ToList();
 
             ViewBag.profilename = HttpContext.Session.GetString("profile");
 
-            var model = _cidatabaseContext.Stories.Where(s=>s.Status=="APPROVED").ToList();
+            var model = _cidatabaseContext.Stories.Where(s => s.Status == "APPROVED").ToList();
 
             return View(model);
+
+
 
         }
 
@@ -48,7 +52,7 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-        public IActionResult _CardsStoryListing(int pg)
+        public IActionResult _CardsStoryListing(int pg, string? searchTerm)
         {
 
 
@@ -65,7 +69,18 @@ namespace CIPlatformIntegration.Controllers
             if (pg < 1)
                 pg = 1;
 
-            var model = _cidatabaseContext.Stories.Where(s => s.Status == "APPROVED").ToList();
+
+            var model = _cidatabaseContext.Stories.Where(s => s.Status == "APPROVED" || s.Title.ToLower().Contains(searchTerm)).ToList();
+            if (searchTerm == null)
+            {
+                model = _cidatabaseContext.Stories.Where(s => s.Status == "APPROVED" || s.Title.ToLower().Contains(searchTerm)).ToList();
+            }
+            else
+            {
+                model = _cidatabaseContext.Stories.Where(s => s.Status == "APPROVED" && s.Title.ToLower().Contains(searchTerm)).ToList();
+            }
+
+
 
             int recsCount = model.Count();
 
@@ -103,7 +118,7 @@ namespace CIPlatformIntegration.Controllers
 
             var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
 
-            var storyCheck = _cidatabaseContext.Stories.Where(s => s.UserId == userIdForStoryAdd && s.MissionId == missionIdSelected && s.Status=="DRAFT").ToList();
+            var storyCheck = _cidatabaseContext.Stories.Where(s => s.UserId == userIdForStoryAdd && s.MissionId == missionIdSelected && s.Status == "DRAFT").ToList();
             if (storyCheck.Count != 0)
             {
                 var draftDetails = StoryByDraft(missionIdSelected);
@@ -126,7 +141,7 @@ namespace CIPlatformIntegration.Controllers
 
             var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
 
-            var draftCheck = _cidatabaseContext.Stories.Where(s => s.MissionId == missionIdSelected && s.UserId == userIdForStoryAdd).OrderBy(s=>s.StoryId).LastOrDefault();
+            var draftCheck = _cidatabaseContext.Stories.Where(s => s.MissionId == missionIdSelected && s.UserId == userIdForStoryAdd).OrderBy(s => s.StoryId).LastOrDefault();
             var storyMedium = _cidatabaseContext.StoryMedia.ToList();
             IEnumerable<string> paths = storyMedium.Where(m => m.StoryId == draftCheck.StoryId).Select(m => m.Path).ToList();
 
@@ -138,7 +153,7 @@ namespace CIPlatformIntegration.Controllers
                 draft.description = draftCheck.Description;
                 draft.date = draftCheck.PublishedAt.ToString();
                 draft.Paths = paths;
-                
+
 
 
 
@@ -182,9 +197,9 @@ namespace CIPlatformIntegration.Controllers
                 model.Status = "DRAFT";
                 model.PublishedAt = convertedDate;
             }
-            
-              
-           
+
+
+
 
             _cidatabaseContext.Stories.Add(model);
 
@@ -202,8 +217,8 @@ namespace CIPlatformIntegration.Controllers
 
                     FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-/*                    string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", fileName);
-*/
+                    /*                    string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", fileName);
+                    */
                     string ImageURL = "\\images\\StoryImages\\" + Path.GetFileName(file.FileName);
 
 
@@ -301,7 +316,7 @@ namespace CIPlatformIntegration.Controllers
             }
 
             /*return View(model);*/
-            
+
             return RedirectToAction("StoryListingPage", "StoryListing");
 
         }
@@ -313,7 +328,7 @@ namespace CIPlatformIntegration.Controllers
             // Retrieve the current view count from the database
 
             Story story = new Story();
-            story.Views= count;
+            story.Views = count;
 
             StoryDetailViewModel storyDetailViewModel = new StoryDetailViewModel();
 
@@ -414,46 +429,54 @@ namespace CIPlatformIntegration.Controllers
             var userViewModel = new UserEditProfileViewModel();
             userViewModel.IndividualUser = userUpdate;
             userViewModel.skills = _cidatabaseContext.Skills.ToList();
+            userViewModel.userSkills = _cidatabaseContext.UserSkills.Where(us => us.UserId == userIdForUserEdit).ToList();
+            userViewModel.countries = _cidatabaseContext.Countries.ToList();
+
+
+
+
 
             return View(userViewModel);
         }
 
         [HttpPost]
-        public IActionResult UserEditProfile(string name, string surname, string employeeID, string manager, string title, string department, string profile, string linkedInUrl,string skillsAddition)
+        public IActionResult UserEditProfile(string name, string surname, string employeeID, string manager, string title, string department, string profile, string linkedInUrl, string skillsAddition, string profileText)
         {
 
             var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
             ViewBag.profilename = HttpContext.Session.GetString("profile");
 
-            //For Check
-            var UserSkillsArrayId = _cidatabaseContext.UserSkills.Where(us => us.UserId == userIdForUserEdit).ToList();
-
-            foreach (var i in UserSkillsArrayId)
+            if (skillsAddition != null)
             {
-                _cidatabaseContext.Remove(i);
-                _cidatabaseContext.SaveChanges();
+                string[] skillsArray = skillsAddition.Split(", ");
+
+                foreach (string skill in skillsArray)
+                {
+                    var exists = _cidatabaseContext.Skills.FirstOrDefault(s => s.SkillName == skill).SkillId;
+                    var userskill = _cidatabaseContext.UserSkills.FirstOrDefault(u => u.SkillId == exists);
+                    if (userskill != null)
+                    {
+                        _cidatabaseContext.Remove(userskill);
+                        _cidatabaseContext.SaveChanges();
+                    }
+
+                }
+                foreach (string skill in skillsArray)
+                {
+                    var selectedSkills = _cidatabaseContext.Skills.FirstOrDefault(s => s.SkillName == skill).SkillId;
+
+                    UserSkill model = new UserSkill();
+                    model.UserId = userIdForUserEdit;
+                    model.SkillId = selectedSkills;
+
+                    _cidatabaseContext.UserSkills.Add(model);
+                    _cidatabaseContext.SaveChanges();
+
+                }
             }
 
-            //For Skills                       
-            string[] skillsArray = skillsAddition.Split(", ");
-            foreach (string skill in skillsArray)
-            {
-                var selectedSkills = _cidatabaseContext.Skills.FirstOrDefault(s => s.SkillName == skill).SkillId;
-               
-                
-               
 
 
-
-                UserSkill model = new UserSkill();
-                model.UserId = userIdForUserEdit;
-                model.SkillId = selectedSkills;
-
-                _cidatabaseContext.UserSkills.Add(model);
-                _cidatabaseContext.SaveChanges();
-
-            }
-                       
 
             var userUpdate = _cidatabaseContext.Users.Where(u => u.UserId == userIdForUserEdit).FirstOrDefault();
             userUpdate.FirstName = name;
@@ -461,21 +484,36 @@ namespace CIPlatformIntegration.Controllers
             userUpdate.EmployeeId = employeeID;
             userUpdate.Title = title;
             userUpdate.Department = department;
+            userUpdate.ProfileText = profileText;
             userUpdate.LinkedInUrl = linkedInUrl;
-            
+
 
 
             _cidatabaseContext.Users.Update(userUpdate);
             _cidatabaseContext.SaveChanges();
 
 
-
             var userViewModel = new UserEditProfileViewModel();
             userViewModel.IndividualUser = userUpdate;
             userViewModel.skills = _cidatabaseContext.Skills.ToList();
+            userViewModel.userSkills = _cidatabaseContext.UserSkills.Where(us => us.UserId == userIdForUserEdit).ToList();
+            userViewModel.countries = _cidatabaseContext.Countries.ToList();
+
 
             return View(userViewModel);
 
+        }
+
+
+
+
+        //For City
+        [HttpPost]
+        public JsonResult GetCitiesByCountryId(int countryId)
+        {
+            var cities = _cidatabaseContext.Cities.Where(c => c.CountryId == countryId).ToList();
+           
+            return Json(cities);
         }
 
 

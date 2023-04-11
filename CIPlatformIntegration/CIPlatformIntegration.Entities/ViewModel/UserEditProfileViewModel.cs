@@ -22,5 +22,8 @@ namespace CIPlatformIntegration.Entities.ViewModel
 
         public List<Skill> skills { get; set; } 
 
+        public List<UserSkill> userSkills { get; set; } 
+
+        public List<Country> countries { get; set; }
     }
 }

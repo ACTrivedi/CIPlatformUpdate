@@ -62,10 +62,10 @@
                 <div class="col col-lg-2 col-md-12 col-sm-12">
                     <div class="d-flex flex-column mt-5" style="align-content: center; flex-wrap: wrap;">
 
-                        
-                      <img src="@Model.IndividualUser.Avatar" class="rounded-circle" style="width:125px; height:125px; margin:auto;" />
-                            
-                       
+
+                        <img src="@Model.IndividualUser.Avatar" class="rounded-circle" style="width:125px; height:125px; margin:auto;" />
+
+
                         <div class="mt-3">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
@@ -174,7 +174,7 @@
                         <div class="col-lg-12">
 
                             <label for="inputState" class="form-label">My Profile</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter Your Comments" name="profile" value=@Model.IndividualUser.ProfileText !=null ? @Model.IndividualUser.ProfileText : ""></textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter Your Comments" name="profileText">@Model.IndividualUser.ProfileText</textarea>
 
 
                         </div>
@@ -206,18 +206,24 @@
 
 
                             <div class="dropdown-center">
-                                <button class="col-lg-12 btn dropdown-toggle" style="text-align:left; color:gray; border: 1px solid #ced4da;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button id="dropdownCountry" class="col-lg-12 btn dropdown-toggle" style="text-align:left; color:gray; border: 1px solid #ced4da;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Select your Country
                                 </button>
-                                <div class="row">
-                                </div>
-                                <div class="col-lg-2">
-                                </div>
+                                @*   <div class="row">
+                                    </div>
+                                    <div class="col-lg-2">
+                                    </div>*@
 
-                                <ul class=" dropdown-menu  dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <ul id="ddlCountry" class=" dropdown-menu  dropdown-menu-end">
+                                    @{
+                                        foreach (var i in Model.countries)
+                                        {
+                                            <li><a class="dropdown-item" data-country-id="@i.CountryId">@i.Name</a></li>
+
+                                        }
+                                    }
+
+
                                 </ul>
 
 
@@ -229,8 +235,12 @@
 
                         <div class="col-lg-6">
 
-                            <label for="inputState" class="form-label">City</label>
-                            <input type="text" class="form-control" placeholder="Enter Your City" id="" name="">
+                             <label for="inputState" class="form-label">City</label>
+                            <select id="ddlCity" name="CityId" class="form-select" aria-label="Default select example">
+                                <option selected>Select City</option>
+                               
+                                
+                            </select>
 
 
                         </div>
@@ -298,7 +308,23 @@
 
                     <div class="mt-3">
 
-                        <textarea class="form-control" id="skillTextArea" rows="3" placeholder="Enter Your Skills" name="skillsAddition"></textarea>
+                        <textarea class="form-control" id="skillTextArea" rows="3" placeholder="Enter Your Skills" name="skillsAddition">
+                            @{
+                                var cntOfi = 0;
+                                foreach (var i in Model.userSkills)
+                                {
+                                    cntOfi++;
+
+                                    // If the counter is equal to the total number of elements, break the loop
+                                    if (cntOfi == Model.userSkills.Count())
+                                    {
+                                        @i.Skill.SkillName
+                                        break;
+                                    }
+                                    @i.Skill.SkillName <text> , </text>
+                                }
+                            }
+                            </textarea>
 
 
 
@@ -379,13 +405,13 @@
                                                         </div>
                                                     </div>
                                                     <ul class="list-group">
-                                                       @* <li class="list-group-item">Skill6</li>
-                                                        <li class="list-group-item">Skill7</li>
-                                                        <li class="list-group-item">Skill8</li>
-                                                        <li class="list-group-item">Skill9</li>
-                                                        <li class="list-group-item">Skill10</li>*@
+                                                        @* <li class="list-group-item">Skill6</li>
+                                                            <li class="list-group-item">Skill7</li>
+                                                            <li class="list-group-item">Skill8</li>
+                                                            <li class="list-group-item">Skill9</li>
+                                                            <li class="list-group-item">Skill10</li>*@
 
-                                                        
+
                                                         @{
                                                             foreach (var i in Model.skills)
                                                             {
