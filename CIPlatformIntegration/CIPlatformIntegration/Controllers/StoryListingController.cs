@@ -431,6 +431,7 @@ namespace CIPlatformIntegration.Controllers
             userViewModel.skills = _cidatabaseContext.Skills.ToList();
             userViewModel.userSkills = _cidatabaseContext.UserSkills.Where(us => us.UserId == userIdForUserEdit).ToList();
             userViewModel.countries = _cidatabaseContext.Countries.ToList();
+            userViewModel.cities = _cidatabaseContext.Cities.Where(c => c.CityId == userUpdate.CityId).FirstOrDefault();
 
 
 
@@ -440,7 +441,7 @@ namespace CIPlatformIntegration.Controllers
         }
 
         [HttpPost]
-        public IActionResult UserEditProfile(string name, string surname, string employeeID, string manager, string title, string department, string profile, string linkedInUrl, string skillsAddition, string profileText)
+        public IActionResult UserEditProfile(string name, string surname, string employeeID, string manager, string title, string department, string profile, string linkedInUrl, string skillsAddition, string profileText, int CountryId, int CityId)
         {
 
             var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
@@ -476,8 +477,6 @@ namespace CIPlatformIntegration.Controllers
             }
 
 
-
-
             var userUpdate = _cidatabaseContext.Users.Where(u => u.UserId == userIdForUserEdit).FirstOrDefault();
             userUpdate.FirstName = name;
             userUpdate.LastName = surname;
@@ -486,6 +485,26 @@ namespace CIPlatformIntegration.Controllers
             userUpdate.Department = department;
             userUpdate.ProfileText = profileText;
             userUpdate.LinkedInUrl = linkedInUrl;
+
+            //For Country
+            if (CountryId == 0)
+            {
+                userUpdate.CountryId = userUpdate.CountryId;
+            }
+            else
+            {
+                userUpdate.CountryId = CountryId;
+            }
+
+            //For City
+            if (CityId == 0)
+            {
+                userUpdate.CityId = userUpdate.CityId;
+            }
+            else
+            {
+                userUpdate.CityId = CityId;
+            }
 
 
 
@@ -498,6 +517,7 @@ namespace CIPlatformIntegration.Controllers
             userViewModel.skills = _cidatabaseContext.Skills.ToList();
             userViewModel.userSkills = _cidatabaseContext.UserSkills.Where(us => us.UserId == userIdForUserEdit).ToList();
             userViewModel.countries = _cidatabaseContext.Countries.ToList();
+            userViewModel.cities = _cidatabaseContext.Cities.Where(c => c.CityId == userUpdate.CityId).FirstOrDefault();
 
 
             return View(userViewModel);

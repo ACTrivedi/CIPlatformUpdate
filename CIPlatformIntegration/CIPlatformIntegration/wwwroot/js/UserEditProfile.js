@@ -1,4 +1,5 @@
-﻿
+﻿/*const { Alert } = require("../lib/bootstrap/dist/js/bootstrap.bundle");*/
+
 
 $(function () {
 
@@ -135,8 +136,14 @@ function addToTextArea()
 
 $(document).ready(function () {
     forCity();
-        $("#ddlCountry li a").click(function () {
+    
+
+    $("#ddlCountry li a").click(function () {
+    
             var countryId = $(this).data("country-id");
+           
+            $("#hdnCountryId").val(countryId); //To set the country id
+
             var countryName = $(this).text();
             console.log(countryId);
             console.log(countryName);
@@ -149,9 +156,7 @@ $(document).ready(function () {
                 url: '/StoryListing/GetCitiesByCountryId',
                 data: { countryId: countryId },
                 success: function (cities) {
-                    console.log(cities);
-                    alert("success");
-                    
+                    console.log(cities);                                      
                     
                     var citiesSelect = $("#ddlCity");
                     citiesSelect.html('');
@@ -166,6 +171,10 @@ $(document).ready(function () {
                 }
             });
         });
+
+
+   
+
 });
 
 function forCity() {
@@ -173,9 +182,18 @@ function forCity() {
     $("#ddlCity").change(function () {
         
         var cityId = $(this).val();
+
+        $("#hdnCityId").val(cityId); //To set the city id
+
         var cityName = $(this).find("option:selected").text();
         console.log("Selected city ID: " + cityId);
         console.log("Selected city name: " + cityName);
     });
        
 }
+
+
+
+
+
+

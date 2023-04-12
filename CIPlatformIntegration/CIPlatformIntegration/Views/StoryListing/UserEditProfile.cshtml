@@ -67,6 +67,7 @@
 
 
                         <div class="mt-3">
+
                             <!-- Button trigger modal -->
                             <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
                                 Change Password
@@ -207,14 +208,35 @@
 
                             <div class="dropdown-center">
                                 <button id="dropdownCountry" class="col-lg-12 btn dropdown-toggle" style="text-align:left; color:gray; border: 1px solid #ced4da;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Select your Country
+                                    @*Select your Country*@
+                                   
+                                    @{
+                                       
+                                        foreach (var i in Model.countries)
+                                        {
+                                            if (i.CountryId == Model.IndividualUser.CountryId)
+                                            {
+                                                @i.Name;
+                                            }
+                                            else
+                                            {
+                                                continue;
+                                            }
+
+                                        }                                                                                
+                                    }                                                                    
+                                    
+                                   
                                 </button>
                                 @*   <div class="row">
                                     </div>
                                     <div class="col-lg-2">
                                     </div>*@
 
-                                <ul id="ddlCountry" class=" dropdown-menu  dropdown-menu-end">
+                                <ul id="ddlCountry" class=" dropdown-menu  dropdown-menu-end" >                                                                      
+
+
+
                                     @{
                                         foreach (var i in Model.countries)
                                         {
@@ -236,14 +258,25 @@
                         <div class="col-lg-6">
 
                              <label for="inputState" class="form-label">City</label>
-                            <select id="ddlCity" name="CityId" class="form-select" aria-label="Default select example">
-                                <option selected>Select City</option>
+                             
+
+                            <select id="ddlCity" name="CityId" class="form-select" aria-label="Default select example" style="color:gray;">
+                                <option selected>
+                                    @{
+                                        @Model.cities.Name
+                                    }
+
+                                </option>
                                
                                 
                             </select>
 
 
                         </div>
+
+                          @Html.Hidden("CountryId", null, new { @id = "hdnCountryId" })
+
+                          @Html.Hidden("CityId", null, new { @id = "hdnCityId" })
 
 
 
