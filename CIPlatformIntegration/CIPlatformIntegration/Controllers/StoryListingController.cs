@@ -441,7 +441,7 @@ namespace CIPlatformIntegration.Controllers
         }
 
         [HttpPost]
-        public IActionResult UserEditProfile(string name, string surname, string employeeID, string manager, string title, string department, string profile, string linkedInUrl, string skillsAddition, string profileText, int CountryId, int CityId)
+        public IActionResult UserEditProfile(IFormFile file,string name, string surname, string employeeID, string manager, string title, string department, string profile, string linkedInUrl, string skillsAddition, string profileText, int CountryId, int CityId)
         {
 
             var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
@@ -486,6 +486,24 @@ namespace CIPlatformIntegration.Controllers
             userUpdate.ProfileText = profileText;
             userUpdate.LinkedInUrl = linkedInUrl;
 
+
+            //For profile photo
+            if (file != null)
+            {
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\AvatarImages\\", Path.GetFileName(file.FileName));
+
+                using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    string imageURL = "\\images\\AvatarImages\\" + Path.GetFileName(file.FileName);
+                    userUpdate.Avatar = imageURL;
+                    file.CopyToAsync(fileStream);
+                    fileStream.Close();
+                }
+
+            }
+
+
+
             //For Country
             if (CountryId == 0)
             {
@@ -524,7 +542,7 @@ namespace CIPlatformIntegration.Controllers
 
         }
 
-
+        
 
 
         //For City
@@ -571,6 +589,16 @@ namespace CIPlatformIntegration.Controllers
             {
                 return Json(new { success = false, message = "An error occurred while doing something." });
             }
+        }
+
+
+
+        public IActionResult PrivacyPolicy()
+        {
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
+
+            return View();
         }
     }
 }

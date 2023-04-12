@@ -1,0 +1,45 @@
+﻿body {
+    position: relative;
+    font-family: 'Noto Sans';
+}
+
+
+
+
+.nh4 {
+    margin-top: 0 !important;
+}
+
+h4 {
+    margin-top: 60px;
+}
+
+li {
+    list-style-type: none;
+    margin-top: 20px;
+}
+
+a {
+    color: gray;
+    text-decoration: none !important;
+}
+
+    a:hover {
+        color: black;
+    }
+
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1463px !important;
+    }
+}
+
+@media screen and (max-width: 810px) {
+    #section1,
+    #section2,
+    #section3,
+    #section4 {
+        margin-left: 150px;
+    }
+}

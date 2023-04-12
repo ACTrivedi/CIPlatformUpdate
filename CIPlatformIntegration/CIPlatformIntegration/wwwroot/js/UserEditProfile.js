@@ -135,7 +135,10 @@ function addToTextArea()
 
 
 $(document).ready(function () {
+    forProfile();
+
     forCity();
+    
     
 
     $("#ddlCountry li a").click(function () {
@@ -194,6 +197,27 @@ function forCity() {
 
 
 
+function forProfile() {
 
+    $("#myImage").click(function () {
+        // do something when image is clicked
+        
+       
+
+       
+
+               
+
+        
+               
+                
+            
+            
+        
+
+       
+    });
+
+}
 
 

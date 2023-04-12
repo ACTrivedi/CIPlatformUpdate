@@ -69,6 +69,7 @@ namespace CIPlatformIntegration.Controllers
 
                 HttpContext.Session.SetString("Loggedin", "True");
                 HttpContext.Session.SetString("profile", status.FirstName);
+                HttpContext.Session.SetString("profileEmail", status.Email);
 
                 return RedirectToAction("Homepage", "Home");
 
