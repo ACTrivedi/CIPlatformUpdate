@@ -10,12 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<CIDatabaseContext>(options => options.UseSqlServer(
+builder.Services.AddDbContext<CidatabaseContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefualtConnection")));
 
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<CIDatabaseContext>();
+    .AddEntityFrameworkStores<CidatabaseContext>();
 
 
 builder.Services.AddSession();

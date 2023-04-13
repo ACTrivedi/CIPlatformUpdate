@@ -6,13 +6,13 @@ using CIPlatformIntegration.Entities.Models;
 
 namespace CIPlatformIntegration.Entities.Data
 {
-    public partial class CIDatabaseContext : DbContext
+    public partial class CidatabaseContext : DbContext
     {
-        public CIDatabaseContext()
+        public CidatabaseContext()
         {
         }
 
-        public CIDatabaseContext(DbContextOptions<CIDatabaseContext> options)
+        public CidatabaseContext(DbContextOptions<CidatabaseContext> options)
             : base(options)
         {
         }
@@ -22,6 +22,7 @@ namespace CIPlatformIntegration.Entities.Data
         public virtual DbSet<City> Cities { get; set; } = null!;
         public virtual DbSet<CmsPage> CmsPages { get; set; } = null!;
         public virtual DbSet<Comment> Comments { get; set; } = null!;
+        public virtual DbSet<ContactU> ContactUs { get; set; } = null!;
         public virtual DbSet<Country> Countries { get; set; } = null!;
         public virtual DbSet<FavoriteMission> FavoriteMissions { get; set; } = null!;
         public virtual DbSet<GoalMission> GoalMissions { get; set; } = null!;
@@ -46,9 +47,7 @@ namespace CIPlatformIntegration.Entities.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefualtConnection");
                 optionsBuilder.UseSqlServer("Server=PCI234\\SQL2017;Initial Catalog=CIDatabase ;User ID=sa;Password=tatva123;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
-
             }
         }
 
@@ -61,9 +60,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.AdminId).HasColumnName("admin_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -101,9 +100,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.BannerId).HasColumnName("banner_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -136,9 +135,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.CountryId).HasColumnName("country_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -167,9 +166,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.CmsPageId).HasColumnName("cms_page_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -215,9 +214,9 @@ namespace CIPlatformIntegration.Entities.Data
                     .HasColumnName("comment_text");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -244,6 +243,34 @@ namespace CIPlatformIntegration.Entities.Data
                     .HasConstraintName("FK (user.user_id)");
             });
 
+            modelBuilder.Entity<ContactU>(entity =>
+            {
+                entity.HasKey(e => e.ContactUsId)
+                    .HasName("PK__contact___2DE2876E4C1F468B");
+
+                entity.ToTable("contact_us");
+
+                entity.Property(e => e.ContactUsId).HasColumnName("contact_us_id");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Message).HasColumnName("message");
+
+                entity.Property(e => e.Subject)
+                    .HasMaxLength(255)
+                    .HasColumnName("subject");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ContactUs)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_contact_us_user");
+            });
+
             modelBuilder.Entity<Country>(entity =>
             {
                 entity.ToTable("country");
@@ -251,9 +278,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.CountryId).HasColumnName("country_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -281,9 +308,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.FavoriteMissionId).HasColumnName("favorite_mission_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -317,9 +344,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.GoalMissionId).HasColumnName("goal_mission_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -391,6 +418,12 @@ namespace CIPlatformIntegration.Entities.Data
                     .IsUnicode(false)
                     .HasColumnName("organization_name");
 
+                entity.Property(e => e.RegistrationDeadline)
+                    .HasColumnType("datetime")
+                    .HasColumnName("registration_deadline");
+
+                entity.Property(e => e.SeatsLeft).HasColumnName("seats_left");
+
                 entity.Property(e => e.ShortDescription)
                     .HasColumnType("text")
                     .HasColumnName("short_description");
@@ -407,6 +440,8 @@ namespace CIPlatformIntegration.Entities.Data
                     .HasMaxLength(128)
                     .IsUnicode(false)
                     .HasColumnName("title");
+
+                entity.Property(e => e.TotalSeats).HasColumnName("total_seats");
 
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnType("datetime")
@@ -448,9 +483,9 @@ namespace CIPlatformIntegration.Entities.Data
                     .HasDefaultValueSql("('PENDING')");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -482,9 +517,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.MissionDocumentId).HasColumnName("mission_document_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -525,9 +560,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.MissionInviteId).HasColumnName("mission_invite_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -571,9 +606,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.MissionMediaId).HasColumnName("mission_media_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Default).HasColumnName("default");
 
@@ -616,9 +651,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.MissionRatingId).HasColumnName("mission_rating_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -654,9 +689,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.MissionSkillId).HasColumnName("mission_skill_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -689,9 +724,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.MissionThemeId).HasColumnName("mission_theme_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -718,9 +753,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(191)
@@ -740,9 +775,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.SkillId).HasColumnName("skill_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -769,9 +804,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.StoryId).HasColumnName("story_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -803,6 +838,8 @@ namespace CIPlatformIntegration.Entities.Data
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
+                entity.Property(e => e.Views).HasColumnName("views");
+
                 entity.HasOne(d => d.Mission)
                     .WithMany(p => p.Stories)
                     .HasForeignKey(d => d.MissionId)
@@ -823,9 +860,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.StoryInviteId).HasColumnName("story_invite_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -869,9 +906,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.StoryMedia).HasColumnName("story_media");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
@@ -908,9 +945,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.Action).HasColumnName("action");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DateVolunteered)
                     .HasColumnType("datetime")
@@ -956,6 +993,11 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.ToTable("user");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.Property(e => e.Availability)
+                    .HasMaxLength(16)
+                    .IsUnicode(false)
+                    .HasColumnName("availability");
 
                 entity.Property(e => e.Avatar)
                     .HasMaxLength(2048)
@@ -1005,6 +1047,11 @@ namespace CIPlatformIntegration.Entities.Data
                     .IsUnicode(false)
                     .HasColumnName("linked_in_url");
 
+                entity.Property(e => e.Manager)
+                    .HasMaxLength(16)
+                    .IsUnicode(false)
+                    .HasColumnName("manager");
+
                 entity.Property(e => e.Password)
                     .HasMaxLength(255)
                     .IsUnicode(false)
@@ -1041,9 +1088,9 @@ namespace CIPlatformIntegration.Entities.Data
                 entity.Property(e => e.UserSkillId).HasColumnName("user_skill_id");
 
                 entity.Property(e => e.CreatedAt)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("created_at");
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")

@@ -8,7 +8,7 @@ namespace CIPlatformIntegration.Entities.Models
         public long FavoriteMissionId { get; set; }
         public long UserId { get; set; }
         public long MissionId { get; set; }
-        public byte[] CreatedAt { get; set; } = null!;
+        public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
 

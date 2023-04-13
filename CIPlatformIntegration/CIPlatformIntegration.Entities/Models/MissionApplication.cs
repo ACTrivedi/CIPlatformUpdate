@@ -10,7 +10,7 @@ namespace CIPlatformIntegration.Entities.Models
         public long? UserId { get; set; }
         public DateTime? AppliedAt { get; set; }
         public string? ApprovalStatus { get; set; }
-        public byte[]? CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
 

@@ -11,9 +11,9 @@ namespace CIPlatformIntegration.Repository.Repository
 {
     public class UserRepository: IUserRepository
     {
-        private readonly CIDatabaseContext _cidatabaseContext;
+        private readonly CidatabaseContext _cidatabaseContext;
 
-        public UserRepository(CIDatabaseContext cidatabaseContext)
+        public UserRepository(CidatabaseContext cidatabaseContext)
         {
             _cidatabaseContext = cidatabaseContext;
         }

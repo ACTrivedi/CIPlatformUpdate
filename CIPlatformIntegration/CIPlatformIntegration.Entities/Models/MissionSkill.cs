@@ -8,7 +8,7 @@ namespace CIPlatformIntegration.Entities.Models
         public long MissionSkillId { get; set; }
         public long SkillId { get; set; }
         public long? MissionId { get; set; }
-        public byte[] CreatedAt { get; set; } = null!;
+        public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
 

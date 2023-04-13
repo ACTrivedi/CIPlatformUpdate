@@ -8,7 +8,7 @@ namespace CIPlatformIntegration.Entities.Models
     {
         public string Email { get; set; } = null!;
         public string Token { get; set; } = null!;
-        public byte[]? CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
         public int Id { get; set; }
 
         [NotMapped]
@@ -17,5 +17,6 @@ namespace CIPlatformIntegration.Entities.Models
         [NotMapped]
 
         public string Confirmpassword { get; set; }
+
     }
 }

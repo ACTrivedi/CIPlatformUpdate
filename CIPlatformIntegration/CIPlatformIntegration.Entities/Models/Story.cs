@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CIPlatformIntegration.Entities.Models
 {
@@ -16,20 +14,14 @@ namespace CIPlatformIntegration.Entities.Models
         public long StoryId { get; set; }
         public long UserId { get; set; }
         public long MissionId { get; set; }
-
-        
         public string? Title { get; set; }
-
-        
         public string? Description { get; set; }
         public string Status { get; set; } = null!;
+        public long? Views { get; set; }
         public DateTime? PublishedAt { get; set; }
-        public byte[] CreatedAt { get; set; } = null!;
+        public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
-
-        [NotMapped]
-        public int Views { get; set; }
 
         public virtual Mission Mission { get; set; } = null!;
         public virtual User User { get; set; } = null!;

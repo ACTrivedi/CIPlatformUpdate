@@ -10,6 +10,7 @@ namespace CIPlatformIntegration.Entities.Models
         public User()
         {
             Comments = new HashSet<Comment>();
+            ContactUs = new HashSet<ContactU>();
             FavoriteMissions = new HashSet<FavoriteMission>();
             MissionApplications = new HashSet<MissionApplication>();
             MissionInviteFromUsers = new HashSet<MissionInvite>();
@@ -23,13 +24,11 @@ namespace CIPlatformIntegration.Entities.Models
         }
 
         public long UserId { get; set; }
-
-        
-        
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string Email { get; set; } = null!;
         public string Password { get; set; } = null!;
+
 
         [NotMapped]
         [Required(ErrorMessage = "Confirm Password is required")]
@@ -40,6 +39,8 @@ namespace CIPlatformIntegration.Entities.Models
 
         public int PhoneNumber { get; set; }
         public string? Avatar { get; set; }
+        public string? Manager { get; set; }
+        public string? Availability { get; set; }
         public string? WhyIVolunteer { get; set; }
         public string? EmployeeId { get; set; }
         public string? Department { get; set; }
@@ -54,6 +55,7 @@ namespace CIPlatformIntegration.Entities.Models
         public DateTime? DeletedAt { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<ContactU> ContactUs { get; set; }
         public virtual ICollection<FavoriteMission> FavoriteMissions { get; set; }
         public virtual ICollection<MissionApplication> MissionApplications { get; set; }
         public virtual ICollection<MissionInvite> MissionInviteFromUsers { get; set; }

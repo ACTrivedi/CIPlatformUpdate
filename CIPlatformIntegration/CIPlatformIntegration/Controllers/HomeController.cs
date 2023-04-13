@@ -36,7 +36,7 @@ namespace CIPlatformIntegration.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUserRepository _userRepository;
-        CIDatabaseContext _cidatabaseContext = new CIDatabaseContext();
+        CidatabaseContext _cidatabaseContext = new CidatabaseContext();
 
 
         public HomeController(ILogger<HomeController> logger, IUserRepository repository)

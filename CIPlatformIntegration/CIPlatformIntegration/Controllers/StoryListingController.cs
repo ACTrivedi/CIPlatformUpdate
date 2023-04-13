@@ -13,10 +13,10 @@ namespace CIPlatformIntegration.Controllers
 
         private readonly ILogger<StoryListingController> _logger;
         //CIDatabaseContext _cidatabaseContext = new CIDatabaseContext();
-        private readonly CIDatabaseContext _cidatabaseContext;
+        private readonly CidatabaseContext _cidatabaseContext;
 
 
-        public StoryListingController(ILogger<StoryListingController> logger, CIDatabaseContext cIDatabaseContext)
+        public StoryListingController(ILogger<StoryListingController> logger, CidatabaseContext cIDatabaseContext)
         {
             _logger = logger;
             _cidatabaseContext = cIDatabaseContext;
@@ -332,7 +332,7 @@ namespace CIPlatformIntegration.Controllers
 
             StoryDetailViewModel storyDetailViewModel = new StoryDetailViewModel();
 
-            storyDetailViewModel.ViewCount = story.Views;
+            storyDetailViewModel.ViewCount = (int)story.Views;
 
 
 
@@ -441,7 +441,7 @@ namespace CIPlatformIntegration.Controllers
         }
 
         [HttpPost]
-        public IActionResult UserEditProfile(IFormFile file,string name, string surname, string employeeID, string manager, string title, string department, string profile, string linkedInUrl, string skillsAddition, string profileText, int CountryId, int CityId)
+        public IActionResult UserEditProfile(IFormFile file, string name, string surname, string employeeID, string manager, string title, string department, string profile, string linkedInUrl, string skillsAddition, string profileText, int CountryId, int CityId)
         {
 
             var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
@@ -542,7 +542,7 @@ namespace CIPlatformIntegration.Controllers
 
         }
 
-        
+
 
 
         //For City
@@ -550,7 +550,7 @@ namespace CIPlatformIntegration.Controllers
         public JsonResult GetCitiesByCountryId(int countryId)
         {
             var cities = _cidatabaseContext.Cities.Where(c => c.CountryId == countryId).ToList();
-           
+
             return Json(cities);
         }
 
@@ -560,9 +560,9 @@ namespace CIPlatformIntegration.Controllers
         {
 
             var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
-           
+
             var userUpdate = _cidatabaseContext.Users.Where(u => u.UserId == userIdForUserEdit).FirstOrDefault();
-            
+
 
             bool verified = BCrypt.Net.BCrypt.Verify(oldPassword, userUpdate.Password);
 
@@ -581,7 +581,7 @@ namespace CIPlatformIntegration.Controllers
 
                 }
                 else
-                { 
+                {
                     return Json(new { success = false, message = "Your password and confirm password doesn't matched." });
                 }
             }
@@ -599,6 +599,47 @@ namespace CIPlatformIntegration.Controllers
             ViewBag.profilename = HttpContext.Session.GetString("profile");
 
             return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult VolunteeringTimesheet()
+        {
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
+            
+            VolunteeringTimesheetViewModel volunteeringTimesheetViewModel= new VolunteeringTimesheetViewModel();
+
+            volunteeringTimesheetViewModel.missionsApplication = _cidatabaseContext.MissionApplications.Where(x => x.UserId == userIdForUserEdit).ToList();
+            volunteeringTimesheetViewModel.missions = _cidatabaseContext.Missions.ToList();
+            volunteeringTimesheetViewModel.timesheets = _cidatabaseContext.Timesheets.ToList();
+
+            return View(volunteeringTimesheetViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult VolunteeringTimesheet(int selectFromDropdown, string dateVolunteer, int hours, int minutes, string message)
+        {
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
+
+            Timesheet timesheet = new Timesheet();
+            timesheet.UserId = userIdForUserEdit;
+            timesheet.MissionId = selectFromDropdown;                        
+            timesheet.Notes = message;
+            var time = new TimeSpan(hours, minutes, 0);
+            timesheet.Time = time;
+            timesheet.DateVolunteered = Convert.ToDateTime(dateVolunteer);
+
+
+            _cidatabaseContext.Timesheets.Add(timesheet);
+            _cidatabaseContext.SaveChanges();
+
+            VolunteeringTimesheetViewModel volunteeringTimesheetViewModel = new VolunteeringTimesheetViewModel();
+
+            volunteeringTimesheetViewModel.timesheets= _cidatabaseContext.Timesheets.ToList();
+            
+            return RedirectToAction("VolunteeringTimesheet", "StoryListing");
         }
     }
 }

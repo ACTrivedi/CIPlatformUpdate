@@ -9,7 +9,7 @@ namespace CIPlatformIntegration.Entities.Models
         public string Image { get; set; } = null!;
         public string? Text { get; set; }
         public int? SortOrder { get; set; }
-        public byte[] CreatedAt { get; set; } = null!;
+        public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
     }

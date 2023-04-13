@@ -31,6 +31,9 @@ namespace CIPlatformIntegration.Entities.Models
         public DateTime? EndDate { get; set; }
         public string MissionType { get; set; } = null!;
         public int Status { get; set; }
+        public long? TotalSeats { get; set; }
+        public long? SeatsLeft { get; set; }
+        public DateTime? RegistrationDeadline { get; set; }
         public string? OrganizationName { get; set; }
         public string? OrganizationDetail { get; set; }
         public string? Availability { get; set; }
