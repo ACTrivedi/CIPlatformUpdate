@@ -612,28 +612,50 @@ namespace CIPlatformIntegration.Controllers
 
             volunteeringTimesheetViewModel.missionsApplication = _cidatabaseContext.MissionApplications.Where(x => x.UserId == userIdForUserEdit).ToList();
             volunteeringTimesheetViewModel.missions = _cidatabaseContext.Missions.ToList();
-            volunteeringTimesheetViewModel.timesheets = _cidatabaseContext.Timesheets.ToList();
+            volunteeringTimesheetViewModel.timesheets = _cidatabaseContext.Timesheets.Where(t => t.UserId == userIdForUserEdit).ToList();
 
             return View(volunteeringTimesheetViewModel);
         }
 
         [HttpPost]
-        public IActionResult VolunteeringTimesheet(int selectFromDropdown, string dateVolunteer, int hours, int minutes, string message)
+        public IActionResult VolunteeringTimesheet(int selectFromDropdown, string dateVolunteer, int hours, int minutes, string message,int timesheetCheckForTime)
         {
             var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
             ViewBag.profilename = HttpContext.Session.GetString("profile");
-
+            
             Timesheet timesheet = new Timesheet();
-            timesheet.UserId = userIdForUserEdit;
-            timesheet.MissionId = selectFromDropdown;                        
-            timesheet.Notes = message;
-            var time = new TimeSpan(hours, minutes, 0);
-            timesheet.Time = time;
-            timesheet.DateVolunteered = Convert.ToDateTime(dateVolunteer);
+            TimeSpan time;
+            if (timesheetCheckForTime != 0)
+            {
+                var timesheetCheckForTimeForUpdate = _cidatabaseContext.Timesheets.Where(t=> t.TimesheetId == timesheetCheckForTime).FirstOrDefault();
+
+                
+               /* timesheetCheckForTimeForUpdate.MissionId = selectFromDropdown;*/
+                timesheetCheckForTimeForUpdate.Notes = message;
+                time = new TimeSpan(hours, minutes, 0);
+                timesheetCheckForTimeForUpdate.Time = time;
+                timesheetCheckForTimeForUpdate.DateVolunteered = Convert.ToDateTime(dateVolunteer);
 
 
-            _cidatabaseContext.Timesheets.Add(timesheet);
-            _cidatabaseContext.SaveChanges();
+                _cidatabaseContext.Timesheets.Update(timesheetCheckForTimeForUpdate);
+                _cidatabaseContext.SaveChanges();
+
+            }
+
+            else
+            {
+                timesheet.UserId = userIdForUserEdit;
+                timesheet.MissionId = selectFromDropdown;
+                timesheet.Notes = message;
+                time = new TimeSpan(hours, minutes, 0);
+                timesheet.Time = time;
+                timesheet.DateVolunteered = Convert.ToDateTime(dateVolunteer);
+
+
+                _cidatabaseContext.Timesheets.Add(timesheet);
+                _cidatabaseContext.SaveChanges();
+            }
+                       
 
             VolunteeringTimesheetViewModel volunteeringTimesheetViewModel = new VolunteeringTimesheetViewModel();
 
@@ -641,5 +663,160 @@ namespace CIPlatformIntegration.Controllers
             
             return RedirectToAction("VolunteeringTimesheet", "StoryListing");
         }
+
+
+        [HttpPost]
+        public IActionResult VolunteeringTimesheetEdit(int selectedModelFromTimesheet, int timesheetCheckForTime)
+        {
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
+
+            Timesheet timesheet = new Timesheet();
+            
+            var selectedTimeModel=_cidatabaseContext.Timesheets.Where(t=>t.TimesheetId==selectedModelFromTimesheet).FirstOrDefault();
+            var missionTitle = _cidatabaseContext.Missions.FirstOrDefault(mt => mt.MissionId == selectedTimeModel.MissionId && mt.MissionType=="time").Title;
+            
+            var date= selectedTimeModel.DateVolunteered.ToShortDateString();
+            var timeData = selectedTimeModel.Time.ToString();
+            var timeArr = timeData.Split(':');
+            var hour = timeArr[0];
+            var minute = timeArr[1];
+            var message = selectedTimeModel.Notes;
+            var timesheetCheckForTime1 = selectedTimeModel.TimesheetId;
+
+            var data = new
+            {
+                missionTitle = missionTitle,
+                date = date,
+                hour = hour,
+                minute = minute,
+                message = message,
+                timesheetCheckForTime1= timesheetCheckForTime1,
+            };
+
+            return Json(data);
+        }
+
+
+        [HttpPost]
+        public IActionResult VolunteeringTimesheetDelete(int selectedModelFromTimesheet, int timesheetCheckForTime)
+        {
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
+
+            Timesheet timesheet = new Timesheet();
+
+            var selectedTimeModel = _cidatabaseContext.Timesheets.Where(t => t.TimesheetId == selectedModelFromTimesheet).FirstOrDefault();
+
+            _cidatabaseContext.Timesheets.Remove(selectedTimeModel);
+            _cidatabaseContext.SaveChanges();
+
+            return RedirectToAction("VolunteeringTimesheet", "StoryListing");
+        }
+
+
+
+
+
+
+        //------------ For Goalbase-------------
+
+        [HttpPost]
+        public IActionResult VolunteeringTimesheetGoal(int selectedMissionIdGoal, int action, string dateVolunteerGoal, string messageGoal, int timesheetCheckForGoal)
+        {
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
+
+            Timesheet timesheet = new Timesheet();
+            TimeSpan time;
+            if (timesheetCheckForGoal != 0)
+            {
+                var timesheetCheckForGoalForUpdate = _cidatabaseContext.Timesheets.Where(t => t.TimesheetId == timesheetCheckForGoal).FirstOrDefault();
+
+
+                /* timesheetCheckForTimeForUpdate.MissionId = selectFromDropdown;*/
+                timesheetCheckForGoalForUpdate.Notes = messageGoal;
+             
+                timesheetCheckForGoalForUpdate.DateVolunteered = Convert.ToDateTime(dateVolunteerGoal);
+
+
+                _cidatabaseContext.Timesheets.Update(timesheetCheckForGoalForUpdate);
+                _cidatabaseContext.SaveChanges();
+
+            }
+
+            else
+            {
+                timesheet.UserId = userIdForUserEdit;
+                timesheet.MissionId = selectedMissionIdGoal;
+                timesheet.Notes = messageGoal;
+              
+                
+                timesheet.DateVolunteered = Convert.ToDateTime(dateVolunteerGoal); //Till here
+
+
+                _cidatabaseContext.Timesheets.Add(timesheet);
+                _cidatabaseContext.SaveChanges();
+            }
+
+
+            VolunteeringTimesheetViewModel volunteeringTimesheetViewModel = new VolunteeringTimesheetViewModel();
+
+            volunteeringTimesheetViewModel.timesheets = _cidatabaseContext.Timesheets.ToList();
+
+            return RedirectToAction("VolunteeringTimesheet", "StoryListing");
+        }
+
+
+        [HttpPost]
+        public IActionResult VolunteeringTimesheetGoalEdit(int selectedModelFromTimesheet, int timesheetCheckForTime)
+        {
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
+
+            Timesheet timesheet = new Timesheet();
+
+            var selectedTimeModel = _cidatabaseContext.Timesheets.Where(t => t.TimesheetId == selectedModelFromTimesheet).FirstOrDefault();
+            var missionTitle = _cidatabaseContext.Missions.FirstOrDefault(mt => mt.MissionId == selectedTimeModel.MissionId && mt.MissionType == "time").Title;
+
+            var date = selectedTimeModel.DateVolunteered.ToShortDateString();
+            var timeData = selectedTimeModel.Time.ToString();
+            var timeArr = timeData.Split(':');
+            var hour = timeArr[0];
+            var minute = timeArr[1];
+            var message = selectedTimeModel.Notes;
+            var timesheetCheckForTime1 = selectedTimeModel.TimesheetId;
+
+            var data = new
+            {
+                missionTitle = missionTitle,
+                date = date,
+                hour = hour,
+                minute = minute,
+                message = message,
+                timesheetCheckForTime1 = timesheetCheckForTime1,
+            };
+
+            return Json(data);
+        }
+
+
+        [HttpPost]
+        public IActionResult VolunteeringTimesheetGoalDelete(int selectedModelFromTimesheet, int timesheetCheckForTime)
+        {
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+            ViewBag.profilename = HttpContext.Session.GetString("profile");
+
+            Timesheet timesheet = new Timesheet();
+
+            var selectedTimeModel = _cidatabaseContext.Timesheets.Where(t => t.TimesheetId == selectedModelFromTimesheet).FirstOrDefault();
+
+            _cidatabaseContext.Timesheets.Remove(selectedTimeModel);
+            _cidatabaseContext.SaveChanges();
+
+            return RedirectToAction("VolunteeringTimesheet", "StoryListing");
+        }
+
+
     }
 }

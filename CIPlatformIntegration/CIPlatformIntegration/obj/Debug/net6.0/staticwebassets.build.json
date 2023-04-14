@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ju9hR6SSvcYtigeiqdiXmvGuMJFTkqlvpvnTYiGSiOI=",
+  "Hash": "6NSeT4QMDGQnBZ6Wv6QMPnHf00wnnCVl/ZneRPqlLb4=",
   "Source": "CIPlatformIntegration",
   "BasePath": "_content/CIPlatformIntegration",
   "Mode": "Default",
@@ -1375,6 +1375,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\UserEditProfile.js"
+    },
+    {
+      "Identity": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\js\\VolunteeringTimesheet.js",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "js/VolunteeringTimesheet.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\VolunteeringTimesheet.js"
     },
     {
       "Identity": "D:\\CIPlatformInt\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\js\\VolunteerMissionPage.js",

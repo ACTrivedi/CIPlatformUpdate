@@ -13,7 +13,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  
+
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -284,13 +284,13 @@
 
 
 
-                            <button class="btn border border-secondary w-100 rounded-pill divclass col-lg-6 col-md-6 col-sm-12" data-toggle="modal" data-target="#exampleModalCenter">
+                            <button class="btn border border-secondary w-100 rounded-pill divclass col-lg-6 col-md-6 col-sm-12" data-toggle="modal" data-target="#exampleModalCenterVol">
                                 <img src="~/images/add1.png" />
                                 Recommend a to co-worker
                             </button>
 
                             <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal fade" id="exampleModalCenterVol" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content" style="overflow-x: hidden;height: 65vh;">
                                         <div class="modal-header">
@@ -317,7 +317,7 @@
 
                                         }
 
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -336,7 +336,7 @@
                                 @{
                                     var useridcheckforrating = (long)ViewData["useridcheck"];
                                     var counter = 0;
-                                    var j=1;
+                                    var j = 1;
                                     var k = 1;
 
 
@@ -346,13 +346,13 @@
                                         {
                                             var rating = modeldetail.MissionRatings.Where(m => m.MissionId == modeldetail.MissionId && m.UserId == useridcheckforrating).First();
                                             var ratingnumber = rating.Rating;
-                                            for ( j = 1; j <= ratingnumber; j++)
+                                            for (j = 1; j <= ratingnumber; j++)
                                             {
                                                 <i class="ratingStar fas fa-star" style="font-size:25px" data-value="@j"></i>
                                             }
 
 
-                                            for ( k = j; k <= 5; k++)
+                                            for (k = j; k <= 5; k++)
                                             {
                                                 <i class="ratingStar far fa-star" style="font-size:25px" data-value="@k"></i>
                                             }
@@ -548,7 +548,7 @@
 
                                     <form method="post" id="comment-form">
 
-                                        <textarea class="form-control" placeholder="Enter your comments" rows="4" id="commentdata"></textarea>
+                                        <textarea class="form-control" required placeholder="Enter your comments" rows="4" id="commentdata"></textarea>
 
                                     </form>
 
@@ -796,165 +796,182 @@
 
 
     <script type="text/javascript">
-        console.log("@ViewBag.Avgratingview");
+                console.log("@ViewBag.Avgratingview");
 
 
-        $(".ratingStar").hover(function () {
-           $(".ratingStar").addClass("far").removeClass("fas");
+                $(".ratingStar").hover(function () {
+                   $(".ratingStar").addClass("far").removeClass("fas");
 
 
-          $(this).addClass("fas").removeClass("far");
-           $(this).prevAll('.ratingStar').addClass("fas").removeClass("far");
+                  $(this).addClass("fas").removeClass("far");
+                   $(this).prevAll('.ratingStar').addClass("fas").removeClass("far");
 
-        });
-
-
-        $(".ratingStar").click(function () {
-
-            var starValue = $(this).attr('data-value');
+                });
 
 
-            $.ajax({
-                url: '/Home/StarRating',
-                type: 'POST',
-                data: {
-                    s: starValue
-                },
-                success: function () {
-                    alert("You gave rating=" + starValue);
+                $(".ratingStar").click(function () {
+
+                    var starValue = $(this).attr('data-value');
 
 
-                    location.reload();
+                    $.ajax({
+                        url: '/Home/StarRating',
+                        type: 'POST',
+                        data: {
+                            s: starValue
+                        },
+                        success: function () {
+                            alert("You gave rating=" + starValue);
 
-                },
-                error: function () {
-                    alert("error");
-                }
-            });
 
+                            location.reload();
 
-
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    });
 
 
 
 
 
-            $("#ratingsValue").val(starValue);
-        });
+
+
+
+                    $("#ratingsValue").val(starValue);
+                });
 
 
 
 
-        function getComment() {
-            alert("Hey, Thankyou for Commenting!");
-            var formData = $('#commentdata').val();
-            $.ajax({
-                url: '/Home/Createcomment',
-                type: 'POST',
-                data: { "formData": formData },
-                success: function (result) {
-                    location.reload();
-                },
-                error: function (error) {
-                    alert("Error");
-                }
-
-            });
-        }
-
-
-
-        function addtofav(missionid){
-
-
-
-
-            var missionID = missionid;
-            $.ajax({
-                url: '/Home/Toggle',
-                type: 'POST',
-                data: { "missionID": missionID },
-                success: function (result) {
+                function getComment() {
                    
-
-                     Swal.fire({
-                      title: 'Favourites',
-                      icon: 'success',
-                      timer: 2000,
-                       showConfirmButton: false,
-                     
-                    })
-
-                    setTimeout(function () {
+                    var formData = $('#commentdata').val();
                     
-                    location.reload(true);
-                  }, 2000);
+                    if(formData.length==0)
+                    {
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Oops...',
+                          text: 'Please enter something!!',
+                          
+                        })
+                    }
+                    else
+                    {
+                         alert("Hey, Thankyou for Commenting!");
+                          $.ajax({
+                        url: '/Home/Createcomment',
+                        type: 'POST',
+                        data: { "formData": formData },
+                        success: function (result) {
+                            location.reload();
+                        },
+                        error: function (error) {
+                            alert("Error");
+                        }
 
-                     //location.reload();
-                },
-                error: function (error) {
-                    alert("Error");
-                }
+                    });
+                    
+                    }
 
-            });
-
-        }
-
-
-
-        $('.send').on('click',function(){
-
-        console.log($(this).val());
-        var userEmail=$(this).val();
-            $.ajax({
-                url: '/Home/Recommendtoworker',
-                type: 'POST',
-                data: { "userEmail" :userEmail },
-                success: function (result) {
-                   alert("success");
-                },
-                error: function (error) {
-                    alert("Error");
-                }
-
-            });
-
-
-
-        })
-
-
-
-         function ApplyForMission() {
-       
-
-            $.ajax({
-                url: '/Home/ApplyForMission',
-                type: 'POST',
-
-                success: function (result) {
                    
-
-                    Swal.fire({
-                      title: 'Thanks!! For Applying.',
-                      icon: 'success',
-                      timer: 2000,
-                       showConfirmButton: false,
-                     
-                    })
-
-                    setTimeout(function () {
-                    
-                    location.reload(true);
-                  }, 2000);
-
-                },
-                error: function (error) {
-                    alert("Error");
                 }
 
-            });
-        }
+
+
+                function addtofav(missionid){
+
+
+
+
+                    var missionID = missionid;
+                    $.ajax({
+                        url: '/Home/Toggle',
+                        type: 'POST',
+                        data: { "missionID": missionID },
+                        success: function (result) {
+
+
+                             Swal.fire({
+                              title: 'Favourites',
+                              icon: 'success',
+                              timer: 2000,
+                               showConfirmButton: false,
+
+                            })
+
+                            setTimeout(function () {
+
+                            location.reload(true);
+                          }, 2000);
+
+                             //location.reload();
+                        },
+                        error: function (error) {
+                            alert("Error");
+                        }
+
+                    });
+
+                }
+
+
+
+                $('.send').on('click',function(){
+
+                console.log($(this).val());
+                var userEmail=$(this).val();
+                    $.ajax({
+                        url: '/Home/Recommendtoworker',
+                        type: 'POST',
+                        data: { "userEmail" :userEmail },
+                        success: function (result) {
+                           alert("success");
+                        },
+                        error: function (error) {
+                            alert("Error");
+                        }
+
+                    });
+
+
+
+                })
+
+
+
+                 function ApplyForMission() {
+
+
+                    $.ajax({
+                        url: '/Home/ApplyForMission',
+                        type: 'POST',
+
+                        success: function (result) {
+
+
+                            Swal.fire({
+                              title: 'Thanks!! For Applying.',
+                              icon: 'success',
+                              timer: 2000,
+                               showConfirmButton: false,
+
+                            })
+
+                            setTimeout(function () {
+
+                            location.reload(true);
+                          }, 2000);
+
+                        },
+                        error: function (error) {
+                            alert("Error");
+                        }
+
+                    });
+                }
 
 
 

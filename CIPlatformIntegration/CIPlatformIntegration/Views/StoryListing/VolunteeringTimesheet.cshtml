@@ -10,6 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -48,37 +50,37 @@
                     <h5>Volunteering Hours</h5>
 
 
-
-
-
-
                     <div><button type="button" class="btn btn-outline-warning rounded-pill button" data-toggle="modal" data-target="#exampleModalCenter2"><i id="plusButton" class="fa-regular fa-plus mr-1"></i> Add</button></div>
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
-                              <form class="row g-5" method="post" action="VolunteeringTimesheet">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Please input below Volunteering Hours</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                                                                                                      
+                            <form class="row g-5" method="post" action="VolunteeringTimesheet">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Please input below Volunteering Hours</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+
                                             @{
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
 
                                                     <label for="inputState" class="form-label">Select Mission</label>
-                                                    <select id="inputState" class="form-select" required name="selectFromDropdown" onchange="">
+                                                    <select class="form-select" required name="selectFromDropdown">
 
                                                         <option class="drop-value" value="Select Mission" name="selectedMissionId">Select Mission</option>
 
                                                         @foreach (var i in Model.missionsApplication)
                                                         {
-                                                            <option class="drop-value" value="@i.MissionId">@i.Mission.Title</option>
+                                                            if (@i.Mission.MissionType == "time")
+                                                            {
+                                                                  <option class="drop-value" value="@i.MissionId">@i.Mission.Title</option>
+                                                            }
+                                                          
                                                         }
 
                                                     </select>
@@ -88,45 +90,41 @@
                                             <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
 
                                                 <label for="inputState" class="form-label">Date Volunteered</label>
-                                                <input required type="date" class="form-control" placeholder="Select Date" id="" name="dateVolunteer">
+                                                <input required type="date" class="form-control" placeholder="Select Date" name="dateVolunteer">
 
                                             </div>
 
                                             <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
                                                 <label for="inputState" class="form-label mb-0">Hours</label>
-                                                <input type="text" class="form-control" placeholder="Hours" id="" name="hours">
+                                                <input type="text" class="form-control" placeholder="Hours" name="hours">
                                             </div>
 
                                             <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
                                                 <label for="inputState" class="form-label mb-0">Minutes</label>
-                                                <input type="text" class="form-control" placeholder="Minutes" id="" name="minutes">
+                                                <input type="text" class="form-control" placeholder="Minutes" name="minutes">
                                             </div>
 
                                             <label for="inputState" class="form-label mb-0 mt-3">Message</label>
-                                            <input type="text" class="form-control" placeholder="Enter your Message" id="" name="message">
-                                                                                                                          
+                                            <input type="text" class="form-control" placeholder="Enter your Message" name="message">
+
+
+                                        </div>
 
 
                                     </div>
+                                    <div class="modal-footer">
 
+                                        <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-dismiss="modal">Cancel</button>
 
+                                        <input type="submit" class=" btn btn-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px; border-color:black !important;" value="Submit" />
+
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
 
-                                    <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-dismiss="modal">Cancel</button>
-
-                                     <input id="disabled"  type="submit" class=" btn btn-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px; border-color:black !important;" value="Submit" />
-
-                                </div>
-                            </div>
-
-                             </form>
+                            </form>
                         </div>
                     </div>
-
-
                 </div>
-
 
                 <table class="table" id="timetble">
                     <thead>
@@ -137,34 +135,114 @@
                             <th scope="col">Hours</th>
                             <th scope="col">Minutes</th>
                             <th scope="col"></th>
-
-
+                            <th scope="col"></th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
 
-                            <td>Envirenment Conservation</td>
-                            <td>22/02/2022</td>
-                            <td>1h</td>
-                            <td>30min</td>
-                            <td><span><i class="fa-sharp fa-solid fa-pen-to-square" style="color: #000000;"></i></span> &nbsp; &nbsp;  <span><i class="fa-sharp fa-solid fa-trash"></i></span></td>
+                        @{
+                            foreach (var i in Model.timesheets)
+                            {
+                                <tr>
 
-                        </tr>
-                        <tr>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>fat</td>
-                        </tr>
+                                    <td>@i.Mission.Title</td>
+                                    <td>@i.DateVolunteered.ToShortDateString()</td>
+                                    <td>@i.Time.ToString().Substring(0,2)</td>
+                                    <td>
+                                        @{
+                                            @i.Time.ToString().Substring(3,3)
+                                        }<span>min</span>
+                                    </td>
+                                    <td class="edit" id="@i.TimesheetId"><span><i class="fa-sharp fa-solid fa-pen-to-square " style="color: #000000;" type="button" data-toggle="modal" data-target="#exampleModalCenterEdit"></i></span> </td>
+                                     <td class="delete" id="@i.TimesheetId"><i class="fa-sharp fa-solid fa-trash" style="cursor:pointer"></i></td> 
+                                </tr>
+
+                            }
+                        }
 
                     </tbody>
                 </table>
+
+                <!-- Modal for Edit -->
+                <div class="modal fade" id="exampleModalCenterEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <form class="row g-5" method="post" action="VolunteeringTimesheet">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Please input below Volunteering Hours</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+
+                                        @{
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                                <label for="inputState" class="form-label">Select Mission</label>
+                                                <select id="mission" class="form-select" required name="selectFromDropdown" onchange="">
+
+                                                    <option class="drop-value" value="Select Mission" name="selectedMissionId">Select Mission</option>
+
+                                                   
+                                                    @foreach (var i in Model.missionsApplication)
+                                                        {
+                                                            if (@i.Mission.MissionType == "time")
+                                                            {
+                                                                  <option class="drop-value" value="@i.MissionId">@i.Mission.Title</option>
+                                                            }
+                                                          
+                                                        }
+
+                                                </select>
+                                            </div>
+                                        }
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+
+                                            <label for="inputState" class="form-label">Date Volunteered</label>
+                                            <input required type="date" class="form-control" placeholder="Select Date" id="date" name="dateVolunteer">
+
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
+                                            <label for="inputState" class="form-label mb-0">Hours</label>
+                                            <input type="text" class="form-control" placeholder="Hours" id="hours" name="hours">
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
+                                            <label for="inputState" class="form-label mb-0">Minutes</label>
+                                            <input type="text" class="form-control" placeholder="Minutes" id="minute" name="minutes">
+                                        </div>
+
+                                        <label for="inputState" class="form-label mb-0 mt-3">Message</label>
+                                        <input type="text" class="form-control" placeholder="Enter your Message" id="message" name="message">
+
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-dismiss="modal">Cancel</button>
+
+                                    <input type="submit" class=" btn btn-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px; border-color:black !important;" value="Submit" />
+
+                                </div>
+                            </div>
+
+                            <input type="text" id="timesheetCheckForTime" name="timesheetCheckForTime" />
+
+                        </form>
+                    </div>
+                </div>
+
             </div>
 
 
 
-
+                    @*-----------------------------------------------------------------------Volunteering Goals-------------------------------------------------------------------------------------*@
 
 
 
@@ -173,9 +251,97 @@
                 <div class="d-flex justify-content-between mt-5 mb-3">
                     <h5>Volunteering Goals</h5>
 
-                    <div><button type="button" class="btn btn-outline-warning rounded-pill button"><i id="plusButton" class="fa-regular fa-plus mr-1"></i> Add</button></div>
-                </div>
 
+
+                      <div><button type="button" class="btn btn-outline-warning rounded-pill button" data-toggle="modal" data-target="#exampleModalCenterGoal"><i id="plusButton" class="fa-regular fa-plus mr-1"></i> Add</button></div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenterGoal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <form class="row g-5" method="post" action="VolunteeringTimesheetGoal">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Please input below Volunteering Goals</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+
+                                            @{
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                                    <label for="inputState" class="form-label">Select Mission</label>
+                                                    <select class="form-select" required name="selectFromDropdown">
+
+                                                        <option class="drop-value" value="Select Mission" name="selectedMissionIdGoal">Select Mission</option>
+
+                                                        
+                                                        @foreach (var i in Model.missionsApplication)
+                                                        {
+                                                            if (@i.Mission.MissionType == "goal")
+                                                            {
+                                                                  <option class="drop-value" value="@i.MissionId">@i.Mission.Title</option>
+                                                            }
+                                                          
+                                                        }
+
+                                                    </select>
+                                                </div>
+                                            }
+
+                                            
+
+                                            <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+                                                <label for="inputState" class="form-label mb-0">Actions</label>
+                                                <input type="text" class="form-control" placeholder="Actions" name="action">
+                                            </div>
+
+                                             <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+
+                                                <label for="inputState" class="form-label">Date Volunteered</label>
+                                                <input required type="date" class="form-control" placeholder="Select Date" name="dateVolunteerGoal">
+
+                                            </div>
+
+                                            <label for="inputState" class="form-label mb-0 mt-3">Message</label>
+                                            <input type="text" class="form-control" placeholder="Enter your Message" name="messageGoal">
+
+
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-dismiss="modal">Cancel</button>
+
+                                        <input type="submit" class=" btn btn-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px; border-color:black !important;" value="Submit" />
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
 
                 <table class="table" id="timetble">
                     <thead>
@@ -225,8 +391,17 @@
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
-        $('#timetble').DataTable();
+
+
+        $('#timetble').dataTable({
+             scrollY: '300px',
+                 scrollCollapse: true,
+                 paging: false,
+         });
 
     </script>
+
+    <script src="~/js/VolunteeringTimesheet.js"></script>
+
 </body>
 </html>
