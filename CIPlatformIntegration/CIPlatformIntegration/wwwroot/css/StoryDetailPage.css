@@ -128,3 +128,19 @@
     /* height:460px;*/
 }
 
+@media(max-width:790px) {
+
+
+    #RecommendOpenButtons {
+        flex-direction:column;
+        gap:15px;
+        
+    }
+
+    .footer {
+        margin-inline:12px;
+    }
+    
+
+}
+

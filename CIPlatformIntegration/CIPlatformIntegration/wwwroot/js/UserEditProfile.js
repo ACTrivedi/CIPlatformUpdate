@@ -1,5 +1,39 @@
 ﻿/*const { Alert } = require("../lib/bootstrap/dist/js/bootstrap.bundle");*/
 
+// A $( document ).ready() block.
+$(document).ready(function () {
+    console.log("ready!");
+$('#country').on('change', function () {
+   
+    $.ajax({
+        type: 'POST',
+        dataType: "JSON",
+        url: '/StoryListing/GetCitiesByCountryId',
+        data: {
+
+            Country_id: $('#country').val()
+        },
+        success:
+            function (res) {
+                console.log(res);
+                $(".city-drop").empty();
+                for (var i = 0; i < res.length; i++) {
+                    console.log(res[i]);
+                    $('.city-drop').append(`<option value="${res[i].cityId}">${res[i].name}</option>`);
+                }
+                $('.city-drop').removeAttr("disabled");
+                $('.city-alert').hide();
+            },
+        failure:
+            function () {
+
+            }
+    });
+});
+});
+
+
+
 
 $(function () {
 
@@ -134,90 +168,65 @@ function addToTextArea()
 
 
 
-$(document).ready(function () {
-    forProfile();
 
-    forCity();
+
+
+//$(document).ready(function () {
+  
+
+//    forCity();
     
-    
+               
 
-    $("#ddlCountry li a").click(function () {
-    
-            var countryId = $(this).data("country-id");
-           
-            $("#hdnCountryId").val(countryId); //To set the country id
+//           // $("#hdnCountryId").val(countryId); //To set the country id
 
-            var countryName = $(this).text();
-            console.log(countryId);
-            console.log(countryName);
+//           // $("#dropdownCountry").text(countryName);
 
 
-            $("#dropdownCountry").text(countryName);
-            $.ajax({
-                type: "POST",
-                dataType : "JSON",
-                url: '/StoryListing/GetCitiesByCountryId',
-                data: { countryId: countryId },
-                success: function (cities) {
-                    console.log(cities);                                      
+
+//            $.ajax({
+//                type: "POST",
+//                dataType : "JSON",
+//                url: '/StoryListing/GetCitiesByCountryId',
+//                data: { countryId: countryId },
+//                success: function (cities) {
+//                    console.log(cities);                                      
                     
-                    var citiesSelect = $("#ddlCity");
-                    citiesSelect.html('');
-                    citiesSelect.append($('<option></option>').val('').html('Select your city'));
+//                    var citiesSelect = $("#ddlCity");
+//                    citiesSelect.html('');
+//                    citiesSelect.append($('<option></option>').val('').html('Select your city'));
                    
                     
-                    $.each(cities, function (i, city) {
-                        console.log(city)
-                        citiesSelect.append($('<option></option>').val(city.cityId).html(city.name));
-                    });
+//                    $.each(cities, function (i, city) {
+//                        console.log(city)
+//                        citiesSelect.append($('<option></option>').val(city.cityId).html(city.name));
+//                    });
                    
-                }
-            });
-        });
+//                }
+//            });
+       
 
 
    
 
-});
+//});
 
-function forCity() {
+//function forCity() {
 
-    $("#ddlCity").change(function () {
+//    $("#ddlCity").change(function () {
         
-        var cityId = $(this).val();
+//        var cityId = $(this).val();
 
-        $("#hdnCityId").val(cityId); //To set the city id
+//        $("#hdnCityId").val(cityId); //To set the city id
 
-        var cityName = $(this).find("option:selected").text();
-        console.log("Selected city ID: " + cityId);
-        console.log("Selected city name: " + cityName);
-    });
+//        var cityName = $(this).find("option:selected").text();
+//        console.log("Selected city ID: " + cityId);
+//        console.log("Selected city name: " + cityName);
+//    });
        
-}
+//}
 
 
 
-function forProfile() {
-
-    $("#myImage").click(function () {
-        // do something when image is clicked
-        
-       
-
-       
-
-               
-
-        
-               
-                
-            
-            
-        
-
-       
-    });
-
-}
 
 

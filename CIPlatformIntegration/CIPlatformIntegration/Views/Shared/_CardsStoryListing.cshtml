@@ -31,7 +31,7 @@
                         @{
                             foreach (var item in storyMedium as IEnumerable<StoryMedium>)
                             {
-                                if (@item.StoryId == @i.StoryId)
+                                if (@item.StoryId == @i.StoryId && @item.Type!="URL")
                                 {
                                     <img style="position:relative;height:23vh;" src="@item.Path" class="card-img-top" alt="...">
                                      break;

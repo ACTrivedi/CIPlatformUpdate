@@ -55,11 +55,27 @@
                     @{
                         foreach (var i in Model.storyMedia)
                         {
-                            <!-- Full-width images with number text -->
-                            <div class="mySlides">
+                            if (i.Type == "URL")
+                            {
 
-                                <img class="displayimage" src="@i.Path" style="width:100%; ">
-                            </div>
+                                <div class="mySlides">
+
+                                    <iframe style="width:100%; min-height:450px"
+                                    src='@i.Path.Replace("watch?v=", "embed/")'>
+                                    </iframe>
+                                </div>
+
+                            }
+                            else
+                            {
+
+                                <!-- Full-width images with number text -->
+                                <div class="mySlides">
+
+                                    <img class="displayimage" src="@i.Path" style="width:100%; ">
+                                </div>
+
+                            }
 
                         }
                     }
@@ -87,10 +103,25 @@
                             var count = 0;
                             foreach (var i in Model.storyMedia)
                             {
-                                count++;
-                                <div class="column pr-0">
-                                    <img class="demo cursor" src="@i.Path" style="width:100%" onclick="currentSlide(@count)" alt="The Woods">
-                                </div>
+                                if (i.Type == "URL")
+                                {
+                                    count++;
+
+                                    <div class="column pr-0">
+                                        <iframe class="demo cursor" src="@i.Path.Replace("watch?v=", "embed/")" style="width:100%; height:7vh;" onclick="currentSlide(@count)" alt="The Woods"> </iframe>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    count++;
+                                    <div class="column pr-0">
+                                        <img class="demo cursor" src="@i.Path" style="width:100%" onclick="currentSlide(@count)" alt="The Woods">
+                                    </div>
+
+                                }
+
+
 
                             }
                         }
@@ -117,8 +148,19 @@
                             </div>
 
 
-                            <div class="rounded-pill" style="border:1px solid; padding-left:10px; padding-right:10px">
-                                <i class="fa fa-eye" aria-hidden="true"></i>&nbsp; 18 Views
+                            <div id="Views" class="rounded-pill" style="border:1px solid; padding-left:10px; padding-right:10px">
+                                <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;
+
+                                @{
+                                    foreach (var i in Model.Stories)
+                                    {
+                                        @i.Views
+                                    }
+
+                                }
+
+
+                                 Views
                             </div>
 
                         </div>
@@ -136,11 +178,11 @@
                         }
                     </p>
 
-                    <div class="d-flex pt-3 justify-content-evenly">
+                    <div class="d-flex pt-3 justify-content-evenly" id="RecommendOpenButtons">
 
 
 
-                        <button class="btn border border-secondary w-100 rounded-pill divclass col-lg-6 col-md-6 col-sm-12" data-toggle="modal" data-target="#exampleModalCenterDetail">
+                        <button  class="btn border border-secondary w-100 rounded-pill divclass col-lg-6 col-md-6 col-sm-12" data-toggle="modal" data-target="#exampleModalCenterDetail">
                             <img src="~/images/add1.png" />
                             Recommend a to co-worker
                         </button>
@@ -199,7 +241,7 @@
         </div>
 
 
-        <div class=" mt-5">
+        <div class="mt-5 footer">
             <h2>
                 @{
                     foreach (var i in @Model.Missions)

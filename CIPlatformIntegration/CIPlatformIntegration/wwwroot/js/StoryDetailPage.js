@@ -32,20 +32,24 @@ function showSlides(n) {
 }
 
 
-// For Views
-  // static count = 0;
+ //For Views
+ 
 $(document).ready(function () {
-        
-        count++;
+   
         $.ajax({
-            
+            type: "POST",
+           
             url: '/StoryListing/IncrementViewCount',
-            data: count,
+            
             success: function (data) {
                 
-                alert(data);
+                console.log(data);
 
-                   /* $('#viewCount').text(viewCount);*/
+
+               
+                $("#Views").add();
+
+                   
             }
         });
     });

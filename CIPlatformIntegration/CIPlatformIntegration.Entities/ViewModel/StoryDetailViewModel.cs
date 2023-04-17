@@ -19,6 +19,6 @@ namespace CIPlatformIntegration.Entities.ViewModel
 
         public List<User> recommendUser { get; set; }
 
-        public int ViewCount { get; set; }
+       
     }
 }

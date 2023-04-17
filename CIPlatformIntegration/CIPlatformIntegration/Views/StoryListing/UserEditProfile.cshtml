@@ -85,7 +85,7 @@
                                         <input type="submit" value="Upload" />
                                         @ViewBag.Message
                                     </div>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -95,12 +95,12 @@
                         <div class="mt-3">
 
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
+                            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenterPassword">
                                 Change Password
                             </button>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal fade" id="exampleModalCenterPassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -224,82 +224,32 @@
 
 
 
-
-                    <div class="row gy-3">
-
-                        <div class="col-lg-6">
-
-                            <label for="inputState" class="form-label">Country</label>
-
-
-                            <div class="dropdown-center">
-                                <button id="dropdownCountry" class="col-lg-12 btn dropdown-toggle" style="text-align:left; color:gray; border: 1px solid #ced4da;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    @*Select your Country*@
-
-                                    @{
-
-                                        foreach (var i in Model.countries)
-                                        {
-                                            if (i.CountryId == Model.IndividualUser.CountryId)
-                                            {
-                                                @i.Name
-                                                ;
-                                            }
-                                            else
-                                            {
-                                                continue;
-                                            }
-
-                                        }
+                     <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label>Country</label>
+                                <select class="form-select" name="countryid" id="country"  aria-label="Default select example">
+                                   <option value="@Model.IndividualUser.CountryId" selected>@Model.countries.Where(c=>c.CountryId==Model.IndividualUser.CountryId).Select(c=>c.Name).FirstOrDefault()</option>
+                                    @foreach (var item in Model.countries)
+                                    {
+                                        <option value="@item.CountryId">@item.Name</option>
                                     }
-
-
-                                </button>
-                                @*   <div class="row">
-                                    </div>
-                                    <div class="col-lg-2">
-                                    </div>*@
-
-                                <ul id="ddlCountry" class=" dropdown-menu  dropdown-menu-end">
-
-
-
-                                    @{
-                                        foreach (var i in Model.countries)
-                                        {
-                                            <li><a class="dropdown-item" data-country-id="@i.CountryId">@i.Name</a></li>
-
-                                        }
-                                    }
-
-
-                                </ul>
-
-
+                                </select>
                             </div>
-
                         </div>
-
-
-
-                        <div class="col-lg-6">
-
-                            <label for="inputState" class="form-label">City</label>
-
-
-                            <select id="ddlCity" name="CityId" class="form-select" aria-label="Default select example" style="color:gray;">
-                                <option selected>
-                                    @{
-                                        @Model.cities.Name
-                                    }
-
-                                </option>
-
-
-                            </select>
-
-
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+                            <div class="form-group">
+                                <label>City</label>
+                                <select class="form-select city-drop" name="cityid" aria-label="Default select example" disabled>
+                                      <option value="@Model.IndividualUser.CityId" selected>@Model.cities.Name</option> 
+                                </select>
+                                <span class="text-danger city-alert">Please select country first</span>
+                            </div>
                         </div>
+                        
+                    </div>
+                   
+
 
                         @Html.Hidden("CountryId", null, new { @id = "hdnCountryId" })
 
@@ -308,7 +258,7 @@
 
 
 
-                    </div>
+                    
 
 
 
@@ -327,7 +277,7 @@
                             <label for="inputState" class="form-label">Availability</label>
 
 
-                            <div class="dropdown-center">
+                            <div class="dropdown">
                                 <button class="col-lg-12 btn dropdown-toggle" style="text-align:left; color:grey; border: 1px solid #ced4da;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Select your Availability
                                 </button>
@@ -522,28 +472,7 @@
 
         </form>
 
-
-
-
-
-
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @*For Sweetalert*@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

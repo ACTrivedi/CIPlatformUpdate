@@ -25,5 +25,7 @@ namespace CIPlatformIntegration.Entities.ViewModel
         public string status { get; set; }
 
        
+
+
     }
 }

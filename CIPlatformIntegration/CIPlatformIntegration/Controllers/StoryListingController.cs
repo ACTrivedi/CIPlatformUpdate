@@ -4,7 +4,7 @@ using CIPlatformIntegration.Entities.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
 using System.Text;
-
+using System.Text.RegularExpressions;
 
 namespace CIPlatformIntegration.Controllers
 {
@@ -154,12 +154,7 @@ namespace CIPlatformIntegration.Controllers
                 draft.description = draftCheck.Description;
                 draft.date = draftCheck.PublishedAt.ToString();
                 draft.Paths = paths;
-
-
-
-
-
-
+                
                 var draftDetails = new { title = draft.title, description = draft.description, path = draft.Paths, date = draft.date };
 
                 return Json(draftDetails);
@@ -176,7 +171,7 @@ namespace CIPlatformIntegration.Controllers
         }
 
         //For Draft
-        public IActionResult StoryAddingPageCallForDraft(List<IFormFile> formFile, string title, string postingdate, string textarea, int selectedFromDropdown)
+        public IActionResult StoryAddingPageCallForDraft(List<IFormFile> formFile, string title, string postingdate, string textarea, int selectedFromDropdown, string videoUrl)
         {
 
             var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
@@ -208,6 +203,22 @@ namespace CIPlatformIntegration.Controllers
 
 
             long story_id = model.StoryId;
+            if (videoUrl != null)
+            {
+                StoryMedium storyMedium = new StoryMedium();
+
+                storyMedium.Path = videoUrl;
+
+                storyMedium.StoryId = story_id;
+
+
+                storyMedium.Type = "URL";
+
+                _cidatabaseContext.StoryMedia.Add(storyMedium);
+                _cidatabaseContext.SaveChanges();
+
+
+            }
 
             if (formFile.Count > 0)
             {
@@ -231,7 +242,7 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-                    StoryMedia(story_id);
+                    StoryMedia(story_id,videoUrl);
 
                     FileStream.Close();
                 }
@@ -257,7 +268,7 @@ namespace CIPlatformIntegration.Controllers
 
 
         [HttpPost]
-        public IActionResult StoryAddingPageCall(List<IFormFile> formFile, string title, string postingdate, string textarea, int selectedFromDropdown)
+        public IActionResult StoryAddingPageCall(List<IFormFile> formFile, string title, string postingdate, string textarea, int selectedFromDropdown, string videoUrl)
         {
 
             var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
@@ -285,6 +296,24 @@ namespace CIPlatformIntegration.Controllers
 
             long story_id = model.StoryId;
 
+
+
+            if (videoUrl != null)
+            {
+                StoryMedium storyMedium = new StoryMedium();
+
+                storyMedium.Path = videoUrl;
+
+                storyMedium.StoryId = story_id;
+
+
+                storyMedium.Type = "URL";
+
+                _cidatabaseContext.StoryMedia.Add(storyMedium);
+                _cidatabaseContext.SaveChanges();
+
+
+            }
             if (formFile.Count > 0)
             {
                 foreach (var file in formFile)
@@ -307,7 +336,7 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-                    StoryMedia(story_id);
+                    StoryMedia(story_id, videoUrl);
 
 
                     FileStream.Close();
@@ -322,33 +351,34 @@ namespace CIPlatformIntegration.Controllers
 
         }
 
-
+        [HttpPost]
         // Controller action that increments the view count for the current page
-        public IActionResult IncrementViewCount(int count)
+        public IActionResult IncrementViewCount()
         {
             // Retrieve the current view count from the database
+            var storyID = (long)HttpContext.Session.GetInt32("storyID");
+            var story_Views = _cidatabaseContext.Stories.Where(s => s.StoryId == storyID).FirstOrDefault();
+            
+                story_Views.Views+=1;
+                _cidatabaseContext.Stories.Update(story_Views);
+                _cidatabaseContext.SaveChanges();
 
-            Story story = new Story();
-            story.Views = count;
+            
 
-            StoryDetailViewModel storyDetailViewModel = new StoryDetailViewModel();
+            return Json(story_Views.Views);
 
-            storyDetailViewModel.ViewCount = (int)story.Views;
-
-
-
-            // Return the updated view count to the client
-            return Json(storyDetailViewModel.ViewCount);
         }
 
 
 
 
 
-        public void StoryMedia(long story_id)
+        public void StoryMedia(long story_id, string videoUrl)
         {
             StoryMedium storyMedium = new StoryMedium();
 
+
+          
             var path = HttpContext.Session.GetString("uploadpath");
             storyMedium.Path = path;
 
@@ -358,7 +388,11 @@ namespace CIPlatformIntegration.Controllers
             storyMedium.Type = ext;
 
             _cidatabaseContext.StoryMedia.Add(storyMedium);
+           
             _cidatabaseContext.SaveChanges();
+
+            
+            
 
         }
 
@@ -548,9 +582,9 @@ namespace CIPlatformIntegration.Controllers
 
         //For City
         [HttpPost]
-        public JsonResult GetCitiesByCountryId(int countryId)
+        public JsonResult GetCitiesByCountryId(int Country_id)
         {
-            var cities = _cidatabaseContext.Cities.Where(c => c.CountryId == countryId).ToList();
+                var cities = _cidatabaseContext.Cities.Where(c => c.CountryId == Country_id).ToList();
 
             return Json(cities);
         }
@@ -608,8 +642,8 @@ namespace CIPlatformIntegration.Controllers
         {
             var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
             ViewBag.profilename = HttpContext.Session.GetString("profile");
-            
-            VolunteeringTimesheetViewModel volunteeringTimesheetViewModel= new VolunteeringTimesheetViewModel();
+
+            VolunteeringTimesheetViewModel volunteeringTimesheetViewModel = new VolunteeringTimesheetViewModel();
 
             volunteeringTimesheetViewModel.missionsApplication = _cidatabaseContext.MissionApplications.Where(x => x.UserId == userIdForUserEdit).ToList();
             volunteeringTimesheetViewModel.missions = _cidatabaseContext.Missions.ToList();
@@ -619,19 +653,19 @@ namespace CIPlatformIntegration.Controllers
         }
 
         [HttpPost]
-        public IActionResult VolunteeringTimesheet(int selectFromDropdown, string dateVolunteer, int hours, int minutes, string message,int timesheetCheckForTime)
+        public IActionResult VolunteeringTimesheet(int selectFromDropdown, string dateVolunteer, int hours, int minutes, string message, int timesheetCheckForTime)
         {
             var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
             ViewBag.profilename = HttpContext.Session.GetString("profile");
-            
+
             Timesheet timesheet = new Timesheet();
             TimeSpan time;
             if (timesheetCheckForTime != 0)
             {
-                var timesheetCheckForTimeForUpdate = _cidatabaseContext.Timesheets.Where(t=> t.TimesheetId == timesheetCheckForTime).FirstOrDefault();
+                var timesheetCheckForTimeForUpdate = _cidatabaseContext.Timesheets.Where(t => t.TimesheetId == timesheetCheckForTime).FirstOrDefault();
 
-                
-               /* timesheetCheckForTimeForUpdate.MissionId = selectFromDropdown;*/
+
+                /* timesheetCheckForTimeForUpdate.MissionId = selectFromDropdown;*/
                 timesheetCheckForTimeForUpdate.Notes = message;
                 time = new TimeSpan(hours, minutes, 0);
                 timesheetCheckForTimeForUpdate.Time = time;
@@ -656,12 +690,12 @@ namespace CIPlatformIntegration.Controllers
                 _cidatabaseContext.Timesheets.Add(timesheet);
                 _cidatabaseContext.SaveChanges();
             }
-                       
+
 
             VolunteeringTimesheetViewModel volunteeringTimesheetViewModel = new VolunteeringTimesheetViewModel();
 
-            volunteeringTimesheetViewModel.timesheets= _cidatabaseContext.Timesheets.ToList();
-            
+            volunteeringTimesheetViewModel.timesheets = _cidatabaseContext.Timesheets.ToList();
+
             return RedirectToAction("VolunteeringTimesheet", "StoryListing");
         }
 
@@ -673,11 +707,11 @@ namespace CIPlatformIntegration.Controllers
             ViewBag.profilename = HttpContext.Session.GetString("profile");
 
             Timesheet timesheet = new Timesheet();
-            
-            var selectedTimeModel=_cidatabaseContext.Timesheets.Where(t=>t.TimesheetId==selectedModelFromTimesheet).FirstOrDefault();
-            var missionTitle = _cidatabaseContext.Missions.FirstOrDefault(mt => mt.MissionId == selectedTimeModel.MissionId && mt.MissionType=="time").Title;
-            
-            var date= selectedTimeModel.DateVolunteered.ToShortDateString();
+
+            var selectedTimeModel = _cidatabaseContext.Timesheets.Where(t => t.TimesheetId == selectedModelFromTimesheet).FirstOrDefault();
+            var missionTitle = _cidatabaseContext.Missions.FirstOrDefault(mt => mt.MissionId == selectedTimeModel.MissionId && mt.MissionType == "time").Title;
+
+            var date = selectedTimeModel.DateVolunteered.ToShortDateString();
             var timeData = selectedTimeModel.Time.ToString();
             var timeArr = timeData.Split(':');
             var hour = timeArr[0];
@@ -692,7 +726,7 @@ namespace CIPlatformIntegration.Controllers
                 hour = hour,
                 minute = minute,
                 message = message,
-                timesheetCheckForTime1= timesheetCheckForTime1,
+                timesheetCheckForTime1 = timesheetCheckForTime1,
             };
 
             return Json(data);
@@ -790,11 +824,11 @@ namespace CIPlatformIntegration.Controllers
             var selectedGoalModel = _cidatabaseContext.Timesheets.Where(t => t.TimesheetId == selectedModelFromTimesheet).FirstOrDefault();
 
             var missionTitle = _cidatabaseContext.Missions.FirstOrDefault(mt => mt.MissionId == selectedGoalModel.MissionId && mt.MissionType == "goal").Title;
-            
+
             var date = selectedGoalModel.DateVolunteered.ToShortDateString();
             var timeData = selectedGoalModel.Time.ToString();
-           var action=selectedGoalModel.Action;
-            
+            var action = selectedGoalModel.Action;
+
             var message = selectedGoalModel.Notes;
             var timesheetCheckForGoal = selectedGoalModel.TimesheetId;
 
@@ -803,7 +837,7 @@ namespace CIPlatformIntegration.Controllers
                 missionId = selectedGoalModel.MissionId,
                 missionTitle = missionTitle,
                 date = date,
-                action= action,
+                action = action,
                 message = message,
                 timesheetCheckForGoal = timesheetCheckForGoal,
             };
