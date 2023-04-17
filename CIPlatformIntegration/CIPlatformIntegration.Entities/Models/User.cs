@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CIPlatformIntegration.Entities.Models
@@ -28,15 +27,6 @@ namespace CIPlatformIntegration.Entities.Models
         public string? LastName { get; set; }
         public string Email { get; set; } = null!;
         public string Password { get; set; } = null!;
-
-
-        [NotMapped]
-        [Required(ErrorMessage = "Confirm Password is required")]
-        [DataType(DataType.Password)]
-        [Compare("Password")]
-        public string Confirmpassword { get; set; } = null!;
-
-
         public int PhoneNumber { get; set; }
         public string? Avatar { get; set; }
         public string? Manager { get; set; }
@@ -53,6 +43,10 @@ namespace CIPlatformIntegration.Entities.Models
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
+
+
+        [NotMapped]
+        public string Confirmpassword { get; set; } = null!;
 
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<ContactU> ContactUs { get; set; }

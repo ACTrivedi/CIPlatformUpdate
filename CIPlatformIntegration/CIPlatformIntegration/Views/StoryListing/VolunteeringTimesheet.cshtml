@@ -1,6 +1,8 @@
 ﻿@using CIPlatformIntegration.Entities.Models;
 @using CIPlatformIntegration.Entities.ViewModel;
 
+
+
 @model VolunteeringTimesheetViewModel;
 
 <html>
@@ -78,9 +80,9 @@
                                                         {
                                                             if (@i.Mission.MissionType == "time")
                                                             {
-                                                                  <option class="drop-value" value="@i.MissionId">@i.Mission.Title</option>
+                                                                <option class="drop-value" value="@i.MissionId">@i.Mission.Title</option>
                                                             }
-                                                          
+
                                                         }
 
                                                     </select>
@@ -116,8 +118,8 @@
 
                                         <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-dismiss="modal">Cancel</button>
 
-                                        <input type="submit" class=" btn btn-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px; border-color:black !important;" value="Submit" />
-
+@*                                        <input type="submit" class=" btn btn-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px; border-color:black !important;" value="Submit" />
+*@                                        <button type="submit" class="btn btn-outline-warning rounded-pill button">Submit</button>
                                     </div>
                                 </div>
 
@@ -144,19 +146,26 @@
                         @{
                             foreach (var i in Model.timesheets)
                             {
-                                <tr>
+                                if (@i.Mission.MissionType == "time")
+                                {
+                                    <tr>
 
-                                    <td>@i.Mission.Title</td>
-                                    <td>@i.DateVolunteered.ToShortDateString()</td>
-                                    <td>@i.Time.ToString().Substring(0,2)</td>
-                                    <td>
-                                        @{
-                                            @i.Time.ToString().Substring(3,3)
-                                        }<span>min</span>
-                                    </td>
-                                    <td class="edit" id="@i.TimesheetId"><span><i class="fa-sharp fa-solid fa-pen-to-square " style="color: #000000;" type="button" data-toggle="modal" data-target="#exampleModalCenterEdit"></i></span> </td>
-                                     <td class="delete" id="@i.TimesheetId"><i class="fa-sharp fa-solid fa-trash" style="cursor:pointer"></i></td> 
-                                </tr>
+                                        <td>@i.Mission.Title</td>
+                                        <td>@i.DateVolunteered.ToShortDateString()</td>
+                                        <td>@i.Time.ToString().Substring(0,2)</td>
+
+
+                                        <td>
+                                            @{
+                                                @i.Time.ToString().Substring(3,3)
+                                            }<span>min</span>
+                                        </td>
+                                        <td class="edit" id="@i.TimesheetId"><span><i class="fa-sharp fa-solid fa-pen-to-square " style="color: #000000;" type="button" data-toggle="modal" data-target="#exampleModalCenterEdit"></i></span> </td>
+                                        <td class="delete" id="@i.TimesheetId"><i class="fa-sharp fa-solid fa-trash" style="cursor:pointer"></i></td>
+                                    </tr>
+                                }
+
+
 
                             }
                         }
@@ -186,15 +195,15 @@
 
                                                     <option class="drop-value" value="Select Mission" name="selectedMissionId">Select Mission</option>
 
-                                                   
+
                                                     @foreach (var i in Model.missionsApplication)
+                                                    {
+                                                        if (@i.Mission.MissionType == "time")
                                                         {
-                                                            if (@i.Mission.MissionType == "time")
-                                                            {
-                                                                  <option class="drop-value" value="@i.MissionId">@i.Mission.Title</option>
-                                                            }
-                                                          
+                                                            <option class="drop-value" value="@i.MissionId">@i.Mission.Title</option>
                                                         }
+
+                                                    }
 
                                                 </select>
                                             </div>
@@ -227,7 +236,7 @@
 
                                     <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-dismiss="modal">Cancel</button>
 
-                                    <input type="submit" class=" btn btn-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px; border-color:black !important;" value="Submit" />
+                                    <button type="submit" class="btn btn-outline-warning rounded-pill button">Submit</button>
 
                                 </div>
                             </div>
@@ -242,7 +251,7 @@
 
 
 
-                    @*-----------------------------------------------------------------------Volunteering Goals-------------------------------------------------------------------------------------*@
+            @*-----------------------------------------------------------------------Volunteering Goals-------------------------------------------------------------------------------------*@
 
 
 
@@ -253,7 +262,7 @@
 
 
 
-                      <div><button type="button" class="btn btn-outline-warning rounded-pill button" data-toggle="modal" data-target="#exampleModalCenterGoal"><i id="plusButton" class="fa-regular fa-plus mr-1"></i> Add</button></div>
+                    <div><button type="button" class="btn btn-outline-warning rounded-pill button" data-toggle="modal" data-target="#exampleModalCenterGoal"><i id="plusButton" class="fa-regular fa-plus mr-1"></i> Add</button></div>
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModalCenterGoal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -273,40 +282,40 @@
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
 
                                                     <label for="inputState" class="form-label">Select Mission</label>
-                                                    <select class="form-select" required name="selectFromDropdown">
+                                                    <select id="" class="form-select" required name="selectedMissionIdGoal">
 
-                                                        <option class="drop-value" value="Select Mission" name="selectedMissionIdGoal">Select Mission</option>
+                                                        <option class="drop-value" value="Select Mission" name="">Select Mission</option>
 
-                                                        
+
                                                         @foreach (var i in Model.missionsApplication)
                                                         {
                                                             if (@i.Mission.MissionType == "goal")
                                                             {
-                                                                  <option class="drop-value" value="@i.MissionId">@i.Mission.Title</option>
+                                                                <option class="drop-value" value="@i.MissionId">@i.Mission.Title</option>
                                                             }
-                                                          
+
                                                         }
 
                                                     </select>
                                                 </div>
                                             }
 
-                                            
+
 
                                             <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
                                                 <label for="inputState" class="form-label mb-0">Actions</label>
-                                                <input type="text" class="form-control" placeholder="Actions" name="action">
+                                                <input type="text" class="form-control" placeholder="Actions" id="" name="action">
                                             </div>
 
-                                             <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
 
                                                 <label for="inputState" class="form-label">Date Volunteered</label>
-                                                <input required type="date" class="form-control" placeholder="Select Date" name="dateVolunteerGoal">
+                                                <input required type="date" class="form-control" placeholder="Select Date" id="" name="dateVolunteerGoal">
 
                                             </div>
 
                                             <label for="inputState" class="form-label mb-0 mt-3">Message</label>
-                                            <input type="text" class="form-control" placeholder="Enter your Message" name="messageGoal">
+                                            <input type="text" class="form-control" placeholder="Enter your Message" id="" name="messageGoal">
 
 
                                         </div>
@@ -317,10 +326,11 @@
 
                                         <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-dismiss="modal">Cancel</button>
 
-                                        <input type="submit" class=" btn btn-warning rounded-pill" style=" padding-right: 21px; padding-left: 18px; border-color:black !important;" value="Submit" />
+                                        <button type="submit" class="btn btn-outline-warning rounded-pill button">Submit</button>
 
                                     </div>
                                 </div>
+
 
                             </form>
                         </div>
@@ -329,21 +339,9 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
 
-                <table class="table" id="timetble">
+                <table class="table" id="timetble2">
                     <thead>
                         <tr>
 
@@ -351,29 +349,113 @@
                             <th scope="col">Date</th>
                             <th scope="col">Action</th>
                             <th scope="col"></th>
+                            <th scope="col"></th>
 
 
 
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
 
-                            <td>Environment Conservation</td>
-                            <td>22/02/2022</td>
-                            <td>0</td>
-                            <td><span><i class="fa-sharp fa-solid fa-pen-to-square" style="color: #000000;"></i></span> &nbsp; &nbsp;  <span><i class="fa-sharp fa-solid fa-trash"></i></span></td>
 
-                        </tr>
-                        <tr>
-                            <td>Envirenment Conservation</td>
-                            <td>22/02/2022</td>
-                            <td>0</td>
-                            <td>Edit Delete</td>
-                        </tr>
+                        @{
+                            foreach (var i in Model.timesheets)
+                            {
+                                if (@i.Mission.MissionType == "goal")
+                                {
+                                    <tr>
+
+                                        <td>@i.Mission.Title</td>
+                                        <td>@i.DateVolunteered.ToShortDateString()</td>
+
+                                        <td>@i.Action</td>
+
+
+                                        <td class="editGoal" id="@i.TimesheetId"><span><i class="fa-sharp fa-solid fa-pen-to-square " style="color: #000000;" type="button" data-toggle="modal" data-target="#exampleModalCenterEditGoal"></i></span> </td>
+                                        <td class="deleteGoal" id="@i.TimesheetId"><i class="fa-sharp fa-solid fa-trash" style="cursor:pointer"></i></td>
+                                    </tr>
+                                }
+
+                            }
+                        }
 
                     </tbody>
                 </table>
+
+
+                <!-- Modal for Goal Edit -->
+                <div class="modal fade" id="exampleModalCenterEditGoal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <form class="row g-5" method="post" action="VolunteeringTimesheetGoal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Please input below Volunteering Goals</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+
+                                        @{
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                                <label for="inputState" class="form-label">Select Mission</label>
+                                                <select id="missionGoal" class="form-select" required name="selectedMissionIdGoal">
+
+                                                    <option class="drop-value" value="Select Mission" name="">Select Mission</option>
+
+
+                                                    @foreach (var i in Model.missionsApplication)
+                                                    {
+                                                        if (@i.Mission.MissionType == "goal")
+                                                        {
+                                                            <option class="drop-value" value="@i.MissionId">@i.Mission.Title</option>
+                                                        }
+
+                                                    }
+
+                                                </select>
+                                            </div>
+                                        }
+
+
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+                                            <label for="inputState" class="form-label mb-0">Actions</label>
+                                            <input type="text" class="form-control" placeholder="Actions" id="actionGoal" name="action">
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+
+                                            <label for="inputState" class="form-label">Date Volunteered</label>
+                                            <input required type="date" class="form-control" placeholder="Select Date" id="dateGoal" name="dateVolunteerGoal">
+
+                                        </div>
+
+                                        <label for="inputState" class="form-label mb-0 mt-3">Message</label>
+                                        <input type="text" class="form-control" placeholder="Enter your Message" id="messageGoal" name="messageGoal">
+
+
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-dismiss="modal">Cancel</button>
+
+                                    <button type="submit" class="btn btn-outline-warning rounded-pill button">Submit</button>
+
+                                </div>
+                            </div>
+
+                            <input type="text" id="timesheetCheckForGoal" name="timesheetCheckForGoal" />
+                        </form>
+                    </div>
+                </div>
+
+
             </div>
 
         </div>
@@ -394,10 +476,16 @@
 
 
         $('#timetble').dataTable({
-             scrollY: '300px',
-                 scrollCollapse: true,
-                 paging: false,
-         });
+            scrollY: '300px',
+            scrollCollapse: true,
+            paging: false,
+        });
+
+        $('#timetble2').dataTable({
+            scrollY: '300px',
+            scrollCollapse: true,
+            paging: false,
+        });
 
     </script>
 

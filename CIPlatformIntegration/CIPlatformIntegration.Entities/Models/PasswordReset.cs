@@ -12,11 +12,9 @@ namespace CIPlatformIntegration.Entities.Models
         public int Id { get; set; }
 
         [NotMapped]
-        public string Password { get; set; }
+        public string Password { get; set; } = null!;
 
         [NotMapped]
-
-        public string Confirmpassword { get; set; }
-
+        public string Confirmpassword { get; set; } = null!;
     }
 }

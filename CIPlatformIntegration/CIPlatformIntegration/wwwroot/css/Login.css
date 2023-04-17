@@ -1,4 +1,10 @@
-﻿.loginimg {
+﻿main[role="main"].pb-3 {
+    padding-bottom: 0 !important;
+}
+
+
+
+.loginimg {
     width: 100%;
 }
 

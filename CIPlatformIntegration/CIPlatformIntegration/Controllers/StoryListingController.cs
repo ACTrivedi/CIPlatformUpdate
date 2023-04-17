@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
 using System.Text;
 
+
 namespace CIPlatformIntegration.Controllers
 {
     public class StoryListingController : Controller
@@ -719,6 +720,15 @@ namespace CIPlatformIntegration.Controllers
 
 
 
+
+
+
+
+
+
+
+
+
         //------------ For Goalbase-------------
 
         [HttpPost]
@@ -736,7 +746,7 @@ namespace CIPlatformIntegration.Controllers
 
                 /* timesheetCheckForTimeForUpdate.MissionId = selectFromDropdown;*/
                 timesheetCheckForGoalForUpdate.Notes = messageGoal;
-             
+                timesheetCheckForGoalForUpdate.Action = action;
                 timesheetCheckForGoalForUpdate.DateVolunteered = Convert.ToDateTime(dateVolunteerGoal);
 
 
@@ -750,8 +760,9 @@ namespace CIPlatformIntegration.Controllers
                 timesheet.UserId = userIdForUserEdit;
                 timesheet.MissionId = selectedMissionIdGoal;
                 timesheet.Notes = messageGoal;
-              
-                
+                timesheet.Action = action;
+
+
                 timesheet.DateVolunteered = Convert.ToDateTime(dateVolunteerGoal); //Till here
 
 
@@ -769,32 +780,32 @@ namespace CIPlatformIntegration.Controllers
 
 
         [HttpPost]
-        public IActionResult VolunteeringTimesheetGoalEdit(int selectedModelFromTimesheet, int timesheetCheckForTime)
+        public IActionResult VolunteeringTimesheetGoalEdit(int selectedModelFromTimesheet)
         {
             var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
             ViewBag.profilename = HttpContext.Session.GetString("profile");
 
             Timesheet timesheet = new Timesheet();
 
-            var selectedTimeModel = _cidatabaseContext.Timesheets.Where(t => t.TimesheetId == selectedModelFromTimesheet).FirstOrDefault();
-            var missionTitle = _cidatabaseContext.Missions.FirstOrDefault(mt => mt.MissionId == selectedTimeModel.MissionId && mt.MissionType == "time").Title;
+            var selectedGoalModel = _cidatabaseContext.Timesheets.Where(t => t.TimesheetId == selectedModelFromTimesheet).FirstOrDefault();
 
-            var date = selectedTimeModel.DateVolunteered.ToShortDateString();
-            var timeData = selectedTimeModel.Time.ToString();
-            var timeArr = timeData.Split(':');
-            var hour = timeArr[0];
-            var minute = timeArr[1];
-            var message = selectedTimeModel.Notes;
-            var timesheetCheckForTime1 = selectedTimeModel.TimesheetId;
+            var missionTitle = _cidatabaseContext.Missions.FirstOrDefault(mt => mt.MissionId == selectedGoalModel.MissionId && mt.MissionType == "goal").Title;
+            
+            var date = selectedGoalModel.DateVolunteered.ToShortDateString();
+            var timeData = selectedGoalModel.Time.ToString();
+           var action=selectedGoalModel.Action;
+            
+            var message = selectedGoalModel.Notes;
+            var timesheetCheckForGoal = selectedGoalModel.TimesheetId;
 
             var data = new
             {
+                missionId = selectedGoalModel.MissionId,
                 missionTitle = missionTitle,
                 date = date,
-                hour = hour,
-                minute = minute,
+                action= action,
                 message = message,
-                timesheetCheckForTime1 = timesheetCheckForTime1,
+                timesheetCheckForGoal = timesheetCheckForGoal,
             };
 
             return Json(data);
