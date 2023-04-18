@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "jfJuTnuYMs0xEX7mltfhBu8jLRGBsKkO6H4hXbJH1Pc=",
+  "Hash": "2lhys1BqxEFA1i32ySWwOhHNoIaRYBoqLotNk1q6bOg=",
   "Source": "CIPlatformIntegration",
   "BasePath": "_content/CIPlatformIntegration",
   "Mode": "Default",
@@ -117,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\CIPlatform\\CIPlatformIntegration\\CIPlatformIntegration\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\CIPlatformIntegration.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\CIPlatform\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\css\\AdminPage.css",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CIPlatform\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "css/AdminPage.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\AdminPage.css"
     },
     {
       "Identity": "D:\\CIPlatform\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\css\\FilterBar.css",
@@ -1239,6 +1256,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\web.png"
+    },
+    {
+      "Identity": "D:\\CIPlatform\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\js\\AdminPage.js",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CIPlatform\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "js/AdminPage.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\AdminPage.js"
     },
     {
       "Identity": "D:\\CIPlatform\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\js\\Cards.js",

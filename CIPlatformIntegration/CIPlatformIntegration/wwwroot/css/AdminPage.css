@@ -5,7 +5,7 @@
 }
 
 .rightSide {
-    background-color:antiquewhite;
+    
     height:100vh;
 }
 
@@ -29,6 +29,10 @@
     margin-right: 30px;
     
 }
+    .nav-link i {
+        margin-top:5px;
+    
+    }
 
     .nav-link:focus, .nav-link:hover {
         color: white;
@@ -54,3 +58,50 @@
     margin-left:20px;
 }
 
+#header {
+    background-color: white;
+    height: 6vh;
+    width: 81vw;
+    font-size: 18px;
+    margin-top: 0.5vh;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 5px;
+}
+#date {
+    margin-top: 1.5vh;
+    margin-left: 3vh;
+    font-weight:400;
+}
+
+.userTag {
+    border-bottom: 1px solid #808080;
+    width: fit-content;
+    margin-top: 4%;
+    margin-left: 3%;
+}
+
+.dataTables_wrapper .dataTables_filter {
+    float: left !important;
+    text-align: right;
+    margin-bottom: 3vh;
+}
+
+.dataTables_wrapper {
+    margin-top: 1vh !important;
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+
+table.dataTable.no-footer {
+    border: 1px solid #808080;
+    margin-top:4vh !important;
+}
+
+
+
+table.dataTable tbody tr.even {
+    background-color: #EDEDED !important;
+}
+
+table.dataTable thead tr {
+    background-color: #B2B2B2 !important;
+}

@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\CIPlatformIntegration"
   ],
-  "SelectedNode": "\\CIPlatformIntegration.sln",
+  "SelectedNode": "\\CIPlatformIntegration\\CIPlatformIntegration.sln",
   "PreviewInSolutionExplorer": false
 }
