@@ -12,5 +12,11 @@ namespace CIPlatformIntegration.Entities.ViewModel
         public List<User> users { get; set; }
 
         public User? User { get; set; }
+
+        public List<Country> countries { get; set; }
+
+        
+
+        public List<City> cities { get; set; }
     }
 }

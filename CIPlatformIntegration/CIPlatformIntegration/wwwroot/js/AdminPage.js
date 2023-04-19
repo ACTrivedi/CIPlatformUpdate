@@ -10,10 +10,41 @@
 
     //var searchText = $('#userDataTable_filter label').text();
     //var labelText = searchText.replace("Search: ", "");
-
     
     //$('#userDataTable_filter label').text(labelText);
     
+});
+
+
+$(document).ready(function () {
+    console.log("ready!");
+    $('#country').on('change', function () {
+
+        $.ajax({
+            type: 'POST',
+            dataType: "JSON",
+            url: '/Admin/GetCitiesByCountryId',
+            data: {
+
+                Country_id: $('#country').val()
+            },
+            success:
+                function (res) {
+                    console.log(res);
+                    $(".city-drop").empty();
+                    for (var i = 0; i < res.length; i++) {
+                        console.log(res[i]);
+                        $('.city-drop').append(`<option value="${res[i].cityId}">${res[i].name}</option>`);
+                    }
+                    $('.city-drop').removeAttr("disabled");
+                    $('.city-alert').hide();
+                },
+            failure:
+                function () {
+
+                }
+        });
+    });
 });
 
 
@@ -28,7 +59,6 @@ let date = d.getDate();
 let year = d.getFullYear();
 let hour = d.getHours();
 let min = d.getMinutes();
-console.log(hour);
 var am_pm = d.getHours() >= 12 ? "PM" : "AM";
 
 // A $( document ).ready() block.
@@ -39,6 +69,68 @@ $(document).ready(function () {
 
    
 });
+
+
+
+$('.userEdit').on('click', function () {
+    var value = $(this).attr('id');
+    console.log(value);
+
+
+
+    $.ajax({
+        url: '/Admin/userEdit',
+        type: "get",
+        dataType: "html",
+        data: {
+            selectedUserId : value
+        },
+        success: function (userSearch) {
+
+            console.log(userSearch);
+
+            $('#Ename').val(userSearch[0].firstname);
+            $('#Esurname').val(userSearch[0].lastname);
+            $('#Eemail').val(userSearch[0].email);
+            $('#Epassword').val();
+            /*$('#Eavatar').val(userSearch[0].avatar);*/
+            $('#Eemployee_id').val(userSearch[0].employee_id);
+            $('#Edepartment').val(userSearch[0].department);
+            $('#Eprofile_text').val(userSearch[0].profile_text);
+            $(".city-dropEdit").empty();
+
+
+            $('#countryEdit').append('<option value="'+userSearch[0].country_id+' selected >Country</option>');
+            $('.city-dropEdit').append(`<option value="${userSearch.cityId}">${userSearch.city_name}</option>`);
+            
+            $('.city-dropEdit').removeAttr("disabled");
+            $('.city-alert').hide();
+           
+
+            alert("success");
+        }
+
+
+    });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

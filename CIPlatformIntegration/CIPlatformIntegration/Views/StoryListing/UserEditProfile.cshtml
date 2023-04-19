@@ -95,7 +95,7 @@
                         <div class="mt-3">
 
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenterPassword">
+                            <button type="button" class="btn passwordChange" data-toggle="modal" data-target="#exampleModalCenterPassword">
                                 Change Password
                             </button>
 
@@ -111,19 +111,22 @@
                                         </div>
                                         <div class="modal-body">
                                             <label for="inputState" class="form-label mb-0">Enter old password</label>
-                                            <input type="text" class="form-control" placeholder="Enter old password" id="oldPassword" name="oldPassword">
+                                            <input type="text" class="form-control" placeholder="Enter old password" id="oldPassword" name="oldPassword" >
+                                            <div id="oldPasswordAlert" style="color:red;font-size: 13px; margin-left: 5px;"></div>
 
                                             <label for="inputState" class="form-label mt-3 mb-0">Enter new password</label>
-                                            <input type="password" class="form-control " placeholder="Enter new password" id="newPassword" name="newPassword">
+                                            <input type="password" class="form-control " placeholder="Enter new password" id="newPassword" name="newPassword" >
+                                             <div id="newPasswordAlert" style="color:red;font-size: 13px; margin-left: 5px;"></div>
 
                                             <label for="inputState" class="form-label  mt-3 mb-0">Confirm password</label>
-                                            <input type="password" class="form-control" placeholder="Enter confirm password" id="confirmNewPassword" name="confirmNewPassword">
+                                            <input type="password" class="form-control" placeholder="Enter confirm password" id="confirmNewPassword" name="confirmNewPassword" >
+                                             <div id="confirmNewPasswordAlert" style="color:red;font-size: 13px; margin-left: 5px;"></div>
                                         </div>
                                         <div class="modal-footer">
 
                                             <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-dismiss="modal">Cancel</button>
 
-                                            <a class="btn btn-outline-warning rounded-pill" onclick="changePassword()">
+                                            <a id="changePassword" class="btn btn-outline-warning rounded-pill">
                                                 <span>Change Password </span>
                                             </a>
                                         </div>
@@ -177,7 +180,7 @@
                         <div class="col-lg-6">
 
                             <label for="inputState" class="form-label">Manager</label>
-                            <input type="text" class="form-control" placeholder="Enter Your Manager Details" id="" name="manager">
+                            <input type="text" class="form-control" placeholder="Enter Your Manager Details" id="" name="manager" value=@Model.IndividualUser.Manager !=null ? @Model.IndividualUser.Manager : "">
 
 
                         </div>
@@ -224,12 +227,12 @@
 
 
 
-                     <div class="row">
+                    <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <div class="form-group">
                                 <label>Country</label>
-                                <select class="form-select" name="countryid" id="country"  aria-label="Default select example">
-                                   <option value="@Model.IndividualUser.CountryId" selected>@Model.countries.Where(c=>c.CountryId==Model.IndividualUser.CountryId).Select(c=>c.Name).FirstOrDefault()</option>
+                                <select class="form-select" name="countryid" id="country" aria-label="Default select example">
+                                    <option value="@Model.IndividualUser.CountryId" selected>@Model.countries.Where(c=>c.CountryId==Model.IndividualUser.CountryId).Select(c=>c.Name).FirstOrDefault()</option>
                                     @foreach (var item in Model.countries)
                                     {
                                         <option value="@item.CountryId">@item.Name</option>
@@ -241,24 +244,24 @@
                             <div class="form-group">
                                 <label>City</label>
                                 <select class="form-select city-drop" name="cityid" aria-label="Default select example" disabled>
-                                      <option value="@Model.IndividualUser.CityId" selected>@Model.cities.Name</option> 
+                                    <option value="@Model.IndividualUser.CityId" selected>@Model.cities.Name</option>
                                 </select>
                                 <span class="text-danger city-alert">Please select country first</span>
                             </div>
                         </div>
-                        
+
                     </div>
-                   
-
-
-                        @Html.Hidden("CountryId", null, new { @id = "hdnCountryId" })
-
-                        @Html.Hidden("CityId", null, new { @id = "hdnCityId" })
 
 
 
+                    @Html.Hidden("CountryId", null, new { @id = "hdnCountryId" })
 
-                    
+                    @Html.Hidden("CityId", null, new { @id = "hdnCityId" })
+
+
+
+
+
 
 
 
@@ -273,30 +276,14 @@
                     <div class="row gy-3">
 
                         <div class="col-lg-6">
-
-                            <label for="inputState" class="form-label">Availability</label>
-
-
-                            <div class="dropdown">
-                                <button class="col-lg-12 btn dropdown-toggle" style="text-align:left; color:grey; border: 1px solid #ced4da;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Select your Availability
-                                </button>
-                                <div class="row">
-                                </div>
-                                <div class="col-lg-2">
-                                </div>
-
-                                <ul class=" dropdown-menu  dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-
-
-                            </div>
-
+                            <label for="inputState" class="form-label">Availibility</label>
+                            <select id="dropdown" class="form-control" name="selectedValue">
+                                <option value=@Model.IndividualUser.Availability>@Model.IndividualUser.Availability</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekend">Weekend</option>
+                                <option value="Weekly">Weekly</option>
+                            </select>
                         </div>
-
 
 
                         <div class="col-lg-6">
@@ -378,9 +365,10 @@
 
 
                                                         @{
-                                                            foreach (var i in Model.skills)
+
+                                                            foreach (var i in Model.userSkills)
                                                             {
-                                                                <li class="list-group-item" data-value="@i.SkillName">@i.SkillName</li>
+                                                                <li class="list-group-item" data-value="@i.Skill.SkillName">@i.Skill.SkillName</li>
                                                             }
 
                                                         }
@@ -414,7 +402,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <ul class="list-group">
+                                                    <ul class="list-group" id="rightSkills">
                                                         @* <li class="list-group-item">Skill6</li>
                                                             <li class="list-group-item">Skill7</li>
                                                             <li class="list-group-item">Skill8</li>
@@ -423,6 +411,7 @@
 
 
                                                         @{
+                                                            
                                                             foreach (var i in Model.skills)
                                                             {
                                                                 <li class="list-group-item" data-value="@i.SkillName">@i.SkillName</li>
@@ -443,32 +432,17 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
-
-
 
                     <div class="d-flex justify-content-end">
 
                         <input type="submit" class="btn btn-outline-warning rounded-pill" value="Save" />
 
-
                     </div>
-
 
                 </div>
 
-
-
-
             </div>
-
-
-
-
-
-
 
         </form>
 

@@ -2,34 +2,65 @@
 
 // A $( document ).ready() block.
 $(document).ready(function () {
-    console.log("ready!");
-$('#country').on('change', function () {
-   
-    $.ajax({
-        type: 'POST',
-        dataType: "JSON",
-        url: '/StoryListing/GetCitiesByCountryId',
-        data: {
 
-            Country_id: $('#country').val()
-        },
-        success:
-            function (res) {
-                console.log(res);
-                $(".city-drop").empty();
-                for (var i = 0; i < res.length; i++) {
-                    console.log(res[i]);
-                    $('.city-drop').append(`<option value="${res[i].cityId}">${res[i].name}</option>`);
-                }
-                $('.city-drop').removeAttr("disabled");
-                $('.city-alert').hide();
-            },
-        failure:
-            function () {
+    console.log($('#skillTextArea').text());
 
+    var skills = $('#skillTextArea').text().trim();
+    var skillArr = skills.split(',');
+    console.log(skillArr);
+
+    var findByList = document.querySelectorAll(".findByList li");
+    console.log(findByList);
+
+    findByList.forEach(item => {
+        skillArr.forEach(skill => {
+            if (skill.trim() === $(item).data("value")) {
+                item.classList.add("active");
+
+                document.querySelectorAll('#rightSkills li').forEach(rightskill => {
+                    skillArr.forEach(leftskill => {
+                        if (leftskill.trim() === $(rightskill).data("value").trim()) {
+                            rightskill.classList.add("disabled");
+                            return;
+                        }
+                    });
+                });
+
+
+                return;
             }
+        });
     });
-});
+
+
+    console.log("ready!");
+    $('#country').on('change', function () {
+
+        $.ajax({
+            type: 'POST',
+            dataType: "JSON",
+            url: '/StoryListing/GetCitiesByCountryId',
+            data: {
+
+                Country_id: $('#country').val()
+            },
+            success:
+                function (res) {
+                    console.log(res);
+                    $(".city-drop").empty();
+                    for (var i = 0; i < res.length; i++) {
+                        console.log(res[i]);
+                        $('.city-drop').append(`<option value="${res[i].cityId}">${res[i].name}</option>`);
+                    }
+                    $('.city-drop').removeAttr("disabled");
+                    $('.city-alert').hide();
+                },
+            failure:
+                function () {
+
+                }
+        });
+    });
 });
 
 
@@ -41,13 +72,13 @@ $(function () {
         $(this).toggleClass('active');
     });
     $('.list-arrows a').click(function () {
-        
+
         var $button = $(this), actives = '';
-        
+
         if ($button.hasClass('move-left')) {
             actives = $('.list-right ul li.active');
             actives.clone().appendTo('.list-left ul');
-            actives.remove();  
+            actives.remove();
         } else if ($button.hasClass('move-right')) {
             actives = $('.list-left ul li.active');
             actives.clone().appendTo('.list-right ul');
@@ -58,10 +89,10 @@ $(function () {
         var $checkBox = $(this);
         if (!$checkBox.hasClass('selected')) {
             $checkBox.addClass('selected').closest('.well').find('ul li:not(.active)').addClass('active');
-            
+
         } else {
             $checkBox.removeClass('selected').closest('.well').find('ul li.active').removeClass('active');
-           
+
         }
     });
     $('[name="SearchDualList"]').keyup(function (e) {
@@ -80,151 +111,119 @@ $(function () {
 
 
 
-//For password
-
-function changePassword() {
-    
-
-    var oldPassword = $('#oldPassword').val();
-    var newPassword = $('#newPassword').val();
-    var confirmNewPassword = $('#confirmNewPassword').val();
-
-    $.ajax({
-        url: '/StoryListing/UserChangePassword',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            oldPassword: oldPassword, newPassword: newPassword, confirmNewPassword: confirmNewPassword
-        },
-        success: function (response) {
-            
-
-            // Check if the operation succeeded
-            if (response.success) {
-                // Do something on success
-                console.log('Operation succeeded.');
-
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Password Changed Successfully',
-                   
-
-                })
-
-                $("#cancelPrompt").click();
-               
-
-            } else {
-                // Do something on failure
-                console.log('Operation failed: ' + response.message);
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'INVALID CREDENTIALS!',
-
-                })
-
-            }
 
 
 
-        },
-        error: function () {
+function addToTextArea() {
 
-        }
-    });
-
-}
-
-
-
-function addToTextArea()
-{
-   
-    var dataValues = []; 
+    var dataValues = [];
 
     $('.findByList').find('li').each(function () {
         if ($(this).hasClass('active')) {
             var dataValue = $(this).data('value');
             dataValues.push(dataValue);
         }
-        
-        
+
+
     });
 
     console.log(dataValues);
 
     var skillString = dataValues.join(", ");
-   
+
     $('#skillTextArea').val(skillString);
     console.log(skillString);
-   
-   
 
-
-    
 }
 
+$(document).ready(function () {
 
+    //For password
+    document.getElementById("changePassword").addEventListener("click", myFunction, false);
 
+    function myFunction() {                   
 
-
-
-//$(document).ready(function () {
-  
-
-//    forCity();
-    
-               
-
-//           // $("#hdnCountryId").val(countryId); //To set the country id
-
-//           // $("#dropdownCountry").text(countryName);
-
-
-
-//            $.ajax({
-//                type: "POST",
-//                dataType : "JSON",
-//                url: '/StoryListing/GetCitiesByCountryId',
-//                data: { countryId: countryId },
-//                success: function (cities) {
-//                    console.log(cities);                                      
-                    
-//                    var citiesSelect = $("#ddlCity");
-//                    citiesSelect.html('');
-//                    citiesSelect.append($('<option></option>').val('').html('Select your city'));
-                   
-                    
-//                    $.each(cities, function (i, city) {
-//                        console.log(city)
-//                        citiesSelect.append($('<option></option>').val(city.cityId).html(city.name));
-//                    });
-                   
-//                }
-//            });
-       
-
-
-   
-
-//});
-
-//function forCity() {
-
-//    $("#ddlCity").change(function () {
         
-//        var cityId = $(this).val();
+        if ($('#oldPassword').val() == "") {
+            $('#oldPasswordAlert').text("*Please Enter Your Password");
 
-//        $("#hdnCityId").val(cityId); //To set the city id
+        }
+        else if ($('#oldPassword').val() != "") {
+            $('#oldPasswordAlert').text("");
+        }
+        if ($('#newPassword').val() == "") {            
+            $('#newPasswordAlert').text("*Please Enter Your Password");
 
-//        var cityName = $(this).find("option:selected").text();
-//        console.log("Selected city ID: " + cityId);
-//        console.log("Selected city name: " + cityName);
-//    });
-       
-//}
+        }
+        else if ($('#newPassword').val() != "") {
+            $('#newPasswordAlert').text("");
+        }
+        if ($('#confirmNewPassword').val() == "") {
+            $('#confirmNewPasswordAlert').text("*Please Enter Your Password");
+
+        }
+        else if ($('#confirmNewPassword').val() != "") {
+            $('#confirmNewPasswordAlert').text("");
+        }
+
+        if ($('#newPassword').val() != "" && $('#oldPassword').val() != "" && $('#confirmNewPassword').val() != "") {
+
+            var oldPassword = $('#oldPassword').val();
+            var newPassword = $('#newPassword').val();
+            var confirmNewPassword = $('#confirmNewPassword').val();
+            
+            $.ajax({
+                url: '/StoryListing/UserChangePassword',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    oldPassword: oldPassword, newPassword: newPassword, confirmNewPassword: confirmNewPassword
+                },
+                success: function (response) {
+
+
+                    // Check if the operation succeeded
+                    if (response.success) {
+                        // Do something on success
+                        console.log('Operation succeeded.');
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Password Changed Successfully',
+
+
+                        })
+
+                        $("#cancelPrompt").click();
+
+
+                    } else {
+                        // Do something on failure
+                        console.log('Operation failed: ' + response.message);
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'INVALID CREDENTIALS!',
+
+                        })
+
+                    }
+                },
+                error: function () {
+
+                }
+            });
+
+        }
+
+    }
+
+
+});
+
+
+
 
 
 

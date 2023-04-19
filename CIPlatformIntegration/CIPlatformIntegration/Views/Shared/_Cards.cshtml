@@ -20,7 +20,7 @@
 
 
 
-<div class="container-fluid">
+<div class="container-fluid" id="cardMainBackground">
 
 
 
@@ -59,14 +59,14 @@
 
     @* Mission info End*@
 
-    <div class="container-fluid">
-        <div class="card-cont row" id="">
+    <div class="container-fluid" >
+        <div class="card-cont row" >
             @{
                 var goalmissions = @ViewData["goalMission"];
                 foreach (var modeldetail in Model.Missions)
                 {
-                    <div class="col-info col-12 col-md-6 col-lg-4">
-                        <div class="card1 card my-5">
+                    <div class="col-info col-12 col-md-6 col-lg-4" >
+                        <div class="card1 card my-5" id="cardBackground">
                             <div class="mission-img" style="position:relative;">
 
                                 @{

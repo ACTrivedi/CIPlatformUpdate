@@ -355,6 +355,8 @@ namespace CIPlatformIntegration.Controllers
         // Controller action that increments the view count for the current page
         public IActionResult IncrementViewCount()
         {
+
+
             // Retrieve the current view count from the database
             var storyID = (long)HttpContext.Session.GetInt32("storyID");
             var story_Views = _cidatabaseContext.Stories.Where(s => s.StoryId == storyID).FirstOrDefault();
@@ -476,7 +478,7 @@ namespace CIPlatformIntegration.Controllers
         }
 
         [HttpPost]
-        public IActionResult UserEditProfile(IFormFile file, string name, string surname, string employeeID, string manager, string title, string department, string profile, string linkedInUrl, string skillsAddition, string profileText, int CountryId, int CityId)
+        public IActionResult UserEditProfile(string selectedValue, IFormFile file, string name, string surname, string employeeID, string manager, string title, string department, string profile, string linkedInUrl, string skillsAddition, string profileText, int CountryId, int CityId)
         {
 
             var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
@@ -484,6 +486,15 @@ namespace CIPlatformIntegration.Controllers
 
             if (skillsAddition != null)
             {
+                
+                var userskill1 = _cidatabaseContext.UserSkills.Where(u => u.UserId == userIdForUserEdit).ToList();
+                foreach (var i in userskill1)
+                { 
+                _cidatabaseContext.UserSkills.Remove(i);
+                _cidatabaseContext.SaveChanges();
+                
+                }
+
                 string[] skillsArray = skillsAddition.Split(", ");
 
                 foreach (string skill in skillsArray)
@@ -492,7 +503,8 @@ namespace CIPlatformIntegration.Controllers
                     var userskill = _cidatabaseContext.UserSkills.FirstOrDefault(u => u.SkillId == exists);
                     if (userskill != null)
                     {
-                        _cidatabaseContext.Remove(userskill);
+                       
+                        _cidatabaseContext.UserSkills.Remove(userskill);
                         _cidatabaseContext.SaveChanges();
                     }
 
@@ -520,6 +532,7 @@ namespace CIPlatformIntegration.Controllers
             userUpdate.Department = department;
             userUpdate.ProfileText = profileText;
             userUpdate.LinkedInUrl = linkedInUrl;
+            userUpdate.Availability = selectedValue;
 
 
             //For profile photo
@@ -862,6 +875,22 @@ namespace CIPlatformIntegration.Controllers
             return RedirectToAction("VolunteeringTimesheet", "StoryListing");
         }
 
+
+        [HttpPost]
+        public IActionResult ContactUs(string Name,string Email,string Subject,string Message) 
+        {
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+           
+           
+                ContactU contactUs = new ContactU { 
+                    UserId= userIdForUserEdit,
+                    Subject=Subject,
+                    Message=Message
+                };
+            
+            return Json("success");
+        
+        }
 
     }
 }

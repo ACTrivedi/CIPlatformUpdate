@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CIPlatformIntegration"
+    "\\CIPlatformIntegration",
+    "\\CIPlatformIntegration\\CIPlatformIntegration",
+    "\\CIPlatformIntegration\\CIPlatformIntegration\\Controllers"
   ],
-  "SelectedNode": "\\CIPlatformIntegration\\CIPlatformIntegration.sln",
+  "SelectedNode": "\\CIPlatformIntegration\\CIPlatformIntegration\\Controllers\\StoryListingController.cs",
   "PreviewInSolutionExplorer": false
 }
