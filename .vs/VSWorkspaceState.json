@@ -3,8 +3,10 @@
     "",
     "\\CIPlatformIntegration",
     "\\CIPlatformIntegration\\CIPlatformIntegration",
-    "\\CIPlatformIntegration\\CIPlatformIntegration\\Controllers"
+    "\\CIPlatformIntegration\\CIPlatformIntegration\\Controllers",
+    "\\CIPlatformIntegration\\CIPlatformIntegration\\Views",
+    "\\CIPlatformIntegration\\CIPlatformIntegration\\Views\\StoryListing"
   ],
-  "SelectedNode": "\\CIPlatformIntegration\\CIPlatformIntegration\\Controllers\\StoryListingController.cs",
+  "SelectedNode": "\\CIPlatformIntegration\\CIPlatformIntegration\\Views\\StoryListing\\PrivacyPolicy.cshtml",
   "PreviewInSolutionExplorer": false
 }

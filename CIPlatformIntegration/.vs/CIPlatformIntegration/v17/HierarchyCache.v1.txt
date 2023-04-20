@@ -21,10 +21,10 @@ i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\cip
 ++CIPlatformIntegration.Entities
 i:{00000000-0000-0000-0000-000000000000}:CIPlatformIntegration.Entities
 i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.entities\bin\debug\net6.0\ciplatformintegration.entities.dll
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration.entities\ciplatformintegration.entities.csproj
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration.entities\bin\debug\net6.0\ciplatformintegration.entities.dll
 ++Dependencies
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>1169
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>1170
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>1170
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>1169
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2042
 ++Data
 i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:d:\ciplatform\ciplatformintegration\ciplatformintegration.entities\data\
@@ -160,59 +160,59 @@ i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:d:\ciplatform\ciplatformintegration\cip
 i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\microsoft.netcore.app
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\microsoft.netcore.app
 ++BCrypt.Net-Next (4.0.3)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2093
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2118
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2063
-++MailKit (3.6.0)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2098
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2123
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2070
-++Microsoft.AspNetCore.Identity (2.2.0)
 i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2090
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2115
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2060
-++Microsoft.AspNetCore.Identity.EntityFrameworkCore (6.0.14)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2091
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2116
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2061
-++Microsoft.AspNetCore.Session (2.2.0)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2094
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2119
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2064
-++Microsoft.EntityFrameworkCore (6.0.14)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2087
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2112
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2055
-++Microsoft.EntityFrameworkCore.Design (6.0.14)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2089
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2114
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2058
-++Microsoft.EntityFrameworkCore.SqlServer (6.0.14)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2088
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2113
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2056
-++Microsoft.EntityFrameworkCore.Tools (6.0.14)
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2063
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2125
+++MailKit (3.6.0)
 i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2095
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2120
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2066
-++Microsoft.Extensions.Identity.Core (6.0.14)
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2068
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2132
+++Microsoft.AspNetCore.Identity (2.2.0)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2087
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2060
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2122
+++Microsoft.AspNetCore.Identity.EntityFrameworkCore (6.0.14)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2088
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2061
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2123
+++Microsoft.AspNetCore.Session (2.2.0)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2091
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2064
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2126
+++Microsoft.EntityFrameworkCore (6.0.14)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2084
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2057
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2117
+++Microsoft.EntityFrameworkCore.Design (6.0.14)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2086
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2059
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2120
+++Microsoft.EntityFrameworkCore.SqlServer (6.0.14)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2085
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2058
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2118
+++Microsoft.EntityFrameworkCore.Tools (6.0.14)
 i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2092
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2117
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2062
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2065
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2128
+++Microsoft.Extensions.Identity.Core (6.0.14)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2089
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2062
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2124
 ++Microsoft.VisualStudio.Web.CodeGeneration.Design (6.0.12)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2097
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2122
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2094
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2067
 ++MimeKit (3.6.0)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2096
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2121
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2068
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2093
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2066
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2130
 ++toastr (2.1.1)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2099
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2124
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2071
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2096
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2069
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2133
 ++CIPlatformIntegration.Repository
 i:{00000000-0000-0000-0000-000000000000}:CIPlatformIntegration.Repository
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\ciplatformintegration.repository.csproj
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\bin\debug\net6.0\ciplatformintegration.repository.dll
 ++Interface
 i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\interface\
 ++Repository
@@ -498,15 +498,15 @@ i:{0c475f70-d901-4271-ab10-1319e89514c8}:c:\program files\dotnet\sdk\6.0.100\sdk
 ++Microsoft.AspNetCore.App
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\microsoft.aspnetcore.app
 ++DotNetOpenAuth.AspNet (4.3.4.13329)
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2065
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2127
 ++Microsoft.VisualStudio.Web.CodeGeneration.Design (6.0.13)
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2069
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2131
 ++MySql.Data (8.0.32)
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2067
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2129
 ++NToastNotify (8.0.0)
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2057
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2119
 ++Swashbuckle.AspNetCore (6.3.0)
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2059
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2121
 ++Avatar2.jfif
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\images\avatarimages\avatar2.jfif
 ++Avatar3.jfif
@@ -628,24 +628,21 @@ i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\cip
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
 ++bootstrap.esm.min.js.map
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
-++StoryListingPage
-++VM281
-++VM460
-++VM710
-++VM721
-++VM732
-++VM743
-++VM754
-++VM765
-++VM776
-++VM1088
-++VM1099
-++VM1110
-++UserEditProfile
-++VM1960
 ++VM5
 ++chromewebdata
 ++jquery.dataTables.min.js
-++VM34
-++VM35
+++UserEditProfile
+++AdminPage
+++IAdminRepository.cs
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\interface\iadminrepository.cs
+++AdminRepository.cs
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\repository\adminrepository.cs
+++StoryListingPage
+++VM65
+++StoryAddingPage
+++tinymce.min.js
+++model.min.js
+++icons.min.js
 ++plugin.min.js
+++theme.min.js
+++emojis.min.js

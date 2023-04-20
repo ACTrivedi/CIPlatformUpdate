@@ -72,7 +72,7 @@
     font-weight:400;
 }
 
-.userTag {
+.userTag, .missionApplicationTag{
     border-bottom: 1px solid #808080;
     width: fit-content;
     margin-top: 4%;

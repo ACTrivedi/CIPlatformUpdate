@@ -248,19 +248,9 @@ namespace CIPlatformIntegration.Controllers
                 }
             }
 
-
-
-
-
             /*return View(model);*/
 
-
-
             return RedirectToAction("StoryListingPage", "StoryListing");
-
-
-
-
 
         }
 
@@ -270,14 +260,11 @@ namespace CIPlatformIntegration.Controllers
         [HttpPost]
         public IActionResult StoryAddingPageCall(List<IFormFile> formFile, string title, string postingdate, string textarea, int selectedFromDropdown, string videoUrl)
         {
-
             var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
-
 
             var missionIdForStoryAdd = selectedFromDropdown;
 
             var convertedDate = Convert.ToDateTime(postingdate);
-
 
             Story model = new Story();
 
@@ -288,15 +275,11 @@ namespace CIPlatformIntegration.Controllers
             model.Status = "APPROVED";
             model.PublishedAt = convertedDate;
 
-
             _cidatabaseContext.Stories.Add(model);
 
             _cidatabaseContext.SaveChanges();
 
-
             long story_id = model.StoryId;
-
-
 
             if (videoUrl != null)
             {
@@ -363,9 +346,7 @@ namespace CIPlatformIntegration.Controllers
             
                 story_Views.Views+=1;
                 _cidatabaseContext.Stories.Update(story_Views);
-                _cidatabaseContext.SaveChanges();
-
-            
+                _cidatabaseContext.SaveChanges();                       
 
             return Json(story_Views.Views);
 
@@ -378,8 +359,6 @@ namespace CIPlatformIntegration.Controllers
         public void StoryMedia(long story_id, string videoUrl)
         {
             StoryMedium storyMedium = new StoryMedium();
-
-
           
             var path = HttpContext.Session.GetString("uploadpath");
             storyMedium.Path = path;
@@ -392,10 +371,8 @@ namespace CIPlatformIntegration.Controllers
             _cidatabaseContext.StoryMedia.Add(storyMedium);
            
             _cidatabaseContext.SaveChanges();
-
+                     
             
-            
-
         }
 
         public IActionResult StoryDetailPage(int storyid)
@@ -411,7 +388,6 @@ namespace CIPlatformIntegration.Controllers
             storyDetailViewModel.Users = _cidatabaseContext.Users.Where(u => u.UserId == userID).ToList();
 
             storyDetailViewModel.recommendUser = _cidatabaseContext.Users.ToList();
-
 
             var missionID = _cidatabaseContext.Stories.FirstOrDefault(s => s.StoryId == storyid).MissionId;
             storyDetailViewModel.Missions = _cidatabaseContext.Missions.Where(m => m.MissionId == missionID).ToList();
@@ -469,10 +445,6 @@ namespace CIPlatformIntegration.Controllers
             userViewModel.userSkills = _cidatabaseContext.UserSkills.Where(us => us.UserId == userIdForUserEdit).ToList();
             userViewModel.countries = _cidatabaseContext.Countries.ToList();
             userViewModel.cities = _cidatabaseContext.Cities.Where(c => c.CityId == userUpdate.CityId).FirstOrDefault();
-
-
-
-
 
             return View(userViewModel);
         }
@@ -704,7 +676,6 @@ namespace CIPlatformIntegration.Controllers
                 _cidatabaseContext.SaveChanges();
             }
 
-
             VolunteeringTimesheetViewModel volunteeringTimesheetViewModel = new VolunteeringTimesheetViewModel();
 
             volunteeringTimesheetViewModel.timesheets = _cidatabaseContext.Timesheets.ToList();
@@ -761,17 +732,6 @@ namespace CIPlatformIntegration.Controllers
 
             return RedirectToAction("VolunteeringTimesheet", "StoryListing");
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -877,20 +837,38 @@ namespace CIPlatformIntegration.Controllers
 
 
         [HttpPost]
+        public IActionResult ContactUsEmpty()
+        {
+         var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+
+            User user = _cidatabaseContext.Users.Where(u => u.UserId == userIdForUserEdit).FirstOrDefault();
+
+            var name = user.FirstName;
+            var email = user.Email;
+
+            var data = new {
+                name,
+                email,
+            };
+            return Json(data);
+        }
+
+        [HttpPost]
         public IActionResult ContactUs(string Name,string Email,string Subject,string Message) 
         {
-            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
-           
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");        
            
                 ContactU contactUs = new ContactU { 
                     UserId= userIdForUserEdit,
                     Subject=Subject,
                     Message=Message
                 };
-            
-            return Json("success");
-        
+            _cidatabaseContext.ContactUs.Add(contactUs);
+            _cidatabaseContext.SaveChanges();
+
+            return Json(contactUs);
         }
+
 
     }
 }

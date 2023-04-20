@@ -71,10 +71,12 @@
         <!-- Modal -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <form asp-controller="StoryListing" asp-action="ContactUs" method="post">
-                    <!-- Input and Submit elements -->
 
                      <div class="modal-content">
+               
+                    <!-- Input and Submit elements -->
+
+
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Contact Us</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -84,25 +86,27 @@
                     <div class="modal-body">
 
                         <label for="inputState" class="form-label">Name</label>
-                        <input required type="text" class="form-control" placeholder="Name" id="" name="Name" required>
+                        <input required type="text" class="form-control" placeholder="Name" id="name" name="Name" required>
 
                         <label for="inputState" class="form-label">Email Address</label>
-                        <input required type="text" class="form-control" placeholder="Email Address" id="" name="Email" required>
+                        <input required type="text" class="form-control" placeholder="Email Address" id="email" name="Email" required>
 
                         <label for="inputState" class="form-label">Subject</label>
-                        <input required type="text" class="form-control" placeholder="Subject" id="" name="Subject" required>
+                        <input required type="text" class="form-control" placeholder="Subject" id="subject" name="Subject" required>
                         
 
                         <label for="inputState" class="form-label">Message</label>
-                        <input required type="text" class="form-control" placeholder="Message" id="" name="Message" required>
+                        <input required type="text" class="form-control" placeholder="Message" id="message" name="Message" required>
+
+                       
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                      <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-dismiss="modal">Cancel</button>
+                       <input type="submit" class="btn btn-outline-warning rounded-pill" value="Submit" onclick="contactUs()"/>
                     </div>
+               
                 </div>
-                </form>
 
                
             </div>
@@ -111,6 +115,70 @@
 
 
     </nav>
+
+    <script>
+
+        
+/*For GoalBase Missions*/
+
+$( document ).ready(function() {
+    console.log( "ready!" );
+    
+     $.ajax({
+        url: '/StoryListing/ContactUsEmpty',
+        type: "POST",
+        dataType: "json",
+       
+        success: function (data) {
+
+            console.log(data);
+            $('#name').val(data.name);
+            $('#email').val(data.email);
+
+            $('#name').prop('disabled', true);
+            $('#email').prop('disabled', true);
+           
+
+
+        }
+
+
+    });
+});
+
+
+
+
+function contactUs(){
+    var name = $('#name').val();
+     var email = $('#email').val();
+      var subject = $('#subject').val();
+       var message = $('#message').val();
+    console.log(name);
+
+
+
+    $.ajax({
+        url: '/StoryListing/ContactUs',
+        type: "POST",
+        dataType: "json",
+        data: {
+            Name: name,Email:email,Subject:subject,Message:message
+        },
+        success: function (data) {
+
+            console.log(data);
+
+
+        }
+
+
+    });
+}
+
+
+    </script>
+
 
 </body>
 </html>

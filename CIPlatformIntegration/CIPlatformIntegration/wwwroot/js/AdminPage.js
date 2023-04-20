@@ -6,24 +6,21 @@
        
     });
 
+    let missiontable = new DataTable('#missionApplicationDataTable', {
+        lengthChange: false,
+
+    });
+
+    
+
     $('#userDataTable_filter input').attr("placeholder", "Search");
 
-    //var searchText = $('#userDataTable_filter label').text();
-    //var labelText = searchText.replace("Search: ", "");
-    
-    //$('#userDataTable_filter label').text(labelText);
-    
-});
-
-
-$(document).ready(function () {
-    console.log("ready!");
     $('#country').on('change', function () {
 
         $.ajax({
             type: 'POST',
             dataType: "JSON",
-            url: '/Admin/GetCitiesByCountryId',
+            url: '/StoryListing/GetCitiesByCountryId',
             data: {
 
                 Country_id: $('#country').val()
@@ -45,7 +42,47 @@ $(document).ready(function () {
                 }
         });
     });
+
+
+    console.log("Now for edit!");
+    $('#countryEdit').on('change', function () {
+        alert();
+        $.ajax({
+            type: 'POST',
+            dataType: "JSON",
+            url: '/Admin/GetCitiesByCountryId',
+            data: {
+
+                Country_id: $('#countryEdit').val()
+            },
+            success:
+                function (res) {
+                    console.log(res);
+                    $(".city-dropEdit").empty();
+                    for (var i = 0; i < res.length; i++) {
+                        console.log(res[i]);
+                        $('.city-dropEdit').append(`<option value="${res[i].cityId}">${res[i].name}</option>`);
+                    }
+                    $('.city-dropEdit').removeAttr("disabled");
+                    $('.city-alert').hide();
+                },
+            failure:
+                function () {
+
+                }
+        });
+    });
+
+
+
+
+
+    
 });
+
+
+
+
 
 
 
@@ -79,9 +116,9 @@ $('.userEdit').on('click', function () {
 
 
     $.ajax({
-        url: '/Admin/userEdit',
-        type: "get",
-        dataType: "html",
+        url: '/Admin/userEditData',
+        type: "post",
+        dataType: "json",
         data: {
             selectedUserId : value
         },
@@ -97,17 +134,47 @@ $('.userEdit').on('click', function () {
             $('#Eemployee_id').val(userSearch[0].employee_id);
             $('#Edepartment').val(userSearch[0].department);
             $('#Eprofile_text').val(userSearch[0].profile_text);
-            $(".city-dropEdit").empty();
-
-
-            $('#countryEdit').append('<option value="'+userSearch[0].country_id+' selected >Country</option>');
-            $('.city-dropEdit').append(`<option value="${userSearch.cityId}">${userSearch.city_name}</option>`);
-            
-            $('.city-dropEdit').removeAttr("disabled");
-            $('.city-alert').hide();
+            $('#userIdCheckForEdit').val(userSearch[0].selectedUserId);
+            $('#Estatus').val(userSearch[0].status);
            
+           
+        }
 
-            alert("success");
+
+    });
+
+});
+
+
+
+$('.userDelete').on('click', function () {
+    var value = $(this).attr('id');
+    console.log(value);
+
+
+
+    $.ajax({
+        url: '/Admin/adminUserDelete',
+        type: "post",
+        
+        data: {
+            selectedUserId: value
+        },
+        success: function (res) {
+            
+
+            /*console.log("succsess");
+            var newtable = $($.parseHTML(res)).find('.userTableReload');
+            
+            $('.userTableReload').html(newtable);*/
+
+            location.reload();
+            
+           
+            
+        },
+        failure: function (res) {
+            alert("Thase thase");
         }
 
 
@@ -118,16 +185,60 @@ $('.userEdit').on('click', function () {
 
 
 
+$('.missionApplicationApprove').on('click', function () {
+    var value = $(this).attr('id');
+    console.log(value);
 
 
 
+    $.ajax({
+        url: '/Admin/AdminMissionApplicationApprove',
+        type: "post",
+        
+        data: {
+            missionApplicationId : value
+        },
+        success: function (res) {
+            location.reload();
+            $('. v-pills-application-tab').click();
+
+            if (res == false) {
+                console.log("User has been already approved")
+                location.reload();
+            }
+
+        }
 
 
+    });
+
+});
 
 
+$('.missionApplicationDelete').on('click', function () {
+    var value = $(this).attr('id');
+    console.log(value);
+
+    $.ajax({
+        url: '/Admin/AdminMissionApplicationDelete',
+        type: "post",
+        
+        data: {
+            missionApplicationId: value
+        },
+        success: function (res) {
+            location.reload();
+            if (res == false) {
+                console.log("User has been already Deleted")
+                location.reload();
+            }
+
+        }
 
 
+    });
 
+});
 
 
 
