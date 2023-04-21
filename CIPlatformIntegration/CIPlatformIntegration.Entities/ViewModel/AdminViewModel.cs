@@ -20,5 +20,10 @@ namespace CIPlatformIntegration.Entities.ViewModel
         public List<Mission> missions { get; set; }
 
         public IList<MissionApplication> missionApplications { get; set; }
+
+        public List<Story> stories { get; set; }
+
+        //For story View
+        public Story story { get; set; }
     }
 }

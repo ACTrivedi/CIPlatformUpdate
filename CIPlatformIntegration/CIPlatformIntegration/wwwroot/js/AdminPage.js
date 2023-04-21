@@ -6,10 +6,9 @@
        
     });
 
-    let missiontable = new DataTable('#missionApplicationDataTable', {
-        lengthChange: false,
+   
 
-    });
+   
 
     
 
@@ -74,10 +73,218 @@
     });
 
 
+   
+        let missiontable = new DataTable('#missionApplicationDataTable', {
+            lengthChange: false,
 
-
-
+        });
     
+
+
+
+    $('.missionApplicationClick').on('click', function () {
+            
+
+       
+        $.ajax({
+            type: 'POST',
+            dataType : 'HTML',
+            url: '/Admin/missionApplicationMain',
+            
+            success:
+                function (res) {
+
+
+                   /* $('.missionApplicationArea').html('');*/
+                   
+                    $('.missionApplicationArea').html('');
+                    $('.missionApplicationArea').append(res);
+
+
+                   
+                        let missiontable = new DataTable('#missionApplicationDataTable', {
+                            lengthChange: false,
+
+                        });
+
+                    
+
+                    var missionApplicationApprove = document.querySelectorAll('.missionApplicationApprove');
+
+                    missionApplicationApprove.forEach(function (i) {
+
+                        console.log(i);
+
+                        i.addEventListener('click', function () {
+
+                            /*$('.missionApplicationApprove').on('click', function () {*/
+
+                                var value = $('.missionApplicationApprove').attr('id');
+                                console.log(value);
+                                     
+
+                                $.ajax({
+                                    url: '/Admin/AdminMissionApplicationApprove',
+                                    type: "post",
+
+                                    data: {
+                                        missionApplicationId: value
+                                    },
+
+                                    dataType: 'HTML',
+                                    success: function (res) {
+
+                                        $('.missionApplicationClick').click();
+
+                                    }
+
+
+                               /* });*/
+
+                            });
+
+                        });
+
+                    });
+
+
+
+
+                    var missionApplicationDelete = document.querySelectorAll('.missionApplicationDelete');
+
+                    missionApplicationDelete.forEach(function (i) {
+
+                        console.log(i);
+
+                        i.addEventListener('click', function () {
+                                                      
+
+                            var value = $('.missionApplicationDelete').attr('id');
+                            console.log(value);
+
+
+                            $.ajax({
+                                url: '/Admin/AdminMissionApplicationDelete',
+                                type: "post",
+
+                                data: {
+                                    missionApplicationId: value
+                                },
+
+                                dataType: 'HTML',
+                                success: function (res) {
+
+                                    
+
+                                    $('.missionApplicationClick').click();
+
+                                    $('.cancel').click();
+
+                                }
+                                                                                          
+
+                            });
+
+                        });
+
+                    });
+                                 
+
+
+                },
+            failure:
+                function () {
+
+                }
+        });
+
+
+    });
+
+
+    //For story
+
+
+    let storytable = new DataTable('#storyDataTable', {
+        lengthChange: false,
+
+    });
+
+
+
+
+    $('.storyClick').on('click', function () {
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'HTML',
+            url: '/Admin/storyMain',
+
+            success:
+                function (res) {
+
+                    $('.storyArea').html('');
+                    $('.storyArea').append(res);
+
+                    let storytable = new DataTable('#storyDataTable', {
+                        lengthChange: false,
+
+                    });
+
+
+                    var viewButton = document.querySelectorAll('.viewButton');
+
+                    viewButton.forEach(function (i) {
+
+                        console.log(i);
+
+                        i.addEventListener('click', function () {
+
+                            
+
+                            var value = $('.viewButton').val();
+                            console.log(value);
+
+
+                            $.ajax({
+                                url: '/Admin/storyDetail',
+                                type: "post",
+
+                                data: {
+                                    storyId: value
+                                },
+
+                                dataType: 'HTML',
+                                success: function (res) {
+                                    alert("Success");
+                                    console.log(res);
+                                    $('.storyArea').html('');
+                                    $('.storyArea').append(res);
+
+                                }
+
+
+                                 });
+
+                           
+
+                        });
+
+                    });
+                               
+
+                },
+            failure:
+                function () {
+
+                }
+        });
+
+
+    });
+
+
+        
 });
 
 
@@ -181,67 +388,6 @@ $('.userDelete').on('click', function () {
     });
 
 });
-
-
-
-
-$('.missionApplicationApprove').on('click', function () {
-    var value = $(this).attr('id');
-    console.log(value);
-
-
-
-    $.ajax({
-        url: '/Admin/AdminMissionApplicationApprove',
-        type: "post",
-        
-        data: {
-            missionApplicationId : value
-        },
-        success: function (res) {
-            location.reload();
-            $('. v-pills-application-tab').click();
-
-            if (res == false) {
-                console.log("User has been already approved")
-                location.reload();
-            }
-
-        }
-
-
-    });
-
-});
-
-
-$('.missionApplicationDelete').on('click', function () {
-    var value = $(this).attr('id');
-    console.log(value);
-
-    $.ajax({
-        url: '/Admin/AdminMissionApplicationDelete',
-        type: "post",
-        
-        data: {
-            missionApplicationId: value
-        },
-        success: function (res) {
-            location.reload();
-            if (res == false) {
-                console.log("User has been already Deleted")
-                location.reload();
-            }
-
-        }
-
-
-    });
-
-});
-
-
-
 
 
 

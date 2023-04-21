@@ -66,16 +66,28 @@ namespace CIPlatformIntegration.Controllers
                                     
         }
 
+        [HttpPost]
+        public IActionResult missionApplicationMain()
+        {
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMain();
+
+            return PartialView("_adminMissionApplication", adminViewModelMain);
+
+        }
+     
 
 
         [HttpPost]
         public IActionResult AdminMissionApplicationApprove(long missionApplicationId)
         {
 
-            var AdminMissionApplicationApprove = _adminRepository.AdminMissionApplicationApprove(missionApplicationId);                      
-            
-                return RedirectToAction("AdminPage");
-            
+           _adminRepository.AdminMissionApplicationApprove(missionApplicationId);
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMain();
+
+            return PartialView("_adminMissionApplication", adminViewModelMain);
+
         }
 
 
@@ -83,10 +95,11 @@ namespace CIPlatformIntegration.Controllers
         public IActionResult AdminMissionApplicationDelete(long missionApplicationId)
         {
 
-            var AdminMissionApplicationDelete = _adminRepository.AdminMissionApplicationDelete(missionApplicationId);
+           _adminRepository.AdminMissionApplicationDelete(missionApplicationId);
 
-            
-                return RedirectToAction("AdminPage");
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMain();
+
+            return PartialView("_adminMissionApplication", adminViewModelMain);
 
            
 
@@ -122,11 +135,30 @@ namespace CIPlatformIntegration.Controllers
             var userUpdated = _adminRepository.adminUserDelete(selectedUserId);
            
                 return RedirectToAction("AdminPage");
-                                  
+                                
 
         }
 
+        //Story
 
+        [HttpPost]
+        public IActionResult storyMain()
+        {
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForStory();
+
+            return PartialView("_adminStory", adminViewModelMain);
+
+        }
+
+        [HttpPost]
+        public IActionResult storyDetail(long storyId)
+        {
+            AdminViewModel story = _adminRepository.adminViewModelMainForStoryDetail( storyId);
+
+            return PartialView("_adminStoryDetail", story);
+
+        }
 
 
 

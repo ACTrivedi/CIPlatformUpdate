@@ -1,4 +1,5 @@
 ﻿using CIPlatformIntegration.Entities.Models;
+using CIPlatformIntegration.Entities.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,10 @@ namespace CIPlatformIntegration.Repository.Interface
         int userRegistration(User user);
 
         User userLogin(User _user);
+
+
+
+        HomePageViewModel homePageViewModel(long userIdForFav);
+        HomePageViewModel filtering(long userIdForFav,string[]? country, string[]? city, string[]? theme, string? searchTerm, string? sortValue, int pg);
     }
 }

@@ -27,6 +27,25 @@ namespace CIPlatformIntegration.Repository.Repository
             return userUpdate;
         }
 
+        public AdminViewModel adminViewModelMain()
+        {
+
+            AdminViewModel adminViewModelMainObject = new AdminViewModel
+            {
+                countries = _cidatabaseContext.Countries.ToList(),
+                cities = _cidatabaseContext.Cities.ToList(),
+                User = _cidatabaseContext.Users.FirstOrDefault(),
+                users = _cidatabaseContext.Users.ToList(),
+                missionApplications = _cidatabaseContext.MissionApplications.Where(ma => ma.ApprovalStatus == "PENDING").ToList(),
+                missions = _cidatabaseContext.Missions.ToList(),
+            };
+
+            return adminViewModelMainObject;
+
+        }
+
+
+
         public AdminViewModel adminViewModel(User userUpdate, long userIdForUserEdit) 
         {
 
@@ -43,15 +62,6 @@ namespace CIPlatformIntegration.Repository.Repository
             return adminViewModelObject;
         
         }
-
-
-
-
-
-
-
-
-
 
 
     public User userCheck(long userIdCheckForEdit)
@@ -191,41 +201,74 @@ namespace CIPlatformIntegration.Repository.Repository
         }
 
 
-        public bool AdminMissionApplicationApprove(long missionApplicationId)
+        public void AdminMissionApplicationApprove(long missionApplicationId)
         { 
             var appliedMission=_cidatabaseContext.MissionApplications.FirstOrDefault(ma=>ma.MissionApplicationId==missionApplicationId);
-            if (appliedMission != null)
-            {
+           
                 appliedMission.ApprovalStatus = "APPROVED";
                 appliedMission.UpdatedAt = DateTime.Now;
 
                 _cidatabaseContext.MissionApplications.Update(appliedMission);
                 _cidatabaseContext.SaveChanges();
 
-                return true;
-            }
-
-            return false;              
+                            
 
         }
 
-        public bool AdminMissionApplicationDelete(long missionApplicationId)
+        public void AdminMissionApplicationDelete(long missionApplicationId)
         {
             var appliedMission = _cidatabaseContext.MissionApplications.FirstOrDefault(ma => ma.MissionApplicationId == missionApplicationId);
-            if (appliedMission != null)
-            {
+           
                 appliedMission.ApprovalStatus = "DECLINE";
                 appliedMission.UpdatedAt = DateTime.Now;
                 appliedMission.DeletedAt = DateTime.Now;
 
                 _cidatabaseContext.MissionApplications.Update(appliedMission);
                 _cidatabaseContext.SaveChanges();
-                return true;
-            }
-
-            return false;
+                
+            
         }
 
+        //For Story
+
+      
+         public AdminViewModel adminViewModelMainForStory()
+        {
+
+            AdminViewModel adminViewModelMainForStoryObject = new AdminViewModel
+            {
+                countries = _cidatabaseContext.Countries.ToList(),
+                cities = _cidatabaseContext.Cities.ToList(),
+                User = _cidatabaseContext.Users.FirstOrDefault(),
+                users = _cidatabaseContext.Users.ToList(),
+                missionApplications = _cidatabaseContext.MissionApplications.ToList(),
+                missions = _cidatabaseContext.Missions.ToList(),
+                stories = _cidatabaseContext.Stories.Where(s=>s.Status=="DRAFT").ToList(),
+            };
+
+            return adminViewModelMainForStoryObject;
+
+        }
+
+
+        public AdminViewModel adminViewModelMainForStoryDetail(long storyId)
+        {
+            AdminViewModel adminViewModelMainForStoryObject = new AdminViewModel
+            {
+                countries = _cidatabaseContext.Countries.ToList(),
+                cities = _cidatabaseContext.Cities.ToList(),
+                User = _cidatabaseContext.Users.FirstOrDefault(),
+                users = _cidatabaseContext.Users.ToList(),
+                missionApplications = _cidatabaseContext.MissionApplications.ToList(),
+                missions = _cidatabaseContext.Missions.ToList(),
+                story = _cidatabaseContext.Stories.Where(s => s.StoryId == storyId).FirstOrDefault(),
+            };
+
+            return adminViewModelMainForStoryObject;
+
+        }
+
+        
 
     }
 }

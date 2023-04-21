@@ -72,11 +72,26 @@
                                 @{
 
                                     int counter = 0;
+                                    int counterForPending = 0;
+                                    int counterForDecline = 0;
+
+
+                                    
+
+
                                     foreach (var i in Model.missionApplications)
                                     {
-                                        if (@modeldetail.MissionId == @i.MissionId)
+                                        if (@modeldetail.MissionId == @i.MissionId && @i.ApprovalStatus == "APPROVED" && @i.UserId == Model.Users.UserId)
                                         {
                                             counter++;
+                                        }
+                                        else if (@modeldetail.MissionId == @i.MissionId && @i.ApprovalStatus == "PENDING" && @i.UserId == Model.Users.UserId)
+                                        {
+                                            counterForPending++;
+                                        }
+                                        else if (@modeldetail.MissionId == @i.MissionId && @i.ApprovalStatus == "DECLINE" && @i.UserId == Model.Users.UserId)
+                                        {
+                                            counterForDecline++;
                                         }
                                         else
                                         {
@@ -92,9 +107,21 @@
                                         </div>
 
                                     }
+                                    else if (counterForPending != 0)
+                                    {
+                                        <div class="top-left-pending">
+                                            PENDING
+                                        </div>
+                                    }
+                                    else if (counterForDecline !=0)
+                                    {
+                                        <div class="top-left-decline">
+                                            DECLINE
+                                        </div>
+                                    }
                                     else
                                     {
-                                        
+
                                     }
 
                                 }
@@ -248,7 +275,7 @@
 
 
                                 <div>
-                                    <a asp-action="VolunteeringMissionPage" class="btn border-warning rounded-pill" style="position: relative;left: 30%;" asp-route-missionid="@modeldetail.MissionId">
+                                    <a asp-controller="Home" asp-action="VolunteeringMissionPage" class="btn border-warning rounded-pill" style="position: relative;left: 30%;" asp-route-missionid="@modeldetail.MissionId">
                                         <span style="color:orange">Apply &nbsp; </span> <img src="~/images/right-arrow.png" />
                                     </a>
                                 </div>

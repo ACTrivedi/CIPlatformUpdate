@@ -486,7 +486,7 @@
                             <span style="color:orange">Apply Now &nbsp; </span> <img src="~/images/right-arrow.png" />
                             </a>
                             </div>*@
-
+    
                         @{
                             var useridcheckforapply = (long)ViewData["useridcheck"];
                             var cnt = 0;
@@ -793,8 +793,6 @@
 
 
 
-
-
     <script type="text/javascript">
                 console.log("@ViewBag.Avgratingview");
 
@@ -835,10 +833,6 @@
 
 
 
-
-
-
-
                     $("#ratingsValue").val(starValue);
                 });
 
@@ -860,7 +854,7 @@
                     }
                     else
                     {
-                         alert("Hey, Thankyou for Commenting!");
+                         
                           $.ajax({
                         url: '/Home/Createcomment',
                         type: 'POST',
@@ -910,7 +904,7 @@
                              //location.reload();
                         },
                         error: function (error) {
-                            alert("Error");
+                            console.log("Something");
                         }
 
                     });
@@ -949,7 +943,7 @@
                         url: '/Home/ApplyForMission',
                         type: 'POST',
 
-                        success: function (result) {
+                        success: function () {
 
 
                             Swal.fire({
@@ -960,9 +954,9 @@
 
                             })
 
-                            setTimeout(function () {
-
-                            location.reload(true);
+                            setTimeout(function (data) {
+                                location.reload();
+                            
                           }, 2000);
 
                         },
@@ -989,7 +983,7 @@
 
 
 
-<script src="~/js/StoryDetailPage.js"></script>
+<script src="~/js/VolunteerMissionPage.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/js/Cascade.js"> </script>
 

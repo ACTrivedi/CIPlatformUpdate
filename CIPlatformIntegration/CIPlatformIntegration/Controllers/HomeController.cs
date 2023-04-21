@@ -243,33 +243,16 @@ namespace CIPlatformIntegration.Controllers
         // For Resetpassword Ends
 
 
-       // For Homepage starts
+        // For Homepage starts
 
         public IActionResult Homepage(int pg = 1)
         {
+            HttpContext.Session.SetString("Loggedin", "True");
+            var userIdForFav = (long)HttpContext.Session.GetInt32("farfavuserid");
 
-            var loginSession = HttpContext.Session.GetString("Loggedin");
-
-            if (loginSession != "True")
-            {
-                return RedirectToAction("Login", "Home");
-            }
-
-            HomePageViewModel model = new HomePageViewModel
-            {
-                Missions = _cidatabaseContext.Missions.ToList(),
-                Country = _cidatabaseContext.Countries.ToList(),
-                City = _cidatabaseContext.Cities.ToList(),
-                MissionThemes = _cidatabaseContext.MissionThemes.ToList(),
-                MissionSkills = _cidatabaseContext.MissionSkills.ToList(),
-                GoalMission = _cidatabaseContext.GoalMissions.ToList()
-            };
-
+            var model = _userRepository.homePageViewModel(userIdForFav);
 
             ViewBag.profilename = HttpContext.Session.GetString("profile");
-
-
-
 
             return View(model);
         }
@@ -277,116 +260,23 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-
-
         public IActionResult GetMissions(string[]? country, string[]? city, string[]? theme, string? searchTerm, string? sortValue, int pg)
         {
             var userIdForFav = (long)HttpContext.Session.GetInt32("farfavuserid");
-            HomePageViewModel model = new HomePageViewModel
-            {
-                Missions = _cidatabaseContext.Missions.ToList(),
-                Country = _cidatabaseContext.Countries.ToList(),
-                City = _cidatabaseContext.Cities.ToList(),
-                MissionThemes = _cidatabaseContext.MissionThemes.ToList(),
-                MissionSkills = _cidatabaseContext.MissionSkills.ToList(),
-                GoalMission = _cidatabaseContext.GoalMissions.ToList(),
-                FavoriteMissions = _cidatabaseContext.FavoriteMissions.Where(f => f.UserId == userIdForFav).ToList(),
-                missionApplications = _cidatabaseContext.MissionApplications.Where(ma => ma.UserId == userIdForFav).ToList()
-                
-                
-            };
-
-            List<Mission> miss = _cidatabaseContext.Missions.ToList();
-
-            Debug.WriteLine(searchTerm);
-
-            if (country.Count() > 0 || city.Count() > 0 || theme.Count() > 0)
-            {
-                miss = GetFilteredMission(miss, country, city, theme);
-            }
 
 
 
-            if (searchTerm != null)
-            {
-                miss = miss.Where(m => m.Title.ToLower().Contains(searchTerm)).ToList();
+            HomePageViewModel model = _userRepository.filtering(userIdForFav,country, city, theme, searchTerm, sortValue, pg);
 
-            }
-
-            miss = GetSortedMissions(miss, sortValue);
-
-
-            int totalCount = miss.Count();
-            ViewBag.TotalCount = totalCount;
-            model.Missions = miss;
-
-
-
-            //Extra Code for the Pagination
-
-            const int pageSize = 9;
-            if (pg < 1)
-                pg = 1;
-
-            int recsCount = model.Missions.Count();
-
-            var pager = new Pager(recsCount, pg, pageSize);
-
-            int recSkip = (pg - 1) * pageSize;
-
-            var data = model.Missions.Skip(recSkip).Take(pager.PageSize).ToList();
-
-            this.ViewBag.Pager = pager;
-
-            model.Missions = data.ToList();
-
-
+            ViewBag.TotalCount = model.missionCount;
+            ViewBag.Pager = model.pagerCount;
 
             return PartialView("_Cards", model);
 
         }
 
-        public List<Mission> GetSortedMissions(List<Mission> miss, string sortValue)
-        {
-            switch (sortValue)
-            {
-                case "Newest":
-                    return miss.OrderBy(m => m.StartDate).ToList();
-                case "Oldest":
-                    return miss.OrderByDescending(m => m.StartDate).ToList();
-                case "lowest":
-                    return miss.OrderBy(m => m.Availability).ToList();
-                case "highest":
-                    return miss.OrderByDescending(m => m.Availability).ToList();
-                default:
-                    return miss.ToList();
-
-            }
-        }
-
-        public List<Mission> GetFilteredMission(List<Mission> miss, string[] country, string[] city, string[] theme)
-        {
-            if (country.Length > 0)
-            {
-                miss = miss.Where(m => country.Contains(m.Country.Name)).ToList();
-            }
-
-            if (city.Length > 0)
-            {
-                miss = miss.Where(m => city.Contains(m.City.Name)).ToList();
-            }
-
-            if (theme.Length > 0)
-            {
-                miss = miss.Where(m => theme.Contains(m.Theme.Title)).ToList();
-            }
-
-            return miss;
-        }
-
 
         // For Homepage ends
-
 
 
         // For VolunteerMissionPage start
@@ -697,13 +587,10 @@ namespace CIPlatformIntegration.Controllers
                 AppliedAt = DateTime.Now,
 
 
-
             };
 
             _cidatabaseContext.Add(mission_application);
             _cidatabaseContext.SaveChanges();
-
-
 
             return Json(new { success = true });
         }

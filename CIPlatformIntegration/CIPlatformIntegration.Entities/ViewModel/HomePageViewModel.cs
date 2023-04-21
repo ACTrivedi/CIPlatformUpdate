@@ -22,7 +22,13 @@ namespace CIPlatformIntegration.Entities.ViewModel
         public List<FavoriteMission> FavoriteMissions { get; set; }
         public List<Mission> Missions { get; set; }
         public List<GoalMission> GoalMission { get; set; }
-        public List<User> Users { get; set; }
+        public User Users { get; set; }
+
+        //For Mission Count
+        public int missionCount { get; set; }
+
+        //For Pager
+        public Pager pagerCount { get; set; }
 
         public List<MissionApplication> missionApplications { get; set; }
 

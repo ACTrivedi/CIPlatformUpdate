@@ -51,8 +51,8 @@
                 <button class="nav-link indexes mt-3" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false"><i class="fa fa-bullseye" aria-hidden="true"></i><span class="index-content">Mission</span></button>
                 <button class="nav-link indexes mt-3" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false"><i class="fa fa-th-large" aria-hidden="true"></i><span class="index-content">Mission Theme</span></button>
                 <button class="nav-link indexes mt-3" id=" v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"> <i class="fa fa-cubes" aria-hidden="true"></i><span class="index-content">Mission Skills </span></button>
-                <button class="nav-link indexes mt-3" id=" v-pills-application-tab" data-bs-toggle="pill" data-bs-target="#v-pills-application" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"><i class="fa fa-folder" aria-hidden="true"></i><span class="index-content">Mission Application </span></button>
-                <button class="nav-link indexes mt-3" id=" v-pills-story-tab" data-bs-toggle="pill" data-bs-target="#v-pills-story" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"> <i class="fa fa-bookmark" aria-hidden="true"></i> <span class="index-content">Story </span></button>
+                <button class="nav-link indexes mt-3 missionApplicationClick" id=" v-pills-application-tab" data-bs-toggle="pill" data-bs-target="#v-pills-application" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"><i class="fa fa-folder" aria-hidden="true"></i><span class="index-content">Mission Application </span></button>
+                <button class="nav-link indexes mt-3 storyClick" id=" v-pills-story-tab" data-bs-toggle="pill" data-bs-target="#v-pills-story" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"> <i class="fa fa-bookmark" aria-hidden="true"></i> <span class="index-content">Story </span></button>
                 <button class="nav-link indexes mt-3" id=" v-pills-banner-tab" data-bs-toggle="pill" data-bs-target="#v-pills-banner" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"><i class="fa fa-desktop" aria-hidden="true"></i><span class="index-content">Banner Management </span></button>
 
 
@@ -365,7 +365,7 @@
                                             <span style="color:red;" id="Mandatory"></span>
 
 
-                                            <input name="userIdCheckForEdit" id="userIdCheckForEdit" value="@Model.User.UserId" hidden />
+                                            <input name="userIdCheckForEdit" id="userIdCheckForEdit"  />
 
                                         </div>
                                     </div>
@@ -393,80 +393,20 @@
 
 
                 @*For Mission Application start*@
-
-
-                <div class="tab-pane fade" id="v-pills-application" role="tabpanel" aria-labelledby="v-pills-application-tab" tabindex="0">
-                    <div>
-                        <h2 class="missionApplicationTag">Mission Application</h2>
-                        <hr style="margin-top: -10px;" />
-
-                    </div>
-
-                    <table id="missionApplicationDataTable" class="table">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Mission Title</th>
-                                <th scope="col">Mission Id</th>
-                                <th scope="col">User Id</th>
-                                <th scope="col">User Name</th>
-                                <th scope="col">Applied Date</th>
-                                <th scope="col" style="text-align:center">Action</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            @{
-                                foreach (var i in Model.missionApplications)
-                                {
-
-                                    <tr>
-                                        <th scope="row">@i.Mission.Title</th>
-                                        <td>@i.MissionId</td>
-                                        <td>@i.UserId</td>
-                                        <td>@i.User.FirstName</td>
-                                        <td>@i.AppliedAt</td>
-
-                                        <td class="justify-content-evenly d-flex">
-                                            <span class="missionApplicationApprove" type="button" id="@i.MissionApplicationId" ><i class="bi bi-check-circle" style="color:green;"></i></span>
-                                                                               
-
-                                            <span class="" type="button" data-bs-toggle="modal" data-bs-target="#appliedMissionModal"><i class="bi bi-x-circle" style="color:red;"></i></span>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="appliedMissionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <h5>Are you sure you want to delete item?</h5>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-outline-dark rounded-pill" data-bs-dismiss="modal">Cancel</button>
-                                                                <button type="button" class="btn btn-outline-warning rounded-pill missionApplicationDelete" id="@i.MissionApplicationId">Delete</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                }
-                            }
-
-                        </tbody>
-                    </table>
-
-
-                </div>
+                 <div class="tab-pane fade missionApplicationArea" id="v-pills-application" role="tabpanel" aria-labelledby="v-pills-application-tab" tabindex="0">
+                  
+                </div>               
 
                 @*For Mission Application ends*@
 
-                <div class="tab-pane fade" id="v-pills-story" role="tabpanel" aria-labelledby="v-pills-story-tab" tabindex="0">.story</div>
+
+                @*For Story start*@
+
+                <div class="tab-pane fade storyArea" id="v-pills-story" role="tabpanel" aria-labelledby="v-pills-story-tab" tabindex="0">
+
+                </div>
+
+                 @*For Story start*@
                 <div class="tab-pane fade" id="v-pills-banner" role="tabpanel" aria-labelledby="v-pills-banner-tab" tabindex="0">banner</div>
 
             </div>

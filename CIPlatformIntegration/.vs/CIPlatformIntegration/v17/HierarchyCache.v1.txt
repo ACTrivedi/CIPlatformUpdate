@@ -1,31 +1,13 @@
 ﻿++Solution 'CIPlatformIntegration' ‎(3 of 3 projects)
 i:{00000000-0000-0000-0000-000000000000}:CIPlatformIntegration.sln
-++Script Documents
-++sweetalert2@11
-++jquery-3.2.1.slim.min.js
-++popper.min.js
-++bootstrap.min.js
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
-++aspnetcore-browser-refresh.js
-++jquery.js
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\jquery\dist\jquery.js
-++browserLink
-++Homepage
-++Cards.js
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\js\cards.js
-++Cascade.js
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\js\cascade.js
-++Homepage.js
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\js\homepage.js
-++jquery-3.5.1.js
 ++CIPlatformIntegration.Entities
 i:{00000000-0000-0000-0000-000000000000}:CIPlatformIntegration.Entities
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.entities\bin\debug\net6.0\ciplatformintegration.entities.dll
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.entities\ciplatformintegration.entities.csproj
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration.entities\bin\debug\net6.0\ciplatformintegration.entities.dll
 ++Dependencies
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>1170
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>1169
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2042
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>1172
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>1171
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2046
 ++Data
 i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:d:\ciplatform\ciplatformintegration\ciplatformintegration.entities\data\
 ++Models
@@ -160,74 +142,78 @@ i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:d:\ciplatform\ciplatformintegration\cip
 i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\microsoft.netcore.app
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\microsoft.netcore.app
 ++BCrypt.Net-Next (4.0.3)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2090
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2063
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2125
-++MailKit (3.6.0)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2095
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2068
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2132
-++Microsoft.AspNetCore.Identity (2.2.0)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2087
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2060
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2122
-++Microsoft.AspNetCore.Identity.EntityFrameworkCore (6.0.14)
 i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2088
 i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2061
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2123
-++Microsoft.AspNetCore.Session (2.2.0)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2091
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2064
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2126
-++Microsoft.EntityFrameworkCore (6.0.14)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2084
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2057
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2117
-++Microsoft.EntityFrameworkCore.Design (6.0.14)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2086
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2059
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2120
-++Microsoft.EntityFrameworkCore.SqlServer (6.0.14)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2085
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2058
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2118
-++Microsoft.EntityFrameworkCore.Tools (6.0.14)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2092
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2065
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2128
-++Microsoft.Extensions.Identity.Core (6.0.14)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2089
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2062
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2124
-++Microsoft.VisualStudio.Web.CodeGeneration.Design (6.0.12)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2094
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2067
-++MimeKit (3.6.0)
+++MailKit (3.6.0)
 i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2093
 i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2066
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2130
+++Microsoft.AspNetCore.Identity (2.2.0)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2085
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2058
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2120
+++Microsoft.AspNetCore.Identity.EntityFrameworkCore (6.0.14)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2086
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2059
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2121
+++Microsoft.AspNetCore.Session (2.2.0)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2089
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2062
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2124
+++Microsoft.EntityFrameworkCore (6.0.14)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2082
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2055
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2115
+++Microsoft.EntityFrameworkCore.Design (6.0.14)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2084
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2057
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2118
+++Microsoft.EntityFrameworkCore.SqlServer (6.0.14)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2083
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2056
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2116
+++Microsoft.EntityFrameworkCore.Tools (6.0.14)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2090
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2063
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2126
+++Microsoft.Extensions.Identity.Core (6.0.14)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2087
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2060
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2122
+++Microsoft.VisualStudio.Web.CodeGeneration.Design (6.0.12)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2092
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2065
+++MimeKit (3.6.0)
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2091
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2064
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2128
 ++toastr (2.1.1)
-i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2096
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2069
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2133
+i:{2e4d0d49-9353-42b2-849c-206468e2ac44}:>2094
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:>2067
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2131
 ++CIPlatformIntegration.Repository
 i:{00000000-0000-0000-0000-000000000000}:CIPlatformIntegration.Repository
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\bin\debug\net6.0\ciplatformintegration.repository.dll
 ++Interface
 i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\interface\
+++IAdminRepository.cs
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\interface\iadminrepository.cs
+++IUserRepository.cs
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\interface\iuserrepository.cs
 ++Repository
 i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\repository\
+++AdminRepository.cs
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\repository\adminrepository.cs
+++UserRepository.cs
+i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\repository\userrepository.cs
 ++Projects
 i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:projects
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:projects
-++IUserRepository.cs
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\interface\iuserrepository.cs
-++UserRepository.cs
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\repository\userrepository.cs
 ++CIPlatformIntegration
 i:{00000000-0000-0000-0000-000000000000}:CIPlatformIntegration
 ++Connected Services 
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2043
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2047
 ++Properties
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\properties\
 ++wwwroot
@@ -272,6 +258,12 @@ i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\cip
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\bootstrap\dist\js\
 ++AdminPage.js
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\js\adminpage.js
+++Cards.js
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\js\cards.js
+++Cascade.js
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\js\cascade.js
+++Homepage.js
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\js\homepage.js
 ++site.js
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\js\site.js
 ++StoryAddingPage.js
@@ -306,6 +298,8 @@ i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\cip
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\
 ++Admin
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\admin\
+++AdminPage.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\admin\adminpage.cshtml
 ++Home
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\home\
 ++Forgotpassword.cshtml
@@ -326,40 +320,8 @@ i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\cip
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\home\volunteeringmissionpage.cshtml
 ++Shared
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\
-++_Cards.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_cards.cshtml
-++_CardsStoryListing.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_cardsstorylisting.cshtml
-++_FilterBar.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_filterbar.cshtml
-++_FilterBarStoryListing.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_filterbarstorylisting.cshtml
-++_HeaderBar.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_headerbar.cshtml
-++_Layout.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_layout.cshtml
-++_Nomissionfound.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_nomissionfound.cshtml
-++_RelatedMissions.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_relatedmissions.cshtml
-++_ValidationScriptsPartial.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_validationscriptspartial.cshtml
-++Error.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\error.cshtml
 ++StoryListing
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\storylisting\
-++PrivacyPolicy.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\storylisting\privacypolicy.cshtml
-++StoryAddingPage.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\storylisting\storyaddingpage.cshtml
-++StoryDetailPage.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\storylisting\storydetailpage.cshtml
-++StoryListingPage.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\storylisting\storylistingpage.cshtml
-++UserEditProfile.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\storylisting\usereditprofile.cshtml
-++VolunteeringTimesheet.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\storylisting\volunteeringtimesheet.cshtml
 ++_ViewImports.cshtml
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\_viewimports.cshtml
 ++_ViewStart.cshtml
@@ -369,7 +331,7 @@ i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\cip
 ++Program.cs
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\program.cs
 ++No service dependencies discovered
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2044
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2048
 ++launchSettings.json
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\properties\launchsettings.json
 ++AvatarImages
@@ -475,10 +437,38 @@ i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\cip
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\jquery-validation-unobtrusive\
 ++ErrorViewModel.cs
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\models\errorviewmodel.cs
-++AdminPage.cshtml
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\admin\adminpage.cshtml
-++_Layout.cshtml.css
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_layout.cshtml.css
+++_Cards.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_cards.cshtml
+++_CardsStoryListing.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_cardsstorylisting.cshtml
+++_FilterBar.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_filterbar.cshtml
+++_FilterBarStoryListing.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_filterbarstorylisting.cshtml
+++_HeaderBar.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_headerbar.cshtml
+++_Layout.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_layout.cshtml
+++_Nomissionfound.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_nomissionfound.cshtml
+++_RelatedMissions.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_relatedmissions.cshtml
+++_ValidationScriptsPartial.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_validationscriptspartial.cshtml
+++Error.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\error.cshtml
+++PrivacyPolicy.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\storylisting\privacypolicy.cshtml
+++StoryAddingPage.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\storylisting\storyaddingpage.cshtml
+++StoryDetailPage.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\storylisting\storydetailpage.cshtml
+++StoryListingPage.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\storylisting\storylistingpage.cshtml
+++UserEditProfile.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\storylisting\usereditprofile.cshtml
+++VolunteeringTimesheet.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\storylisting\volunteeringtimesheet.cshtml
 ++appsettings.Development.json
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\appsettings.development.json
 ++Microsoft.AspNetCore.Analyzers
@@ -498,15 +488,15 @@ i:{0c475f70-d901-4271-ab10-1319e89514c8}:c:\program files\dotnet\sdk\6.0.100\sdk
 ++Microsoft.AspNetCore.App
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\microsoft.aspnetcore.app
 ++DotNetOpenAuth.AspNet (4.3.4.13329)
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2127
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2125
 ++Microsoft.VisualStudio.Web.CodeGeneration.Design (6.0.13)
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2131
-++MySql.Data (8.0.32)
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2129
+++MySql.Data (8.0.32)
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2127
 ++NToastNotify (8.0.0)
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2119
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2117
 ++Swashbuckle.AspNetCore (6.3.0)
-i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2121
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:>2119
 ++Avatar2.jfif
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\images\avatarimages\avatar2.jfif
 ++Avatar3.jfif
@@ -528,6 +518,10 @@ i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\cip
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\jquery-validation\license.md
 ++jquery.validate.unobtrusive.js
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
+++_Layout.cshtml.css
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\shared\_layout.cshtml.css
+++jquery.js
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\jquery\dist\jquery.js
 ++additional-methods.js
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\jquery-validation\dist\additional-methods.js
 ++jquery.validate.js
@@ -580,6 +574,8 @@ i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\cip
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
 ++bootstrap.js.map
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
+++bootstrap.min.js
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
 ++jquery.min.map
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\jquery\dist\jquery.min.map
 ++bootstrap.min.css.map
@@ -628,21 +624,45 @@ i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\cip
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
 ++bootstrap.esm.min.js.map
 i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
+++Script Documents
 ++VM5
 ++chromewebdata
-++jquery.dataTables.min.js
-++UserEditProfile
-++AdminPage
-++IAdminRepository.cs
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\interface\iadminrepository.cs
-++AdminRepository.cs
-i:{6165fb83-4e5a-4646-bbf4-3d0b903febde}:d:\ciplatform\ciplatformintegration\ciplatformintegration.repository\repository\adminrepository.cs
+++jquery-3.2.1.slim.min.js
+++Homepage
+++aspnetcore-browser-refresh.js
+++jquery-3.5.1.js
+++popper.min.js
+++sweetalert2@11
+++VolunteeringMissionPage
+++browserLink
 ++StoryListingPage
+++VM37
+++StoryDetailPage
+++VM61
+++VM85
+++jquery.dataTables.min.js
+++VM59
+++VM60
+++VM62
+++VM63
+++VM64
 ++VM65
-++StoryAddingPage
-++tinymce.min.js
-++model.min.js
-++icons.min.js
-++plugin.min.js
-++theme.min.js
-++emojis.min.js
+++VM66
+++VM67
+++VM68
+++VM69
+++VM70
+++VM71
+++VM72
+++VM73
+++VM74
+++VM75
+++VM39
+++_adminMissionApplication.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\admin\_adminmissionapplication.cshtml
+++_adminStory.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\admin\_adminstory.cshtml
+++_adminStoryDetail.cshtml
+i:{0c475f70-d901-4271-ab10-1319e89514c8}:d:\ciplatform\ciplatformintegration\ciplatformintegration\views\admin\_adminstorydetail.cshtml
+++VM36
+++VM38

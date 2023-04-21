@@ -46,11 +46,6 @@
 
 $('.delete').on('click', function () {
 
-
-
-
-
-
     var value = $(this).attr('id');
     console.log(value);
 

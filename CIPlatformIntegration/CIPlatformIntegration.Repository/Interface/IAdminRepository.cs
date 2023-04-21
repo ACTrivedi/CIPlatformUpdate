@@ -13,6 +13,8 @@ namespace CIPlatformIntegration.Repository.Interface
     {
         User user(long userIdForUserEdit);
 
+        AdminViewModel adminViewModelMain();
+
         AdminViewModel adminViewModel(User userUpdate,long userIdForUserEdit);
 
         User userCheck(long userIdCheckForEdit);
@@ -28,9 +30,15 @@ namespace CIPlatformIntegration.Repository.Interface
 
         //MissionApplication
 
-        bool AdminMissionApplicationApprove(long missionApplicationId);
+        void AdminMissionApplicationApprove(long missionApplicationId);
 
-        bool AdminMissionApplicationDelete(long missionApplicationId);
+        void AdminMissionApplicationDelete(long missionApplicationId);
+
+        //Story
+
+        AdminViewModel adminViewModelMainForStory();
+
+        AdminViewModel adminViewModelMainForStoryDetail(long storyId);
 
 
 

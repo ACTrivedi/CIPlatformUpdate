@@ -21,6 +21,26 @@
     padding: 5px 10px;
 }
 
+.top-left-pending {
+    position: absolute;
+    top: 15px;
+    left: 0px;
+    background-color: #F2DF3A;
+    color: black;
+    border-radius: 0px 15px 15px 0px;
+    padding: 5px 10px;
+}
+
+.top-left-decline {
+    position: absolute;
+    top: 15px;
+    left: 0px;
+    background-color: #E74646;
+    color: #FFFFFF;
+    border-radius: 0px 15px 15px 0px;
+    padding: 5px 10px;
+}
+
 
 .button1, .button2 {
     border: 2px black;

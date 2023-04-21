@@ -1,0 +1,41 @@
+﻿@model CIPlatformIntegration.Entities.ViewModel.AdminViewModel;
+<div>
+    <h2 class="storyTag">Story</h2>
+    <hr style="margin-top: -10px;" />
+
+</div>
+
+
+
+<h5>
+    - Story title
+    - Mission Title
+    - Story Description
+    - Story Photos
+    - Story Videos
+    - Publish, Decline, Delete button
+</h5>
+
+
+<form>
+    <div class="row g-3">
+
+        <div class="col-lg-6 form-group">
+            <label for="storyTitle">Story Title</label>
+            <input type="text" class="form-control" id="storyTitle" name="storyTitle" value="@Model.story.Title" readonly>
+        </div>
+        <div class="col-lg-6 form-group">
+            <label for="missionTitle">Mission Title</label>
+            <input type="text" class="form-control" id="missionTitle" name="missionTitle" value="@Model.story.Mission.Title" readonly>
+        </div>
+        <div class="col-lg-12 form-group">
+            <label for="storyDescription">Story Description</label>
+            <textarea class="form-control" id="storyDescription" name="storyDescription" readonly>@Model.story.Description</textarea>
+        </div>
+
+
+
+    </div>
+
+</form>
+

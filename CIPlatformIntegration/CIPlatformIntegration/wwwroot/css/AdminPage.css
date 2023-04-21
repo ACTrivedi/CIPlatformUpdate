@@ -1,4 +1,4 @@
-﻿.leftSide {
+﻿    .leftSide {
     background: #F88634 !important;
     height: 100vh;
     text-align: left;
@@ -72,7 +72,7 @@
     font-weight:400;
 }
 
-.userTag, .missionApplicationTag{
+.userTag, .missionApplicationTag, .storyTag {
     border-bottom: 1px solid #808080;
     width: fit-content;
     margin-top: 4%;
@@ -104,4 +104,9 @@ table.dataTable tbody tr.even {
 
 table.dataTable thead tr {
     background-color: #B2B2B2 !important;
+}
+
+
+table.dataTable tbody th, table.dataTable tbody td {
+    padding: 13px 10px !important;
 }

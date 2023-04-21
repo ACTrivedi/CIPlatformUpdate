@@ -1,0 +1,70 @@
+﻿@model CIPlatformIntegration.Entities.ViewModel.AdminViewModel;
+<div>
+    <h2 class="missionApplicationTag">Mission Application</h2>
+    <hr style="margin-top: -10px;" />
+
+</div>
+
+<table id="missionApplicationDataTable" class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Mission Title</th>
+            <th scope="col">Mission Id</th>
+            <th scope="col">User Id</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Applied Date</th>
+            <th scope="col" style="text-align:center">Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            var date = "";
+
+            foreach (var i in Model.missionApplications)
+            {
+                date = Convert.ToDateTime(@i.AppliedAt.ToString()).ToString("dd-MM-yyyy");
+
+                <tr>
+                    <th scope="row">@i.Mission.Title</th>
+                    <td>@i.MissionId</td>
+                    <td>@i.UserId</td>
+                    <td>@i.User.FirstName</td>
+                    <td>@date</td>
+
+                    <td class="justify-content-evenly d-flex">
+                        <span class="missionApplicationApprove" type="button" id="@i.MissionApplicationId"><i class="bi bi-check-circle" style="color:green;"></i></span>
+
+
+                        <span class="" type="button" data-bs-toggle="modal" data-bs-target="#appliedMissionModal"><i class="bi bi-x-circle" style="color:red;"></i></span>
+                        <!-- Modal -->
+                    <div class="modal fade" id="appliedMissionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>Are you sure you want to delete item?</h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-dark rounded-pill cancel" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-outline-warning rounded-pill missionApplicationDelete" id="@i.MissionApplicationId">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            }
+        }
+
+    </tbody>
+</table>
+
+
