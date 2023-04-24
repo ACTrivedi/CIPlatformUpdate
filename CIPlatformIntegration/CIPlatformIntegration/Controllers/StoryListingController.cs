@@ -260,60 +260,82 @@ namespace CIPlatformIntegration.Controllers
         [HttpPost]
         public IActionResult StoryAddingPageCall(List<IFormFile> formFile, string title, string postingdate, string textarea, int selectedFromDropdown, string videoUrl)
         {
+
             var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
 
             var missionIdForStoryAdd = selectedFromDropdown;
 
+
             var convertedDate = Convert.ToDateTime(postingdate);
 
-            Story model = new Story();
+            Story story = _cidatabaseContext.Stories.FirstOrDefault(s => s.UserId == userIdForStoryAdd && s.MissionId == missionIdForStoryAdd);
 
-            model.UserId = userIdForStoryAdd;
-            model.MissionId = missionIdForStoryAdd;
-            model.Title = title;
-            model.Description = textarea;
-            model.Status = "APPROVED";
-            model.PublishedAt = convertedDate;
+            if (story != null)
+            {
+                story.UserId = userIdForStoryAdd;
+                story.MissionId = missionIdForStoryAdd;
+                story.Title = title;
+                story.Description = textarea;
+                story.Status = "DRAFT";
+                story.PublishedAt = convertedDate;
+                story.Views = 0;
 
-            _cidatabaseContext.Stories.Add(model);
+                _cidatabaseContext.Stories.Update(story);
 
             _cidatabaseContext.SaveChanges();
 
-            long story_id = model.StoryId;
+            long story_id = story.StoryId;
 
             if (videoUrl != null)
             {
-                StoryMedium storyMedium = new StoryMedium();
-
-                storyMedium.Path = videoUrl;
-
-                storyMedium.StoryId = story_id;
-
-
-                storyMedium.Type = "URL";
-
-                _cidatabaseContext.StoryMedia.Add(storyMedium);
-                _cidatabaseContext.SaveChanges();
-
+                    StoryMedium storyMedium = _cidatabaseContext.StoryMedia.FirstOrDefault(sm => sm.StoryId == story_id && sm.Type == "URL");
+                    if (storyMedium != null)
+                    {
+                        storyMedium.Path = videoUrl;
+                        storyMedium.StoryId = story_id;
+                        storyMedium.Type = "URL";
+                        _cidatabaseContext.StoryMedia.Update(storyMedium);
+                        _cidatabaseContext.SaveChanges();
+                    }
+                    else
+                    {
+                        storyMedium.Path = videoUrl;
+                        storyMedium.StoryId = story_id;
+                        storyMedium.Type = "URL";
+                        _cidatabaseContext.StoryMedia.Add(storyMedium);
+                        _cidatabaseContext.SaveChanges();
+                    }             
 
             }
-            if (formFile.Count > 0)
+
+                var storyMedia = _cidatabaseContext.StoryMedia.Where(sm => sm.StoryId == story_id).ToList();
+                foreach (var media in storyMedia)
+                {
+                    if (media.Type != "URL")
+                    { 
+                    
+                    _cidatabaseContext.StoryMedia.Remove(media);
+                    }
+
+                }
+                _cidatabaseContext.SaveChanges();
+
+                if (formFile.Count > 0)
             {
                 foreach (var file in formFile)
                 {
 
-                    /*string fileName = Path.GetFileName(file.FileName);*/
+                   
 
                     FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-                    /*                    string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", fileName);
-                    */
+                    
                     string ImageURL = "\\images\\StoryImages\\" + Path.GetFileName(file.FileName);
 
 
                     HttpContext.Session.SetString("uploadpath", ImageURL);
 
-                    /*var stream = new FileStream(uploadpath, FileMode.Create);*/
+                    
 
                     file.CopyToAsync(FileStream);
 
@@ -326,8 +348,65 @@ namespace CIPlatformIntegration.Controllers
 
 
                 }
+            
+            }
+                
+
             }
 
+            else
+            {
+
+                Story model = new Story();
+
+                model.UserId = userIdForStoryAdd;
+                model.MissionId = missionIdForStoryAdd;
+                model.Title = title;
+                model.Description = textarea;
+                model.Status = "DRAFT";
+                model.PublishedAt = convertedDate;
+                model.Views = 0;
+
+                _cidatabaseContext.Stories.Add(model);
+
+                _cidatabaseContext.SaveChanges();
+
+                long story_id = model.StoryId;
+
+                if (videoUrl != null)
+                {
+                    StoryMedium storyMedium = new StoryMedium();
+                    storyMedium.Path = videoUrl;
+                    storyMedium.StoryId = story_id;
+                    storyMedium.Type = "URL";
+                    _cidatabaseContext.StoryMedia.Add(storyMedium);
+                    _cidatabaseContext.SaveChanges();
+
+                }
+                if (formFile.Count > 0)
+                {
+                    foreach (var file in formFile)
+                    {                                              
+                        FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", Path.GetFileName(file.FileName)), FileMode.Create);
+                                               
+                        string ImageURL = "\\images\\StoryImages\\" + Path.GetFileName(file.FileName);
+
+                        HttpContext.Session.SetString("uploadpath", ImageURL);
+                                          
+
+                        file.CopyToAsync(FileStream);
+
+                        StoryMedia(story_id, videoUrl);
+
+                        FileStream.Close();
+                    }
+
+                }
+               
+
+                
+
+            }
             /*return View(model);*/
 
             return RedirectToAction("StoryListingPage", "StoryListing");
@@ -357,7 +436,8 @@ namespace CIPlatformIntegration.Controllers
 
 
         public void StoryMedia(long story_id, string videoUrl)
-        {
+        {          
+
             StoryMedium storyMedium = new StoryMedium();
           
             var path = HttpContext.Session.GetString("uploadpath");
@@ -505,6 +585,7 @@ namespace CIPlatformIntegration.Controllers
             userUpdate.ProfileText = profileText;
             userUpdate.LinkedInUrl = linkedInUrl;
             userUpdate.Availability = selectedValue;
+            userUpdate.Manager = manager;
 
 
             //For profile photo

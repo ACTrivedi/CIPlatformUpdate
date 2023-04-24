@@ -33,7 +33,7 @@ namespace CIPlatformIntegration.Controllers
 
 
             AdminViewModel adminViewModel = _adminRepository.adminViewModel(userUpdate, userIdForUserEdit);
-            
+
             return View(adminViewModel);
         }
 
@@ -44,7 +44,7 @@ namespace CIPlatformIntegration.Controllers
         }
 
         [HttpPost]
-        public IActionResult AdminAddUser(long userIdCheckForEdit,int countryid, int cityid, string name, string surname, string email, string password, IFormFile avatar,string employee_id, string department, string profile_text,int status)
+        public IActionResult AdminAddUser(long userIdCheckForEdit, int countryid, int cityid, string name, string surname, string email, string password, IFormFile avatar, string employee_id, string department, string profile_text, int status)
         {
 
 
@@ -62,8 +62,8 @@ namespace CIPlatformIntegration.Controllers
                 var userUpdated = _adminRepository.userEdit(userIdCheckForEdit, countryid, cityid, name, surname, email, password, avatar, employee_id, department, profile_text, status);
                 return RedirectToAction("AdminPage");
             }
-                        
-                                    
+
+
         }
 
         [HttpPost]
@@ -75,14 +75,14 @@ namespace CIPlatformIntegration.Controllers
             return PartialView("_adminMissionApplication", adminViewModelMain);
 
         }
-     
+
 
 
         [HttpPost]
         public IActionResult AdminMissionApplicationApprove(long missionApplicationId)
         {
 
-           _adminRepository.AdminMissionApplicationApprove(missionApplicationId);
+            _adminRepository.AdminMissionApplicationApprove(missionApplicationId);
 
             AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMain();
 
@@ -95,13 +95,13 @@ namespace CIPlatformIntegration.Controllers
         public IActionResult AdminMissionApplicationDelete(long missionApplicationId)
         {
 
-           _adminRepository.AdminMissionApplicationDelete(missionApplicationId);
+            _adminRepository.AdminMissionApplicationDelete(missionApplicationId);
 
             AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMain();
 
             return PartialView("_adminMissionApplication", adminViewModelMain);
 
-           
+
 
         }
 
@@ -122,10 +122,10 @@ namespace CIPlatformIntegration.Controllers
 
         public IActionResult userEditData(long selectedUserId)
         {
-            var userSearch = _adminRepository.userEditData(selectedUserId);                   
-               
+            var userSearch = _adminRepository.userEditData(selectedUserId);
+
             return Json(userSearch);
-                    
+
         }
 
 
@@ -133,9 +133,9 @@ namespace CIPlatformIntegration.Controllers
         public IActionResult adminUserDelete(long selectedUserId)
         {
             var userUpdated = _adminRepository.adminUserDelete(selectedUserId);
-           
-                return RedirectToAction("AdminPage");
-                                
+
+            return RedirectToAction("AdminPage");
+
 
         }
 
@@ -154,11 +154,105 @@ namespace CIPlatformIntegration.Controllers
         [HttpPost]
         public IActionResult storyDetail(long storyId)
         {
-            AdminViewModel story = _adminRepository.adminViewModelMainForStoryDetail( storyId);
+
+
+            AdminViewModel story = _adminRepository.adminViewModelMainForStoryDetail(storyId);
 
             return PartialView("_adminStoryDetail", story);
 
         }
+
+        [HttpPost]
+        public IActionResult storyDelete(long storyId)
+        {
+
+            _adminRepository.storyDelete(storyId);
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForStory();
+
+            return PartialView("_adminStory", adminViewModelMain);
+
+        }
+
+
+        [HttpPost]
+        public IActionResult storyDecline(long storyId)
+        {
+
+
+            _adminRepository.storyDecline(storyId);
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForStory();
+
+            return PartialView("_adminStory", adminViewModelMain);
+
+        }
+
+        [HttpPost]
+        public IActionResult storyApprove(long storyId)
+        {
+
+
+            _adminRepository.storyApprove(storyId);
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForStory();
+
+            return PartialView("_adminStory", adminViewModelMain);
+
+        }
+
+        [HttpPost]
+
+        public IActionResult missionThemeMain()
+        {
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForMissionTheme();
+
+            return PartialView("_adminMissionTheme", adminViewModelMain);
+        }
+
+
+        [HttpPost]
+        public IActionResult AdminAddMissionTheme(string Title)
+        {
+
+            _adminRepository.missionThemeAdd(Title);
+            return RedirectToAction("AdminPage");
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForMissionTheme();
+
+            return PartialView("_adminMissionTheme", adminViewModelMain);
+
+        }
+
+        
+
+        [HttpPost]
+        public IActionResult missionThemeApprove(long missionThemeId)
+        {
+
+            _adminRepository.missionThemeApprove(missionThemeId);
+            return RedirectToAction("AdminPage");
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForMissionTheme();
+
+            return PartialView("_adminMissionTheme", adminViewModelMain);
+
+        }
+                
+
+        [HttpPost]
+        public IActionResult missionThemeDelete(long missionThemeId)
+        {
+
+            _adminRepository.missionThemeDelete(missionThemeId);
+            return RedirectToAction("AdminPage");
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForMissionTheme();
+
+            return PartialView("_adminMissionTheme", adminViewModelMain);
+
+        }
+
 
 
 

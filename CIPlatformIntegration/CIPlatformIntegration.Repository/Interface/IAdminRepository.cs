@@ -40,6 +40,21 @@ namespace CIPlatformIntegration.Repository.Interface
 
         AdminViewModel adminViewModelMainForStoryDetail(long storyId);
 
+        void storyDelete(long storyId);
+        void storyDecline(long storyId);
+        void storyApprove(long storyId);
+
+        //Mission Theme
+
+        AdminViewModel adminViewModelMainForMissionTheme();
+
+        void missionThemeAdd(string Title);
+        
+        void missionThemeApprove(long missionThemeId);
+
+        void missionThemeDelete(long missionThemeId);
+
+
 
 
     }

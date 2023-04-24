@@ -1,4 +1,5 @@
 ﻿@model CIPlatformIntegration.Entities.ViewModel.AdminViewModel;
+
 <div>
     <h2 class="storyTag">Story</h2>
     <hr style="margin-top: -10px;" />
@@ -6,36 +7,101 @@
 </div>
 
 
-
-<h5>
-    - Story title
-    - Mission Title
-    - Story Description
-    - Story Photos
-    - Story Videos
-    - Publish, Decline, Delete button
-</h5>
-
-
 <form>
     <div class="row g-3">
 
-        <div class="col-lg-6 form-group">
-            <label for="storyTitle">Story Title</label>
+        <div class="col-lg-6 form-group mt-5">
+            <label for="storyTitle" style="font-size: larger !important;font-weight: 500;margin-bottom: 1vh;">Story Title</label>
             <input type="text" class="form-control" id="storyTitle" name="storyTitle" value="@Model.story.Title" readonly>
         </div>
-        <div class="col-lg-6 form-group">
-            <label for="missionTitle">Mission Title</label>
+        <div class="col-lg-6 form-group mt-5">
+            <label for="missionTitle" style="font-size: larger !important;font-weight: 500;margin-bottom: 1vh;">Mission Title</label>
             <input type="text" class="form-control" id="missionTitle" name="missionTitle" value="@Model.story.Mission.Title" readonly>
         </div>
+       
+
+
+        @{
+            string htmlString = Model.story.Description;
+            string cleanString = System.Text.RegularExpressions.Regex.Replace(htmlString, "<.*?>", string.Empty);
+        }
+
         <div class="col-lg-12 form-group">
-            <label for="storyDescription">Story Description</label>
-            <textarea class="form-control" id="storyDescription" name="storyDescription" readonly>@Model.story.Description</textarea>
+            <label for="storyDescription" style="font-size: larger !important;font-weight: 500;margin-bottom: 1vh;">Story Description</label>
+            <textarea class="form-control" id="storyDescription" name="storyDescription" readonly>@cleanString</textarea>
         </div>
 
 
 
-    </div>
+        <div class="col-lg-12">
+            <label for="storyDescription" style="display:block;font-size: larger !important;font-weight: 500;margin-bottom: 1vh; "> Story Images</label>
+            @{
+                foreach (var i in Model.StoryMedium)
+                {
+                    if (i.Type != "URL")
+                    {
+
+                        <img src="@i.Path" alt="Image description" style="width:16vh;">
+
+                    }
+
+
+                }
+            }
+
+        </div>
+
+
+
+        <div class="col-lg-12">
+
+
+
+            @{
+                
+                <label  for="storyDescription" style="display:block;font-size: larger !important;font-weight: 500;margin-bottom: 1vh;"> Story Videos</label>
+                foreach (var i in Model.StoryMedium)
+                {                                                                          
+
+                    if (i.Type == "URL")
+                    {
+                       
+                        <iframe style="width:16vh; height:11vh; "
+                        src='@i.Path.Replace("watch?v=", "embed/")'>
+                        </iframe>
+
+                    }
+
+                }
+            }
+
+            </div>
+
+            <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <div>
+                    <button type="button" class="btn btn-outline-danger rounded-pill deleteStory" value="@Model.story.StoryId" style="font-size: 17px;margin-right: 2rem;">Delete</button>
+                </div>
+                <div class="">
+                    <button type="button" class="btn btn-outline-secondary rounded-pill ml-3 declineStory " value="@Model.story.StoryId" style="font-size: 17px;">Decline</button>
+                </div>
+            </div>
+            <div>
+                 <div class="d-flex">
+                <div>
+                    <button type="button" class="btn btn-outline-warning rounded-pill back" style="font-size: 17px;margin-right: 2rem;">Back</button>
+                </div>
+                <div class="">
+                    <button type="button" class="btn btn-outline-success rounded-pill approveStory" value="@Model.story.StoryId" style="font-size: 17px; margin-right: 2rem;">Approve</button>
+                </div>
+            </div>
+
+               
+            </div>
+            </div>
+
+
+        </div>
 
 </form>
 

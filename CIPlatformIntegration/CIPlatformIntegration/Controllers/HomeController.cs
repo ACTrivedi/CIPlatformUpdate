@@ -292,21 +292,21 @@ namespace CIPlatformIntegration.Controllers
             //End Session for passing missionID to StarRating
 
 
-            var missiontheme = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid).FirstOrDefault();
+            /* var missiontheme = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid).FirstOrDefault();
 
+             var missionthemeid = missiontheme.ThemeId;
+             var missionthemenameid = _cidatabaseContext.MissionThemes.Where(m => m.MissionThemeId == missionthemeid).FirstOrDefault();
 
-            var missionthemeid = missiontheme.ThemeId;
-            var missionthemenameid = _cidatabaseContext.MissionThemes.Where(m => m.MissionThemeId == missionthemeid).FirstOrDefault();
+             var missionthemename = missionthemenameid.Title;
 
-            var missionthemename = missionthemenameid.Title;
-
-            var modeltheme = _cidatabaseContext.MissionThemes.Where(m => m.MissionThemeId == missionthemeid).FirstOrDefault();
-            var missionthemenames = modeltheme.Title;
+             var modeltheme = _cidatabaseContext.MissionThemes.Where(m => m.MissionThemeId == missionthemeid).FirstOrDefault();
+             var missionthemenames = modeltheme.Title;*/
 
             var x = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid).FirstOrDefault();
-            var theem = x.Theme.Title;
+            var theemeId = x.ThemeId;
+            var relatedMissions = _cidatabaseContext.Missions.Where(m => m.ThemeId == theemeId).Take(3).ToList();
 
-            ViewBag.relatedmission = _cidatabaseContext.Missions.Where(m => m.Theme.Title == theem).Take(3).ToList();
+            ViewBag.relatedmission = relatedMissions;
 
             ViewData["countries"] = _cidatabaseContext.Countries.ToList();
             ViewData["cities"] = _cidatabaseContext.Cities.ToList();

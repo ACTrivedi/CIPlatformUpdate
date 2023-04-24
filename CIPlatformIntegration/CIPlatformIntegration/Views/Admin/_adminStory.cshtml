@@ -1,4 +1,6 @@
 ﻿@model CIPlatformIntegration.Entities.ViewModel.AdminViewModel;
+
+
 <div>
     <h2 class="storyTag">Story</h2>
     <hr style="margin-top: -10px;" />
@@ -30,8 +32,10 @@
 
                     <td class="justify-content-evenly d-flex">
                         <button type="button" class="btn btn-outline-warning rounded-pill viewButton" value="@i.StoryId" style="font-size: 12px;">View</button>
-                        <span class="" type="button" id=""><i class="bi bi-check-circle" style="color:green;"></i></span>
-                        <span class="" type="button" id=""><i class="bi bi-x-circle" style="color:red;"></i></span>
+                        <span class="approveStory"  value="@i.StoryId" type="button" id=""><i class="bi bi-check-circle" style="color:green;"></i></span>
+                        <span class="declineStory"  value="@i.StoryId" type="button" id=""><i class="bi bi-x-circle" style="color:red;"></i></span>
+                        <span class="deleteStory"  value="@i.StoryId" type="button" id=""><i class="bi bi-trash3-fill" style="color:red;"></i></span>
+
                     </td>
 
                 </tr>

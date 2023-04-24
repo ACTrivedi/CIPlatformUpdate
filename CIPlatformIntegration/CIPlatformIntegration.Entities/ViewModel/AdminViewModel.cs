@@ -25,5 +25,9 @@ namespace CIPlatformIntegration.Entities.ViewModel
 
         //For story View
         public Story story { get; set; }
+
+        public List<StoryMedium> StoryMedium { get; set; }
+
+        public List<MissionTheme> missionThemes { get; set; }
     }
 }

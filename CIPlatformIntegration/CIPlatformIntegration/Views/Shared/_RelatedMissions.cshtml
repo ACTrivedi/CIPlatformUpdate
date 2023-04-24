@@ -48,12 +48,10 @@
                         <div class="card1 card my-5">
                             <img class="cardimage card-img-top" src="~/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png" alt="Card image cap">
                             <div class="justify-content-center d-flex">
-                            @{
-                               
-
+                            @{                               
                                 foreach (var i in themes as IEnumerable<MissionTheme>)
                                 {
-                                    if(@i.Title== modeldetail.Title)
+                                    if(@i.MissionThemeId == modeldetail.ThemeId)
                                     {
                                     <div class="px-5 p-1 rounded-pill " style="background-color: white;margin-top: -16px;"><p>@i.Title</p> </div>
                                     }

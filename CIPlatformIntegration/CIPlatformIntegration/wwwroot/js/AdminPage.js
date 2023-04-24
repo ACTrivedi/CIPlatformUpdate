@@ -81,7 +81,6 @@
     
 
 
-
     $('.missionApplicationClick').on('click', function () {
             
 
@@ -172,9 +171,7 @@
                                 },
 
                                 dataType: 'HTML',
-                                success: function (res) {
-
-                                    
+                                success: function (res) {                                                                      
 
                                     $('.missionApplicationClick').click();
 
@@ -231,6 +228,162 @@
 
                     });
 
+                    //For Delete,Decline and approve from outside story start
+                   
+
+                    //for outer Delete
+                    var deleteStory = document.querySelectorAll('.deleteStory');
+
+                    deleteStory.forEach(function (i) {
+
+                        console.log(i);
+
+                        i.addEventListener('click', function () {
+
+                            var value = $(this).attr('value');
+                            $.ajax({
+                                type: 'POST',
+                                dataType: 'HTML',
+                                data:
+                                {
+                                    storyId: value
+                                },
+                                url: '/Admin/storyDelete',
+
+                                success:
+                                    function (res) {
+                                        $('.storyArea').html('');
+                                        $('.storyArea').append(res);
+
+                                        let storytable = new DataTable('#storyDataTable', {
+                                            lengthChange: false,
+
+                                        });
+
+                                        $('.storyClick').click();
+
+                                    },
+                                failure:
+                                    function () {
+
+                                    }
+                            });
+
+                        });
+
+                    });
+
+                    //for outer Approve
+                    var approveStory = document.querySelectorAll('.approveStory');
+
+                    approveStory.forEach(function (i) {
+
+                        console.log(i);
+
+                        i.addEventListener('click', function () {
+
+                            
+
+                                var value = $(this).attr('value');
+
+
+
+                                $.ajax({
+                                    type: 'POST',
+                                    dataType: 'HTML',
+                                    data:
+                                    {
+                                        storyId: value
+                                    },
+                                    url: '/Admin/storyApprove',
+
+                                    success:
+                                        function (res) {
+                                            $('.storyArea').html('');
+                                            $('.storyArea').append(res);
+
+                                            let storytable = new DataTable('#storyDataTable', {
+                                                lengthChange: false,
+
+                                            });
+
+                                            $('.storyClick').click();
+
+                                        },
+                                    failure:
+                                        function () {
+
+                                        }
+                                });
+
+
+
+
+                           
+
+                        });
+
+                    });
+
+                    //for outer Decline
+                    var declineStory = document.querySelectorAll('.declineStory');
+
+                    declineStory.forEach(function (i) {
+
+                        console.log(i);
+
+                        i.addEventListener('click', function () {
+
+                            
+
+                                var value = $(this).attr('value');
+                                $.ajax({
+                                    type: 'POST',
+                                    dataType: 'HTML',
+                                    data:
+                                    {
+                                        storyId: value
+                                    },
+                                    url: '/Admin/storyDecline',
+
+                                    success:
+                                        function (res) {
+                                            $('.storyArea').html('');
+                                            $('.storyArea').append(res);
+
+                                            let storytable = new DataTable('#storyDataTable', {
+                                                lengthChange: false,
+
+                                            });
+                                            $('.storyClick').click();
+
+                                        },
+                                    failure:
+                                        function () {
+
+                                        }
+                                });
+
+
+                            
+
+
+
+
+
+
+                        });
+
+                    });
+
+
+                    
+
+                    //For Delete,Decline and approve from outside story ends
+
+
+
+
 
                     var viewButton = document.querySelectorAll('.viewButton');
 
@@ -242,7 +395,7 @@
 
                             
 
-                            var value = $('.viewButton').val();
+                            var value = $(this).attr('value');
                             console.log(value);
 
 
@@ -256,10 +409,132 @@
 
                                 dataType: 'HTML',
                                 success: function (res) {
-                                    alert("Success");
+                                   
                                     console.log(res);
                                     $('.storyArea').html('');
                                     $('.storyArea').append(res);
+
+                                    //For Back
+                                    $('.back').on('click', function () {                                       
+                                        $('.storyClick').click();
+                                    });
+
+
+                                    //For Story Delete
+                                    $('.deleteStory').on('click', function () {
+
+                                        var value = $(this).attr('value');
+                                        $.ajax({
+                                            type: 'POST',
+                                            dataType: 'HTML',
+                                            data:
+                                            {
+                                                storyId: value
+                                            },
+                                            url: '/Admin/storyDelete',
+
+                                            success:
+                                                function (res) {
+                                                    $('.storyArea').html('');
+                                                    $('.storyArea').append(res);
+
+                                                    let storytable = new DataTable('#storyDataTable', {
+                                                        lengthChange: false,
+
+                                                    });
+
+                                                    $('.storyClick').click();
+
+                                                },
+                                            failure:
+                                                function () {
+
+                                                }
+                                        });
+
+
+                                    });
+
+
+                                    //For Decline
+                                    $('.declineStory').on('click', function () {
+
+                                        var value = $(this).attr('value');
+                                        $.ajax({
+                                            type: 'POST',
+                                            dataType: 'HTML',
+                                            data:
+                                            {
+                                                storyId: value
+                                            },
+                                            url: '/Admin/storyDecline',
+
+                                            success:
+                                                function (res) {
+                                                    $('.storyArea').html('');
+                                                    $('.storyArea').append(res);
+
+                                                    let storytable = new DataTable('#storyDataTable', {
+                                                        lengthChange: false,
+
+                                                    });
+                                                    $('.storyClick').click();
+
+                                                },
+                                            failure:
+                                                function () {
+
+                                                }
+                                        });
+
+
+                                    });
+
+
+                                    //For Approve
+                                    $('.approveStory').on('click', function () {
+
+                                        var value = $(this).attr('value');
+
+                                       
+
+                                            $.ajax({
+                                                type: 'POST',
+                                                dataType: 'HTML',
+                                                data:
+                                                {
+                                                    storyId: value
+                                                },
+                                                url: '/Admin/storyApprove',
+
+                                                success:
+                                                    function (res) {
+                                                        $('.storyArea').html('');
+                                                        $('.storyArea').append(res);
+
+                                                        let storytable = new DataTable('#storyDataTable', {
+                                                            lengthChange: false,
+
+                                                        });
+
+                                                        $('.storyClick').click();
+
+                                                    },
+                                                failure:
+                                                    function () {
+
+                                                    }
+                                            });
+                                       
+
+
+
+                                    });
+
+
+
+
+
 
                                 }
 
@@ -282,6 +557,218 @@
 
 
     });
+
+
+
+
+
+    //For story
+
+
+    let missionsThemeDataTable = new DataTable('#missionsThemeDataTable', {
+        lengthChange: false,
+
+    });
+
+
+
+
+       
+    $('.missionThemeClick').on('click', function () {
+                      
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'HTML',
+            url: '/Admin/missionThemeMain',
+
+            success:
+                function (res) {
+
+                    $('.missionThemeArea').html('');
+                    $('.missionThemeArea').append(res);
+
+                    let missionsThemeDataTable = new DataTable('#missionsThemeDataTable', {
+                        lengthChange: false,
+
+                    });
+
+                    //For theme approve start
+                    var approveMissionTheme = document.querySelectorAll('.approveMissionTheme');
+
+                    approveMissionTheme.forEach(function (i) {
+
+                        console.log(i);
+
+                        i.addEventListener('click', function () {
+
+                            var value = $(this).attr('value');
+
+                            $.ajax({
+                                type: 'POST',
+                                dataType: 'HTML',
+                                data:
+                                {
+                                    missionThemeId: value
+                                },
+                                url: '/Admin/missionThemeApprove',
+
+                                success:
+                                    function (res) {
+                                        $('.missionThemeArea').html('');
+                                        $('.missionThemeArea').append(res);
+
+                                        let missionsThemeDataTable = new DataTable('#missionsThemeDataTable', {
+                                            lengthChange: false,
+
+                                        });
+
+                                        $('.missionThemeClick').click();
+
+                                    },
+                                failure:
+                                    function () {
+
+                                    }
+                            });
+
+
+
+
+
+
+                        });
+
+                    });
+                    //For theme approve end
+
+                    //For theme delete start
+                    var deleteMissionTheme = document.querySelectorAll('.deleteMissionTheme');
+
+                    deleteMissionTheme.forEach(function (i) {
+
+                        console.log(i);
+
+                        i.addEventListener('click', function () {
+
+                            var value = $(this).attr('value');
+
+                            $.ajax({
+                                type: 'POST',
+                                dataType: 'HTML',
+                                data:
+                                {
+                                    missionThemeId: value
+                                },
+                                url: '/Admin/missionThemeDelete',
+
+                                success:
+                                    function (res) {
+                                        $('.missionThemeArea').html('');
+                                        $('.missionThemeArea').append(res);
+
+                                        let missionsThemeDataTable = new DataTable('#missionsThemeDataTable', {
+                                            lengthChange: false,
+
+                                        });
+
+                                        $('.missionThemeClick').click();
+
+                                    },
+                                failure:
+                                    function () {
+
+                                    }
+                            });
+
+
+
+
+
+
+                        });
+
+                    });
+                    //For theme delete end
+
+
+
+                    $('#addMissionTheme').on('click', function () {
+                       
+
+                         $('.btn-close').trigger("click");
+                        var Title = $('#Title').val();
+                        console.log(Title);
+
+                        
+                       
+                        if (Title.trim() == "") {
+                            $('#titleSpan').removeClass("d-none");
+                            
+
+                        }
+                        else {
+                                                                            
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'HTML',
+                            url: '/Admin/AdminAddMissionTheme',
+
+                            data: {
+                                Title: Title,
+                            },
+
+
+                            success:
+                                function (res) {
+
+                                    
+
+                                    $('.missionThemeArea').html('');
+                                    $('.missionThemeArea').append(res);
+
+                                    let missionsThemeDataTable = new DataTable('#missionsThemeDataTable', {
+                                        lengthChange: false,
+
+                                    });
+
+                                   
+
+                                    $('.missionThemeClick').click();
+
+
+
+                                },
+                            failure:
+                                function () {
+
+                                }
+                        });
+
+                        }
+                    });
+                        
+                                   
+
+                   
+
+
+                },
+            failure:
+                function () {
+
+                }
+        });
+
+
+    });
+
+
+
+
+    
+
+
 
 
         
@@ -388,7 +875,6 @@ $('.userDelete').on('click', function () {
     });
 
 });
-
 
 
 

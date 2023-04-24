@@ -486,7 +486,7 @@
                             <span style="color:orange">Apply Now &nbsp; </span> <img src="~/images/right-arrow.png" />
                             </a>
                             </div>*@
-    
+
                         @{
                             var useridcheckforapply = (long)ViewData["useridcheck"];
                             var cnt = 0;
@@ -673,42 +673,38 @@
                                     <div class="py-3 border-bottom">
                                         <h4 style="position:relative; left:5vh; margin-bottom:0;">Recent Volunteers</h4>
                                     </div>
+
+
+
                                     <div style="text-align:center;">
                                         <div class="row ">
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer4.png" />
-                                            </div>
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer3.png" />
-                                            </div>
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer4.png" />
-                                            </div>
+
+                                            @{
+                                               
+                                                foreach (var item in appliedMissions as IEnumerable<MissionApplication>)
+                                                {
+                                                   
+                                                    if (item.MissionId == modeldetail.MissionId)
+                                                    {
+                                                        <div class="col-4">
+                                                            <img class="rounded-circle volimage" src="@item.User.Avatar" />
+                                                        </div>
+                                                    }
+
+                                                    
+
+                                                }
+                                               
+                                            }
+
                                         </div>
+
 
                                         <div class="row">
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer4.png" />
-                                            </div>
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer3.png" />
-                                            </div>
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer4.png" />
-                                            </div>
+                                            
+                                           
                                         </div>
 
-                                        <div class="row ">
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer4.png" />
-                                            </div>
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer3.png" />
-                                            </div>
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer4.png" />
-                                            </div>
-                                        </div>
 
 
                                     </div>
@@ -719,42 +715,7 @@
                                         <h4 style="position:relative; left:5vh; margin-bottom:0;">Recent Volunteers</h4>
                                     </div>
                                     <div style="text-align:center">
-                                        <div class="row mt-3">
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer4.png" />
-                                            </div>
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer3.png" />
-                                            </div>
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer4.png" />
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer4.png" />
-                                            </div>
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer3.png" />
-                                            </div>
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer4.png" />
-                                            </div>
-                                        </div>
-
-                                        <div class="row ">
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer4.png" />
-                                            </div>
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer3.png" />
-                                            </div>
-                                            <div class="col-4">
-                                                <img class="rounded-circle volimage" src="~/images/volunteer4.png" />
-                                            </div>
-                                        </div>
-
+                                        
 
                                     </div>
                                 </div>
@@ -794,178 +755,178 @@
 
 
     <script type="text/javascript">
-                console.log("@ViewBag.Avgratingview");
+        console.log("@ViewBag.Avgratingview");
 
 
-                $(".ratingStar").hover(function () {
-                   $(".ratingStar").addClass("far").removeClass("fas");
+        $(".ratingStar").hover(function () {
+           $(".ratingStar").addClass("far").removeClass("fas");
 
 
-                  $(this).addClass("fas").removeClass("far");
-                   $(this).prevAll('.ratingStar').addClass("fas").removeClass("far");
+          $(this).addClass("fas").removeClass("far");
+           $(this).prevAll('.ratingStar').addClass("fas").removeClass("far");
 
-                });
-
-
-                $(".ratingStar").click(function () {
-
-                    var starValue = $(this).attr('data-value');
+        });
 
 
-                    $.ajax({
-                        url: '/Home/StarRating',
-                        type: 'POST',
-                        data: {
-                            s: starValue
-                        },
-                        success: function () {
-                            alert("You gave rating=" + starValue);
+        $(".ratingStar").click(function () {
+
+            var starValue = $(this).attr('data-value');
 
 
-                            location.reload();
-
-                        },
-                        error: function () {
-                            alert("error");
-                        }
-                    });
-
-
-
-
-                    $("#ratingsValue").val(starValue);
-                });
+            $.ajax({
+                url: '/Home/StarRating',
+                type: 'POST',
+                data: {
+                    s: starValue
+                },
+                success: function () {
+                    alert("You gave rating=" + starValue);
 
 
+                    location.reload();
 
-
-                function getComment() {
-                   
-                    var formData = $('#commentdata').val();
-                    
-                    if(formData.length==0)
-                    {
-                        Swal.fire({
-                          icon: 'error',
-                          title: 'Oops...',
-                          text: 'Please enter something!!',
-                          
-                        })
-                    }
-                    else
-                    {
-                         
-                          $.ajax({
-                        url: '/Home/Createcomment',
-                        type: 'POST',
-                        data: { "formData": formData },
-                        success: function (result) {
-                            location.reload();
-                        },
-                        error: function (error) {
-                            alert("Error");
-                        }
-
-                    });
-                    
-                    }
-
-                   
+                },
+                error: function () {
+                    alert("error");
                 }
-
-
-
-                function addtofav(missionid){
+            });
 
 
 
 
-                    var missionID = missionid;
-                    $.ajax({
-                        url: '/Home/Toggle',
-                        type: 'POST',
-                        data: { "missionID": missionID },
-                        success: function (result) {
-
-
-                             Swal.fire({
-                              title: 'Favourites',
-                              icon: 'success',
-                              timer: 2000,
-                               showConfirmButton: false,
-
-                            })
-
-                            setTimeout(function () {
-
-                            location.reload(true);
-                          }, 2000);
-
-                             //location.reload();
-                        },
-                        error: function (error) {
-                            console.log("Something");
-                        }
-
-                    });
-
-                }
+            $("#ratingsValue").val(starValue);
+        });
 
 
 
-                $('.send').on('click',function(){
 
-                console.log($(this).val());
-                var userEmail=$(this).val();
-                    $.ajax({
-                        url: '/Home/Recommendtoworker',
-                        type: 'POST',
-                        data: { "userEmail" :userEmail },
-                        success: function (result) {
-                           alert("success");
-                        },
-                        error: function (error) {
-                            alert("Error");
-                        }
+        function getComment() {
 
-                    });
+            var formData = $('#commentdata').val();
 
-
+            if(formData.length==0)
+            {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Please enter something!!',
 
                 })
+            }
+            else
+            {
 
-
-
-                 function ApplyForMission() {
-
-
-                    $.ajax({
-                        url: '/Home/ApplyForMission',
-                        type: 'POST',
-
-                        success: function () {
-
-
-                            Swal.fire({
-                              title: 'Thanks!! For Applying.',
-                              icon: 'success',
-                              timer: 2000,
-                               showConfirmButton: false,
-
-                            })
-
-                            setTimeout(function (data) {
-                                location.reload();
-                            
-                          }, 2000);
-
-                        },
-                        error: function (error) {
-                            alert("Error");
-                        }
-
-                    });
+                  $.ajax({
+                url: '/Home/Createcomment',
+                type: 'POST',
+                data: { "formData": formData },
+                success: function (result) {
+                    location.reload();
+                },
+                error: function (error) {
+                    alert("Error");
                 }
+
+            });
+
+            }
+
+
+        }
+
+
+
+        function addtofav(missionid){
+
+
+
+
+            var missionID = missionid;
+            $.ajax({
+                url: '/Home/Toggle',
+                type: 'POST',
+                data: { "missionID": missionID },
+                success: function (result) {
+
+
+                     Swal.fire({
+                      title: 'Favourites',
+                      icon: 'success',
+                      timer: 2000,
+                       showConfirmButton: false,
+
+                    })
+
+                    setTimeout(function () {
+
+                    location.reload(true);
+                  }, 2000);
+
+                     //location.reload();
+                },
+                error: function (error) {
+                    console.log("Something");
+                }
+
+            });
+
+        }
+
+
+
+        $('.send').on('click',function(){
+
+        console.log($(this).val());
+        var userEmail=$(this).val();
+            $.ajax({
+                url: '/Home/Recommendtoworker',
+                type: 'POST',
+                data: { "userEmail" :userEmail },
+                success: function (result) {
+                   alert("success");
+                },
+                error: function (error) {
+                    alert("Error");
+                }
+
+            });
+
+
+
+        })
+
+
+
+         function ApplyForMission() {
+
+
+            $.ajax({
+                url: '/Home/ApplyForMission',
+                type: 'POST',
+
+                success: function () {
+
+
+                    Swal.fire({
+                      title: 'Thanks!! For Applying.',
+                      icon: 'success',
+                      timer: 2000,
+                       showConfirmButton: false,
+
+                    })
+
+                    setTimeout(function (data) {
+                        location.reload();
+
+                  }, 2000);
+
+                },
+                error: function (error) {
+                    alert("Error");
+                }
+
+            });
+        }
 
 
 
