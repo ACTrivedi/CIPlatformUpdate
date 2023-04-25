@@ -54,8 +54,39 @@ namespace CIPlatformIntegration.Repository.Interface
 
         void missionThemeDelete(long missionThemeId);
 
+        void missionThemeEdit(long missionThemeId,string editTitle);
 
 
+        //Mission Skills
 
+        AdminViewModel adminViewModelMainForMissionSkills();
+
+        void missionSkillsAdd(string skillName);
+
+        void missionSkillsEdit(long missionSkillsId, string editSkillName,int SelectStatus);
+
+       
+
+        void missionSkillsDelete(long missionSkillsId);
+
+
+        //CMS
+
+        AdminViewModel adminViewModelMainForCMS();
+
+        void CMSAdd(string CMSTitle, string CMSDescription, string CMSSlug, int SelectStatus);
+
+        void CMSEdit(long CMSId, string CMSTitleEdit, string CMSDescriptionEdit, string CMSSlugEdit, int SelectStatusEdit);
+        void CMSApprove(long CMSId);
+
+        void CMSDelete(long CMSId);
+
+
+        //For mission main
+        AdminViewModel adminViewModelMainForMission();
+
+        AdminViewModel adminViewModelMainForAddMission(long missionId);
+
+        AdminViewModel adminViewModelMainForAddMissionDetails(AdminViewModel adminViewModelMain);
     }
 }

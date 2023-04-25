@@ -26,7 +26,6 @@ namespace CIPlatformIntegration.Controllers
         [HttpGet]
         public IActionResult AdminPage()
         {
-
             var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
 
             var userUpdate = _adminRepository.user(userIdForUserEdit);
@@ -77,7 +76,6 @@ namespace CIPlatformIntegration.Controllers
         }
 
 
-
         [HttpPost]
         public IActionResult AdminMissionApplicationApprove(long missionApplicationId)
         {
@@ -101,11 +99,7 @@ namespace CIPlatformIntegration.Controllers
 
             return PartialView("_adminMissionApplication", adminViewModelMain);
 
-
-
         }
-
-
 
         //For City
         [HttpPost]
@@ -116,14 +110,11 @@ namespace CIPlatformIntegration.Controllers
             return Json(cities);
         }
 
-
-
         [HttpPost]
 
         public IActionResult userEditData(long selectedUserId)
         {
             var userSearch = _adminRepository.userEditData(selectedUserId);
-
             return Json(userSearch);
 
         }
@@ -201,6 +192,8 @@ namespace CIPlatformIntegration.Controllers
 
         }
 
+        //For Theme
+
         [HttpPost]
 
         public IActionResult missionThemeMain()
@@ -224,7 +217,7 @@ namespace CIPlatformIntegration.Controllers
 
         }
 
-        
+
 
         [HttpPost]
         public IActionResult missionThemeApprove(long missionThemeId)
@@ -238,7 +231,7 @@ namespace CIPlatformIntegration.Controllers
             return PartialView("_adminMissionTheme", adminViewModelMain);
 
         }
-                
+
 
         [HttpPost]
         public IActionResult missionThemeDelete(long missionThemeId)
@@ -252,6 +245,196 @@ namespace CIPlatformIntegration.Controllers
             return PartialView("_adminMissionTheme", adminViewModelMain);
 
         }
+
+        [HttpPost]
+
+        public IActionResult missionThemeEditButton(long missionThemeId)
+        {
+            var missionThemeTitle = _cidatabaseContext.MissionThemes.FirstOrDefault(mt => mt.MissionThemeId == missionThemeId).Title;
+            return Json(missionThemeTitle);
+        }
+
+        [HttpPost]
+        public IActionResult AdminEditMissionTheme(long missionThemeId, string editTitle)
+        {
+
+            _adminRepository.missionThemeEdit(missionThemeId, editTitle);
+            return RedirectToAction("AdminPage");
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForMissionTheme();
+
+            return PartialView("_adminMissionTheme", adminViewModelMain);
+
+        }
+
+
+        //Skill
+
+        [HttpPost]
+        
+        public IActionResult missionSkillsMain()
+        {
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForMissionSkills();
+
+            return PartialView("_adminMissionSkills", adminViewModelMain);
+        }
+
+        
+        [HttpPost]
+        public IActionResult AdminAddMissionSkills(string skillName)
+        {
+            _adminRepository.missionSkillsAdd(skillName);
+            return RedirectToAction("AdminPage");
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForMissionSkills();
+
+            return PartialView("_adminMissionSkills", adminViewModelMain);
+
+        }
+
+        
+
+        [HttpPost]
+
+        public IActionResult missionSkillEditButton(long missionSkillId)
+        {
+            var missionSkillName = _cidatabaseContext.Skills.FirstOrDefault(s => s.SkillId == missionSkillId).SkillName;
+
+            return Json(missionSkillName);
+        }
+        
+         [HttpPost]
+        public IActionResult AdminEditMissionSkills(long missionSkillsId, string editSkillName,int SelectStatus)
+        {
+
+            _adminRepository.missionSkillsEdit(missionSkillsId, editSkillName, SelectStatus);
+            return RedirectToAction("AdminPage");
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForMissionTheme();
+
+            return PartialView("_adminMissionTheme", adminViewModelMain);
+
+        }
+
+
+
+        
+        [HttpPost]
+        public IActionResult missionSkillsDelete(long missionSkillsId)
+        {
+
+            _adminRepository.missionSkillsDelete(missionSkillsId);
+            return RedirectToAction("AdminPage");
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForMissionTheme();
+
+            return PartialView("_adminMissionTheme", adminViewModelMain);
+
+        }
+
+
+        //For CMS
+        
+        [HttpPost]
+
+        public IActionResult CMSMain()
+        {
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForCMS();
+
+            return PartialView("_adminCMS", adminViewModelMain);
+        }
+
+        
+        [HttpPost]
+        public IActionResult AdminAddCMS(string CMSTitle, string CMSDescription, string CMSSlug, int SelectStatus)
+        {
+            _adminRepository.CMSAdd( CMSTitle,  CMSDescription,  CMSSlug,  SelectStatus);
+           
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForCMS();
+
+            return PartialView("_adminCMS", adminViewModelMain);
+
+        }
+
+        
+        [HttpPost]
+        public IActionResult CMSEditButton(long CMSId)
+        {
+            var CMSData = _cidatabaseContext.CmsPages.FirstOrDefault(c => c.CmsPageId == CMSId);
+            var data = new  {
+                CMSTitle=CMSData.Title,
+                CMSDescription=CMSData.Description,
+                CMSSlug=CMSData.Slug,
+                SelectStatus=CMSData.Status
+            };
+            return Json(data) ;
+        }
+
+        [HttpPost]
+        public IActionResult AdminEditCMS(long CMSId,string CMSTitleEdit, string  CMSDescriptionEdit,string CMSSlugEdit,int SelectStatusEdit)
+        {
+            _adminRepository.CMSEdit( CMSId,  CMSTitleEdit,   CMSDescriptionEdit,  CMSSlugEdit,  SelectStatusEdit);
+            return RedirectToAction("AdminPage");
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForMissionTheme();
+
+            return PartialView("_adminMissionTheme", adminViewModelMain);
+        }
+
+        
+        [HttpPost]
+        public IActionResult CMSApprove(long CMSId)
+        {
+            _adminRepository.CMSApprove(CMSId);
+           
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForMissionTheme();
+
+            return PartialView("_adminMissionTheme", adminViewModelMain);
+
+        }
+
+
+        [HttpPost]
+        public IActionResult CMSDelete(long CMSId)
+        {
+            _adminRepository.CMSDelete(CMSId);
+           
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForMissionTheme();
+
+            return PartialView("_adminMissionTheme", adminViewModelMain);
+
+        }
+
+        // For mission
+               
+       [HttpPost]
+       public IActionResult missionMain()
+        {
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForMission();
+
+            return PartialView("_adminMission", adminViewModelMain);
+        }
+
+        public IActionResult addMission(long missionId)
+        {
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForAddMission(missionId);
+
+            return PartialView("_adminAddMission", adminViewModelMain);
+        }
+
+        public IActionResult AddMissionWithDetails(AdminViewModel adminViewModelMain)
+        {
+
+            _adminRepository.adminViewModelMainForAddMissionDetails(adminViewModelMain);
+            
+            AdminViewModel adminViewModelMainAdd = _adminRepository.adminViewModelMainForMission();
+            return RedirectToAction("AdminPage");
+
+           
+        }
+
+
 
 
 

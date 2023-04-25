@@ -1,6 +1,6 @@
 ﻿    .leftSide {
     background: #F88634 !important;
-    height: 100vh;
+   min-height: 190vh;
     text-align: left;
 }
 
@@ -72,7 +72,7 @@
     font-weight:400;
 }
 
-.userTag, .missionApplicationTag, .storyTag {
+.userTag, .missionApplicationTag, .storyTag, .missionSkillTag, .CMSTag, .missionTag {
     border-bottom: 1px solid #808080;
     width: fit-content;
     margin-top: 4%;
@@ -109,6 +109,29 @@ table.dataTable thead tr {
 
 table.dataTable tbody th, table.dataTable tbody td {
     padding: 13px 10px !important;
+}
+
+
+.tox .tox-notification--warn, .tox .tox-notification--warning {
+   display:none !important;
+}
+
+
+.custom-select.is-valid, .form-control.is-valid, .was-validated .custom-select:valid, .was-validated .form-control:valid {
+    border: none !important;
+}
+
+.form-control.is-valid, .was-validated .form-control:valid {
+    border: none !important;
+    background-image: none !important;
+}
+
+.form-select.is-valid:not([multiple]):not([size]), .form-select.is-valid:not([multiple])[size="1"], .was-validated .form-select:valid:not([multiple]):not([size]), .was-validated .form-select:valid:not([multiple])[size="1"] {
+    background-image: none !important;
+}
+
+.form-select.is-valid, .was-validated .form-select:valid {
+    border: none !important;
 }
 
 

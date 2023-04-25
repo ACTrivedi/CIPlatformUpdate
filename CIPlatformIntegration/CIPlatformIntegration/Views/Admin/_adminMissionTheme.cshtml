@@ -24,32 +24,39 @@
             <!-- Modal -->
             foreach (var i in Model.missionThemes)
             {
-
                 <tr>
                     <th scope="row">@i.Title</th>
 
                     @{
                         if (@i.Status == 1)
-                        { 
-                             <td>Active</td>
+                        {
+                            <td style="color:#14C506; font-size:16px;">Active</td>
                         }
                         if (@i.Status == 0)
-                        { 
-                             <td>InActive</td>
+                        {
+                            <td style="color:red; font-size:16px;">InActive</td>
                         }
-                    }                                     
+                    }
 
 
                     <td class="justify-content-evenly d-flex">
 
-                        <span class="approveMissionTheme"  value="@i.MissionThemeId" type="button" id=""><i class="bi bi-check-circle" style="color:green;"></i></span>
-                        <span class="deleteMissionTheme"  value="@i.MissionThemeId" type="button" id=""><i class="bi bi-x-circle" style="color:red;"></i></span>
+                        <button value="@i.MissionThemeId" type="button" class="btn btn-outline-warning rounded-pill themeEditButton" data-bs-toggle="modal" data-bs-target="#exampleModalAdminThemeEdit"> Edit</button>
+
+                        <span class="approveMissionTheme" value="@i.MissionThemeId" type="button" id=""><i class="bi bi-check-circle" style="color:green;"></i></span>
+                        <span class="deleteMissionTheme" value="@i.MissionThemeId" type="button" id=""><i class="bi bi-x-circle" style="color:red;"></i></span>
 
                     </td>
 
                 </tr>
 
+
+                //For Theme Edit
+                              
+
+
             }
+
         }
 
     </tbody>
@@ -57,33 +64,67 @@
 
 
 <div class="modal fade" id="exampleModalAdminThemeAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" >
+    <div class="modal-dialog modal-dialog-centered">
 
-       
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Mission Theme</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Mission Theme</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+
+                <div class="row g-3">
+                    <div class="col-lg-12">
+                        <label for="" class="form-label">Theme Title</label>
+                        <input type="text" class="form-control" name="Title" id="Title" placeholder="Enter Theme Title" required>
+                        <span class="d-none" id="titleSpan" style="color: red; font-size: 14px;">*Please enter something!</span>
+                    </div>
+
+
                 </div>
-                <div class="modal-body ">
+            </div>
+            <div class="modal-footer">
 
-                    <div class="row g-3">
-                        <div class="col-lg-12">
-                            <label for="" class="form-label">Theme Title</label>
-                            <input type="text" class="form-control" name="Title" id="Title" placeholder="Enter Theme Title" required>
-                            <span class="d-none" id="titleSpan" style="color: red; font-size: 14px;">*Please enter something!</span>
+                <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-bs-dismiss="modal">Cancel</button>
+
+                <button type="button" class="btn btn-outline-warning rounded-pill" id="addMissionTheme">Create</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+ <div class="modal fade" id="exampleModalAdminThemeEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+
+
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Mission Theme</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body ">
+
+                                <div class="row g-3">
+                                    <div class="col-lg-12">
+                                        <label for="" class="form-label">Theme Title</label>
+                                        <input type="text" class="form-control" name="Title" id="editTitle" placeholder="Enter Theme Title" required>
+                                        <span class="d-none" id="titleSpan" style="color: red; font-size: 14px;">*Please enter something!</span>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-bs-dismiss="modal">Cancel</button>
+
+                                <button type="button" class="btn btn-outline-warning rounded-pill" id="editMissionTheme">Edit</button>
+                            </div>
                         </div>
-
 
                     </div>
                 </div>
-                <div class="modal-footer">
-
-                    <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-bs-dismiss="modal">Cancel</button>
-
-                    <button type="button" class="btn btn-outline-warning rounded-pill" id="addMissionTheme">Create</button>
-                </div>
-            </div>
-        
-    </div>
-</div>

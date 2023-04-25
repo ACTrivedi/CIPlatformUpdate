@@ -118,7 +118,8 @@
 
                             /*$('.missionApplicationApprove').on('click', function () {*/
 
-                                var value = $('.missionApplicationApprove').attr('id');
+                            var value = $('.missionApplicationApprove').attr('id');
+                            
                                 console.log(value);
                                      
 
@@ -562,11 +563,12 @@
 
 
 
-    //For story
+    //For Mission Theme
 
 
     let missionsThemeDataTable = new DataTable('#missionsThemeDataTable', {
         lengthChange: false,
+        pageLength: 7,
 
     });
 
@@ -575,7 +577,8 @@
 
        
     $('.missionThemeClick').on('click', function () {
-                      
+                    
+              
 
         $.ajax({
             type: 'POST',
@@ -590,8 +593,45 @@
 
                     let missionsThemeDataTable = new DataTable('#missionsThemeDataTable', {
                         lengthChange: false,
+                        pageLength: 7,
+                    });
+
+
+                    //For theme Edit start
+
+                    $('.themeEditButton').on('click', function () {
+
+                        var value = $(this).attr('value');
+
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'JSON',
+                            data:
+                            {
+                                missionThemeId: value
+                            },
+                            url: '/Admin/missionThemeEditButton',
+
+                            success:
+                                function(res) {
+                                
+                                console.log("Heyy" + res);
+                                $('#editTitle').val(res);
+
+                            },
+                            failure:
+                                function () {
+
+                                }
+                        });
+
+
+
 
                     });
+                    //For theme Edit end
+
+
 
                     //For theme approve start
                     var approveMissionTheme = document.querySelectorAll('.approveMissionTheme');
@@ -620,7 +660,7 @@
 
                                         let missionsThemeDataTable = new DataTable('#missionsThemeDataTable', {
                                             lengthChange: false,
-
+                                            pageLength: 7,
                                         });
 
                                         $('.missionThemeClick').click();
@@ -669,7 +709,7 @@
 
                                         let missionsThemeDataTable = new DataTable('#missionsThemeDataTable', {
                                             lengthChange: false,
-
+                                            pageLength: 7,
                                         });
 
                                         $('.missionThemeClick').click();
@@ -691,21 +731,16 @@
                     });
                     //For theme delete end
 
-
+                    //For theme add start
 
                     $('#addMissionTheme').on('click', function () {
-                       
-
-                         $('.btn-close').trigger("click");
+                        $('.btn-close').click();
                         var Title = $('#Title').val();
-                        console.log(Title);
-
-                        
+                        console.log(Title);                                              
                        
                         if (Title.trim() == "") {
                             $('#titleSpan').removeClass("d-none");
                             
-
                         }
                         else {
                                                                             
@@ -729,7 +764,7 @@
 
                                     let missionsThemeDataTable = new DataTable('#missionsThemeDataTable', {
                                         lengthChange: false,
-
+                                        pageLength: 7,
                                     });
 
                                    
@@ -747,8 +782,57 @@
 
                         }
                     });
+
+                    //For theme add end
                         
-                                   
+                   //For Edit mission Theme
+                    
+
+                    $('#editMissionTheme').on('click', function () {
+
+                        var missionThemeId = $('.themeEditButton').val();
+                        var editTitle = $('#editTitle').val();
+
+                        console.log(editTitle);
+                                            
+                          $.ajax({
+                                type: 'POST',
+                                dataType: 'HTML',
+                              url: '/Admin/AdminEditMissionTheme',
+
+                              data: {
+
+                                  missionThemeId: missionThemeId,
+                                  editTitle: editTitle,
+                                },
+
+
+                                success:
+                                    function (res) {
+
+                                        $('.missionThemeArea').html('');
+                                        $('.missionThemeArea').append(res);
+
+                                        let missionsThemeDataTable = new DataTable('#missionsThemeDataTable', {
+                                            lengthChange: false,
+                                            pageLength: 7,
+                                        });
+
+                                      
+                                        $('.missionThemeClick').click();
+                                       
+                                        
+
+
+                                    },
+                                failure:
+                                    function () {
+
+                                    }
+                            });
+
+                        
+                    });
 
                    
 
@@ -762,6 +846,680 @@
 
 
     });
+
+
+
+
+
+
+    //For Mission Skills
+
+
+    let missionSkillsDataTable = new DataTable('#missionSkillsDataTable', {
+        lengthChange: false,
+        pageLength: 7,
+
+    });
+
+
+
+
+
+    $('.missionSkillsClick').on('click', function () {
+
+
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'HTML',
+            url: '/Admin/missionSkillsMain',
+
+            success:
+                function (res) {
+
+                    $('.missionSkillsArea').html('');
+                    $('.missionSkillsArea').append(res);
+
+                    let missionSkillsDataTable = new DataTable('#missionSkillsDataTable', {
+                        lengthChange: false,
+                        pageLength: 7,
+
+                    });                   
+
+
+
+                    //For skill delete start
+                    var deleteMissionSkills = document.querySelectorAll('.deleteMissionSkills');
+
+                    deleteMissionSkills.forEach(function (i) {
+
+                        console.log(i);
+
+                        i.addEventListener('click', function () {
+
+                            var value = $(this).attr('value');
+
+                            $.ajax({
+                                type: 'POST',
+                                dataType: 'HTML',
+                                data:
+                                {
+                                    missionSkillsId: value
+                                },
+                                url: '/Admin/missionSkillsDelete',
+
+                                success:
+                                    function (res) {
+                                        $('.missionSkillArea').html('');
+                                        $('.missionSkillArea').append(res);
+
+                                        let missionSkillsDataTable = new DataTable('#missionSkillsDataTable', {
+                                            lengthChange: false,
+                                            pageLength: 7,
+
+                                        });
+
+                                        $('.missionSkillsClick').click();
+
+                                    },
+                                failure:
+                                    function () {
+
+                                    }
+                            });
+
+
+
+
+
+
+                        });
+
+                    });
+                    //For skill delete end
+
+
+                    // For skill Add
+                    $('#addMissionSkills').on('click', function () {
+
+                        $('.cancelPrompt').click();
+                        var skillName = $('#skillName').val();
+                        console.log(skillName);
+
+                        if (skillName.trim() == "") {
+                            $('#skillSpan').removeClass("d-none");
+
+                        }
+                        else {
+
+                            $.ajax({
+                                type: 'POST',
+                                dataType: 'HTML',
+                                url: '/Admin/AdminAddMissionSkills',
+
+                                data: {
+                                    skillName: skillName,
+                                },
+
+
+                                success:
+                                    function (res) {
+
+
+
+                                        $('.missionSkillsArea').html('');
+                                        $('.missionSkillsArea').append(res);
+
+                                        let missionSkillsDataTable = new DataTable('#missionSkillsDataTable', {
+                                            lengthChange: false,
+                                            pageLength: 7,
+
+                                        });
+
+
+
+                                        $('.missionSkillsClick').click();
+
+
+
+                                    },
+                                failure:
+                                    function () {
+
+                                    }
+                            });
+
+                        }
+                    });
+
+
+                    //For skill Add end
+
+                    //For Mission Skill Edit start
+                    var value = 0;
+                    $('.skillsEditButton').on('click', function () {
+
+                         value = $(this).attr('value');
+
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'JSON',
+                            data:
+                            {
+                                missionSkillId: value
+                            },
+                            url: '/Admin/missionSkillEditButton',
+
+                            success:
+                                function (res) {
+
+                                    console.log("Heyy" + res);
+                                    $('#editSkillName').val(res);
+
+                                },
+                            failure:
+                                function () {
+
+                                }
+                        });
+
+
+
+
+                    });
+                    //For Mission Skill Edit end
+
+
+                    //For Edit skill 
+
+
+                    $('#editMissionSkills').on('click', function () {
+                        $('.cancelPrompt').click();
+
+                        var missionSkillsId = value;
+                        var editSkillName = $('#editSkillName').val();
+                        var SelectStatus = $('#SelectStatus').val();
+
+
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'HTML',
+                            url: '/Admin/AdminEditMissionSkills',
+
+                            data: {
+
+                                missionSkillsId: missionSkillsId,
+                                editSkillName: editSkillName,
+                                SelectStatus: SelectStatus,
+                            },
+
+
+                            success:
+                                function (res) {
+
+                                    $('.missionSkillsArea').html('');
+                                    $('.missionSkillsArea').append(res);
+
+                                    let missionSkillsDataTable = new DataTable('#missionSkillsDataTable', {
+                                        lengthChange: false,
+                                        pageLength: 7,
+
+                                    });
+
+                                    
+
+
+                                    $('.missionSkillsClick').click();
+
+
+
+
+                                },
+                            failure:
+                                function () {
+
+                                }
+                        });
+
+
+                    });
+
+
+
+
+                },
+            failure:
+                function () {
+
+                }
+        });
+
+
+    });
+
+
+
+
+    //For Mission CMS
+
+
+    let CMSDataTable = new DataTable('#CMSDataTable', {
+        lengthChange: false,
+        pageLength: 7,
+
+    });
+
+
+
+
+
+    $('.CMSClick').on('click', function () {
+
+
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'HTML',
+            url: '/Admin/CMSMain',
+
+            success:
+                function (res) {
+
+                    $('.CMSArea').html('');
+                    $('.CMSArea').append(res);
+
+
+                    let CMSDataTable = new DataTable('#CMSDataTable', {
+                        lengthChange: false,
+                        pageLength: 7,
+
+                    });
+
+
+
+
+
+
+                    //For CMS approve start
+                    var approveCMS = document.querySelectorAll('.approveCMS');
+
+                    approveCMS.forEach(function (i) {
+
+                        console.log(i);
+
+                        i.addEventListener('click', function () {
+
+                            var value = $(this).attr('value');
+
+                            $.ajax({
+                                type: 'POST',
+                                dataType: 'HTML',
+                                data:
+                                {
+                                    CMSId: value
+                                },
+                                url: '/Admin/CMSApprove',
+
+                                success:
+                                    function (res) {
+                                        $('.CMSArea').html('');
+                                        $('.CMSArea').append(res);
+
+                                        let CMSDataTable = new DataTable('#CMSDataTable', {
+                                            lengthChange: false,
+                                            pageLength: 7,
+
+                                        });
+
+                                        $('.CMSClick').click();
+
+                                    },
+                                failure:
+                                    function () {
+
+                                    }
+                            });
+
+
+
+
+
+
+                        });
+
+                    });
+                    //For CMS approve end
+
+                    //For CMS delete start
+                    var deleteCMS = document.querySelectorAll('.deleteCMS');
+
+                    deleteCMS.forEach(function (i) {
+
+                        console.log(i);
+
+                        i.addEventListener('click', function () {
+
+                            var value = $(this).attr('value');
+
+                            $.ajax({
+                                type: 'POST',
+                                dataType: 'HTML',
+                                data:
+                                {
+                                    CMSId: value
+                                },
+                                url: '/Admin/CMSDelete',
+
+                                success:
+                                    function (res) {
+                                        $('.CMSArea').html('');
+                                        $('.CMSArea').append(res);
+
+                                        let CMSDataTable = new DataTable('#CMSDataTable', {
+                                            lengthChange: false,
+                                            pageLength: 7,
+
+                                        });
+
+                                        $('.CMSClick').click();
+
+                                    },
+                                failure:
+                                    function () {
+
+                                    }
+                            });
+
+
+
+
+
+
+                        });
+
+                    });
+                    //For CMS delete end
+
+
+                    // For CMS Add
+                    $('#addCMS').on('click', function () {
+
+                        $('.cancelPrompt').click();
+                        var CMSTitle = $('#CMSTitle').val();
+                        var CMSDescription = $('#CMSDescription').val();
+                        var CMSSlug = $('#CMSSlug').val();
+                        var SelectStatus = $('#SelectStatus').val();
+                        
+                        console.log(CMSTitle);
+
+                        if (CMSTitle.trim() == "") {
+                            $('#skillSpan').removeClass("d-none");
+
+                        }
+                        else {
+
+                            $.ajax({
+                                type: 'POST',
+                                dataType: 'HTML',
+                                url: '/Admin/AdminAddCMS',
+
+                                data: {
+                                    CMSTitle: CMSTitle,
+                                    CMSDescription: CMSDescription,
+                                    CMSSlug: CMSSlug,
+                                    SelectStatus: SelectStatus,
+
+                                },
+
+
+                                success:
+                                    function (res) {
+
+
+
+                                        $('.CMSArea').html('');
+                                        $('.CMSArea').append(res);
+
+                                        let CMSDataTable = new DataTable('#CMSDataTable', {
+                                            lengthChange: false,
+                                            pageLength: 7,
+
+                                        });
+
+
+
+                                        $('.CMSClick').click();
+
+
+
+                                    },
+                                failure:
+                                    function () {
+
+                                    }
+                            });
+
+                        }
+                    });
+
+
+                    //For CMS Add end
+
+                    //For CMS Edit start
+                    var value = 0;
+                    $('.CMSEditButton').on('click', function () {
+
+                        value = $(this).attr('value');
+
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'JSON',
+                            data:
+                            {
+                                CMSId : value
+                            },
+                            url: '/Admin/CMSEditButton',
+
+                            success:
+                                function (res) {
+                                    console.log(res);
+                                    
+                                    $('#CMSTitleEdit').val(res.cmsTitle);
+                                    $('#CMSDescriptionEdit').val(res.cmsDescription);
+                                    $('#CMSSlugEdit').val(res.cmsSlug);
+                                    $('#SelectStatusEdit').val(res.selectStatus);
+
+                                    
+                                    
+                                    
+
+                                },
+                            failure:
+                                function () {
+
+                                }
+                        });
+
+
+
+
+                    });
+                    //ForCMS Edit end
+
+
+                    //For Edit CMS 
+
+
+                    $('#editCMS').on('click', function () {
+                        $('.cancelPrompt').click();
+
+                        var CMSId = value;
+                        var CMSTitleEdit =  $('#CMSTitleEdit').val();
+                        var CMSDescriptionEdit =  $('#CMSDescriptionEdit').val();
+                        var CMSSlugEdit =  $('#CMSSlugEdit').val();
+                        var SelectStatusEdit =  $('#SelectStatusEdit').val();
+                      
+
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'HTML',
+                            url: '/Admin/AdminEditCMS',
+
+                            data: {
+
+                                CMSId: CMSId,
+                                CMSTitleEdit: CMSTitleEdit,
+                                CMSDescriptionEdit: CMSDescriptionEdit,
+                                CMSSlugEdit: CMSSlugEdit,
+                                SelectStatusEdit: SelectStatusEdit,
+                               
+                            },
+
+
+                            success:
+                                function (res) {
+
+                                    $('.CMSArea').html('');
+                                    $('.CMSArea').append(res);
+
+                                    let CMSDataTable = new DataTable('#CMSDataTable', {
+                                        lengthChange: false,
+                                        pageLength: 7,
+
+                                    });
+
+                                    $('.CMSClick').click();
+
+
+
+
+                                },
+                            failure:
+                                function () {
+
+                                }
+                        });
+
+
+                    });
+
+
+
+
+                },
+            failure:
+                function () {
+
+                }
+        });
+
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+
+
+    //For Mission CMS
+
+
+    let missionDataTable = new DataTable('#missionDataTable', {
+        lengthChange: false,
+        pageLength: 7,
+
+    });
+
+
+
+
+
+    $('.missionClick').on('click', function () {
+
+
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'HTML',
+            url: '/Admin/missionMain',
+
+            success:
+                function (res) {
+
+                    $('.missionArea').html('');
+                    $('.missionArea').append(res);
+
+
+                    let missionDataTable = new DataTable('#missionDataTable', {
+                        lengthChange: false,
+                        pageLength: 7,
+
+                    });
+
+
+                    $('.missionViewButton').on('click', function () {
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'HTML',
+                           
+                            url: '/Admin/addMission',
+
+                            success:
+                                function (res) {
+
+                                    $('.missionArea').html('');
+                                    $('.missionArea').append(res);
+
+                                    let missionDataTable = new DataTable('#missionDataTable', {
+                                        lengthChange: false,
+                                        pageLength: 7,
+
+                                    });
+
+                                    /*$('.missionClick').click();*/
+
+                                },
+                            failure:
+                                function () {
+
+                                }
+                        });
+
+                    });
+
+
+
+
+
+
+
+                },
+            failure:
+                function () {
+
+                }
+        });
+
+
+
+
+
+
+
+
+    });
+
+
+
 
 
 

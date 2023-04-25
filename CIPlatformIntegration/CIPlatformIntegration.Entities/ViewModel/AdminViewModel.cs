@@ -1,4 +1,5 @@
 ﻿using CIPlatformIntegration.Entities.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,20 @@ namespace CIPlatformIntegration.Entities.ViewModel
 
         public List<StoryMedium> StoryMedium { get; set; }
 
+        //For mission theme 
         public List<MissionTheme> missionThemes { get; set; }
+
+        //For mission skills
+        public List<Skill> skills { get; set; }
+    
+        //For CMS
+        public List<CmsPage> cmsPages { get; set; }
+
+        //For Mission
+        public Mission singleMission { get; set; }
+
+        public List<IFormFile> Files { get; set; }
+
+
     }
 }

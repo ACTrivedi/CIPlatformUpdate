@@ -1,0 +1,63 @@
+﻿@model CIPlatformIntegration.Entities.ViewModel.AdminViewModel;
+<div>
+    <h2 class="missionTag">Mission</h2>
+    <hr style="margin-top: -10px;" />
+
+</div>
+
+<button type="button" class="btn btn-outline-warning rounded-pill missionViewButton" style="position: relative;top: 4.5vh;left: 73vw; z-index:1">Add</button>
+
+
+<table id="missionDataTable" class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Mission Title</th>
+            <th scope="col">Mission Type</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col" style="text-align:center">Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+
+            var startDate="";
+            var endDate="";
+
+            <!-- Modal -->
+            foreach (var i in Model.missions)
+            {
+                startDate = Convert.ToDateTime(@i.StartDate).ToString("dd-MM-yyyy");
+                endDate = Convert.ToDateTime(@i.EndDate).ToString("dd-MM-yyyy");
+                <tr>
+                    <th scope="row">@i.Title</th>                    
+                    <td>@i.MissionType</td>
+                    <td>@startDate</td>
+                    <td>@endDate</td>
+                    
+                    
+                    <td class="justify-content-evenly d-flex">                                         
+
+                        <span class="approveMission" value="@i.MissionId" type="button" id=""><i class="bi bi-check-circle" style="color:green;"></i></span>
+                        <span class="deleteMission" value="@i.MissionId" type="button" id=""><i class="bi bi-x-circle" style="color:red;"></i></span>
+
+                    </td>
+
+                </tr>
+
+
+                //For Skill Edit
+
+
+
+            }
+
+        }
+
+    </tbody>
+</table>
+
+
+
