@@ -39,12 +39,12 @@
                     }
 
 
-                    <td class="justify-content-evenly d-flex">
+                    <td class="justify-content-center d-flex">
 
-                        <button value="@i.MissionThemeId" type="button" class="btn btn-outline-warning rounded-pill themeEditButton" data-bs-toggle="modal" data-bs-target="#exampleModalAdminThemeEdit"> Edit</button>
+                        <button value="@i.MissionThemeId" type="button" class="btn themeEditButton" data-bs-toggle="modal" data-bs-target="#exampleModalAdminThemeEdit"><i class="fa fa-pencil-square-o" style="color:#F88634;" aria-hidden="true"></i></button>
 
-                        <span class="approveMissionTheme" value="@i.MissionThemeId" type="button" id=""><i class="bi bi-check-circle" style="color:green;"></i></span>
-                        <span class="deleteMissionTheme" value="@i.MissionThemeId" type="button" id=""><i class="bi bi-x-circle" style="color:red;"></i></span>
+                        <div class="approveMissionTheme" value="@i.MissionThemeId" type="button" id="" style="margin-top: 7px;"><i class="bi bi-check-circle" style="color:green;"></i></div>
+                        <div class="deleteMissionTheme" value="@i.MissionThemeId" type="button" id="" style="margin-top: 7px;margin-left: 10px;"><i class="bi bi-x-circle" style="color:red;"></i></div>
 
                     </td>
 
@@ -86,7 +86,7 @@
             </div>
             <div class="modal-footer">
 
-                <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
 
                 <button type="button" class="btn btn-outline-warning rounded-pill" id="addMissionTheme">Create</button>
             </div>
@@ -120,7 +120,7 @@
                             </div>
                             <div class="modal-footer">
 
-                                <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-outline-secondary rounded-pill cancel" id="cancelPrompt" data-bs-dismiss="modal">Cancel</button>
 
                                 <button type="button" class="btn btn-outline-warning rounded-pill" id="editMissionTheme">Edit</button>
                             </div>

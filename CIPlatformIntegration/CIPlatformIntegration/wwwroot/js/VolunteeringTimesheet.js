@@ -32,7 +32,7 @@
             $('#minute').val(data.minute);
             $('#message').val(data.message);
 
-            alert("success");
+          
         }
 
 
@@ -123,7 +123,7 @@ $('.editGoal').on('click', function () {
 
             $('#messageGoal').val(data.message);
 
-            alert("success");
+            
         }
 
 

@@ -97,7 +97,10 @@ namespace CIPlatformIntegration.Repository.Repository
                 GoalMission = _cidatabaseContext.GoalMissions.ToList(),
                 missionApplications = _cidatabaseContext.MissionApplications.ToList(),
                 FavoriteMissions = _cidatabaseContext.FavoriteMissions.ToList(),
+                MissionRatings=_cidatabaseContext.MissionRatings.ToList(),
                 Users = _cidatabaseContext.Users.FirstOrDefault(u => u.UserId == userIdForFav),
+                timesheets =_cidatabaseContext.Timesheets.ToList(),
+                skills=_cidatabaseContext.Skills.ToList(),
                
             };
 
@@ -106,7 +109,7 @@ namespace CIPlatformIntegration.Repository.Repository
 
 
 
-        public HomePageViewModel filtering(long userIdForFav,string[]? country, string[]? city, string[]? theme, string? searchTerm, string? sortValue, int pg)
+        public HomePageViewModel filtering(long userIdForFav,string[]? country, string[]? city, string[]? theme,string[]? skills, string? searchTerm, string? sortValue, int pg)
         {
 
             HomePageViewModel model = new HomePageViewModel
@@ -119,7 +122,10 @@ namespace CIPlatformIntegration.Repository.Repository
                 GoalMission = _cidatabaseContext.GoalMissions.ToList(),
                 missionApplications = _cidatabaseContext.MissionApplications.ToList(),
                 FavoriteMissions = _cidatabaseContext.FavoriteMissions.ToList(),
+                MissionRatings = _cidatabaseContext.MissionRatings.ToList(),
                 Users = _cidatabaseContext.Users.FirstOrDefault(u => u.UserId == userIdForFav),
+                timesheets = _cidatabaseContext.Timesheets.ToList(),
+                skills = _cidatabaseContext.Skills.ToList(),
 
             };
 
@@ -127,9 +133,9 @@ namespace CIPlatformIntegration.Repository.Repository
 
            
 
-            if (country.Count() > 0 || city.Count() > 0 || theme.Count() > 0)
+            if (country.Count() > 0 || city.Count() > 0 || theme.Count() > 0 || skills.Count()>0)
             {
-                miss = GetFilteredMission(miss, country, city, theme);
+                miss = GetFilteredMission(miss, country, city, theme, skills);
             }
 
 
@@ -180,20 +186,21 @@ namespace CIPlatformIntegration.Repository.Repository
             switch (sortValue)
             {
                 case "Newest":
-                    return miss.OrderBy(m => m.StartDate).ToList();
-                case "Oldest":
                     return miss.OrderByDescending(m => m.StartDate).ToList();
+                case "Oldest":
+                    return miss.OrderBy(m => m.StartDate).ToList();
                 case "lowest":
-                    return miss.OrderBy(m => m.Availability).ToList();
+                    return miss.OrderBy(m => m.TotalSeats).ToList();
                 case "highest":
-                    return miss.OrderByDescending(m => m.Availability).ToList();
+                    return miss.OrderByDescending(m => m.TotalSeats).ToList();
                 default:
                     return miss.ToList();
 
             }
+            
         }
 
-        public List<Mission> GetFilteredMission(List<Mission> miss, string[] country, string[] city, string[] theme)
+        public List<Mission> GetFilteredMission(List<Mission> miss, string[] country, string[] city, string[] theme, string[]? skills)
         {
             if (country.Length > 0)
             {
@@ -209,6 +216,28 @@ namespace CIPlatformIntegration.Repository.Repository
             {
                 miss = miss.Where(m => theme.Contains(m.Theme.Title)).ToList();
             }
+
+            if (skills.Length > 0)
+            {              
+                var SkillSkillIdArr = new List<long>();
+                foreach (var i in skills)
+                {                     
+                var skillId=_cidatabaseContext.Skills.Where(s=>s.SkillName==i).FirstOrDefault().SkillId;
+
+                   var missionSkill = _cidatabaseContext.MissionSkills.Where(ms => ms.SkillId == skillId).FirstOrDefault();
+                    if (missionSkill != null)
+                    { 
+                    
+                    var missionSkillId = _cidatabaseContext.MissionSkills.Where(ms => ms.SkillId == skillId).FirstOrDefault().MissionId;
+                    SkillSkillIdArr.Add((long)missionSkillId);
+                    }
+                }
+
+
+                miss = miss.Where(m => SkillSkillIdArr.Contains(m.MissionId)).ToList();
+            }
+
+
 
             return miss;
         }

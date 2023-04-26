@@ -15,14 +15,16 @@
             <label for="Title" class="form-label">Title</label>
             <input type="text" asp-for="@Model.singleMission.Title" class="form-control" id="Title" required>
             <div class="invalid-feedback">
-                Title Is Required Field Here
+                *Title Is Required
             </div>
 
         </div>
         <div class="mb-3">
             <label for="ShortDescription" class="form-label">ShortDescription</label>
-            <textarea id="ShortDescription" asp-for="singleMission.ShortDescription" class="form-control"></textarea>
-
+            <textarea id="ShortDescription" asp-for="singleMission.ShortDescription" class="form-control" required></textarea>
+            <div class="invalid-feedback">
+              *Short Descirption Is Required
+            </div>
 
         </div>
         <div class="mb-3">
@@ -31,18 +33,10 @@
             <textarea id="default" asp-for="singleMission.Description" class="form-control" required></textarea>
 
             <div class="invalid-feedback">
-                Descirption Is Required Field Here
+                *Descirption Is Required
             </div>
 
         </div>
-
-
-
-
-
-
-
-
 
         <div class="row mb-3">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -58,7 +52,7 @@
                     }
                 </select>
                 <div class="invalid-feedback">
-                    Country Is requires
+                    *Country Is required
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -74,7 +68,7 @@
                     }
                 </select>
                 <div class="invalid-feedback">
-                    City Is required
+                    *City Is required
                 </div>
             </div>
         </div>
@@ -93,13 +87,19 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 
                 <label for="StartDate" class="form-label">StartDate</label>
-                <input type="date" asp-for="@Model.singleMission.StartDate" class="form-control" id="StartDate" />
+                <input type="date" asp-for="@Model.singleMission.StartDate" class="form-control" id="StartDate" required/>
+                 <div class="invalid-feedback">
+                    *Start Date Is required
+                </div>
 
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 
                 <label for="EndDate" class="form-label">End Date</label>
-                <input type="date" asp-for="@Model.singleMission.EndDate" class="form-control" id="EndDate" />
+                <input type="date" asp-for="@Model.singleMission.EndDate" class="form-control" id="EndDate" required/>
+                <div class="invalid-feedback">
+                    *End Date Is required
+                </div>
 
             </div>
 
@@ -117,17 +117,23 @@
                 </option>
             </select>
         </div>
-        <div class="row mb-3">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div id="timeSelected" class="row mb-3 d-none">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
 
                 <label for="TotalSeats" class="form-label">Total Seats</label>
-                <input type="text" asp-for="@Model.singleMission.TotalSeats" class="form-control" id="TotalSeats" disabled />
+                <input type="text" asp-for="@Model.singleMission.TotalSeats" class="form-control" id="TotalSeats"   />
+                <div class="invalid-feedback">
+                *Total Seats Is Required
+                </div>
 
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 
                 <label for="Deadline" class="form-label">Deadline</label>
-                <input type="date" class="form-control" id="Deadline" disabled />
+                <input asp-for="@Model.singleMission.RegistrationDeadline" type="date" class="form-control" id="Deadline"   />
+                <div class="invalid-feedback">
+                    Deadline Is Required
+                </div>
 
             </div>
         </div>
@@ -145,14 +151,14 @@
                     }
                 </select>
                 <div class="invalid-feedback">
-                    Theme Is requires
+                    *Theme Is required
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 
                 <label for="Skill" class="form-label">Skill</label>
 
-                <select name="Skilllist" size="1" class="form-control" multiple>
+                <select name="Skilllist" size="8" class="form-control" multiple>
                     @foreach (var item in @Model.skills)
                     {
                         <option value="@item.SkillId">
@@ -166,8 +172,7 @@
 
         <div class="mb-3">
             <label for="MissionDocument" class="form-label">Mission Document</label>
-            <input asp-for="Files" type="file" multiple class="form-control" />
-            
+            <input asp-for="Files" type="file" multiple class="form-control" />           
             
         </div>
 
@@ -175,14 +180,14 @@
         <div class="row mb-3">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <label for="DefualtMissionPhoto" class="form-label">Default Mission Photos</label>
-                <input type="file" name="DefualtMissionPhotos" class="form-control" id="DefualtMissionPhoto" required>
+                <input type="file" name="defaultImage" class="form-control" id="DefualtMissionPhoto" required>
                 <div class="invalid-feedback">
-                    Default Image Is required!
+                    *Default Image Is required
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <label for="MissionPhotos" class="form-label">Mission Photos</label>
-                <input type="file" name="MissionPhotos" class="form-control" id="MissionPhotos" multiple>
+                <input type="file" name="missionImages" class="form-control" id="MissionPhotos" multiple>
             </div>
         </div>
         <div class="mb-3">
@@ -194,8 +199,6 @@
             <label for="MissionVideo" class="form-label">Mission VideoURL</label>
             <input type="text" name="MissionVideoURL" class="form-control" id="MissionVideo">
         </div>
-
-
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
@@ -245,14 +248,13 @@
 
             $('#typeselect').on('change', function () {
             if ($('#typeselect').val() == "Time") {
-            $('#TotalSeats').removeAttr("disabled");
-            $('#Deadline').removeAttr("disabled");
+
+                $('#timeSelected').removeClass("d-none");                         
 
             }
             if ($('#typeselect').val() == "Goal") {
 
-             $('#TotalSeats').attr("disabled", true);
-        $('#Deadline').attr("disabled", true);
+                 $('#timeSelected').addClass("d-none");  
 
             }
 

@@ -180,8 +180,6 @@
 
                     <div class="d-flex pt-3 justify-content-evenly" id="RecommendOpenButtons">
 
-
-
                         <button  class="btn border border-secondary w-100 rounded-pill divclass col-lg-6 col-md-6 col-sm-12" data-toggle="modal" data-target="#exampleModalCenterDetail">
                             <img src="~/images/add1.png" />
                             Recommend a to co-worker
@@ -197,11 +195,7 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-
-
-
                                     @{
-
                                         foreach (var i in Model.recommendUser as IEnumerable<User>)
                                         {
                                             <div class="modal-body d-flex justify-content-between modal-dialog-scrollable">
@@ -211,11 +205,7 @@
 
                                             </div>
                                         }
-
-
                                     }
-
-
                                 </div>
                             </div>
                         </div>

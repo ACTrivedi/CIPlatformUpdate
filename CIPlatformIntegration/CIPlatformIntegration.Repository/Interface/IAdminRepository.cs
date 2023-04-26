@@ -87,6 +87,6 @@ namespace CIPlatformIntegration.Repository.Interface
 
         AdminViewModel adminViewModelMainForAddMission(long missionId);
 
-        AdminViewModel adminViewModelMainForAddMissionDetails(AdminViewModel adminViewModelMain);
+        AdminViewModel adminViewModelMainForAddMissionDetails(AdminViewModel adminViewModelMain, long[] Skilllist, List<IFormFile> defaultImage, List<IFormFile> missionImages);
     }
 }

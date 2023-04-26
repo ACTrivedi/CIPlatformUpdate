@@ -24,6 +24,10 @@ namespace CIPlatformIntegration.Entities.ViewModel
         public List<GoalMission> GoalMission { get; set; }
         public User Users { get; set; }
 
+        public List<Timesheet> timesheets { get; set; }
+
+        public List<Skill> skills { get; set; }
+
         //For Mission Count
         public int missionCount { get; set; }
 

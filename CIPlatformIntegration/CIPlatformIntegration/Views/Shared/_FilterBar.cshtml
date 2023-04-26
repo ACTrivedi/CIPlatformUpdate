@@ -239,7 +239,7 @@
                 <div class="col-3 col-md-3 d-flex vertical-center">
                     <div class="checkbox-dropdown">
                         Themes
-                        <ul class="checkbox-dropdown-list" id="cityList" onchange="LoadMission()">
+                        <ul class="checkbox-dropdown-list" id="themeList" onchange="LoadMission()">
                             @{
                                 foreach (var i in Model.MissionThemes)
                                 {
@@ -258,8 +258,17 @@
                 <div class="col-3 col-md-3 d-flex vertical-center">
                     <div class="checkbox-dropdown">
                         Skills
-                        <ul class="checkbox-dropdown-list" id="themeList" onchange="LoadMission()">
-                           
+                        <ul class="checkbox-dropdown-list" id="skillList" onchange="LoadMission()">
+                            @{
+                                foreach (var i in Model.skills)
+                                {
+                                    <li>
+
+                                        <input type="checkbox" value="@i.SkillName" name="themes" id="" />@i.SkillName
+
+                                    </li>
+                                }
+                            }
                         </ul>
                     </div>
                 </div>

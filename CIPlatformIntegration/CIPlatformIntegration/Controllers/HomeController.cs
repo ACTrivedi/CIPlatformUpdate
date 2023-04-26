@@ -172,7 +172,7 @@ namespace CIPlatformIntegration.Controllers
 
             // Send email to user with reset password link
             // ...
-            var fromAddress = new MailAddress("vasudedakiya3@gmail.com");
+            var fromAddress = new MailAddress("fake79318@gmail.com");
             var toAddress = new MailAddress(_user.Email);
             var subject = "Password reset request";
             var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
@@ -184,7 +184,7 @@ namespace CIPlatformIntegration.Controllers
             };
             using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
             {
-                smtp.Credentials = new NetworkCredential("aksharpatel18092000@gmail.com", "gptnvpkcimqkuktp");
+                smtp.Credentials = new NetworkCredential("fake79318@gmail.com", "nyephjtlldtnuxhq");
 
                 smtp.EnableSsl = true;
                 smtp.Send(message);
@@ -253,6 +253,7 @@ namespace CIPlatformIntegration.Controllers
             var model = _userRepository.homePageViewModel(userIdForFav);
 
             ViewBag.profilename = HttpContext.Session.GetString("profile");
+            ViewData["useridcheck"] = (long)HttpContext.Session.GetInt32("farfavuserid");
 
             return View(model);
         }
@@ -260,13 +261,13 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-        public IActionResult GetMissions(string[]? country, string[]? city, string[]? theme, string? searchTerm, string? sortValue, int pg)
+        public IActionResult GetMissions(string[]? country, string[]? city, string[]? theme,string[]? skills , string? searchTerm, string? sortValue, int pg)
         {
             var userIdForFav = (long)HttpContext.Session.GetInt32("farfavuserid");
+            ViewData["useridcheck"] = (long)HttpContext.Session.GetInt32("farfavuserid");
 
 
-
-            HomePageViewModel model = _userRepository.filtering(userIdForFav,country, city, theme, searchTerm, sortValue, pg);
+            HomePageViewModel model = _userRepository.filtering(userIdForFav,country, city, theme, skills, searchTerm, sortValue, pg);
 
             ViewBag.TotalCount = model.missionCount;
             ViewBag.Pager = model.pagerCount;
@@ -317,11 +318,7 @@ namespace CIPlatformIntegration.Controllers
             ViewData["appliedMissions"] = _cidatabaseContext.MissionApplications.ToList();
             ViewData["missionRating"] = _cidatabaseContext.MissionRatings.ToList();
             ViewData["users"] = _cidatabaseContext.Users.ToList();
-
-
-
-
-
+            ViewData["timesheets"] = _cidatabaseContext.Timesheets.ToList();
             ViewData["comments"] = _cidatabaseContext.Comments.Where(c => c.MissionId == missionid).ToList();
 
 
@@ -461,19 +458,19 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-        public async Task<IActionResult> Toggle(int missionID)
+        public IActionResult Toggle(int missionID)
         {
 
             var userid = (long)HttpContext.Session.GetInt32("farfavuserid");
 
 
 
-            FavoriteMission favorite = await _cidatabaseContext.FavoriteMissions.FirstOrDefaultAsync(f => f.UserId == userid && f.MissionId == missionID);
+            FavoriteMission favorite =  _cidatabaseContext.FavoriteMissions.FirstOrDefault(f => f.UserId == userid && f.MissionId == missionID);
             if (favorite != null)
             {
                 // Remove the item from the user's favorites
                 _cidatabaseContext.FavoriteMissions.Remove(favorite);
-                await _cidatabaseContext.SaveChangesAsync();
+                 _cidatabaseContext.SaveChangesAsync();
             }
 
             else
@@ -591,6 +588,20 @@ namespace CIPlatformIntegration.Controllers
 
             _cidatabaseContext.Add(mission_application);
             _cidatabaseContext.SaveChanges();
+
+            var missionLefSeats = _cidatabaseContext.Missions.FirstOrDefault(m => m.MissionId == missionIdforapply).SeatsLeft;
+            var missionLeftSeats = missionLefSeats-1;
+           
+
+            var mission = _cidatabaseContext.Missions.FirstOrDefault(m => m.MissionId == missionIdforapply);
+            mission.SeatsLeft=missionLeftSeats;
+
+            _cidatabaseContext.Missions.Update(mission);
+            _cidatabaseContext.SaveChanges();
+
+
+
+
 
             return Json(new { success = true });
         }

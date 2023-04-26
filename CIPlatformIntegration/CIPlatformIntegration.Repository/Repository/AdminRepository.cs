@@ -573,7 +573,7 @@ namespace CIPlatformIntegration.Repository.Repository
         }
 
 
-        public AdminViewModel adminViewModelMainForAddMissionDetails(AdminViewModel adminViewModelMain)
+        public AdminViewModel adminViewModelMainForAddMissionDetails(AdminViewModel adminViewModelMain, long[] Skilllist, List<IFormFile> defaultImage, List<IFormFile> missionImages)
         {
             Mission mission = new Mission()
             { 
@@ -590,6 +590,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 TotalSeats=adminViewModelMain.singleMission.TotalSeats,
                 RegistrationDeadline=adminViewModelMain.singleMission.RegistrationDeadline,
                 ThemeId=adminViewModelMain.singleMission.ThemeId,
+                
                /* MissionSkills= adminViewModelMain.singleMission.MissionSkills,*/
 
             };
@@ -597,28 +598,113 @@ namespace CIPlatformIntegration.Repository.Repository
             _cidatabaseContext.SaveChanges();
 
             var missionId = mission.MissionId;
-            MissionDocument missionDocument = new MissionDocument();
-            
-           foreach (var file in adminViewModelMain.Files)
+
+            //For skills
+            foreach (var i in Skilllist)
             {
-                missionDocument.MissionId= missionId;
-                missionDocument.DocumentName= file.FileName;
-                missionDocument.DocumentType = file.ContentType;
-
-                FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Documents\\", Path.GetFileName(file.FileName)), FileMode.Create);
-                                
-                string path = "Documents\\" + Path.GetFileName(file.FileName);
-
-                missionDocument.DocumentPath = path;
-
-                _cidatabaseContext.MissionDocuments.Add(missionDocument);
-                
-                file.CopyToAsync(FileStream);                            
-
-                FileStream.Close();
+                MissionSkill missionSkill = new MissionSkill() {
+                    SkillId = i,
+                    MissionId=missionId,
+                    
+                };
+                _cidatabaseContext.MissionSkills.Add(missionSkill);
 
             }
-             _cidatabaseContext.SaveChanges();
+            _cidatabaseContext.SaveChanges();
+
+
+            //For DefualtIMage
+            if (defaultImage != null)
+            {
+                
+
+                foreach (var file in defaultImage)
+                {
+                    MissionMedium missionMedium = new MissionMedium();
+
+                    missionMedium.MissionId = missionId;
+                    missionMedium.MediaName = file.FileName;
+                    missionMedium.MediaType = file.ContentType;
+
+                        FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
+
+                        string path = "wwwroot\\MissionMedia\\" + Path.GetFileName(file.FileName);
+
+                        missionMedium.MediaPath = path;
+
+                        _cidatabaseContext.MissionMedia.Add(missionMedium);
+
+                        file.CopyToAsync(FileStream);
+
+                        FileStream.Close();                                      
+
+                }
+                    _cidatabaseContext.SaveChanges();
+               
+            }
+
+
+            //For MissionImage
+            if (defaultImage != null)
+            {              
+
+                foreach (var file in missionImages)
+                {
+                    MissionMedium missionMedium = new MissionMedium();
+
+                    missionMedium.MissionId = missionId;
+                    missionMedium.MediaName = file.FileName;
+                    missionMedium.MediaType = file.ContentType;
+
+                    FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
+
+                    string path = "wwwroot\\MissionMedia\\" + Path.GetFileName(file.FileName);
+
+                    missionMedium.MediaPath = path;
+
+                    _cidatabaseContext.MissionMedia.Add(missionMedium);
+
+                    file.CopyToAsync(FileStream);
+
+                    FileStream.Close();
+
+                }
+                _cidatabaseContext.SaveChanges();
+
+            }
+
+
+
+
+            // For Mission Documents
+           
+
+            if (adminViewModelMain.Files != null)
+            {
+                foreach (var file in adminViewModelMain.Files)
+                {
+                    MissionDocument missionDocument = new MissionDocument();
+
+                    missionDocument.MissionId = missionId;
+                    missionDocument.DocumentName = file.FileName;
+                    missionDocument.DocumentType = file.ContentType;
+
+                    FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Documents\\", Path.GetFileName(file.FileName)), FileMode.Create);
+
+                    string path = "Documents\\" + Path.GetFileName(file.FileName);
+
+                    missionDocument.DocumentPath = path;
+
+                    _cidatabaseContext.MissionDocuments.Add(missionDocument);
+
+                    file.CopyToAsync(FileStream);
+
+                    FileStream.Close();
+
+                }
+                _cidatabaseContext.SaveChanges();
+
+            }         
 
             return adminViewModelMain;
 

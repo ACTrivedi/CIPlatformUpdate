@@ -17,6 +17,6 @@ namespace CIPlatformIntegration.Repository.Interface
 
 
         HomePageViewModel homePageViewModel(long userIdForFav);
-        HomePageViewModel filtering(long userIdForFav,string[]? country, string[]? city, string[]? theme, string? searchTerm, string? sortValue, int pg);
+        HomePageViewModel filtering(long userIdForFav,string[]? country, string[]? city, string[]? theme, string[]? skills, string? searchTerm, string? sortValue, int pg);
     }
 }

@@ -46,7 +46,14 @@ function LoadMission(sortValue, pge) {
 
         theme.push($(obj).val());
 
-    })  
+    })
+
+    var skills = [];
+    $("#skillList").find("input:checked").each(function (i, obj) {
+
+        skills.push($(obj).val());
+
+    })
 
 
 
@@ -54,7 +61,7 @@ function LoadMission(sortValue, pge) {
         url: '/Home/GetMissions',
         method: "POST",
         dataType: "html",
-        data: { "searchTerm": searchTerm, "sortValue": sortValue, "country": country, "city": city, "theme": theme, "pg":pge },
+        data: { "searchTerm": searchTerm, "sortValue": sortValue, "country": country, "city": city, "theme": theme, "skills": skills, "pg": pge },
         success: function (data) {
             $("#test").html("");
             $("#test").html(data);

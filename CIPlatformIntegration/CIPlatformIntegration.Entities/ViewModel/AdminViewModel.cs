@@ -44,5 +44,7 @@ namespace CIPlatformIntegration.Entities.ViewModel
         public List<IFormFile> Files { get; set; }
 
 
+
+
     }
 }

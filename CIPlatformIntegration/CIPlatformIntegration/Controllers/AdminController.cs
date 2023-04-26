@@ -423,15 +423,23 @@ namespace CIPlatformIntegration.Controllers
             return PartialView("_adminAddMission", adminViewModelMain);
         }
 
-        public IActionResult AddMissionWithDetails(AdminViewModel adminViewModelMain)
+        public IActionResult AddMissionWithDetails(AdminViewModel adminViewModelMain,long[] Skilllist, List<IFormFile> defaultImage, List<IFormFile> missionImages)
         {
 
-            _adminRepository.adminViewModelMainForAddMissionDetails(adminViewModelMain);
+            _adminRepository.adminViewModelMainForAddMissionDetails(adminViewModelMain, Skilllist, defaultImage, missionImages);
             
             AdminViewModel adminViewModelMainAdd = _adminRepository.adminViewModelMainForMission();
             return RedirectToAction("AdminPage");
 
            
+        }        
+
+        [HttpPost]
+        public IActionResult editMission(long missionId)
+        {
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForAddMission(missionId);
+
+            return PartialView("_adminAddMission", adminViewModelMain);
         }
 
 

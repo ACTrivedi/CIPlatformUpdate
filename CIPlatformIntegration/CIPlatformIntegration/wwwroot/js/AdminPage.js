@@ -598,10 +598,10 @@
 
 
                     //For theme Edit start
-
+                    var value
                     $('.themeEditButton').on('click', function () {
 
-                        var value = $(this).attr('value');
+                        value = $(this).attr('value');
 
                         $.ajax({
                             type: 'POST',
@@ -630,6 +630,60 @@
 
                     });
                     //For theme Edit end
+
+                    //For Edit mission Theme
+
+
+                    $('#editMissionTheme').on('click', function () {
+
+                        var missionThemeId = value;
+                        var editTitle = $('#editTitle').val();
+
+                        console.log(editTitle);
+
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'HTML',
+                            url: '/Admin/AdminEditMissionTheme',
+
+                            data: {
+
+                                missionThemeId: missionThemeId,
+                                editTitle: editTitle,
+                            },
+
+
+                            success:
+                                function (res) {
+
+                                    $('.missionThemeArea').html('');
+                                    $('.missionThemeArea').append(res);
+
+                                    let missionsThemeDataTable = new DataTable('#missionsThemeDataTable', {
+                                        lengthChange: false,
+                                        pageLength: 7,
+                                    });
+
+                                    location.reload();
+                                   
+                                    
+
+
+                                    $('.missionThemeClick').click();
+                                    
+
+
+
+                                },
+                            failure:
+                                function () {
+
+                                }
+                        });
+
+
+                    });
+
 
 
 
@@ -662,6 +716,8 @@
                                             lengthChange: false,
                                             pageLength: 7,
                                         });
+
+                                        missionsThemeDataTable.ajax.reload();
 
                                         $('.missionThemeClick').click();
 
@@ -785,55 +841,7 @@
 
                     //For theme add end
                         
-                   //For Edit mission Theme
-                    
-
-                    $('#editMissionTheme').on('click', function () {
-
-                        var missionThemeId = $('.themeEditButton').val();
-                        var editTitle = $('#editTitle').val();
-
-                        console.log(editTitle);
-                                            
-                          $.ajax({
-                                type: 'POST',
-                                dataType: 'HTML',
-                              url: '/Admin/AdminEditMissionTheme',
-
-                              data: {
-
-                                  missionThemeId: missionThemeId,
-                                  editTitle: editTitle,
-                                },
-
-
-                                success:
-                                    function (res) {
-
-                                        $('.missionThemeArea').html('');
-                                        $('.missionThemeArea').append(res);
-
-                                        let missionsThemeDataTable = new DataTable('#missionsThemeDataTable', {
-                                            lengthChange: false,
-                                            pageLength: 7,
-                                        });
-
-                                      
-                                        $('.missionThemeClick').click();
-                                       
-                                        
-
-
-                                    },
-                                failure:
-                                    function () {
-
-                                    }
-                            });
-
-                        
-                    });
-
+                   
                    
 
 
@@ -1465,7 +1473,7 @@
 
                     });
 
-
+                    //Mission Add Start
                     $('.missionViewButton').on('click', function () {
                         $.ajax({
                             type: 'POST',
@@ -1495,6 +1503,45 @@
                         });
 
                     });
+                    // Mission Add End
+
+
+                    //Mission Edit Start                 
+                    var missionId = $('#editMissionButton').val();
+                    $('.approveMission').on('click', function () {
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'HTML',
+                            data:
+                            {
+                                missionId: missionId,
+                            },
+                            url: '/Admin/editMission',
+
+                            success:
+                                function (res) {
+
+                                    $('.missionArea').html('');
+                                    $('.missionArea').append(res);
+
+                                    let missionDataTable = new DataTable('#missionDataTable', {
+                                        lengthChange: false,
+                                        pageLength: 7,
+
+                                    });
+
+                                    /*$('.missionClick').click();*/
+
+                                },
+                            failure:
+                                function () {
+
+                                }
+                        });
+
+                    });
+                    //Mission Edit End
+                    
 
 
 
