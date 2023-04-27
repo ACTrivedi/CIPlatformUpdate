@@ -49,10 +49,9 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-     
+        [HttpGet]
         public IActionResult Login()
         {
-
             return View();
         }
         [HttpPost]
@@ -61,23 +60,34 @@ namespace CIPlatformIntegration.Controllers
             var status = _userRepository.userLogin(_user);
             if (status != null)
             {
+                if (status.Status == 0)
+                {
+                    ViewBag.userNotExist = "0";
+                    return View();
+                }
+                else
+                {
+                    HttpContext.Session.SetInt32("farfavuserid", (int)status.UserId);
 
-                HttpContext.Session.SetInt32("farfavuserid", (int)status.UserId);
 
+                    TempData["Toastlogin"] = "Login Successfull";
 
-                TempData["Toastlogin"] = "Login Successfull";
+                    HttpContext.Session.SetString("Loggedin", "True");
+                    HttpContext.Session.SetString("profile", status.FirstName);
+                    HttpContext.Session.SetString("profileEmail", status.Email);
 
-                HttpContext.Session.SetString("Loggedin", "True");
-                HttpContext.Session.SetString("profile", status.FirstName);
-                HttpContext.Session.SetString("profileEmail", status.Email);
+                    return RedirectToAction("Homepage", "Home");
+                }
 
-                return RedirectToAction("Homepage", "Home");
+                
 
             }
             else {
-                ViewBag.loginstatus = 0;
+                ViewBag.LoginStatus = 0;
+                return View();
+                
             }
-            return View();
+            /*return View();*/
 
 
 

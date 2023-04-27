@@ -38,8 +38,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\StoryImages\" />
     <Folder Include="wwwroot\Documents\" />
+    <Folder Include="wwwroot\images\StoryImages\" />
     <Folder Include="wwwroot\MissionMedia\" />
   </ItemGroup>
 

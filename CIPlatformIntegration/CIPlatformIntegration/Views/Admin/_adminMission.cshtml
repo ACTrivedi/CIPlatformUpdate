@@ -5,7 +5,7 @@
 
 </div>
 
-<button type="button" class="btn btn-outline-warning rounded-pill missionViewButton" style="position: relative;top: 4.5vh;left: 73vw; z-index:1">Add</button>
+<button type="button" class="btn btn-outline-warning rounded-pill" onclick="AddMission()" style="position: relative;top: 4.5vh;left: 73vw; z-index:1">Add</button>
 
 
 <table id="missionDataTable" class="table">
@@ -22,7 +22,6 @@
     <tbody>
 
         @{
-
             var startDate="";
             var endDate="";
 
@@ -40,17 +39,12 @@
                     
                     <td class="justify-content-center d-flex">                                         
 
-                        <span class="editMissionButton" value="@i.MissionId" type="button" id=""><i class="fa fa-pencil-square-o" style="color:#F88634;" aria-hidden="true"></i></span>
-                        <span class="deleteMissionButton" value="@i.MissionId" type="button" id=""><i class="bi bi-trash3-fill" style="color:red;margin-left: 15px;"></i></span>
+                        <span class="" onclick="EditMission(@i.MissionId)" type="button" id=""><i class="fa fa-pencil-square-o" style="color:#F88634;" aria-hidden="true"></i></span>
+                        <span class="" onclick="DeleteMission(@i.MissionId)" type="button" id=""><i class="bi bi-trash3-fill" style="margin-left: 15px;"></i></span>
 
                     </td>
 
                 </tr>
-
-
-                //For Skill Edit
-
-
 
             }
 

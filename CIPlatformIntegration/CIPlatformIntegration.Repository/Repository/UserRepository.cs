@@ -70,13 +70,15 @@ namespace CIPlatformIntegration.Repository.Repository
                 var emailstatus = _cidatabaseContext.Users.FirstOrDefault(m => m.Email == _user.Email);
 
                 bool verified = BCrypt.Net.BCrypt.Verify(_user.Password, emailstatus.Password);
-                var status = _cidatabaseContext.Users.Where(m => m.Email == _user.Email && verified).FirstOrDefault();
+                var status = _cidatabaseContext.Users.Where(m => m.Email == _user.Email && verified ).FirstOrDefault();
                 if (status == null)
                 {
                     return null;
                 }
                 else
                 {
+                    
+
                     return status;
                 }
             }

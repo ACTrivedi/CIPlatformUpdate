@@ -10,7 +10,7 @@
 <div>
 
     <form method="post" class="m-4 needs-validation" novalidate asp-action="AddMissionWithDetails" asp-controller="Admin" enctype="multipart/form-data">
-        <input hidden asp-for="@Model.singleMission.MissionId" />
+        <input hidden id="singleMissionIdCheck" asp-for="@Model.singleMission.MissionId" />
         <div class="mb-3">
             <label for="Title" class="form-label">Title</label>
             <input type="text" asp-for="@Model.singleMission.Title" class="form-control" id="Title" required>
@@ -108,7 +108,9 @@
         <div class="mb-3">
             <label for="Type" class="form-label">Mission Type</label>
             <select asp-for="@Model.singleMission.MissionType" id="typeselect" class="form-control">
-
+                <option value="">
+                    Select Mission Type
+                </option>
                 <option value="Goal">
                     Goal
                 </option>
@@ -117,11 +119,32 @@
                 </option>
             </select>
         </div>
-        <div id="timeSelected" class="row mb-3 d-none">
+        
+        <div id="goalSelected" class="row mb-3  d-none">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                <label for="GoalObjectiveText" class="form-label">Goal Objective Text</label>
+                              
+                    <input type="text"  class="form-control" id="GoalObjectiveText" name="goalObjectiveText"  />
+                                                                                   
+                              
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                <label for="GoalValue" class="form-label">Goal Value</label>
+               
+                     <input  type="text" class="form-control" id="GoalValue" name="goalValue"  />
+                                                    
+                
+
+            </div>
+        </div>
+        <div id="timeSelected" class="row mb-3">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
 
                 <label for="TotalSeats" class="form-label">Total Seats</label>
-                <input type="text" asp-for="@Model.singleMission.TotalSeats" class="form-control" id="TotalSeats"   />
+                <input type="text" asp-for="@Model.singleMission.TotalSeats" class="form-control" id="TotalSeats" required  />
                 <div class="invalid-feedback">
                 *Total Seats Is Required
                 </div>
@@ -130,7 +153,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 
                 <label for="Deadline" class="form-label">Deadline</label>
-                <input asp-for="@Model.singleMission.RegistrationDeadline" type="date" class="form-control" id="Deadline"   />
+                <input asp-for="@Model.singleMission.RegistrationDeadline" type="date" class="form-control" id="Deadline" required  />
                 <div class="invalid-feedback">
                     Deadline Is Required
                 </div>
@@ -172,7 +195,7 @@
 
         <div class="mb-3">
             <label for="MissionDocument" class="form-label">Mission Document</label>
-            <input asp-for="Files" type="file" multiple class="form-control" />           
+            <input asp-for="Files" type="file" multiple class="form-control" />        
             
         </div>
 
@@ -180,7 +203,7 @@
         <div class="row mb-3">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <label for="DefualtMissionPhoto" class="form-label">Default Mission Photos</label>
-                <input type="file" name="defaultImage" class="form-control" id="DefualtMissionPhoto" required>
+                <input type="file" name="defaultImage" class="form-control" id="DefualtMissionPhoto" src="" required>
                 <div class="invalid-feedback">
                     *Default Image Is required
                 </div>
@@ -249,12 +272,12 @@
             $('#typeselect').on('change', function () {
             if ($('#typeselect').val() == "Time") {
 
-                $('#timeSelected').removeClass("d-none");                         
+                $('#goalSelected').addClass("d-none");                         
 
             }
             if ($('#typeselect').val() == "Goal") {
 
-                 $('#timeSelected').addClass("d-none");  
+                 $('#goalSelected').removeClass("d-none");  
 
             }
 

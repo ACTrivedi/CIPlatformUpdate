@@ -1,4 +1,31 @@
-﻿$(document).ready(function () {
+﻿
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
+
+
+
+
+
+
+$(document).ready(function () {
     
 
     let table = new DataTable('#userDataTable', {
@@ -45,7 +72,7 @@
 
     console.log("Now for edit!");
     $('#countryEdit').on('change', function () {
-        alert();
+        
         $.ajax({
             type: 'POST',
             dataType: "JSON",
@@ -62,7 +89,7 @@
                         console.log(res[i]);
                         $('.city-dropEdit').append(`<option value="${res[i].cityId}">${res[i].name}</option>`);
                     }
-                    $('.city-dropEdit').removeAttr("disabled");
+                    
                     $('.city-alert').hide();
                 },
             failure:
@@ -113,6 +140,7 @@
                     missionApplicationApprove.forEach(function (i) {
 
                         console.log(i);
+
 
                         i.addEventListener('click', function () {
 
@@ -1398,9 +1426,6 @@
 
                                     $('.CMSClick').click();
 
-
-
-
                                 },
                             failure:
                                 function () {
@@ -1408,12 +1433,7 @@
                                 }
                         });
 
-
                     });
-
-
-
-
                 },
             failure:
                 function () {
@@ -1421,34 +1441,12 @@
                 }
         });
 
-
-
-
-
-
-
-
     });
 
 
+    //For Mission 
 
-
-
-
-
-
-
-    //For Mission CMS
-
-
-    let missionDataTable = new DataTable('#missionDataTable', {
-        lengthChange: false,
-        pageLength: 7,
-
-    });
-
-
-
+  
 
 
     $('.missionClick').on('click', function () {
@@ -1473,81 +1471,8 @@
 
                     });
 
-                    //Mission Add Start
-                    $('.missionViewButton').on('click', function () {
-                        $.ajax({
-                            type: 'POST',
-                            dataType: 'HTML',
-                           
-                            url: '/Admin/addMission',
-
-                            success:
-                                function (res) {
-
-                                    $('.missionArea').html('');
-                                    $('.missionArea').append(res);
-
-                                    let missionDataTable = new DataTable('#missionDataTable', {
-                                        lengthChange: false,
-                                        pageLength: 7,
-
-                                    });
-
-                                    /*$('.missionClick').click();*/
-
-                                },
-                            failure:
-                                function () {
-
-                                }
-                        });
-
-                    });
-                    // Mission Add End
-
-
-                    //Mission Edit Start                 
-                    var missionId = $('#editMissionButton').val();
-                    $('.approveMission').on('click', function () {
-                        $.ajax({
-                            type: 'POST',
-                            dataType: 'HTML',
-                            data:
-                            {
-                                missionId: missionId,
-                            },
-                            url: '/Admin/editMission',
-
-                            success:
-                                function (res) {
-
-                                    $('.missionArea').html('');
-                                    $('.missionArea').append(res);
-
-                                    let missionDataTable = new DataTable('#missionDataTable', {
-                                        lengthChange: false,
-                                        pageLength: 7,
-
-                                    });
-
-                                    /*$('.missionClick').click();*/
-
-                                },
-                            failure:
-                                function () {
-
-                                }
-                        });
-
-                    });
-                    //Mission Edit End
                     
-
-
-
-
-
-
+                                                                        
 
                 },
             failure:
@@ -1555,31 +1480,120 @@
 
                 }
         });
-
-
-
-
-
-
-
-
-    });
-
-
-
-
-
-
-
-    
-
-
-
-
-        
+    });     
 });
 
+//Mission Add Start
+function AddMission() {
 
+    
+    
+        $.ajax({
+            type: 'POST',
+            dataType: 'HTML',
+
+            url: '/Admin/addMission',
+
+            success:
+                function (res) {
+
+                    $('.missionArea').html('');
+                    $('.missionArea').append(res);
+
+                    let missionDataTable = new DataTable('#missionDataTable', {
+                        lengthChange: false,
+                        pageLength: 7,
+
+                    });
+
+                    /*$('.missionClick').click();*/
+
+                },
+            failure:
+                function () {
+
+                }
+        });    
+                     
+}
+//Mission Add End
+
+
+
+function EditMission(MissionId) { 
+   
+
+    var missionId = MissionId;
+    $('#singleMissionIdCheck').val(missionId);
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'HTML',
+                data:
+                {
+                    missionId: missionId,
+                },
+                url: '/Admin/editMission',
+
+                success:
+                    function (res) {
+
+                        $('.missionArea').html('');
+                        $('.missionArea').append(res);
+
+                        let missionDataTable = new DataTable('#missionDataTable', {
+                            lengthChange: false,
+                            pageLength: 7,
+
+                        });
+
+                        /*$('.missionClick').click();*/
+
+                    },
+                failure:
+                    function () {
+
+                    }
+            });
+}
+
+
+
+
+function DeleteMission(MissionId) {
+
+    var missionId = MissionId;
+
+    $.ajax({
+        type: 'POST',
+        dataType: 'HTML',
+        data:
+        {
+            missionId: missionId,
+        },
+        url: '/Admin/deleteMission',
+
+        success:
+            function (res) {
+
+                $('.missionArea').html('');
+                $('.missionArea').append(res);
+
+                let missionDataTable = new DataTable('#missionDataTable', {
+                    lengthChange: false,
+                    pageLength: 7,
+
+                });
+
+                $('.missionClick').click();
+
+            },
+        failure:
+            function () {
+
+            }
+    });
+}
 
 
 
@@ -1608,41 +1622,80 @@ $(document).ready(function () {
 
 
 
-$('.userEdit').on('click', function () {
-    var value = $(this).attr('id');
-    console.log(value);
+
+
+//For skill delete start
+var deleteMissionSkills = document.querySelectorAll('.deleteMissionSkills');
+
+deleteMissionSkills.forEach(function (i) {
+
+    console.log(i);
+
+    i.addEventListener('click', function () {
+
+        var value = $(this).attr('value');
+
+        $.ajax({           
+
+            
+        });
 
 
 
-    $.ajax({
-        url: '/Admin/userEditData',
-        type: "post",
-        dataType: "json",
-        data: {
-            selectedUserId : value
-        },
-        success: function (userSearch) {
 
-            console.log(userSearch);
-
-            $('#Ename').val(userSearch[0].firstname);
-            $('#Esurname').val(userSearch[0].lastname);
-            $('#Eemail').val(userSearch[0].email);
-            $('#Epassword').val();
-            /*$('#Eavatar').val(userSearch[0].avatar);*/
-            $('#Eemployee_id').val(userSearch[0].employee_id);
-            $('#Edepartment').val(userSearch[0].department);
-            $('#Eprofile_text').val(userSearch[0].profile_text);
-            $('#userIdCheckForEdit').val(userSearch[0].selectedUserId);
-            $('#Estatus').val(userSearch[0].status);
-           
-           
-        }
 
 
     });
 
 });
+//For skill delete end
+var userEdit = document.querySelectorAll('.userEdit');
+    var value=0;
+    userEdit.forEach(function (i) {
+
+    i.addEventListener('click', function () {
+        value = $(this).attr('value');
+        console.log(value);
+
+
+        $.ajax({
+            url: '/Admin/userEditData',
+            type: "post",
+            dataType: "json",
+            data: {
+                selectedUserId: value
+            },
+            success: function (userSearch) {
+
+                console.log(userSearch);
+
+                $('#Ename').val(userSearch[0].firstname);
+                $('#Esurname').val(userSearch[0].lastname);
+                $('#Eemail').val(userSearch[0].email);
+                $('#Epassword').val();
+                /*$('#Eavatar').val(userSearch[0].avatar);*/
+                $('#Eemployee_id').val(userSearch[0].employee_id);
+                $('#Edepartment').val(userSearch[0].department);
+                $('#Eprofile_text').val(userSearch[0].profile_text);
+                $('#userIdCheckForEdit').val(userSearch[0].selectedUserId);
+                $('#Estatus').val(userSearch[0].status);
+                $('#countryEdit').val(userSearch[0].country_id);
+                $('#cityEdit').append(`<option value="${userSearch[0].city_id}" selected>${userSearch[0].city_name}</option>`);
+
+
+            }
+
+
+        });
+
+
+
+    });
+
+});
+
+
+
 
 
 
@@ -1682,7 +1735,7 @@ $('.userDelete').on('click', function () {
 });
 
 
-
+/*
 function validateForm() {
     // Get the input fields
     var name = document.getElementById("name");
@@ -1741,7 +1794,7 @@ function validateForm() {
 
     // If all required fields are filled, submit the form
     return true;
-}
+}*/
 
 
 

@@ -1,11 +1,10 @@
 ﻿    .leftSide {
     background: #F88634 !important;
-   min-height: 190vh;
+   min-height: 220vh;
     text-align: left;
 }
 
-.rightSide {
-    
+.rightSide {    
     height:100vh;
 }
 

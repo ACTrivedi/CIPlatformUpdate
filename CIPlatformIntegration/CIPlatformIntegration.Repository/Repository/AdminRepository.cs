@@ -35,7 +35,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 countries = _cidatabaseContext.Countries.ToList(),
                 cities = _cidatabaseContext.Cities.ToList(),
                 User = _cidatabaseContext.Users.FirstOrDefault(),
-                users = _cidatabaseContext.Users.ToList(),
+                users = _cidatabaseContext.Users.Where(u=>u.DeletedAt==null).ToList(),
                 missionApplications = _cidatabaseContext.MissionApplications.Where(ma => ma.ApprovalStatus == "PENDING").ToList(),
                 missions = _cidatabaseContext.Missions.ToList(),
             };
@@ -54,9 +54,10 @@ namespace CIPlatformIntegration.Repository.Repository
                 countries = _cidatabaseContext.Countries.ToList(),
                 cities = _cidatabaseContext.Cities.Where(c => c.CityId == userUpdate.CityId).ToList(),
                 User = _cidatabaseContext.Users.FirstOrDefault(u => u.UserId == userIdForUserEdit),
-                users = _cidatabaseContext.Users.ToList(),
+                users = _cidatabaseContext.Users.Where(u => u.DeletedAt == null).ToList(),
                 missionApplications = _cidatabaseContext.MissionApplications.Where(ma => ma.ApprovalStatus == "PENDING").ToList(),
                 missions = _cidatabaseContext.Missions.ToList(),
+                citiesForEdit=_cidatabaseContext.Cities.ToList(),
             };
 
             return adminViewModelObject;
@@ -112,7 +113,16 @@ namespace CIPlatformIntegration.Repository.Repository
             user.FirstName = name;
             user.LastName = surname;
             user.Email = email;
-            user.Password = BCrypt.Net.BCrypt.HashPassword(password);
+
+            if (password == null)
+            {
+                user.Password = user.Password;
+            }
+            else
+            {
+                user.Password = BCrypt.Net.BCrypt.HashPassword(password);
+            }
+            
 
             user.EmployeeId = employee_id;
             user.Department = department;
@@ -128,7 +138,7 @@ namespace CIPlatformIntegration.Repository.Repository
             if (status == 0)
             {
                 user.Status = status;
-                user.DeletedAt = DateTime.Now;
+                
             }
 
             if (avatar != null)
@@ -137,13 +147,15 @@ namespace CIPlatformIntegration.Repository.Repository
                 user.Avatar = imageURL;
 
             }
+            else
+            {
+                user.Avatar = user.Avatar;
+            }
 
             _cidatabaseContext.Users.Update(user);
             _cidatabaseContext.SaveChanges();
 
             return true;
-
-
 
 
         }
@@ -176,6 +188,7 @@ namespace CIPlatformIntegration.Repository.Repository
                                };
 
             return userEditData.Cast<object>().ToList();
+
         }
 
 
@@ -200,7 +213,7 @@ namespace CIPlatformIntegration.Repository.Repository
 
         }
 
-
+        //For Mission Application
         public void AdminMissionApplicationApprove(long missionApplicationId)
         {
             var appliedMission = _cidatabaseContext.MissionApplications.FirstOrDefault(ma => ma.MissionApplicationId == missionApplicationId);
@@ -468,7 +481,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 stories = _cidatabaseContext.Stories.ToList(),
                 missionThemes = _cidatabaseContext.MissionThemes.ToList(),
                 skills = _cidatabaseContext.Skills.ToList(),
-                cmsPages = _cidatabaseContext.CmsPages.ToList(),
+                cmsPages = _cidatabaseContext.CmsPages.Where(cp=>cp.DeletedAt==null).ToList(),
             };
 
             return adminViewModelMainForCMSObject;
@@ -542,11 +555,12 @@ namespace CIPlatformIntegration.Repository.Repository
                 User = _cidatabaseContext.Users.FirstOrDefault(),
                 users = _cidatabaseContext.Users.ToList(),
                 missionApplications = _cidatabaseContext.MissionApplications.ToList(),
-                missions = _cidatabaseContext.Missions.ToList(),
+                missions = _cidatabaseContext.Missions.Where(m=>m.DeletedAt==null).ToList(),
                 stories = _cidatabaseContext.Stories.ToList(),
                 missionThemes = _cidatabaseContext.MissionThemes.ToList(),
                 skills = _cidatabaseContext.Skills.ToList(),
                 cmsPages = _cidatabaseContext.CmsPages.ToList(),
+                goalMissions = _cidatabaseContext.GoalMissions.ToList(),
             };
 
             return adminViewModelMainForMissionObject;
@@ -566,6 +580,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 missionThemes = _cidatabaseContext.MissionThemes.Where(mt=>mt.Status==1).ToList(),
                 skills = _cidatabaseContext.Skills.ToList(),
                 cmsPages = _cidatabaseContext.CmsPages.ToList(),
+                goalMissions = _cidatabaseContext.GoalMissions.ToList(),
                 singleMission = _cidatabaseContext.Missions.Where(m=>m.MissionId==missionId).FirstOrDefault(),
             };
 
@@ -573,58 +588,259 @@ namespace CIPlatformIntegration.Repository.Repository
         }
 
 
-        public AdminViewModel adminViewModelMainForAddMissionDetails(AdminViewModel adminViewModelMain, long[] Skilllist, List<IFormFile> defaultImage, List<IFormFile> missionImages)
+        public AdminViewModel adminViewModelMainForAddMissionDetails(AdminViewModel adminViewModelMain, long[] Skilllist, List<IFormFile> defaultImage, List<IFormFile> missionImages, string MissionVideoURL, string goalObjectiveText, int goalValue)
         {
-            Mission mission = new Mission()
-            { 
-                Title= adminViewModelMain.singleMission.Title,
-                ShortDescription= adminViewModelMain.singleMission.ShortDescription,
-                Description = adminViewModelMain.singleMission.Description,
-                CountryId =adminViewModelMain.singleMission.CountryId,
-                CityId = adminViewModelMain.singleMission.CityId,
-                OrganizationName = adminViewModelMain.singleMission.OrganizationName,
-                OrganizationDetail = adminViewModelMain.singleMission.OrganizationDetail,
-                StartDate=adminViewModelMain.singleMission.StartDate,
-                EndDate=adminViewModelMain.singleMission.EndDate,
-                MissionType=adminViewModelMain.singleMission.MissionType,
-                TotalSeats=adminViewModelMain.singleMission.TotalSeats,
-                RegistrationDeadline=adminViewModelMain.singleMission.RegistrationDeadline,
-                ThemeId=adminViewModelMain.singleMission.ThemeId,
-                
-               /* MissionSkills= adminViewModelMain.singleMission.MissionSkills,*/
+            var singleMissionIdCheck = adminViewModelMain.singleMission.MissionId;
 
-            };
-            _cidatabaseContext.Missions.Add(mission);
-            _cidatabaseContext.SaveChanges();
-
-            var missionId = mission.MissionId;
-
-            //For skills
-            foreach (var i in Skilllist)
+            if (singleMissionIdCheck != 0)
             {
-                MissionSkill missionSkill = new MissionSkill() {
-                    SkillId = i,
-                    MissionId=missionId,
+                Mission mission = _cidatabaseContext.Missions.Where(m => m.MissionId == singleMissionIdCheck).FirstOrDefault();
+
+                mission.Title = adminViewModelMain.singleMission.Title;
+                mission.ShortDescription = adminViewModelMain.singleMission.ShortDescription;
+                mission.Description = adminViewModelMain.singleMission.Description;
+                mission.CountryId = adminViewModelMain.singleMission.CountryId;
+                mission.CityId = adminViewModelMain.singleMission.CityId;
+                mission.OrganizationName = adminViewModelMain.singleMission.OrganizationName;
+                mission.OrganizationDetail = adminViewModelMain.singleMission.OrganizationDetail;
+                mission.StartDate = adminViewModelMain.singleMission.StartDate;
+                mission.EndDate = adminViewModelMain.singleMission.EndDate;
+                mission.MissionType = adminViewModelMain.singleMission.MissionType;
+                mission.TotalSeats = adminViewModelMain.singleMission.TotalSeats;
+                mission.RegistrationDeadline = adminViewModelMain.singleMission.RegistrationDeadline;
+                mission.ThemeId = adminViewModelMain.singleMission.ThemeId;
+                mission.Availability = adminViewModelMain.singleMission.Availability;
+                
+                _cidatabaseContext.Missions.Update(mission);
+                _cidatabaseContext.SaveChanges();
+
+                //For GoalMission
+                GoalMission goalMission = _cidatabaseContext.GoalMissions.Where(g => g.MissionId == singleMissionIdCheck).FirstOrDefault();
+
+                goalMission.MissionId = singleMissionIdCheck;
+                goalMission.GoalObjectiveText = goalObjectiveText;
+                goalMission.GoalValue = goalValue;
+
+                _cidatabaseContext.GoalMissions.Update(goalMission);
+
+                _cidatabaseContext.SaveChanges();
+
+
+
+                //For Video URL
+                if (MissionVideoURL != null)
+                {
+                    MissionMedium missionMedium = _cidatabaseContext.MissionMedia.Where(mm => mm.MissionId == singleMissionIdCheck && mm.MediaType == "URL").FirstOrDefault();
+                                        
+                    missionMedium.MediaName = "video";
+                    missionMedium.MediaType = "URL";
+                    missionMedium.MediaPath = MissionVideoURL;                                      
+
+                    _cidatabaseContext.MissionMedia.Update(missionMedium);
+                    _cidatabaseContext.SaveChanges();
+                }
+
+                //For skills
+                foreach (var i in Skilllist)
+                {
+                    MissionSkill missionSkill = _cidatabaseContext.MissionSkills.Where(m => m.MissionId == singleMissionIdCheck).FirstOrDefault();
+
+                    missionSkill.SkillId = i;
+                    missionSkill.MissionId = singleMissionIdCheck;
+
                     
-                };
-                _cidatabaseContext.MissionSkills.Add(missionSkill);
+                    _cidatabaseContext.MissionSkills.Update(missionSkill);
+
+                }
+                _cidatabaseContext.SaveChanges();
+
+
+                //For DefualtIMage
+                if (defaultImage != null)
+                {
+                    foreach (var file in defaultImage)
+                    {
+                        MissionMedium missionMedium = _cidatabaseContext.MissionMedia.Where(m => m.MissionId == singleMissionIdCheck).FirstOrDefault();
+
+                        missionMedium.MissionId = singleMissionIdCheck;
+                        missionMedium.MediaName = file.FileName;
+                        missionMedium.MediaType = file.ContentType;
+
+                        FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
+
+                        string path = "wwwroot\\MissionMedia\\" + Path.GetFileName(file.FileName);
+
+                        missionMedium.MediaPath = path;
+
+                        _cidatabaseContext.MissionMedia.Update(missionMedium);
+
+                        file.CopyToAsync(FileStream);
+
+                        FileStream.Close();
+
+                    }
+                    _cidatabaseContext.SaveChanges();
+
+                }
+
+
+                //For MissionImage
+                if (defaultImage != null)
+                {
+
+                    foreach (var file in missionImages)
+                    {
+                        MissionMedium missionMedium = _cidatabaseContext.MissionMedia.Where(m => m.MissionId == singleMissionIdCheck).FirstOrDefault();
+
+                        missionMedium.MissionId = singleMissionIdCheck;
+                        missionMedium.MediaName = file.FileName;
+                        missionMedium.MediaType = file.ContentType;
+
+                        FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
+
+                        string path = "wwwroot\\MissionMedia\\" + Path.GetFileName(file.FileName);
+
+                        missionMedium.MediaPath = path;
+
+                        _cidatabaseContext.MissionMedia.Update(missionMedium);
+
+                        file.CopyToAsync(FileStream);
+
+                        FileStream.Close();
+
+                    }
+                    _cidatabaseContext.SaveChanges();
+
+                }
+
+
+
+
+                // For Mission Documents
+
+
+                if (adminViewModelMain.Files != null)
+                {
+                    foreach (var file in adminViewModelMain.Files)
+                    {
+                        MissionDocument missionDocument = _cidatabaseContext.MissionDocuments.Where(md => md.MissionId == singleMissionIdCheck).FirstOrDefault();
+
+                        missionDocument.MissionId = singleMissionIdCheck;
+                        missionDocument.DocumentName = file.FileName;
+                        missionDocument.DocumentType = file.ContentType;
+
+                        FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Documents\\", Path.GetFileName(file.FileName)), FileMode.Create);
+
+                        string path = "Documents\\" + Path.GetFileName(file.FileName);
+
+                        missionDocument.DocumentPath = path;
+
+                        _cidatabaseContext.MissionDocuments.Update(missionDocument);
+
+                        file.CopyToAsync(FileStream);
+
+                        FileStream.Close();
+
+                    }
+                    _cidatabaseContext.SaveChanges();
+
+                }
 
             }
-            _cidatabaseContext.SaveChanges();
-
-
-            //For DefualtIMage
-            if (defaultImage != null)
+            else
             {
+                Mission mission = new Mission()
+                {
+                    Title = adminViewModelMain.singleMission.Title,
+                    ShortDescription = adminViewModelMain.singleMission.ShortDescription,
+                    Description = adminViewModelMain.singleMission.Description,
+                    CountryId = adminViewModelMain.singleMission.CountryId,
+                    CityId = adminViewModelMain.singleMission.CityId,
+                    OrganizationName = adminViewModelMain.singleMission.OrganizationName,
+                    OrganizationDetail = adminViewModelMain.singleMission.OrganizationDetail,
+                    StartDate = adminViewModelMain.singleMission.StartDate,
+                    EndDate = adminViewModelMain.singleMission.EndDate,
+                    MissionType = adminViewModelMain.singleMission.MissionType,
+                    TotalSeats = adminViewModelMain.singleMission.TotalSeats,
+                    RegistrationDeadline = adminViewModelMain.singleMission.RegistrationDeadline,
+                    ThemeId = adminViewModelMain.singleMission.ThemeId,
+                    Availability = adminViewModelMain.singleMission.Availability,
+
+                /* MissionSkills= adminViewModelMain.singleMission.MissionSkills,*/
+
+            };
+                _cidatabaseContext.Missions.Add(mission);
+                _cidatabaseContext.SaveChanges();
+
+                var missionId = mission.MissionId;
+
+
+                //For Video URl
+                if (MissionVideoURL != null)
+                {
+                    MissionMedium missionMedium = new MissionMedium
+                    {
+                        MissionId=missionId,
+                        MediaName = "video",
+                        MediaType="URL",
+                        MediaPath=MissionVideoURL,
+
+
+                    };
+
+                    _cidatabaseContext.MissionMedia.Add(missionMedium);
+                    _cidatabaseContext.SaveChanges();
+                }
+
+
+                //For GoalMission
                 
 
-                foreach (var file in defaultImage)
-                {
-                    MissionMedium missionMedium = new MissionMedium();
+                List<GoalMission> goalMission = new List<GoalMission>();
 
-                    missionMedium.MissionId = missionId;
-                    missionMedium.MediaName = file.FileName;
-                    missionMedium.MediaType = file.ContentType;
+                foreach (var goal in goalMission)
+                {
+                    if (goal.MissionId == singleMissionIdCheck)
+                    {
+                        goal.MissionId = singleMissionIdCheck;
+                        goal.GoalObjectiveText = goalObjectiveText;
+                        goal.GoalValue = goalValue;
+
+                        _cidatabaseContext.GoalMissions.Add(goal);
+
+
+                    }
+                }
+                _cidatabaseContext.SaveChanges();
+
+
+                //For skills
+                foreach (var i in Skilllist)
+                {
+                    MissionSkill missionSkill = new MissionSkill()
+                    {
+                        SkillId = i,
+                        MissionId = missionId,
+
+                    };
+                    _cidatabaseContext.MissionSkills.Add(missionSkill);
+
+                }
+                _cidatabaseContext.SaveChanges();
+
+
+                //For DefualtIMage
+                if (defaultImage != null)
+                {
+
+
+                    foreach (var file in defaultImage)
+                    {
+                        MissionMedium missionMedium = new MissionMedium();
+
+                        missionMedium.MissionId = missionId;
+                        missionMedium.MediaName = file.FileName;
+                        missionMedium.MediaType = file.ContentType;
 
                         FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
@@ -636,78 +852,130 @@ namespace CIPlatformIntegration.Repository.Repository
 
                         file.CopyToAsync(FileStream);
 
-                        FileStream.Close();                                      
+                        FileStream.Close();
 
-                }
+                    }
                     _cidatabaseContext.SaveChanges();
-               
-            }
-
-
-            //For MissionImage
-            if (defaultImage != null)
-            {              
-
-                foreach (var file in missionImages)
-                {
-                    MissionMedium missionMedium = new MissionMedium();
-
-                    missionMedium.MissionId = missionId;
-                    missionMedium.MediaName = file.FileName;
-                    missionMedium.MediaType = file.ContentType;
-
-                    FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
-
-                    string path = "wwwroot\\MissionMedia\\" + Path.GetFileName(file.FileName);
-
-                    missionMedium.MediaPath = path;
-
-                    _cidatabaseContext.MissionMedia.Add(missionMedium);
-
-                    file.CopyToAsync(FileStream);
-
-                    FileStream.Close();
 
                 }
-                _cidatabaseContext.SaveChanges();
-
-            }
 
 
-
-
-            // For Mission Documents
-           
-
-            if (adminViewModelMain.Files != null)
-            {
-                foreach (var file in adminViewModelMain.Files)
+                //For MissionImage
+                if (defaultImage != null)
                 {
-                    MissionDocument missionDocument = new MissionDocument();
 
-                    missionDocument.MissionId = missionId;
-                    missionDocument.DocumentName = file.FileName;
-                    missionDocument.DocumentType = file.ContentType;
+                    foreach (var file in missionImages)
+                    {
+                        MissionMedium missionMedium = new MissionMedium();
 
-                    FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Documents\\", Path.GetFileName(file.FileName)), FileMode.Create);
+                        missionMedium.MissionId = missionId;
+                        missionMedium.MediaName = file.FileName;
+                        missionMedium.MediaType = file.ContentType;
 
-                    string path = "Documents\\" + Path.GetFileName(file.FileName);
+                        FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-                    missionDocument.DocumentPath = path;
+                        string path = "wwwroot\\MissionMedia\\" + Path.GetFileName(file.FileName);
 
-                    _cidatabaseContext.MissionDocuments.Add(missionDocument);
+                        missionMedium.MediaPath = path;
 
-                    file.CopyToAsync(FileStream);
+                        _cidatabaseContext.MissionMedia.Add(missionMedium);
 
-                    FileStream.Close();
+                        file.CopyToAsync(FileStream);
+
+                        FileStream.Close();
+
+                    }
+                    _cidatabaseContext.SaveChanges();
 
                 }
-                _cidatabaseContext.SaveChanges();
 
-            }         
+
+
+
+                // For Mission Documents
+
+
+                if (adminViewModelMain.Files != null)
+                {
+                    foreach (var file in adminViewModelMain.Files)
+                    {
+                        MissionDocument missionDocument = new MissionDocument();
+
+                        missionDocument.MissionId = missionId;
+                        missionDocument.DocumentName = file.FileName;
+                        missionDocument.DocumentType = file.ContentType;
+
+                        FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Documents\\", Path.GetFileName(file.FileName)), FileMode.Create);
+
+                        string path = "Documents\\" + Path.GetFileName(file.FileName);
+
+                        missionDocument.DocumentPath = path;
+
+                        _cidatabaseContext.MissionDocuments.Add(missionDocument);
+
+                        file.CopyToAsync(FileStream);
+
+                        FileStream.Close();
+
+                    }
+                    _cidatabaseContext.SaveChanges();
+
+                }
+            }
+                                
 
             return adminViewModelMain;
 
+        }
+
+
+        public AdminViewModel adminViewModelMainForEditMission(long missionId)
+        {
+            AdminViewModel adminViewModelMainForEditMissionObject = new AdminViewModel
+            {
+                countries = _cidatabaseContext.Countries.ToList(),
+                cities = _cidatabaseContext.Cities.ToList(),
+                User = _cidatabaseContext.Users.FirstOrDefault(),
+                users = _cidatabaseContext.Users.ToList(),
+                missionApplications = _cidatabaseContext.MissionApplications.ToList(),
+                missions = _cidatabaseContext.Missions.ToList(),
+                stories = _cidatabaseContext.Stories.ToList(),
+                missionThemes = _cidatabaseContext.MissionThemes.Where(mt => mt.Status == 1).ToList(),
+                skills = _cidatabaseContext.Skills.ToList(),
+                cmsPages = _cidatabaseContext.CmsPages.ToList(),
+                singleMission = _cidatabaseContext.Missions.Where(m => m.MissionId == missionId).FirstOrDefault(),
+            };
+
+            return adminViewModelMainForEditMissionObject;
+
+        }
+
+        public AdminViewModel adminViewModelMainForDeleteMission(long missionId)
+        {
+            AdminViewModel adminViewModelMainForDeleteMissionObject = new AdminViewModel
+            {
+                countries = _cidatabaseContext.Countries.ToList(),
+                cities = _cidatabaseContext.Cities.ToList(),
+                User = _cidatabaseContext.Users.FirstOrDefault(),
+                users = _cidatabaseContext.Users.ToList(),
+                missionApplications = _cidatabaseContext.MissionApplications.ToList(),
+                missions = _cidatabaseContext.Missions.ToList(),
+                stories = _cidatabaseContext.Stories.ToList(),
+                missionThemes = _cidatabaseContext.MissionThemes.Where(mt => mt.Status == 1).ToList(),
+                skills = _cidatabaseContext.Skills.ToList(),
+                cmsPages = _cidatabaseContext.CmsPages.ToList(),
+                singleMission = _cidatabaseContext.Missions.Where(m => m.MissionId == missionId).FirstOrDefault(),
+            };
+
+
+            Mission mission = _cidatabaseContext.Missions.Where(m => m.MissionId == missionId).FirstOrDefault();
+
+            mission.DeletedAt = DateTime.Now;
+
+            _cidatabaseContext.Missions.Update(mission);
+            _cidatabaseContext.SaveChanges();
+
+            return adminViewModelMainForDeleteMissionObject;
         }
 
 

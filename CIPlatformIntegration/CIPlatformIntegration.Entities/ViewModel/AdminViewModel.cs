@@ -10,6 +10,8 @@ namespace CIPlatformIntegration.Entities.ViewModel
 {
    public class AdminViewModel
     {
+
+        public List<City> citiesForEdit { get; set; }   
         public List<User> users { get; set; }
 
         public User? User { get; set; }
@@ -41,7 +43,11 @@ namespace CIPlatformIntegration.Entities.ViewModel
         //For Mission
         public Mission singleMission { get; set; }
 
+        public MissionMedium missionMedium { get; set; }
+
         public List<IFormFile> Files { get; set; }
+
+        public List<GoalMission> goalMissions { get; set; } 
 
 
 
