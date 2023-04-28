@@ -30,7 +30,7 @@
         <div class="mb-3">
             <label for="Description" class="form-label">Description</label>
 
-            <textarea id="default" asp-for="singleMission.Description" class="form-control" required></textarea>
+            <textarea asp-for="singleMission.Description" class="form-control tinyForMission" id="default"  required></textarea>
 
             <div class="invalid-feedback">
                 *Descirption Is Required
@@ -181,7 +181,7 @@
 
                 <label for="Skill" class="form-label">Skill</label>
 
-                <select name="Skilllist" size="8" class="form-control" multiple>
+                <select name="Skilllist" size="8" class="form-control" id="missionSkills" multiple>
                     @foreach (var item in @Model.skills)
                     {
                         <option value="@item.SkillId">
@@ -193,14 +193,8 @@
             </div>
         </div>
 
-        <div class="mb-3">
-            <label for="MissionDocument" class="form-label">Mission Document</label>
-            <input asp-for="Files" type="file" multiple class="form-control" />        
-            
-        </div>
 
-
-        <div class="row mb-3">
+         <div class="row mb-3">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <label for="DefualtMissionPhoto" class="form-label">Default Mission Photos</label>
                 <input type="file" name="defaultImage" class="form-control" id="DefualtMissionPhoto" src="" required>
@@ -208,45 +202,50 @@
                     *Default Image Is required
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <label for="MissionPhotos" class="form-label">Mission Photos</label>
-                <input type="file" name="missionImages" class="form-control" id="MissionPhotos" multiple>
-            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+            <label for="MissionDocument" class="form-label">Mission Document</label>
+            <input asp-for="Files" type="file" multiple class="form-control" />        
+            
+             </div>
         </div>
-        <div class="mb-3">
+
+       
+            
+            <div class="col-lg-12 input-div d-flex flex-column">
+                <div class="image">
+                    <img src="~/images/add.png" />
+                </div>
+                <p>Drag & drop pictures here or <strong>Browse</strong></p>
+                <input type="file" id="selectedfile" class="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg" name="missionImages" required>
+            </div>
+
+            <output></output>
+        
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
             <label for="MissionAvability" class="form-label">Mission Avability</label>
             <input type="text" asp-for="@Model.singleMission.Availability" class="form-control" id="MissionAvability">
         </div>
 
-        <div class="mb-3">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
             <label for="MissionVideo" class="form-label">Mission VideoURL</label>
             <input type="text" name="MissionVideoURL" class="form-control" id="MissionVideo">
         </div>
+
+        </div>
+        
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
 
     <script>
-
-            tinymce.init({
-            selector: 'textarea#default',
-
-            height: 300,
-            plugins: [
-            'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'prewiew', 'anchor', 'pagebreak',
-            'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
-            'table', 'emoticons', 'template', 'codesample'
-            ],
-            toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' +
-            'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
-            'forecolor backcolor emoticons',
-            menu: {
-            favs: { title: 'menu', items: 'code visualaid | searchreplace | emoticons' }
-            },
-            menubar: 'favs file edit view insert format tools table',
-            content_style: 'body{font-family:Helvetica,Arial,sans-serif; font-size:16px}'
-            });
+        
+            
+                
+           
+             
+  
 
             // Example starter JavaScript for disabling form submissions if there are invalid fields
             (function () {
@@ -282,6 +281,65 @@
             }
 
             });
+
+
+
+
+
+            //For Mission Images
+
+
+            
+
+const inputDiv = document.querySelector(".input-div")
+let input = document.querySelector("#selectedfile")
+
+
+const output = document.querySelector("output")
+let imagesArray = []
+
+input.addEventListener("change", () => {
+
+    const files = input.files
+    console.log(files)
+    for (let i = 0; i < files.length; i++) {
+        imagesArray.push(files[i])
+    }
+    displayImages()
+})
+
+
+inputDiv.addEventListener("drop", () => {
+    e.preventDefault()
+    const files = e.dataTransfer.files
+    for (let i = 0; i < files.length; i++) {
+        if (!files[i].type.match("image")) continue;
+
+        if (imagesArray.every(image => image.name !== files[i].name))
+            imagesArray.push(files[i])
+    }
+    displayImages()
+})
+
+function displayImages() {
+    let images = ""
+    imagesArray.forEach((image, index) => {
+        images += `<div class="image">
+                        <img src="${URL.createObjectURL(image)}" alt="image">
+                        <span onclick="deleteImage(${index})">&times;</span>
+                      </div>`
+    })
+    output.innerHTML = images
+}
+
+
+function deleteImage(index) {
+    imagesArray.splice(index, 1)
+    displayImages()
+}
+
+
+
 
     </script>
 </div>

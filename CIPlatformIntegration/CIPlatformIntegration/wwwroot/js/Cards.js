@@ -1,12 +1,11 @@
 ﻿
-
-
 var searchTerm = "";
 let sortValue = "";
 
 
-$(document).ready(function () {
-    
+$(document).ready(function () {    
+            
+       
     LoadMission();
 });
 
@@ -72,10 +71,11 @@ function LoadMission(sortValue, pge) {
 
     })
 
-
-
-
-
-
-
 }
+
+
+
+
+
+
+    

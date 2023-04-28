@@ -1,4 +1,4 @@
-﻿// A $( document ).ready() block.
+﻿/*// A $( document ).ready() block.
 $(document).ready(function () {
     var cards = document.getElementsByClassName("card1");
     $('#list-btn').on('click', function () {
@@ -27,18 +27,18 @@ $(document).ready(function () {
 
         }
     });
-   /* document.getElementById("list-btn").onclick = function () {*/
+   *//* document.getElementById("list-btn").onclick = function () {*//*
         //document.getElementById("abc").classList.add("col-3");
         //document.getElementById("xyz").classList.add("col-9");
        
 
-        /*  document.querySelector(".card1").classList.toggle("old");
+        *//*  document.querySelector(".card1").classList.toggle("old");
               document.querySelector(".col-info").classList.add("col-lg-12");
               document.querySelector(".col-info").classList.add("col-md-12");
               document.querySelector(".col-info").classList.add("col-sm-12");
-              document.querySelector(".cardimage").classList.add("cardimagelist");*/
+              document.querySelector(".cardimage").classList.add("cardimagelist");*//*
 
-    /*}*/
+    *//*}*//*
 });
 
 
@@ -70,7 +70,7 @@ document.getElementById("grid-btn").onclick = function () {
 
 
 
-/*
+*//*
 document.getElementById("grid-btn").onclick = function () {
     document.querySelector(".card-cont").classList.remove("new");
     document.querySelector(".card1").classList.remove("old");
@@ -82,7 +82,7 @@ document.getElementById("grid-btn").onclick = function () {
 
         console.log("ajdbjs");
     }
-*/
+*//*
 
 
 
@@ -92,4 +92,9 @@ if (searchedvalue == "Aakash") {
     console.log(searchedvalue);
     document.getElementById("maindivvv").classList.toggle("maindiv");
 }
+
+*/
+
+
+
 

@@ -265,6 +265,9 @@ namespace CIPlatformIntegration.Controllers
             ViewBag.profilename = HttpContext.Session.GetString("profile");
             ViewData["useridcheck"] = (long)HttpContext.Session.GetInt32("farfavuserid");
 
+            
+
+
             return View(model);
         }
 
@@ -485,6 +488,8 @@ namespace CIPlatformIntegration.Controllers
 
             else
             {
+
+
                 FavoriteMission favorite2 = new FavoriteMission();
                 favorite2.UserId = userid;
                 favorite2.MissionId = missionID;

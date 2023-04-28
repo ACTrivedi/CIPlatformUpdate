@@ -3,6 +3,7 @@ using CIPlatformIntegration.Entities.Models;
 using CIPlatformIntegration.Entities.ViewModel;
 using CIPlatformIntegration.Repository.Interface;
 using Microsoft.AspNetCore.Http;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -615,15 +616,19 @@ namespace CIPlatformIntegration.Repository.Repository
                 _cidatabaseContext.SaveChanges();
 
                 //For GoalMission
-                GoalMission goalMission = _cidatabaseContext.GoalMissions.Where(g => g.MissionId == singleMissionIdCheck).FirstOrDefault();
+                if (goalObjectiveText != null && goalValue != 0)
+                {
+                    GoalMission goalMission = _cidatabaseContext.GoalMissions.Where(g => g.MissionId == singleMissionIdCheck).FirstOrDefault();
 
-                goalMission.MissionId = singleMissionIdCheck;
-                goalMission.GoalObjectiveText = goalObjectiveText;
-                goalMission.GoalValue = goalValue;
+                    goalMission.MissionId = singleMissionIdCheck;
+                    goalMission.GoalObjectiveText = goalObjectiveText;
+                    goalMission.GoalValue = goalValue;
 
-                _cidatabaseContext.GoalMissions.Update(goalMission);
+                    _cidatabaseContext.GoalMissions.Update(goalMission);
 
-                _cidatabaseContext.SaveChanges();
+                    _cidatabaseContext.SaveChanges();
+                }
+                
 
 
 
@@ -668,7 +673,7 @@ namespace CIPlatformIntegration.Repository.Repository
 
                         FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-                        string path = "wwwroot\\MissionMedia\\" + Path.GetFileName(file.FileName);
+                        string path = "/MissionMedia/" + Path.GetFileName(file.FileName);
 
                         missionMedium.MediaPath = path;
 
@@ -685,7 +690,7 @@ namespace CIPlatformIntegration.Repository.Repository
 
 
                 //For MissionImage
-                if (defaultImage != null)
+                if (missionImages != null)
                 {
 
                     foreach (var file in missionImages)
@@ -698,7 +703,7 @@ namespace CIPlatformIntegration.Repository.Repository
 
                         FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-                        string path = "wwwroot\\MissionMedia\\" + Path.GetFileName(file.FileName);
+                        string path = "/MissionMedia/" + Path.GetFileName(file.FileName);
 
                         missionMedium.MediaPath = path;
 
@@ -731,7 +736,7 @@ namespace CIPlatformIntegration.Repository.Repository
 
                         FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Documents\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-                        string path = "Documents\\" + Path.GetFileName(file.FileName);
+                        string path = "/Documents/" + Path.GetFileName(file.FileName);
 
                         missionDocument.DocumentPath = path;
 
@@ -794,25 +799,26 @@ namespace CIPlatformIntegration.Repository.Repository
 
 
                 //For GoalMission
-                
 
-                List<GoalMission> goalMission = new List<GoalMission>();
-
-                foreach (var goal in goalMission)
+                if (goalObjectiveText != null && goalValue != 0)
                 {
-                    if (goal.MissionId == singleMissionIdCheck)
+                    List<GoalMission> goalMission = new List<GoalMission>();
+
+                    foreach (var goal in goalMission)
                     {
-                        goal.MissionId = singleMissionIdCheck;
-                        goal.GoalObjectiveText = goalObjectiveText;
-                        goal.GoalValue = goalValue;
+                        if (goal.MissionId == singleMissionIdCheck)
+                        {
+                            goal.MissionId = singleMissionIdCheck;
+                            goal.GoalObjectiveText = goalObjectiveText;
+                            goal.GoalValue = goalValue;
 
-                        _cidatabaseContext.GoalMissions.Add(goal);
+                            _cidatabaseContext.GoalMissions.Add(goal);
 
 
+                        }
                     }
+                    _cidatabaseContext.SaveChanges();
                 }
-                _cidatabaseContext.SaveChanges();
-
 
                 //For skills
                 foreach (var i in Skilllist)
@@ -844,7 +850,7 @@ namespace CIPlatformIntegration.Repository.Repository
 
                         FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-                        string path = "wwwroot\\MissionMedia\\" + Path.GetFileName(file.FileName);
+                        string path = "/MissionMedia/" + Path.GetFileName(file.FileName);
 
                         missionMedium.MediaPath = path;
 
@@ -861,7 +867,7 @@ namespace CIPlatformIntegration.Repository.Repository
 
 
                 //For MissionImage
-                if (defaultImage != null)
+                if (missionImages != null)
                 {
 
                     foreach (var file in missionImages)
@@ -874,7 +880,7 @@ namespace CIPlatformIntegration.Repository.Repository
 
                         FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-                        string path = "wwwroot\\MissionMedia\\" + Path.GetFileName(file.FileName);
+                        string path = "/MissionMedia/" + Path.GetFileName(file.FileName);
 
                         missionMedium.MediaPath = path;
 
@@ -978,6 +984,23 @@ namespace CIPlatformIntegration.Repository.Repository
             return adminViewModelMainForDeleteMissionObject;
         }
 
+
+        //For Mission Images
+        /*public Task<IFormFile> GetImageFileList(long missionId)
+        {
+
+           var src= _cidatabaseContext.MissionMedia.FirstOrDefault(m => m.MissionId == missionId).MediaPath;
+
+            var formFileList = new List<IFormFile>();
+
+            using (var stream = new FileStream(filePath, FileMode.Open))
+            {
+                return new FormFile(stream, 0, stream.Length, null, Path.GetFileName(filePath));
+            }
+
+            return (List<IFormFile>)file;
+
+        }*/
 
     }
 }

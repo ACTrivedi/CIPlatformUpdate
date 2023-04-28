@@ -49,8 +49,8 @@
 
             <div class="d-flex">
 
-                <a class="btn button1 px-4" id="list-btn" @*onclick="listView()"*@><i class="fa fa-bars"></i></a>
-                <button class="ml-1 button2 px-4" id="grid-btn" onclick="gridView()"><i class="fa fa-th-large"></i></button>
+                <button class="btn button1 px-4" id="list-btn"><i class="fa fa-bars"></i></button>
+                <button class="btn ml-1 button2 px-4" id="grid-btn"><i class="fa fa-th-large"></i></button>
             </div>
 
 
@@ -59,13 +59,13 @@
 
     @* Mission info End*@
 
-    <div class="container-fluid" >
-        <div class="card-cont row" >
+    <div class="container-fluid">
+        <div class="card-cont row">
             @{
                 var goalmissions = @ViewData["goalMission"];
                 foreach (var modeldetail in Model.Missions)
                 {
-                    <div class="col-info col-12 col-md-6 col-lg-4" >
+                    <div class="col-info col-12 col-md-6 col-lg-4">
                         <div class="card1 card my-5" id="cardBackground">
                             <div class="mission-img" style="position:relative;">
 
@@ -76,7 +76,7 @@
                                     int counterForDecline = 0;
 
 
-                                    
+
 
 
                                     foreach (var i in Model.missionApplications)
@@ -113,7 +113,7 @@
                                             PENDING
                                         </div>
                                     }
-                                    else if (counterForDecline !=0)
+                                    else if (counterForDecline != 0)
                                     {
                                         <div class="top-left-decline">
                                             DECLINE
@@ -127,7 +127,7 @@
                                 }
 
 
-                                
+
 
 
                                 <div class="rounded-pill p-1" id="location" style="position:absolute;right:8px; top:3%; background-color:black;opacity:0.6; color:white">
@@ -187,54 +187,82 @@
                                     <div><p>@modeldetail.Country.Name</p></div>
                                     <div class="flex">
                                         <!--<img src="~/images/selected-star.png" />-->
-                                         @{
-                                             var useridcheckforrating = (long)ViewData["useridcheck"];
-                                             var count = 0;
-                                            var j = 1;
-                                             var k = 1;
+                                        @{
+                                            //             var useridcheckforrating = (long)ViewData["useridcheck"];
+                                            //             var count = 0;
+                                            //            var j = 1;
+                                            //             var k = 1;
 
 
-                                    foreach (var i in @modeldetail.MissionRatings)
-                                    {
-                                        if ((modeldetail.MissionRatings.Where(m => m.MissionId == modeldetail.MissionId && m.UserId == useridcheckforrating).Count() != 0))
-                                        {
-                                            var rating = modeldetail.MissionRatings.Where(m => m.MissionId == modeldetail.MissionId && m.UserId == useridcheckforrating).First();
-                                            var ratingnumber = rating.Rating;
-                                            for (j = 1; j <= ratingnumber; j++)
-                                            {
-                                                <i class="fas fa-star" style="font-size:19px;  background-color: #F5F5F5; color: #ffc107!important;"></i>
-                                            }
+                                            //    foreach (var i in @modeldetail.MissionRatings)
+                                            //    {
+                                            //        if ((modeldetail.MissionRatings.Where(m => m.MissionId == modeldetail.MissionId && m.UserId == useridcheckforrating).Count() != 0))
+                                            //        {
+                                            //            var rating = modeldetail.MissionRatings.Where(m => m.MissionId == modeldetail.MissionId && m.UserId == useridcheckforrating).First();
+                                            //            var ratingnumber = rating.Rating;
+                                            //            for (j = 1; j <= ratingnumber; j++)
+                                            //            {
+                                            //                <i class="fas fa-star" style="font-size:19px;  background-color: #F5F5F5; color: #ffc107!important;"></i>
+                                            //            }
 
 
-                                            for (k = j; k <= 5; k++)
-                                            {
-                                                <i class="far fa-star" style="font-size:19px;  background-color: #F5F5F5; color: #ffc107!important;"></i>
-                                            }
+                                            //            for (k = j; k <= 5; k++)
+                                            //            {
+                                            //                <i class="far fa-star" style="font-size:19px;  background-color: #F5F5F5; color: #ffc107!important;"></i>
+                                            //            }
 
-                                            break;
+                                            //            break;
+                                            //        }
+
+                                            //        else
+                                            //        {
+                                            //            <i class="far fa-star" style="font-size:19px;  background-color: #F5F5F5; color: #ffc107!important;"></i>
+                                            //            <i class="far fa-star" style="font-size:19px;  background-color: #F5F5F5; color: #ffc107!important;" ></i>
+                                            //            <i class="far fa-star" style="font-size:19px;  background-color: #F5F5F5; color: #ffc107!important; "></i>
+                                            //            <i class="far fa-star" style="font-size:19px;  background-color: #F5F5F5; color: #ffc107!important;"></i>
+                                            //            <i class="far fa-star" style="font-size:19px;  background-color: #F5F5F5; color: #ffc107!important;"></i>
+                                            //            break;
+                                            //        }
+                                            //    }
+
                                         }
 
-                                        else
-                                        {
-                                            <i class="far fa-star" style="font-size:19px;  background-color: #F5F5F5; color: #ffc107!important;"></i>
-                                            <i class="far fa-star" style="font-size:19px;  background-color: #F5F5F5; color: #ffc107!important;" ></i>
-                                            <i class="far fa-star" style="font-size:19px;  background-color: #F5F5F5; color: #ffc107!important; "></i>
-                                            <i class="far fa-star" style="font-size:19px;  background-color: #F5F5F5; color: #ffc107!important;"></i>
-                                            <i class="far fa-star" style="font-size:19px;  background-color: #F5F5F5; color: #ffc107!important;"></i>
-                                            break;
+                                        @{
+    
+                                                 var missionRatings = Model.MissionRatings.Where(m => m.MissionId == modeldetail.MissionId).Select(m => m.Rating);
+                                                                                                 
+                                                var missionRating = missionRatings.Any() ? missionRatings.Average() : 0; // return 0 if no ratings are found
+                                           
+
+
+                                            if (missionRating == 0)
+                                            {
+                                                <p style="color:black;">No rating found</p>
+
+                                            }
+
+                                            else
+                                            {
+                                                for (var i = 1; i <= Math.Ceiling(missionRating); i++)
+                                                {
+                                                    <i class="fas fa-star" style="color:yellow;"></i>
+
+
+                                                }
+                                                for (var i = 1; i <= 5 - Math.Ceiling(missionRating); i++)
+                                                {
+
+                                                    <i class="far fa-star"></i>
+                                                }
+                                            }
+
                                         }
-                                    }
-
-                                }
-                                        
-
-
 
                                     </div>
                                 </div>
 
 
-                                @if (modeldetail.MissionType == "goal")
+                                @if (modeldetail.MissionType == "Goal")
                                 {
                                     foreach (var i in Model.GoalMission)
                                     {
@@ -252,7 +280,7 @@
                                     }
 
                                 }
-                                @if (modeldetail.MissionType == "time")
+                                @if (modeldetail.MissionType == "Time")
                                 {
                                     <div class="SEDdiv">
 
@@ -269,22 +297,22 @@
                                     <div>
                                         <img src="~/images/Seats-left.png" />
                                         @{
-                                             <span>@modeldetail.SeatsLeft</span>
-                                        }                                       
+                                            <span>@modeldetail.SeatsLeft</span>
+                                        }
                                         <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Seats left</p>
 
                                     </div>
 
-                                    @if (modeldetail.MissionType == "goal")
+                                    @if (modeldetail.MissionType == "Goal")
                                     {
                                         @foreach (var i in Model.GoalMission)
 
                                         {
                                             var width = @i.GoalValue;
-                                             var acchivedgoal = Model.timesheets.Where(m => m.MissionId == @modeldetail.MissionId).Sum(t => t.Action); 
+                                            var acchivedgoal = Model.timesheets.Where(m => m.MissionId == @modeldetail.MissionId).Sum(t => t.Action);
 
                                             if (i.MissionId == modeldetail.MissionId)
-                                            {                                                
+                                            {
                                                 <div>
                                                     <div class="w-90 progress my-1">
                                                         <div class="progress-bar bg-warning" role="progressbar" style="width:@acchivedgoal%" aria-valuenow=@acchivedgoal aria-valuemin="0" aria-valuemax=@width></div>
@@ -296,7 +324,7 @@
                                             }
                                         }
                                     }
-                                    @if (modeldetail.MissionType == "time")
+                                    @if (modeldetail.MissionType == "Time")
                                     {
                                         <div>
                                             <img src="~/images/deadline.png" />
@@ -327,6 +355,10 @@
 
     </div>
 
+    <div class="d-none" id="noMissionFound">
+        @Html.Partial("_Nomissionfound")
+    </div>
+
 
     <div class="container">
         @{
@@ -350,3 +382,77 @@
     </div>
 
 
+    <script>
+
+
+
+        var cards = document.getElementsByClassName("card1");
+
+        $('#list-btn').on('click', function () {
+
+            document.querySelector(".card-cont").classList.toggle("new");
+
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].classList.toggle("old");
+
+            }
+
+            var x = document.getElementsByClassName("col-info");
+
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.toggle("col-lg-12", "col-md-12", "col-sm-12");
+                x[i].classList.toggle("col-md-12");
+                x[i].classList.toggle("col-sm-12");
+
+
+            }
+
+            var y = document.getElementsByClassName("cardimage");
+
+            for (var i = 0; i < y.length; i++) {
+                y[i].classList.add("cardimagelist");
+
+            }
+
+        });
+
+
+
+
+        $('#grid-btn').on('click', function () {
+
+            document.querySelector(".card-cont").classList.remove("new");
+
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].classList.remove("old");
+
+            }
+
+            var x = document.getElementsByClassName("col-info");
+
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("col-lg-12", "col-md-12", "col-sm-12");
+
+            }
+
+            var y = document.getElementsByClassName("cardimage");
+
+            for (var i = 0; i < y.length; i++) {
+                y[i].classList.remove("cardimagelist");
+
+            }
+
+
+        });
+
+
+        if(@ViewBag.TotalCount==0)
+        {
+            $('#noMissionFound').removeClass("d-none");
+        }
+
+
+
+
+
+    </script>

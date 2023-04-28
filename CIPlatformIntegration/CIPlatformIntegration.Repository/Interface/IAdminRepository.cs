@@ -93,6 +93,9 @@ namespace CIPlatformIntegration.Repository.Interface
 
         AdminViewModel adminViewModelMainForDeleteMission(long missionId);
 
+        //For Mission Images
+        /* List<IFormFile> GetImageFileList(long missionId);*/
 
+       
     }
 }

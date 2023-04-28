@@ -1,4 +1,5 @@
-﻿
+﻿/*const { getJSON } = require("jquery")*/
+
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {
     'use strict'
@@ -1496,6 +1497,17 @@ function AddMission() {
 
             success:
                 function (res) {
+                    $(document).ready(function () {
+                       
+
+                        tinymce.init({
+                            selector: '.tinyForMission',
+
+                            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                            toolbar: 'undo redo | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                        });
+
+                    });
 
                     $('.missionArea').html('');
                     $('.missionArea').append(res);
@@ -1505,6 +1517,9 @@ function AddMission() {
                         pageLength: 7,
 
                     });
+                    
+
+                        
 
                     /*$('.missionClick').click();*/
 
@@ -1522,10 +1537,12 @@ function AddMission() {
 
 function EditMission(MissionId) { 
    
-
+        
     var missionId = MissionId;
-    $('#singleMissionIdCheck').val(missionId);
 
+
+    $('#singleMissionIdCheck').val(missionId);
+            
             $.ajax({
                 type: 'POST',
                 dataType: 'HTML',
@@ -1537,6 +1554,27 @@ function EditMission(MissionId) {
 
                 success:
                     function (res) {
+                       
+                        tinymce.remove();
+                        tinymce.init({
+                            selector: '#default',
+
+                            height: 300,
+                            plugins: [
+                                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'prewiew', 'anchor', 'pagebreak',
+                                'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
+                                'table', 'emoticons', 'template', 'codesample'
+                            ],
+                            toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' +
+                                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+                                'forecolor backcolor emoticons',
+                            menu: {
+                                favs: { title: 'menu', items: 'code visualaid | searchreplace | emoticons' }
+                            },
+                            menubar: 'favs file edit view insert format tools table',
+                            content_style: 'body{font-family:Helvetica,Arial,sans-serif; font-size:16px}'
+                        });
+                        forDetails(missionId);
 
                         $('.missionArea').html('');
                         $('.missionArea').append(res);
@@ -1557,6 +1595,95 @@ function EditMission(MissionId) {
             });
 }
 
+function forDetails(missionId) {
+   
+ 
+
+    $.ajax({
+        type: 'POST',
+        dataType: 'JSON',
+        data:
+        {
+            missionId: missionId,
+        },
+        url: '/Admin/otherMissionEditDetails',
+
+        success:
+            function (res) {
+                console.log(res);
+                missionImages(missionId);
+
+                $('#MissionVideo').val(res.videoLink);           
+                               
+
+                var skillArr = [];
+                for (var i = 0; i <= 5; i++) {
+                    skillArr[i] = res.myMissionSkills[i];
+                    $('#missionSkills').val(res.myMissionSkills[i]);
+                }
+                             
+
+                console.log(skillArr);
+
+
+                // Assume the JSON response string is stored in a variable called response
+               
+
+            },
+        failure:
+            function () {
+
+            }
+    });
+
+    function missionImages(missionId) {
+            
+    $.ajax({
+        type: 'POST',
+        dataType: 'JSON',
+        data:
+        {
+            missionId: missionId,
+        },
+        url: '/Admin/otherMissionImages',
+
+        success:
+            function (res) {
+                console.log("HERE"+res);
+                const myArray = res.toString().split(",");
+               
+                console.log(myArray);
+                  
+                //For Images
+                let images = "";
+                for (var i = 0; i < myArray.length; i++) {
+                   
+
+                        images += `<div class="image">
+                    <img src="${myArray[i]}" alt="image">
+                    <span onclick="removeimg(${i})">&times;</span>
+                    </div>`
+
+                                   
+
+
+                }
+
+                $("output").append(images);
+
+            },
+        failure:
+            function () {
+
+            }
+    });
+
+    }
+
+
+
+
+}
 
 
 
@@ -1795,7 +1922,5 @@ function validateForm() {
     // If all required fields are filled, submit the form
     return true;
 }*/
-
-
 
 

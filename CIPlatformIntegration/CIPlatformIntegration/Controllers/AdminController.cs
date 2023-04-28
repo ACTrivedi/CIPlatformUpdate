@@ -418,7 +418,11 @@ namespace CIPlatformIntegration.Controllers
 
         public IActionResult addMission(long missionId)
         {
+            if (missionId != 0)
+            { 
+            
             ViewBag.missionId = missionId;  
+            }
             AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForAddMission(missionId);
 
             return PartialView("_adminAddMission", adminViewModelMain);
@@ -426,8 +430,17 @@ namespace CIPlatformIntegration.Controllers
 
         public IActionResult AddMissionWithDetails(AdminViewModel adminViewModelMain,long[] Skilllist, List<IFormFile> defaultImage, List<IFormFile> missionImages, string MissionVideoURL, string goalObjectiveText, int goalValue)
         {
-            _adminRepository.adminViewModelMainForAddMissionDetails(adminViewModelMain, Skilllist, defaultImage, missionImages, MissionVideoURL, goalObjectiveText, goalValue);
-            
+            if (Skilllist != null && defaultImage != null && MissionVideoURL != null && adminViewModelMain.singleMission.MissionType == "GOAL")
+            {
+
+                _adminRepository.adminViewModelMainForAddMissionDetails(adminViewModelMain, Skilllist, defaultImage, missionImages, MissionVideoURL, goalObjectiveText, goalValue);
+            }
+            else if (Skilllist != null && defaultImage != null && missionImages != null && MissionVideoURL != null && adminViewModelMain.singleMission.MissionType == "TIME")
+            {
+                _adminRepository.adminViewModelMainForAddMissionDetails(adminViewModelMain, Skilllist, defaultImage, missionImages, MissionVideoURL, null , 0);
+
+            }
+
             AdminViewModel adminViewModelMainAdd = _adminRepository.adminViewModelMainForMission();
             return RedirectToAction("AdminPage");
                        
@@ -451,8 +464,73 @@ namespace CIPlatformIntegration.Controllers
         }
 
 
+        //For Mission Images
+        /* public JsonResult GetImageList(long missionId)
+         {
+             // Retrieve the fileList from the server
+             var fileList = _adminRepository.GetImageFileList(missionId);
+
+             // Convert the fileList to a JSON object
+             var jsonResult = Json(fileList);
+
+             return jsonResult;
+         }*/
+
+        
+        [HttpPost]
+        public IActionResult otherMissionEditDetails(long missionId)
+        {
+            
+            if (_cidatabaseContext.MissionMedia.FirstOrDefault(m => m.MissionId == missionId && m.MediaType == "URL")!=null)
+            {
+
+                var videoLink = _cidatabaseContext.MissionMedia.FirstOrDefault(m => m.MissionId == missionId && m.MediaType == "URL").MediaPath;
+
+                var skills = _cidatabaseContext.MissionSkills.Where(m => m.MissionId == missionId).ToList();
+
+                long[] myMissionSkills = new long[50];
+                int index = 0;
+                foreach (var i in skills)
+                {
+                    myMissionSkills[index] = (i.SkillId);
+                    index++;
+                }
+
+                var myObject = new
+                {
+                    videoLink = videoLink,
+                    myMissionSkills = myMissionSkills,
+
+                };
+
+                return Json(myObject);
+            }
+            else {
+                return Json(null);
+           }
+               
+            
+        }
+
+        
+        [HttpPost]
+        public IActionResult otherMissionImages(long missionId)
+        {
+
+            if (_cidatabaseContext.MissionMedia.FirstOrDefault(m => m.MissionId == missionId && m.MediaType != "URL") != null)
+            {              
+
+                IEnumerable<string> paths = _cidatabaseContext.MissionMedia.Where(m => m.MissionId == missionId).Select(m => m.MediaPath).ToList();
 
 
+                return Json(paths);
+            }
+            else
+            {
+                return Json(null);
+            }
 
+
+        }
     }
 }

@@ -38,5 +38,7 @@ namespace CIPlatformIntegration.Entities.ViewModel
 
         public bool IsFavorite { get; set; }
 
+       
+
     }
 }

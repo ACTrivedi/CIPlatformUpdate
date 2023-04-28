@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2lhys1BqxEFA1i32ySWwOhHNoIaRYBoqLotNk1q6bOg=",
+  "Hash": "zr/da8QHnsEbb3R1XghaZlg6Fw3ZB5GycmYNpBZ3tIs=",
   "Source": "CIPlatformIntegration",
   "BasePath": "_content/CIPlatformIntegration",
   "Mode": "Default",
@@ -2412,6 +2412,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\CIPlatform\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\MissionMedia\\Running.jfif",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CIPlatform\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "MissionMedia/Running.jfif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\MissionMedia\\Running.jfif"
     }
   ]
 }

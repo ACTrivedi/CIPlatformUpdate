@@ -774,7 +774,7 @@ namespace CIPlatformIntegration.Controllers
             Timesheet timesheet = new Timesheet();
 
             var selectedTimeModel = _cidatabaseContext.Timesheets.Where(t => t.TimesheetId == selectedModelFromTimesheet).FirstOrDefault();
-            var missionTitle = _cidatabaseContext.Missions.FirstOrDefault(mt => mt.MissionId == selectedTimeModel.MissionId && mt.MissionType == "time").Title;
+            var missionTitle = _cidatabaseContext.Missions.FirstOrDefault(mt => mt.MissionId == selectedTimeModel.MissionId && mt.MissionType == "Time").Title;
 
             var date = selectedTimeModel.DateVolunteered.ToShortDateString();
             var timeData = selectedTimeModel.Time.ToString();
@@ -877,7 +877,7 @@ namespace CIPlatformIntegration.Controllers
 
             var selectedGoalModel = _cidatabaseContext.Timesheets.Where(t => t.TimesheetId == selectedModelFromTimesheet).FirstOrDefault();
 
-            var missionTitle = _cidatabaseContext.Missions.FirstOrDefault(mt => mt.MissionId == selectedGoalModel.MissionId && mt.MissionType == "goal").Title;
+            var missionTitle = _cidatabaseContext.Missions.FirstOrDefault(mt => mt.MissionId == selectedGoalModel.MissionId && mt.MissionType == "Goal").Title;
 
             var date = selectedGoalModel.DateVolunteered.ToShortDateString();
             var timeData = selectedGoalModel.Time.ToString();

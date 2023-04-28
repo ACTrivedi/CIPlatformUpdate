@@ -142,7 +142,7 @@
                         <p class="card-title" style="font-size:25px;"> @modeldetail.Title </p>
                         <p class="card-text" style="color:#757575;  margin-bottom:2rem; font-size:18px">@modeldetail.ShortDescription</p>
 
-                        @if (modeldetail.MissionType == "goal")
+                        @if (modeldetail.MissionType == "Goal")
 
 
                         {
@@ -162,7 +162,7 @@
                                 }
                             }
                         }
-                        @if (modeldetail.MissionType == "time")
+                        @if (modeldetail.MissionType == "Time")
                         {
                             <div class="SEDdiv">
 
@@ -189,7 +189,7 @@
 
 
 
-                                if (modeldetail.MissionType == "goal")
+                                if (modeldetail.MissionType == "Goal")
                                 {
                                     var achhedgoal=0;
 
@@ -227,7 +227,7 @@
                                         }
                                     }
                                 }
-                                @if (modeldetail.MissionType == "time")
+                                @if (modeldetail.MissionType == "Time")
                                 {
                                     <div>
                                         <img src="~/images/deadline.png" />
@@ -250,7 +250,7 @@
 
 
 
-                            <button class="btn border border-secondary w-100 rounded-pill col-lg-6 col-md-6 col-sm-12" id="add-to-favourites-btn" onclick="addtofav(@modeldetail.MissionId)">
+                            <button class="btn border border-secondary w-100 rounded-pill col-lg-6 col-md-6 col-sm-12" id="add-to-favourites-btn">
 
                                 @{
 
