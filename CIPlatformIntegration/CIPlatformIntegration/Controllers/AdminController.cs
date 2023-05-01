@@ -428,14 +428,15 @@ namespace CIPlatformIntegration.Controllers
             return PartialView("_adminAddMission", adminViewModelMain);
         }
 
+        [HttpPost]
         public IActionResult AddMissionWithDetails(AdminViewModel adminViewModelMain,long[] Skilllist, List<IFormFile> defaultImage, List<IFormFile> missionImages, string MissionVideoURL, string goalObjectiveText, int goalValue)
         {
-            if (Skilllist != null && defaultImage != null && MissionVideoURL != null && adminViewModelMain.singleMission.MissionType == "GOAL")
+            if (Skilllist != null && defaultImage != null && MissionVideoURL != null && adminViewModelMain.singleMission.MissionType.ToLower() == "goal")
             {
 
                 _adminRepository.adminViewModelMainForAddMissionDetails(adminViewModelMain, Skilllist, defaultImage, missionImages, MissionVideoURL, goalObjectiveText, goalValue);
             }
-            else if (Skilllist != null && defaultImage != null && missionImages != null && MissionVideoURL != null && adminViewModelMain.singleMission.MissionType == "TIME")
+            else if (Skilllist != null && defaultImage != null && missionImages != null && MissionVideoURL != null && adminViewModelMain.singleMission.MissionType.ToLower() == "time")
             {
                 _adminRepository.adminViewModelMainForAddMissionDetails(adminViewModelMain, Skilllist, defaultImage, missionImages, MissionVideoURL, null , 0);
 
@@ -462,20 +463,7 @@ namespace CIPlatformIntegration.Controllers
 
             return PartialView("_adminAddMission", adminViewModelMain);
         }
-
-
-        //For Mission Images
-        /* public JsonResult GetImageList(long missionId)
-         {
-             // Retrieve the fileList from the server
-             var fileList = _adminRepository.GetImageFileList(missionId);
-
-             // Convert the fileList to a JSON object
-             var jsonResult = Json(fileList);
-
-             return jsonResult;
-         }*/
-
+                
         
         [HttpPost]
         public IActionResult otherMissionEditDetails(long missionId)

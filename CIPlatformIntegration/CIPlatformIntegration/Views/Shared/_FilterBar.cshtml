@@ -43,7 +43,7 @@
                                 </button>
                                 <div class="collapse show filterShow" id="home-collapse">
                                     
-                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4 " id="countryList" onchange="LoadMission()">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4 countryList " onchange="LoadMission()">
                                         @{
                                             foreach (var i in Model.Country)
                                             {
@@ -69,7 +69,7 @@
                                     City
                                 </button>
                                 <div class="collapse show filterShow" id="home-collapse2">
-                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4 " id="cityList" onchange="LoadMission()">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4 cityList"  onchange="LoadMission()">
                                         @{
                                             foreach (var i in Model.City)
                                             {
@@ -95,7 +95,7 @@
                                     Theme
                                 </button>
                                 <div class="collapse show filterShow" id="home-collapse3">
-                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4" id="themeList" onchange="LoadMission()">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4 themeList"  onchange="LoadMission()">
                                         @{
                                             foreach (var i in Model.MissionThemes)
                                             {
@@ -119,7 +119,7 @@
                                     Skills
                                 </button>
                                 <div class="collapse show filterShow" id="home-collapse4">
-                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4" id="skillList" onchange="LoadMission()">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4 skillList" onchange="LoadMission()">
                                         @{
                                             foreach (var i in Model.skills)
                                             {
@@ -164,7 +164,7 @@
                 <div class="col-3  col-md-3 d-flex vertical-center pl-0">
                     <div class="checkbox-dropdown" id="countryleftborder">
                         Country
-                        <ul class="checkbox-dropdown-list" id="countryList" onchange="LoadMission()">
+                        <ul class="checkbox-dropdown-list countryList" id="" onchange="LoadMission()">
                            @{
                                foreach(var i in Model.Country)
                                {
@@ -184,7 +184,7 @@
                 <div class="col-3 col-md-3  d-flex vertical-center">
                     <div class="checkbox-dropdown">
                         City
-                        <ul class="checkbox-dropdown-list" id="cityList" onchange="LoadMission()">
+                        <ul class="checkbox-dropdown-list cityList" id="" onchange="LoadMission()">
                             @{
                                 foreach (var i in Model.City)
                                 {
@@ -202,7 +202,7 @@
                 <div class="col-3 col-md-3 d-flex vertical-center">
                     <div class="checkbox-dropdown">
                         Themes
-                        <ul class="checkbox-dropdown-list" id="themeList" onchange="LoadMission()">
+                        <ul class="checkbox-dropdown-list themeList" id="" onchange="LoadMission()">
                             @{
                                 foreach (var i in Model.MissionThemes)
                                 {
@@ -221,7 +221,7 @@
                 <div class="col-3 col-md-3 d-flex vertical-center">
                     <div class="checkbox-dropdown">
                         Skills
-                        <ul class="checkbox-dropdown-list" id="skillList" onchange="LoadMission()">
+                        <ul class="checkbox-dropdown-list skillList" id="" onchange="LoadMission()">
                             @{
                                 foreach (var i in Model.skills)
                                 {

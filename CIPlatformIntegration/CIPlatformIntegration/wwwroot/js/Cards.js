@@ -29,27 +29,27 @@ function LoadMission(sortValue, pge) {
     
     
 
-    $("#countryList").find("input:checked").each(function (i, obj) {
+    $(".countryList").find("input:checked").each(function (i, obj) {
 
         country.push($(obj).val());
 
 
     })
     var city = [];
-    $("#cityList").find("input:checked").each(function (i, obj) {
+    $(".cityList").find("input:checked").each(function (i, obj) {
 
         city.push($(obj).val());
 
     })
     var theme = [];
-    $("#themeList").find("input:checked").each(function (i, obj) {
+    $(".themeList").find("input:checked").each(function (i, obj) {
 
         theme.push($(obj).val());
 
     })
 
     var skills = [];
-    $("#skillList").find("input:checked").each(function (i, obj) {
+    $(".skillList").find("input:checked").each(function (i, obj) {
 
         skills.push($(obj).val());
 

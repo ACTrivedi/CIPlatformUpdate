@@ -67,7 +67,7 @@
                 {
                         <div class="col-info col-12 col-md-6 col-lg-4">
                             <div class="card1 card my-5" id="cardBackground">
-                                <div class="mission-img" style="position:relative;">
+                                <div class="mission-img" style="position:relative;height:31vh;width: 60.5vh;">
 
                                     @{
 
@@ -164,13 +164,12 @@
                                     }
                                     }
 
-
                                     <div class="rounded-circle p-2" id="location" style="position:absolute;right:8px; top:55%; background-color:black;opacity:0.6; color:white ">
                                         <img src="~/images/add1.png" />
                                     </div>
 
                                     @{
-                                    var missionMedia = Model.missionMedia.FirstOrDefault(m => m.MissionId == modeldetail.MissionId && m.MediaType != "URL");
+                                    var missionMedia = Model.missionMedia.FirstOrDefault(m => m.MissionId == modeldetail.MissionId && m.Default==1 && m.MediaType != "URL");
 
                                     if (missionMedia != null)
                                     {
@@ -188,7 +187,7 @@
                                     </div>
 
                                 </div>
-                                <div class="card-body pt-0">
+                                <div class="card-body mt-3 pt-0">
                                     <p class="card-title" style="font-size:26px;">@modeldetail.Title </p>
                                     <p class="card-text" style="color:#757575">@modeldetail.ShortDescription</p>
 

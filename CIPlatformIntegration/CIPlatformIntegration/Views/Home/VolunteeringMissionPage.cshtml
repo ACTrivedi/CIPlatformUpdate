@@ -65,7 +65,7 @@
             var users = @ViewData["users"];
             var skills = @ViewBag.skills;
             var timesheets = @ViewData["timesheets"];
-
+            var missionMedia = @ViewData["missionMedia"];
 
             <div class="row">
                 <div class=" col-lg-6 col-md-12 col-sm-12 col-xs-12">
@@ -74,35 +74,38 @@
 
 
                         <!-- Full-width images with number text -->
-                    <div class="mySlides">
+                        @{
+                            if (string.IsNullOrEmpty(missionMedia.ToString()))
+                            {
+                                 <div class="mySlides">
+                                        <div class="numbertext">1 / 6</div>
+                                        <img class="displayimage" src="\images\DefaultMisisonImage.png" style="width:100%; ">
+                                    </div>
+                            }
+                            else
+                            {
+                                        
+                                    
+                                foreach (var missionImage in missionMedia as IEnumerable<MissionMedium>)
+                                {
+                                    <div class="mySlides">
+                                        <div class="numbertext">1 / 6</div>
+                                        <img class="displayimage" src="@missionImage.MediaPath" style="width:100%; ">
+                                    </div>
+                                }
+                            }
+
+
+                        }
+
+
+
+                        @*<div class="mySlides">
                             <div class="numbertext">1 / 6</div>
                             <img class="displayimage" src="~/images/Animal-welfare-_-save-birds-campaign-1.png" style="width:100%; ">
-                        </div>
+                            </div>*@
 
-                        <div class="mySlides">
-                            <div class="numbertext">2 / 6</div>
-                            <img class="displayimage" src="~/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png" style="width:100%; ">
-                        </div>
 
-                        <div class="mySlides">
-                            <div class="numbertext">3 / 6</div>
-                            <img class="displayimage" src="~/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" style="width:100%; ">
-                        </div>
-
-                        <div class="mySlides">
-                            <div class="numbertext">4 / 6</div>
-                            <img class="displayimage" src="~/images/Animal-welfare-_-save-birds-campaign-1.png" style="width:100%;">
-                        </div>
-
-                        <div class="mySlides">
-                            <div class="numbertext">5 / 6</div>
-                            <img class="displayimage" src="~/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" style="width:100%; ">
-                        </div>
-
-                        <div class="mySlides">
-                            <div class="numbertext">6 / 6</div>
-                            <img class="displayimage" src="~/images/Animal-welfare-_-save-birds-campaign-1.png" style="width:100%;  ">
-                        </div>
 
                         <!-- Next and previous buttons -->
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -191,13 +194,13 @@
 
                                 if (modeldetail.MissionType == "Goal")
                                 {
-                                    var achhedgoal=0;
+                                    var achhedgoal = 0;
 
-                                    foreach(var item in timesheets as IList<Timesheet>)
+                                    foreach (var item in timesheets as IList<Timesheet>)
                                     {
                                         if (item.MissionId == modeldetail.MissionId)
                                         {
-                                            
+
                                             achhedgoal = achhedgoal + (int)item.Action;
                                         }
                                     }
@@ -207,9 +210,9 @@
 
                                     {
                                         var width = @i.GoalValue;
-                                      
 
-                                        
+
+
 
                                         if (i.MissionId == modeldetail.MissionId)
                                         {
@@ -332,7 +335,7 @@
 
                                                     <div>@i.FirstName</div>
                                                     <div><button type="button" class="btn  btn-outline-warning rounded-pill send" value="@i.Email">Recommend</button></div>
-                                                    
+
 
                                                 </div>
                                             }
@@ -789,7 +792,7 @@
                 data: {
                     s: starValue
                 },
-                success: function () {               
+                success: function () {
 
                     location.reload();
 

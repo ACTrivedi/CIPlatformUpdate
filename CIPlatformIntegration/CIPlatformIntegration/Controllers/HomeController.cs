@@ -76,23 +76,24 @@ namespace CIPlatformIntegration.Controllers
                     HttpContext.Session.SetString("Loggedin", "True");
                     HttpContext.Session.SetString("profile", status.FirstName);
 
-                   
 
-                        HttpContext.Session.SetString("profilePhoto", status.Avatar);
-                    
+
+                    HttpContext.Session.SetString("profilePhoto", status.Avatar);
+
 
                     HttpContext.Session.SetString("profileEmail", status.Email);
 
                     return RedirectToAction("Homepage", "Home");
                 }
 
-                
+
 
             }
-            else {
+            else
+            {
                 ViewBag.LoginStatus = 0;
                 return View();
-                
+
             }
             /*return View();*/
 
@@ -117,24 +118,29 @@ namespace CIPlatformIntegration.Controllers
         [HttpPost]
         public IActionResult Registration(User user)
         {
-
-
-            var status = _userRepository.userRegistration(user);
-
-            if (status == 1)
+            if (user.Password != user.Confirmpassword)
             {
-                return RedirectToAction("Login");
-            }
-            else if (status == 3)
-            {
-                ViewData["userExists"] = 1;
+                ViewData["PassConfirmCheck"]= "*Password and Confirm Password are not same!";
                 return View();
             }
             else
             {
-                return View();
-            }
+                var status = _userRepository.userRegistration(user);
 
+                if (status == 1)
+                {
+                    return RedirectToAction("Login");
+                }
+                else if (status == 3)
+                {
+                    ViewData["userExists"] = 1;
+                    return View();
+                }
+                else
+                {
+                    return View();
+                }
+            }
         }
 
         // For Registration ends
@@ -158,64 +164,69 @@ namespace CIPlatformIntegration.Controllers
             {
                 /*return RedirectToAction("Index", "Home");*/
                 ViewBag.forgetstatus = 0;
+                return View();
 
 
             }
-
-            // Generate a password reset token for the user
-            var token = Guid.NewGuid().ToString();
-
-            HttpContext.Session.SetString("Emailpassing", _user.Email);
-            TempData["email"] = useremailverify.Email;
-
-            // Store the token in the password resets table with the user's email
-            var PasswordResetdetails = new Entities.Models.PasswordReset
+            else
             {
-                Email = _user.Email,
-                Token = token
-            };
+
+                // Generate a password reset token for the user
+                var token = Guid.NewGuid().ToString();
+
+                HttpContext.Session.SetString("Emailpassing", _user.Email);
+                TempData["email"] = useremailverify.Email;
+
+                // Store the token in the password resets table with the user's email
+                var PasswordResetdetails = new Entities.Models.PasswordReset
+                {
+                    Email = _user.Email,
+                    Token = token
+                };
 
 
-            //HttpSession for ForgetPassword
+                //HttpSession for ForgetPassword
 
 
 
 
 
-            _cidatabaseContext.PasswordResets.Add(PasswordResetdetails);
-            _cidatabaseContext.SaveChanges();
+                _cidatabaseContext.PasswordResets.Add(PasswordResetdetails);
+                _cidatabaseContext.SaveChanges();
 
-            // Send an email with the password reset link to the user's email address
-            var resetLink = Url.Action("Resetpassword", "Home", new { email = _user.Email, token }, Request.Scheme);
+                // Send an email with the password reset link to the user's email address
+                var resetLink = Url.Action("Resetpassword", "Home", new { email = _user.Email, token }, Request.Scheme);
 
-            // Send email to user with reset password link
-            // ...
-            var fromAddress = new MailAddress("fake79318@gmail.com");
-            var toAddress = new MailAddress(_user.Email);
-            var subject = "Password reset request";
-            var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
-            var message = new MailMessage(fromAddress, toAddress)
-            {
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true
-            };
-            using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
-            {
-                smtp.Credentials = new NetworkCredential("fake79318@gmail.com", "nyephjtlldtnuxhq");
+                // Send email to user with reset password link
+                // ...
+                var fromAddress = new MailAddress("ciplatformmailsenderchintan@gmail.com");
+                var toAddress = new MailAddress(_user.Email);
+                var subject = "Password reset request";
+                var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
+                var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true
+                };
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtp.Credentials = new NetworkCredential("ciplatformmailsenderchintan@gmail.com", "wldqapfcryqgboua");
 
-                smtp.EnableSsl = true;
-                smtp.Send(message);
+                    smtp.EnableSsl = true;
+                    smtp.Send(message);
+                }
+
+                HttpContext.Session.SetString("Token", token);
+
+
+
+                /*return RedirectToAction("", "Home");*/
+
+
+                return View();
+
             }
-
-            HttpContext.Session.SetString("Token", token);
-
-
-
-            /*return RedirectToAction("", "Home");*/
-
-
-            return View();
 
 
         }
@@ -265,10 +276,10 @@ namespace CIPlatformIntegration.Controllers
 
         public IActionResult Homepage(int pg = 1)
         {
-            var logInSession= HttpContext.Session.GetString("Loggedin");
+            var logInSession = HttpContext.Session.GetString("Loggedin");
             if (logInSession != "True")
             {
-                return RedirectToAction("Login","Home");
+                return RedirectToAction("Login", "Home");
             }
 
             else
@@ -285,19 +296,19 @@ namespace CIPlatformIntegration.Controllers
                 return View(model);
             }
 
-            
+
         }
 
 
 
 
-        public IActionResult GetMissions(string[]? country, string[]? city, string[]? theme,string[]? skills , string? searchTerm, string? sortValue, int pg)
+        public IActionResult GetMissions(string[]? country, string[]? city, string[]? theme, string[]? skills, string? searchTerm, string? sortValue, int pg)
         {
             var userIdForFav = (long)HttpContext.Session.GetInt32("farfavuserid");
             ViewData["useridcheck"] = (long)HttpContext.Session.GetInt32("farfavuserid");
 
 
-            HomePageViewModel model = _userRepository.filtering(userIdForFav,country, city, theme, skills, searchTerm, sortValue, pg);
+            HomePageViewModel model = _userRepository.filtering(userIdForFav, country, city, theme, skills, searchTerm, sortValue, pg);
 
             ViewBag.TotalCount = model.missionCount;
             ViewBag.Pager = model.pagerCount;
@@ -349,6 +360,14 @@ namespace CIPlatformIntegration.Controllers
                 ViewData["users"] = _cidatabaseContext.Users.ToList();
                 ViewData["timesheets"] = _cidatabaseContext.Timesheets.ToList();
                 ViewData["comments"] = _cidatabaseContext.Comments.Where(c => c.MissionId == missionid).ToList();
+                
+                var missionMedia=_cidatabaseContext.MissionMedia.Where(m=>m.MissionId==missionid).ToList();
+                if (missionMedia != null)
+                {
+                    ViewData["missionMedia"]=missionMedia;
+                }
+                
+                
 
 
 
@@ -483,12 +502,12 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-            FavoriteMission favorite =  _cidatabaseContext.FavoriteMissions.FirstOrDefault(f => f.UserId == userid && f.MissionId == missionID);
+            FavoriteMission favorite = _cidatabaseContext.FavoriteMissions.FirstOrDefault(f => f.UserId == userid && f.MissionId == missionID);
             if (favorite != null)
             {
                 // Remove the item from the user's favorites
                 _cidatabaseContext.FavoriteMissions.Remove(favorite);
-                 _cidatabaseContext.SaveChangesAsync();
+                _cidatabaseContext.SaveChangesAsync();
             }
 
             else
@@ -610,11 +629,11 @@ namespace CIPlatformIntegration.Controllers
             _cidatabaseContext.SaveChanges();
 
             var missionLefSeats = _cidatabaseContext.Missions.FirstOrDefault(m => m.MissionId == missionIdforapply).SeatsLeft;
-            var missionLeftSeats = missionLefSeats-1;
-           
+            var missionLeftSeats = missionLefSeats - 1;
+
 
             var mission = _cidatabaseContext.Missions.FirstOrDefault(m => m.MissionId == missionIdforapply);
-            mission.SeatsLeft=missionLeftSeats;
+            mission.SeatsLeft = missionLeftSeats;
 
             _cidatabaseContext.Missions.Update(mission);
             _cidatabaseContext.SaveChanges();

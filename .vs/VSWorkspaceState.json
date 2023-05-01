@@ -1,7 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\CIPlatformIntegration",
+    "\\CIPlatformIntegration\\CIPlatformIntegration",
+    "\\CIPlatformIntegration\\CIPlatformIntegration.Entities",
+    "\\CIPlatformIntegration\\CIPlatformIntegration.Repository",
+    "\\CIPlatformIntegration\\CIPlatformIntegration\\Views",
+    "\\CIPlatformIntegration\\CIPlatformIntegration\\Views\\Shared"
   ],
-  "SelectedNode": "\\CIPlatformIntegration.sln",
+  "SelectedNode": "\\CIPlatformIntegration\\CIPlatformIntegration\\Views\\Shared\\_Cards.cshtml",
   "PreviewInSolutionExplorer": false
 }

@@ -2,13 +2,8 @@
 
 function getOptionValue() {
 
-
-
-
     $("#inputState").find("option:selected").each(function (i, v) {
         var missionIdSelected = $(v).val();
-
-
 
         $.ajax({
             url: '/StoryListing/DraftDecide',
@@ -80,4 +75,3 @@ function getOptionValue() {
         });
     })
 }
-

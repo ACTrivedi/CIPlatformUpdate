@@ -14,13 +14,14 @@
 
     <script src="JS/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
     <title>Registration</title>
 </head>
 <body>
 
 
     @{
-        if ( ViewData["userExists"] != null)
+        if (ViewData["userExists"] != null)
         {
 
             <script type="text/javascript">
@@ -89,54 +90,73 @@
             </div>
             <div class="col-lg-4" style="position: relative;">
 
-                @using (Html.BeginForm("Registration", "Home", FormMethod.Post)) 
+                @using (Html.BeginForm("Registration", "Home", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
                 {
 
                     <div class="form-group">
                         <label for="FirstName">First Name</label>
-                            @Html.TextBoxFor(x=>x.FirstName,new {@class="form-control", @placeholder="First Name"})
-                         <span asp-validation-for="FirstName" class="text-danger"></span>
+                        @Html.TextBoxFor(x=>x.FirstName,new {@class="form-control", @placeholder="First Name", required = "required"})
+                        <div class="invalid-feedback">
+                            *Please provide a valid First Name.
+                        </div>
 
-                       
+
 
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="LastName">Last Name</label>
-                            @Html.TextBoxFor(x=>x.LastName,new {@class="form-control", @placeholder="Last Name"})
-                        <span asp-validation-for="LastName" class="text-danger"></span>
+                        @Html.TextBoxFor(x=>x.LastName,new {@class="form-control", @placeholder="Last Name", required = "required"})
+                        <div class="invalid-feedback">
+                            *Please provide a valid Last Name.
+                        </div>
                     </div>
                     <div class="form-group mt-3">
                         <label for="PhoneNumber">Phone Number</label>
-                        @Html.TextBoxFor(x=>x.PhoneNumber,new {@class="form-control", @placeholder="Contact Number", @type = "tel" })
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        @Html.TextBoxFor(x=>x.PhoneNumber,new {@class="form-control", @placeholder="Contact Number", required = "required", @type = "tel", pattern = "^\\d{10}$" })
+                         <div class="invalid-feedback">
+                            *Please provide a valid Contact.
+                        </div>
                     </div>
                     <div class="form-group mt-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        @Html.TextBoxFor(x=>x.Email,new {@class="form-control", @placeholder="Email", type = "email"})
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                        @Html.TextBoxFor(x=>x.Email,new {@class="form-control", @placeholder="Email", required = "required", type = "email",pattern="^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"})
+                        <div class="invalid-feedback">
+                            *Please provide a valid Email.
+                        </div>
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="exampleInputPassword1">Password</label>
-                            @Html.PasswordFor(x=>x.Password,new {@class="form-control", @placeholder="Password"})
-                        <span asp-validation-for="Password" class="text-danger"></span>
+                        @Html.PasswordFor(x=>x.Password,new {@class="form-control", required = "required", @placeholder="Password", id = "Password"})
+                         <div class="invalid-feedback">
+                            *Please provide a valid Password.
+                        </div>
                     </div>
 
                     <div class="form-group  mt-3">
                         <label for="exampleInputPassword1">Confirm New Password</label>
-                           @Html.PasswordFor(x=>x.Confirmpassword,new {@class="form-control", @placeholder="Confirmpassword"})
-                        <span asp-validation-for="Confirmpassword" class="text-danger"></span>
+                        @Html.PasswordFor(x=>x.Confirmpassword,new {@class="form-control", required = "required", @placeholder="Confirmpassword", data_val_equalto = "#Password"})
+                         <div class="invalid-feedback">
+                            *Please provide a valid Confirm Password.
+                        </div>
+                        @{
+                            if(@ViewData["PassConfirmCheck"]!=null)
+                        {                        
+                            <span style="color: red;font-size: 14px;"> @ViewData["PassConfirmCheck"]</span>
+                        }
+                        }
+                        
                     </div>
 
 
                     <button type="submit" class="btn btn-outline-warning w-100 rounded-pill mt-4">Register</button>
-                    
+
 
                     <p class="alreadylogin mt-3">Already Register?<span><a href="/Home/Login">Login Now</a></span></p>
 
                     <p class="privacy">Privacy Policy</p>
-               
+
 
                 }
 
@@ -148,6 +168,32 @@
             </div>
         </div>
     </div>
+
+
+     <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
+
+    </script>
+
 
 </body>
 

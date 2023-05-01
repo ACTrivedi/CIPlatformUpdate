@@ -36,7 +36,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 countries = _cidatabaseContext.Countries.ToList(),
                 cities = _cidatabaseContext.Cities.ToList(),
                 User = _cidatabaseContext.Users.FirstOrDefault(),
-                users = _cidatabaseContext.Users.Where(u=>u.DeletedAt==null).ToList(),
+                users = _cidatabaseContext.Users.Where(u => u.DeletedAt == null).ToList(),
                 missionApplications = _cidatabaseContext.MissionApplications.Where(ma => ma.ApprovalStatus == "PENDING").ToList(),
                 missions = _cidatabaseContext.Missions.ToList(),
             };
@@ -58,7 +58,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 users = _cidatabaseContext.Users.Where(u => u.DeletedAt == null).ToList(),
                 missionApplications = _cidatabaseContext.MissionApplications.Where(ma => ma.ApprovalStatus == "PENDING").ToList(),
                 missions = _cidatabaseContext.Missions.ToList(),
-                citiesForEdit=_cidatabaseContext.Cities.ToList(),
+                citiesForEdit = _cidatabaseContext.Cities.ToList(),
             };
 
             return adminViewModelObject;
@@ -123,7 +123,7 @@ namespace CIPlatformIntegration.Repository.Repository
             {
                 user.Password = BCrypt.Net.BCrypt.HashPassword(password);
             }
-            
+
 
             user.EmployeeId = employee_id;
             user.Department = department;
@@ -139,7 +139,7 @@ namespace CIPlatformIntegration.Repository.Repository
             if (status == 0)
             {
                 user.Status = status;
-                
+
             }
 
             if (avatar != null)
@@ -386,14 +386,14 @@ namespace CIPlatformIntegration.Repository.Repository
             _cidatabaseContext.SaveChanges();
         }
 
-        public void missionThemeEdit(long missionThemeId,string editTitle)
+        public void missionThemeEdit(long missionThemeId, string editTitle)
         {
             MissionTheme missionTheme = _cidatabaseContext.MissionThemes.FirstOrDefault(mt => mt.MissionThemeId == missionThemeId);
 
             missionTheme.Title = editTitle;
             missionTheme.Status = 1;
             missionTheme.UpdatedAt = DateTime.Now;
-           
+
 
             _cidatabaseContext.MissionThemes.Update(missionTheme);
             _cidatabaseContext.SaveChanges();
@@ -414,7 +414,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 missions = _cidatabaseContext.Missions.ToList(),
                 stories = _cidatabaseContext.Stories.ToList(),
                 missionThemes = _cidatabaseContext.MissionThemes.ToList(),
-                skills= _cidatabaseContext.Skills.Where(s=>s.DeletedAt==null).ToList()
+                skills = _cidatabaseContext.Skills.Where(s => s.DeletedAt == null).ToList()
             };
 
             return adminViewModelMainForSkillObject;
@@ -450,7 +450,7 @@ namespace CIPlatformIntegration.Repository.Repository
 
         }
 
-        
+
 
         public void missionSkillsDelete(long missionSkillsId)
         {
@@ -482,7 +482,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 stories = _cidatabaseContext.Stories.ToList(),
                 missionThemes = _cidatabaseContext.MissionThemes.ToList(),
                 skills = _cidatabaseContext.Skills.ToList(),
-                cmsPages = _cidatabaseContext.CmsPages.Where(cp=>cp.DeletedAt==null).ToList(),
+                cmsPages = _cidatabaseContext.CmsPages.Where(cp => cp.DeletedAt == null).ToList(),
             };
 
             return adminViewModelMainForCMSObject;
@@ -556,7 +556,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 User = _cidatabaseContext.Users.FirstOrDefault(),
                 users = _cidatabaseContext.Users.ToList(),
                 missionApplications = _cidatabaseContext.MissionApplications.ToList(),
-                missions = _cidatabaseContext.Missions.Where(m=>m.DeletedAt==null).ToList(),
+                missions = _cidatabaseContext.Missions.Where(m => m.DeletedAt == null).ToList(),
                 stories = _cidatabaseContext.Stories.ToList(),
                 missionThemes = _cidatabaseContext.MissionThemes.ToList(),
                 skills = _cidatabaseContext.Skills.ToList(),
@@ -578,11 +578,11 @@ namespace CIPlatformIntegration.Repository.Repository
                 missionApplications = _cidatabaseContext.MissionApplications.ToList(),
                 missions = _cidatabaseContext.Missions.ToList(),
                 stories = _cidatabaseContext.Stories.ToList(),
-                missionThemes = _cidatabaseContext.MissionThemes.Where(mt=>mt.Status==1).ToList(),
+                missionThemes = _cidatabaseContext.MissionThemes.Where(mt => mt.Status == 1).ToList(),
                 skills = _cidatabaseContext.Skills.ToList(),
                 cmsPages = _cidatabaseContext.CmsPages.ToList(),
                 goalMissions = _cidatabaseContext.GoalMissions.ToList(),
-                singleMission = _cidatabaseContext.Missions.Where(m=>m.MissionId==missionId).FirstOrDefault(),
+                singleMission = _cidatabaseContext.Missions.Where(m => m.MissionId == missionId).FirstOrDefault(),
             };
 
             return adminViewModelMainForAddMissionObject;
@@ -611,7 +611,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 mission.RegistrationDeadline = adminViewModelMain.singleMission.RegistrationDeadline;
                 mission.ThemeId = adminViewModelMain.singleMission.ThemeId;
                 mission.Availability = adminViewModelMain.singleMission.Availability;
-                
+
                 _cidatabaseContext.Missions.Update(mission);
                 _cidatabaseContext.SaveChanges();
 
@@ -628,21 +628,46 @@ namespace CIPlatformIntegration.Repository.Repository
 
                     _cidatabaseContext.SaveChanges();
                 }
-                
+
 
 
 
                 //For Video URL
                 if (MissionVideoURL != null)
                 {
-                    MissionMedium missionMedium = _cidatabaseContext.MissionMedia.Where(mm => mm.MissionId == singleMissionIdCheck && mm.MediaType == "URL").FirstOrDefault();
-                                        
-                    missionMedium.MediaName = "video";
-                    missionMedium.MediaType = "URL";
-                    missionMedium.MediaPath = MissionVideoURL;                                      
 
-                    _cidatabaseContext.MissionMedia.Update(missionMedium);
-                    _cidatabaseContext.SaveChanges();
+
+                    MissionMedium missionMedium = _cidatabaseContext.MissionMedia.Where(mm => mm.MissionId == singleMissionIdCheck && mm.MediaType == "URL").FirstOrDefault();
+
+                    if (missionMedium != null)
+                    {
+
+                        missionMedium.MediaName = "video";
+                        missionMedium.MediaType = "URL";
+                        missionMedium.MediaPath = MissionVideoURL;
+
+                        _cidatabaseContext.MissionMedia.Update(missionMedium);
+                        _cidatabaseContext.SaveChanges();
+
+                    }
+                    else
+                    {
+                        MissionMedium missionMediumEditAdd = new MissionMedium
+                        {
+                            MissionId = singleMissionIdCheck,
+                            MediaName = "video",
+                            MediaType = "URL",
+                            MediaPath = MissionVideoURL,
+
+
+                        };
+
+                        _cidatabaseContext.MissionMedia.Add(missionMediumEditAdd);
+                        _cidatabaseContext.SaveChanges();
+
+
+                    }
+
                 }
 
                 //For skills
@@ -650,11 +675,26 @@ namespace CIPlatformIntegration.Repository.Repository
                 {
                     MissionSkill missionSkill = _cidatabaseContext.MissionSkills.Where(m => m.MissionId == singleMissionIdCheck).FirstOrDefault();
 
-                    missionSkill.SkillId = i;
-                    missionSkill.MissionId = singleMissionIdCheck;
+                    if (missionSkill != null)
+                    {
+                        missionSkill.SkillId = i;
+                        missionSkill.MissionId = singleMissionIdCheck;
 
-                    
-                    _cidatabaseContext.MissionSkills.Update(missionSkill);
+
+                        _cidatabaseContext.MissionSkills.Update(missionSkill);
+                    }
+                    else
+                    {
+                        MissionSkill missionSkillEditAdd = new MissionSkill()
+                        {
+                            SkillId = i,
+                            MissionId = singleMissionIdCheck,
+
+                        };
+                        _cidatabaseContext.MissionSkills.Add(missionSkillEditAdd);
+
+                    }
+
 
                 }
                 _cidatabaseContext.SaveChanges();
@@ -665,23 +705,51 @@ namespace CIPlatformIntegration.Repository.Repository
                 {
                     foreach (var file in defaultImage)
                     {
-                        MissionMedium missionMedium = _cidatabaseContext.MissionMedia.Where(m => m.MissionId == singleMissionIdCheck).FirstOrDefault();
+                        MissionMedium missionMedium = _cidatabaseContext.MissionMedia.Where(m => m.MissionId == singleMissionIdCheck && m.Default == 1 && m.MediaType != "URL").FirstOrDefault();
 
-                        missionMedium.MissionId = singleMissionIdCheck;
-                        missionMedium.MediaName = file.FileName;
-                        missionMedium.MediaType = file.ContentType;
+                        if (missionMedium != null)
+                        {
+                            missionMedium.MissionId = singleMissionIdCheck;
+                            missionMedium.MediaName = file.FileName;
+                            missionMedium.MediaType = file.ContentType;
 
-                        FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-                        string path = "/MissionMedia/" + Path.GetFileName(file.FileName);
+                            FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-                        missionMedium.MediaPath = path;
+                            string path = "/MissionMedia/" + Path.GetFileName(file.FileName);
 
-                        _cidatabaseContext.MissionMedia.Update(missionMedium);
+                            missionMedium.MediaPath = path;
+                            missionMedium.Default = 1;
 
-                        file.CopyToAsync(FileStream);
+                            _cidatabaseContext.MissionMedia.Update(missionMedium);
 
-                        FileStream.Close();
+                            file.CopyTo(FileStream);
+
+                            FileStream.Close();
+                        }
+                        else
+                        {
+                            MissionMedium missionMediumEditAdd = new MissionMedium();
+
+                            missionMediumEditAdd.MissionId = singleMissionIdCheck;
+                            missionMediumEditAdd.MediaName = file.FileName;
+                            missionMediumEditAdd.MediaType = file.ContentType;
+
+                            FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
+
+                            string path = "/MissionMedia/" + Path.GetFileName(file.FileName);
+
+                            missionMediumEditAdd.MediaPath = path;
+                            missionMediumEditAdd.Default = 1;
+
+                            _cidatabaseContext.MissionMedia.Add(missionMediumEditAdd);
+
+                            file.CopyTo(FileStream);
+
+                            FileStream.Close();
+
+                        }
+
 
                     }
                     _cidatabaseContext.SaveChanges();
@@ -693,27 +761,54 @@ namespace CIPlatformIntegration.Repository.Repository
                 if (missionImages != null)
                 {
 
-                    foreach (var file in missionImages)
+                    var missionMedium = _cidatabaseContext.MissionMedia.Where(m => m.MissionId == singleMissionIdCheck && m.Default != 1 && m.MediaType != "URL").ToList();
+
+                    if (missionMedium.Count() != 0)
                     {
-                        MissionMedium missionMedium = _cidatabaseContext.MissionMedia.Where(m => m.MissionId == singleMissionIdCheck).FirstOrDefault();
 
-                        missionMedium.MissionId = singleMissionIdCheck;
-                        missionMedium.MediaName = file.FileName;
-                        missionMedium.MediaType = file.ContentType;
+                        foreach (var missionImage in missionMedium)
+                        {
 
-                        FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
+                            _cidatabaseContext.MissionMedia.Remove(missionImage);
 
-                        string path = "/MissionMedia/" + Path.GetFileName(file.FileName);
 
-                        missionMedium.MediaPath = path;
+                        }
+                        _cidatabaseContext.SaveChanges();
 
-                        _cidatabaseContext.MissionMedia.Update(missionMedium);
-
-                        file.CopyToAsync(FileStream);
-
-                        FileStream.Close();
 
                     }
+                   
+
+
+                        foreach (var file in missionImages)
+                        {
+
+
+                            MissionMedium missionMediumEditAdd = new MissionMedium();
+
+                            missionMediumEditAdd.MissionId = singleMissionIdCheck;
+                            missionMediumEditAdd.MediaName = file.FileName;
+                            missionMediumEditAdd.MediaType = file.ContentType;
+
+                            FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
+
+                            string path = "/MissionMedia/" + Path.GetFileName(file.FileName);
+
+                            missionMediumEditAdd.MediaPath = path;
+
+                            _cidatabaseContext.MissionMedia.Add(missionMediumEditAdd);
+
+                            file.CopyTo(FileStream);
+
+                            FileStream.Close();
+
+
+
+
+                        }
+
+
+                    
                     _cidatabaseContext.SaveChanges();
 
                 }
@@ -730,21 +825,47 @@ namespace CIPlatformIntegration.Repository.Repository
                     {
                         MissionDocument missionDocument = _cidatabaseContext.MissionDocuments.Where(md => md.MissionId == singleMissionIdCheck).FirstOrDefault();
 
-                        missionDocument.MissionId = singleMissionIdCheck;
-                        missionDocument.DocumentName = file.FileName;
-                        missionDocument.DocumentType = file.ContentType;
+                        if (missionDocument != null)
+                        {
+                            missionDocument.MissionId = singleMissionIdCheck;
+                            missionDocument.DocumentName = file.FileName;
+                            missionDocument.DocumentType = file.ContentType;
 
-                        FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Documents\\", Path.GetFileName(file.FileName)), FileMode.Create);
+                            FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Documents\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-                        string path = "/Documents/" + Path.GetFileName(file.FileName);
+                            string path = "/Documents/" + Path.GetFileName(file.FileName);
 
-                        missionDocument.DocumentPath = path;
+                            missionDocument.DocumentPath = path;
 
-                        _cidatabaseContext.MissionDocuments.Update(missionDocument);
+                            _cidatabaseContext.MissionDocuments.Update(missionDocument);
 
-                        file.CopyToAsync(FileStream);
+                            file.CopyTo(FileStream);
 
-                        FileStream.Close();
+                            FileStream.Close();
+                        }
+                        else
+                        {
+                            MissionDocument missionDocumentEditAdd = new MissionDocument();
+
+                            missionDocumentEditAdd.MissionId = singleMissionIdCheck;
+                            missionDocumentEditAdd.DocumentName = file.FileName;
+                            missionDocumentEditAdd.DocumentType = file.ContentType;
+
+                            FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Documents\\", Path.GetFileName(file.FileName)), FileMode.Create);
+
+                            string path = "Documents\\" + Path.GetFileName(file.FileName);
+
+                            missionDocumentEditAdd.DocumentPath = path;
+
+                            _cidatabaseContext.MissionDocuments.Add(missionDocumentEditAdd);
+
+                            file.CopyTo(FileStream);
+
+                            FileStream.Close();
+
+                        }
+
+
 
                     }
                     _cidatabaseContext.SaveChanges();
@@ -771,9 +892,9 @@ namespace CIPlatformIntegration.Repository.Repository
                     ThemeId = adminViewModelMain.singleMission.ThemeId,
                     Availability = adminViewModelMain.singleMission.Availability,
 
-                /* MissionSkills= adminViewModelMain.singleMission.MissionSkills,*/
+                    /* MissionSkills= adminViewModelMain.singleMission.MissionSkills,*/
 
-            };
+                };
                 _cidatabaseContext.Missions.Add(mission);
                 _cidatabaseContext.SaveChanges();
 
@@ -785,10 +906,10 @@ namespace CIPlatformIntegration.Repository.Repository
                 {
                     MissionMedium missionMedium = new MissionMedium
                     {
-                        MissionId=missionId,
+                        MissionId = missionId,
                         MediaName = "video",
-                        MediaType="URL",
-                        MediaPath=MissionVideoURL,
+                        MediaType = "URL",
+                        MediaPath = MissionVideoURL,
 
 
                     };
@@ -856,7 +977,7 @@ namespace CIPlatformIntegration.Repository.Repository
 
                         _cidatabaseContext.MissionMedia.Add(missionMedium);
 
-                        file.CopyToAsync(FileStream);
+                        file.CopyTo(FileStream);
 
                         FileStream.Close();
 
@@ -886,7 +1007,7 @@ namespace CIPlatformIntegration.Repository.Repository
 
                         _cidatabaseContext.MissionMedia.Add(missionMedium);
 
-                        file.CopyToAsync(FileStream);
+                        file.CopyTo(FileStream);
 
                         FileStream.Close();
 
@@ -919,7 +1040,7 @@ namespace CIPlatformIntegration.Repository.Repository
 
                         _cidatabaseContext.MissionDocuments.Add(missionDocument);
 
-                        file.CopyToAsync(FileStream);
+                        file.CopyTo(FileStream);
 
                         FileStream.Close();
 
@@ -928,7 +1049,7 @@ namespace CIPlatformIntegration.Repository.Repository
 
                 }
             }
-                                
+
 
             return adminViewModelMain;
 

@@ -9,7 +9,7 @@
 
 <div>
 
-    <form method="post" class="m-4 needs-validation" novalidate asp-action="AddMissionWithDetails" asp-controller="Admin" enctype="multipart/form-data">
+    <form method="post" class="m-4 needs-validation"  asp-controller="Admin" asp-action="AddMissionWithDetails" enctype="multipart/form-data" novalidate>
         <input hidden id="singleMissionIdCheck" asp-for="@Model.singleMission.MissionId" />
         <div class="mb-3">
             <label for="Title" class="form-label">Title</label>
@@ -216,7 +216,7 @@
                     <img src="~/images/add.png" />
                 </div>
                 <p>Drag & drop pictures here or <strong>Browse</strong></p>
-                <input type="file" id="selectedfile" class="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg" name="missionImages" required>
+                <input type="file" id="selectedfile" class="file" multiple="multiple" name="missionImages" required>
             </div>
 
             <output></output>
@@ -235,7 +235,7 @@
         </div>
         
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <input type="submit" class="btn btn-primary" value="Submit"/>
     </form>
 
 

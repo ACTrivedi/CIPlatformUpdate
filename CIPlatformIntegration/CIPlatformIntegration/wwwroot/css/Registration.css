@@ -40,3 +40,21 @@
 a{
     text-decoration: none
 }
+
+
+.custom-select.is-valid, .form-control.is-valid, .was-validated .custom-select:valid, .was-validated .form-control:valid {
+    border: none !important;
+}
+
+.form-control.is-valid, .was-validated .form-control:valid {
+    border: none !important;
+    background-image: none !important;
+}
+
+.form-select.is-valid:not([multiple]):not([size]), .form-select.is-valid:not([multiple])[size="1"], .was-validated .form-select:valid:not([multiple]):not([size]), .was-validated .form-select:valid:not([multiple])[size="1"] {
+    background-image: none !important;
+}
+
+.form-select.is-valid, .was-validated .form-select:valid {
+    border: none !important;
+}

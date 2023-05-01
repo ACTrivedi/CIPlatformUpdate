@@ -1495,16 +1495,27 @@ function AddMission() {
 
             success:
                 function (res) {
-                    $(document).ready(function () {
-                       
+                    $(document).ready(function () {                      
 
+                        tinymce.remove();
                         tinymce.init({
                             selector: '.tinyForMission',
 
-                            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-                            toolbar: 'undo redo | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                            height: 300,
+                            plugins: [
+                                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'prewiew', 'anchor', 'pagebreak',
+                                'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
+                                'table', 'emoticons', 'template', 'codesample'
+                            ],
+                            toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' +
+                                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+                                'forecolor backcolor emoticons',
+                            menu: {
+                                favs: { title: 'menu', items: 'code visualaid | searchreplace | emoticons' }
+                            },
+                            menubar: 'favs file edit view insert format tools table',
+                            content_style: 'body{font-family:Helvetica,Arial,sans-serif; font-size:16px}'
                         });
-
                     });
 
                     $('.missionArea').html('');
@@ -1534,7 +1545,7 @@ function AddMission() {
 
 
 function EditMission(MissionId) { 
-   
+    alert();
         
     var missionId = MissionId;
 
@@ -1555,7 +1566,7 @@ function EditMission(MissionId) {
                        
                         tinymce.remove();
                         tinymce.init({
-                            selector: '#default',
+                            selector: '.tinyForMission',
 
                             height: 300,
                             plugins: [

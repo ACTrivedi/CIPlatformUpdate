@@ -50,6 +50,7 @@ namespace CIPlatformIntegration.Entities.Models
 
 
         [NotMapped]
+        [Compare("Password", ErrorMessage = "Password and Confirmation Password must match.")]
         public string Confirmpassword { get; set; } = null!;
 
         public virtual ICollection<Comment> Comments { get; set; }
