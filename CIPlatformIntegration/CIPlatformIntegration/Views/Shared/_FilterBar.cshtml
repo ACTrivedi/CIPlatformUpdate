@@ -38,138 +38,101 @@
 
                         <ul class="list-unstyled ps-0">
                             <li class="mb-1 ms-3">
-                                <button class="border-0 btn-toggle align-items-center  collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                                <button class="border-0 btn-toggle align-items-center  collapsed fs-5 filterButtonSide" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
                                     Country
                                 </button>
-                                <div class="collapse show" id="home-collapse">
-                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4">
-                                        <li>
-                                            <a href="#" class="link-dark rounded text-black">
-                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                    India
-                                                </label>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="link-dark rounded text-black">
-                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                    USA
-                                                </label>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="link-dark rounded text-black">
-                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                    UK
-                                                </label>
-                                            </a>
-                                        </li>
+                                <div class="collapse show filterShow" id="home-collapse">
+                                    
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4 " id="countryList" onchange="LoadMission()">
+                                        @{
+                                            foreach (var i in Model.Country)
+                                            {
+                                                <li>
+
+                                                    <input class="form-check-input fc" type="checkbox" value="@i.Name" name="country" id="" />
+                                                   
+                                                    <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
+                                                        @i.Name
+                                                    </label>
+
+                                                </li>
+                                            }
+                                        }
+
                                     </ul>
                                 </div>
                             </li>
 
 
                             <li class="mb-1 ms-3">
-                                <button class="border-0 btn-toggle align-items-center  collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#home-collapse2" aria-expanded="true">
+                                <button class="border-0 btn-toggle align-items-center  collapsed fs-5 filterButtonSide" data-bs-toggle="collapse" data-bs-target="#home-collapse2" aria-expanded="true">
                                     City
                                 </button>
-                                <div class="collapse show" id="home-collapse2">
-                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4">
-                                        <li>
-                                            <a href="#" class="link-dark rounded text-black">
-                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                    Ahmedabad
-                                                </label>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="link-dark rounded text-black">
-                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                    Baroda
-                                                </label>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="link-dark rounded text-black">
-                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                    Surat
-                                                </label>
-                                            </a>
-                                        </li>
+                                <div class="collapse show filterShow" id="home-collapse2">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4 " id="cityList" onchange="LoadMission()">
+                                        @{
+                                            foreach (var i in Model.City)
+                                            {
+                                                <li>
+
+                                                    <input class="form-check-input fc" type="checkbox" value="@i.Name" name="city" id="" />
+
+                                                    <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
+                                                        @i.Name
+                                                    </label>
+
+                                                </li>
+                                            }
+                                        }
+
                                     </ul>
+                                    
                                 </div>
                             </li>
 
                             <li class="mb-1 ms-3">
-                                <button class="border-0 btn-toggle align-items-center  collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#home-collapse3" aria-expanded="true">
+                                <button class="border-0 btn-toggle align-items-center  collapsed fs-5 filterButtonSide" data-bs-toggle="collapse" data-bs-target="#home-collapse3" aria-expanded="true">
                                     Theme
                                 </button>
-                                <div class="collapse show" id="home-collapse3">
-                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4">
-                                        <li>
-                                            <a href="#" class="link-dark rounded text-black">
-                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                    Sport
-                                                </label>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="link-dark rounded text-black">
-                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                    Helping NGOs
-                                                </label>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="link-dark rounded text-black">
-                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label ms-3 ml-3 fl " for="flexCheckDefault">
-                                                    Self
-                                                </label>
-                                            </a>
-                                        </li>
+                                <div class="collapse show filterShow" id="home-collapse3">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4" id="themeList" onchange="LoadMission()">
+                                        @{
+                                            foreach (var i in Model.MissionThemes)
+                                            {
+                                                <li>
+
+                                                    <input class="form-check-input fc" type="checkbox" value="@i.Title" name="themes" id="" />
+                                                    <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
+                                                        @i.Title
+                                                    </label>
+                                                </li>
+                                            }
+                                        }
+
+
                                     </ul>
                                 </div>
                             </li>
 
                             <li class="mb-1 ms-3">
-                                <button class="border-0 btn-toggle align-items-center  collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#home-collapse4" aria-expanded="true">
+                                <button class="border-0 btn-toggle align-items-center  collapsed fs-5 filterButtonSide" data-bs-toggle="collapse" data-bs-target="#home-collapse4" aria-expanded="true">
                                     Skills
                                 </button>
-                                <div class="collapse show" id="home-collapse4">
-                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4">
-                                        <li>
-                                            <a href="#" class="link-dark rounded text-black">
-                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                    Dance
-                                                </label>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="link-dark rounded text-black">
-                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
-                                                    Music
-                                                </label>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="link-dark rounded text-black">
-                                                <input class="form-check-input fc" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label ms-3 ml-3 fl " for="flexCheckDefault">
-                                                    Art
-                                                </label>
-                                            </a>
-                                        </li>
+                                <div class="collapse show filterShow" id="home-collapse4">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-4" id="skillList" onchange="LoadMission()">
+                                        @{
+                                            foreach (var i in Model.skills)
+                                            {
+                                                <li>
+
+                                                    <input class="form-check-input fc" type="checkbox" value="@i.SkillName" name="themes" id="" />
+                                                    <label class="form-check-label ms-3 ml-3 fl" for="flexCheckDefault">
+                                                        @i.SkillName
+                                                    </label>
+
+                                                </li>
+                                            }
+                                        }
                                     </ul>
                                 </div>
                             </li>

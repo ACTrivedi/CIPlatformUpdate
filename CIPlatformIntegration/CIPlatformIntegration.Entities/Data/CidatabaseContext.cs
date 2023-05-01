@@ -47,9 +47,9 @@ namespace CIPlatformIntegration.Entities.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=PCI234\\SQL2017;Initial Catalog=CIDatabase ;User ID=sa;Password=tatva123;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
+               // optionsBuilder.UseSqlServer("Server=PCI234\\SQL2017;Initial Catalog=CIDatabase ;User ID=sa;Password=tatva123;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
 
-               // optionsBuilder.UseSqlServer("Server=.;Initial Catalog=CIDatabase;Trusted_Connection=True;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer("Server=.;Initial Catalog=CIDatabase;Trusted_Connection=True;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
 
 
             }

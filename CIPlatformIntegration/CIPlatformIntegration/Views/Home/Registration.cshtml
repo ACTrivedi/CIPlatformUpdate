@@ -108,12 +108,12 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="PhoneNumber">Phone Number</label>
-                            @Html.TextBoxFor(x=>x.PhoneNumber,new {@class="form-control", @placeholder="Contact Number"})
+                        @Html.TextBoxFor(x=>x.PhoneNumber,new {@class="form-control", @placeholder="Contact Number", @type = "tel" })
                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
                     <div class="form-group mt-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            @Html.TextBoxFor(x=>x.Email,new {@class="form-control", @placeholder="Email"})
+                        @Html.TextBoxFor(x=>x.Email,new {@class="form-control", @placeholder="Email", type = "email"})
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 

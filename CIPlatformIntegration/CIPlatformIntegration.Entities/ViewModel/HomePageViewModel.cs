@@ -22,6 +22,8 @@ namespace CIPlatformIntegration.Entities.ViewModel
         public List<FavoriteMission> FavoriteMissions { get; set; }
         public List<Mission> Missions { get; set; }
         public List<GoalMission> GoalMission { get; set; }
+
+        public List<MissionMedium> missionMedia { get; set; }
         public User Users { get; set; }
 
         public List<Timesheet> timesheets { get; set; }
@@ -37,6 +39,7 @@ namespace CIPlatformIntegration.Entities.ViewModel
         public List<MissionApplication> missionApplications { get; set; }
 
         public bool IsFavorite { get; set; }
+
 
        
 

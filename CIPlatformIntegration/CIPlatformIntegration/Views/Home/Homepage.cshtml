@@ -30,6 +30,21 @@
     @*CSS file for FilterBar*@
     <link rel="stylesheet" href="~/css/FilterBar.css"></link>
 
+    <style>
+    #cookiediv {
+        width: 100%;
+        background: #ccc;
+        color: #fff;
+        height: 100px;
+        bottom: 0;
+        position: fixed;
+        background: black;
+        opacity: 0.9;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+</style>
 
 </head>
 
@@ -84,7 +99,20 @@
 
     @*Cards End*@
 
-    
+    @*Cookie Div*@
+    <div id="cookiediv">
+        <div class="d-flex flex-column">
+            <p class="m-0">This website makes use of cookies to enhance browsing experience and provide additional functionality.</p>
+            <a class="text-warning" asp-action="Privacy" asp-controller="Home">Privacy policy</a>
+        </div>
+        <div>
+            <button onclick="accpetCookie()" class="btn btn-outline-warning rounded-pill bg-transparent">
+                I Agree
+            </button>
+        </div>
+        <a class="position-absolute top-0 end-0 mt-2 me-3 text-white" onclick="closecookiediv()"> <i class="bi bi-x-lg"></i></a>
+    </div>
+
 
 
 
@@ -95,6 +123,45 @@
 
 <script src="~/js/Homepage.js"></script>
 <script src="~/js/Cards.js"></script>
+
+
+<script>
+
+
+
+    / Cookie Script /
+    if (getCookie('accepted') === 'yes') {
+        document.getElementById("cookiediv").style.display = "none";
+    }
+
+    // user clicks the confirmation -> set the 'yes' value to cookie and set 'accepted' as name
+    function accpetCookie() {
+        setCookie('accepted', 'yes', 100);
+        document.getElementById("cookiediv").style.display = "none";
+    }
+
+    // code from :http://stackoverflow.com/a/4825695/191220
+    // set cookie method
+    function setCookie(c_name, value, exdays) {
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + exdays);
+        var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+        document.cookie = c_name + "=" + c_value;
+    }
+
+    // get cookie method
+    function getCookie(c_name) {
+        var i, x, y, ARRcookies = document.cookie.split(";");
+        for (i = 0; i < ARRcookies.length; i++) {
+            x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+            y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+            x = x.replace(/^\s+|\s+$/g, "");
+            if (x == c_name) {
+                return unescape(y);
+            }
+        }
+    }
+</script>
 
 </html>
 

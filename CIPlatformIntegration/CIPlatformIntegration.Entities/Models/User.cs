@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CIPlatformIntegration.Entities.Models
@@ -27,7 +28,10 @@ namespace CIPlatformIntegration.Entities.Models
         public string? LastName { get; set; }
         public string Email { get; set; } = null!;
         public string Password { get; set; } = null!;
-        public int PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Phone number is required")]
+        [RegularExpression(@"^\+?\d{10,15}$", ErrorMessage = "Invalid phone number")]
+         public int PhoneNumber { get; set; }
         public string? Avatar { get; set; }
         public string? Manager { get; set; }
         public string? Availability { get; set; }

@@ -45,6 +45,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 data.CountryId = 1;
                 data.LastName = user.LastName;
                 data.FirstName = user.FirstName;
+                data.Avatar = "\\images\\AvatarImages\\ProfileDefault.png";
 
                 if (data.FirstName != null && data.LastName != null && data.PhoneNumber != null && data.Email != null && data.Password != null)
                 {
@@ -103,6 +104,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 Users = _cidatabaseContext.Users.FirstOrDefault(u => u.UserId == userIdForFav),
                 timesheets =_cidatabaseContext.Timesheets.ToList(),
                 skills=_cidatabaseContext.Skills.ToList(),
+                missionMedia=_cidatabaseContext.MissionMedia.ToList(),
                
             };
 
@@ -128,7 +130,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 Users = _cidatabaseContext.Users.FirstOrDefault(u => u.UserId == userIdForFav),
                 timesheets = _cidatabaseContext.Timesheets.ToList(),
                 skills = _cidatabaseContext.Skills.ToList(),
-
+                missionMedia = _cidatabaseContext.MissionMedia.ToList(),
             };
 
             List<Mission> miss = _cidatabaseContext.Missions.ToList();

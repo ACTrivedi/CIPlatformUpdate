@@ -1,4 +1,5 @@
 ﻿
+
 var searchTerm = "";
 let sortValue = "";
 
@@ -72,7 +73,6 @@ function LoadMission(sortValue, pge) {
     })
 
 }
-
 
 
 

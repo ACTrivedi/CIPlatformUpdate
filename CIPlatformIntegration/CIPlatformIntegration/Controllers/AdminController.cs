@@ -15,7 +15,7 @@ namespace CIPlatformIntegration.Controllers
         private readonly IAdminRepository _adminRepository;
         private readonly CidatabaseContext _cidatabaseContext;
 
-
+        
         public AdminController(ILogger<AdminController> logger, CidatabaseContext cIDatabaseContext, IAdminRepository repository)
         {
             _logger = logger;

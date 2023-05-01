@@ -28,6 +28,7 @@ using Org.BouncyCastle.Asn1.UA;
 using MailKit.Security;
 using MimeKit;
 using CIPlatformIntegration.Repository.Interface;
+using static DotNetOpenAuth.OpenId.Extensions.AttributeExchange.WellKnownAttributes.Media;
 
 namespace CIPlatformIntegration.Controllers
 {
@@ -74,6 +75,12 @@ namespace CIPlatformIntegration.Controllers
 
                     HttpContext.Session.SetString("Loggedin", "True");
                     HttpContext.Session.SetString("profile", status.FirstName);
+
+                   
+
+                        HttpContext.Session.SetString("profilePhoto", status.Avatar);
+                    
+
                     HttpContext.Session.SetString("profileEmail", status.Email);
 
                     return RedirectToAction("Homepage", "Home");
@@ -110,6 +117,7 @@ namespace CIPlatformIntegration.Controllers
         [HttpPost]
         public IActionResult Registration(User user)
         {
+
 
             var status = _userRepository.userRegistration(user);
 
@@ -257,18 +265,27 @@ namespace CIPlatformIntegration.Controllers
 
         public IActionResult Homepage(int pg = 1)
         {
-            HttpContext.Session.SetString("Loggedin", "True");
-            var userIdForFav = (long)HttpContext.Session.GetInt32("farfavuserid");
+            var logInSession= HttpContext.Session.GetString("Loggedin");
+            if (logInSession != "True")
+            {
+                return RedirectToAction("Login","Home");
+            }
 
-            var model = _userRepository.homePageViewModel(userIdForFav);
+            else
+            {
+                /* HttpContext.Session.SetString("Loggedin", "True");*/
+                var userIdForFav = (long)HttpContext.Session.GetInt32("farfavuserid");
 
-            ViewBag.profilename = HttpContext.Session.GetString("profile");
-            ViewData["useridcheck"] = (long)HttpContext.Session.GetInt32("farfavuserid");
+                var model = _userRepository.homePageViewModel(userIdForFav);
+
+                ViewBag.profilename = HttpContext.Session.GetString("profile");
+                ViewBag.profilePhoto = HttpContext.Session.GetString("profilePhoto");
+                ViewData["useridcheck"] = (long)HttpContext.Session.GetInt32("farfavuserid");
+
+                return View(model);
+            }
 
             
-
-
-            return View(model);
         }
 
 
@@ -300,81 +317,69 @@ namespace CIPlatformIntegration.Controllers
         public IActionResult VolunteeringMissionPage(int missionid)
         {
 
-
-            //Start Session for passing missionID to StarRating
-            HttpContext.Session.SetInt32("starmissionid", missionid);
-            //End Session for passing missionID to StarRating
-
-
-            /* var missiontheme = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid).FirstOrDefault();
-
-             var missionthemeid = missiontheme.ThemeId;
-             var missionthemenameid = _cidatabaseContext.MissionThemes.Where(m => m.MissionThemeId == missionthemeid).FirstOrDefault();
-
-             var missionthemename = missionthemenameid.Title;
-
-             var modeltheme = _cidatabaseContext.MissionThemes.Where(m => m.MissionThemeId == missionthemeid).FirstOrDefault();
-             var missionthemenames = modeltheme.Title;*/
-
-            var x = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid).FirstOrDefault();
-            var theemeId = x.ThemeId;
-            var relatedMissions = _cidatabaseContext.Missions.Where(m => m.ThemeId == theemeId).Take(3).ToList();
-
-            ViewBag.relatedmission = relatedMissions;
-
-            ViewData["countries"] = _cidatabaseContext.Countries.ToList();
-            ViewData["cities"] = _cidatabaseContext.Cities.ToList();
-            ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
-            ViewData["skills"] = _cidatabaseContext.Skills.ToList();
-            ViewData["goalMission"] = _cidatabaseContext.GoalMissions.ToList();
-            ViewData["favMission"] = _cidatabaseContext.FavoriteMissions.ToList();
-            ViewData["appliedMissions"] = _cidatabaseContext.MissionApplications.ToList();
-            ViewData["missionRating"] = _cidatabaseContext.MissionRatings.ToList();
-            ViewData["users"] = _cidatabaseContext.Users.ToList();
-            ViewData["timesheets"] = _cidatabaseContext.Timesheets.ToList();
-            ViewData["comments"] = _cidatabaseContext.Comments.Where(c => c.MissionId == missionid).ToList();
-
-
-
-            ViewBag.skills = (from n in _cidatabaseContext.MissionSkills
-                              join c in _cidatabaseContext.Skills on n.SkillId equals c.SkillId
-                              where n.MissionId == missionid
-                              select new
-                              {
-                                  c.SkillName
-
-                              }).ToArray();
-
-
-
-
-
-            var count = _cidatabaseContext.MissionRatings.Where(r => r.MissionId == missionid).Count();
-
-            if (count != 0)
+            var logInSession = HttpContext.Session.GetString("Loggedin");
+            if (logInSession != "True")
             {
-                ViewBag.Avgratingview = (from m in _cidatabaseContext.MissionRatings where m.MissionId == missionid select m.Rating).Average();
+                return RedirectToAction("Login", "Home");
             }
+
             else
             {
-                ViewBag.Avgratingview = 0;
+                //Start Session for passing missionID to StarRating
+                HttpContext.Session.SetInt32("starmissionid", missionid);
+
+                var x = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid).FirstOrDefault();
+                var theemeId = x.ThemeId;
+
+                if (_cidatabaseContext.Missions.Where(m => m.ThemeId == theemeId) != null)
+                {
+                    var relatedMissions = _cidatabaseContext.Missions.Where(m => m.ThemeId == theemeId).Take(3).ToList();
+                    ViewBag.relatedmission = relatedMissions;
+
+                }
+
+                ViewData["countries"] = _cidatabaseContext.Countries.ToList();
+                ViewData["cities"] = _cidatabaseContext.Cities.ToList();
+                ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
+                ViewData["skills"] = _cidatabaseContext.Skills.ToList();
+                ViewData["goalMission"] = _cidatabaseContext.GoalMissions.ToList();
+                ViewData["favMission"] = _cidatabaseContext.FavoriteMissions.ToList();
+                ViewData["appliedMissions"] = _cidatabaseContext.MissionApplications.ToList();
+                ViewData["missionRating"] = _cidatabaseContext.MissionRatings.ToList();
+                ViewData["users"] = _cidatabaseContext.Users.ToList();
+                ViewData["timesheets"] = _cidatabaseContext.Timesheets.ToList();
+                ViewData["comments"] = _cidatabaseContext.Comments.Where(c => c.MissionId == missionid).ToList();
+
+
+
+                ViewBag.skills = (from n in _cidatabaseContext.MissionSkills
+                                  join c in _cidatabaseContext.Skills on n.SkillId equals c.SkillId
+                                  where n.MissionId == missionid
+                                  select new
+                                  {
+                                      c.SkillName
+
+                                  }).ToArray();
+
+                var count = _cidatabaseContext.MissionRatings.Where(r => r.MissionId == missionid).Count();
+
+                if (count != 0)
+                {
+                    ViewBag.Avgratingview = (from m in _cidatabaseContext.MissionRatings where m.MissionId == missionid select m.Rating).Average();
+                }
+                else
+                {
+                    ViewBag.Avgratingview = 0;
+                }
+
+                ViewData["useridcheck"] = (long)HttpContext.Session.GetInt32("farfavuserid");
+                ViewBag.profilename = HttpContext.Session.GetString("profile");
+                ViewBag.profilePhoto = HttpContext.Session.GetString("profilePhoto");
+                IEnumerable<Mission> missionobj1 = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid);
+
+                return View(missionobj1);
+
             }
-
-
-
-
-
-
-            ViewData["useridcheck"] = (long)HttpContext.Session.GetInt32("farfavuserid");
-
-
-            ViewBag.profilename = HttpContext.Session.GetString("profile");
-
-
-            IEnumerable<Mission> missionobj1 = _cidatabaseContext.Missions.Where(m => m.MissionId == missionid);
-
-
-            return View(missionobj1);
 
 
 

@@ -31,21 +31,29 @@ namespace CIPlatformIntegration.Controllers
         [HttpGet]
         public IActionResult StoryListingPage(int pg = 1)
         {
+            var logInSession = HttpContext.Session.GetString("Loggedin");
+            if (logInSession != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
 
-            ViewData["countries"] = _cidatabaseContext.Countries.ToList();
-            ViewData["cities"] = _cidatabaseContext.Cities.ToList();
-            ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
-            ViewData["skills"] = _cidatabaseContext.Skills.ToList();
-            ViewData["users"] = _cidatabaseContext.Users.ToList();
-            ViewData["storyMedium"] = _cidatabaseContext.StoryMedia.ToList();
+            else
+            {
+                ViewData["countries"] = _cidatabaseContext.Countries.ToList();
+                ViewData["cities"] = _cidatabaseContext.Cities.ToList();
+                ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
+                ViewData["skills"] = _cidatabaseContext.Skills.ToList();
+                ViewData["users"] = _cidatabaseContext.Users.ToList();
+                ViewData["storyMedium"] = _cidatabaseContext.StoryMedia.ToList();
 
-            ViewBag.profilename = HttpContext.Session.GetString("profile");
-
-            var model = _cidatabaseContext.Stories.Where(s => s.Status == "APPROVED").ToList();
-
-            return View(model);
+                ViewBag.profilename = HttpContext.Session.GetString("profile");
+                ViewBag.profilePhoto = HttpContext.Session.GetString("profilePhoto");
 
 
+                var model = _cidatabaseContext.Stories.Where(s => s.Status == "APPROVED").ToList();
+
+                return View(model);
+            }
 
         }
 
@@ -55,48 +63,55 @@ namespace CIPlatformIntegration.Controllers
 
         public IActionResult _CardsStoryListing(int pg, string? searchTerm)
         {
-
-
-            ViewData["countries"] = _cidatabaseContext.Countries.ToList();
-            ViewData["cities"] = _cidatabaseContext.Cities.ToList();
-            ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
-            ViewData["skills"] = _cidatabaseContext.Skills.ToList();
-            ViewData["users"] = _cidatabaseContext.Users.ToList();
-            ViewData["storyMedium"] = _cidatabaseContext.StoryMedia.ToList();
-
-            //Extra Code for the Pagination
-
-            const int pageSize = 9;
-            if (pg < 1)
-                pg = 1;
-
-
-            var model = _cidatabaseContext.Stories.Where(s => s.Status == "APPROVED" || s.Title.ToLower().Contains(searchTerm)).ToList();
-            if (searchTerm == null)
+            var logInSession = HttpContext.Session.GetString("Loggedin");
+            if (logInSession != "True")
             {
-                model = _cidatabaseContext.Stories.Where(s => s.Status == "APPROVED" || s.Title.ToLower().Contains(searchTerm)).ToList();
+                return RedirectToAction("Login", "Home");
             }
+
             else
             {
-                model = _cidatabaseContext.Stories.Where(s => s.Status == "APPROVED" && s.Title.ToLower().Contains(searchTerm)).ToList();
+
+                ViewData["countries"] = _cidatabaseContext.Countries.ToList();
+                ViewData["cities"] = _cidatabaseContext.Cities.ToList();
+                ViewData["themes"] = _cidatabaseContext.MissionThemes.ToList();
+                ViewData["skills"] = _cidatabaseContext.Skills.ToList();
+                ViewData["users"] = _cidatabaseContext.Users.ToList();
+                ViewData["storyMedium"] = _cidatabaseContext.StoryMedia.ToList();
+
+                //Extra Code for the Pagination
+
+                const int pageSize = 9;
+                if (pg < 1)
+                    pg = 1;
+
+
+                var model = _cidatabaseContext.Stories.Where(s => s.Status == "APPROVED" || s.Title.ToLower().Contains(searchTerm)).ToList();
+                if (searchTerm == null)
+                {
+                    model = _cidatabaseContext.Stories.Where(s => s.Status == "APPROVED" || s.Title.ToLower().Contains(searchTerm)).ToList();
+                }
+                else
+                {
+                    model = _cidatabaseContext.Stories.Where(s => s.Status == "APPROVED" && s.Title.ToLower().Contains(searchTerm)).ToList();
+                }
+
+
+
+                int recsCount = model.Count();
+
+                var pager = new Pager(recsCount, pg, pageSize);
+
+                int recSkip = (pg - 1) * pageSize;
+
+                var data = model.Skip(recSkip).Take(pager.PageSize).ToList();
+
+                this.ViewBag.Pager = pager;
+
+                model = data;
+
+                return PartialView("_CardsStoryListing", model);
             }
-
-
-
-            int recsCount = model.Count();
-
-            var pager = new Pager(recsCount, pg, pageSize);
-
-            int recSkip = (pg - 1) * pageSize;
-
-            var data = model.Skip(recSkip).Take(pager.PageSize).ToList();
-
-            this.ViewBag.Pager = pager;
-
-            model = data;
-
-            return PartialView("_CardsStoryListing", model);
-
 
         }
 
@@ -105,12 +120,23 @@ namespace CIPlatformIntegration.Controllers
 
         public IActionResult StoryAddingPage()
         {
-            var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
+            var logInSession = HttpContext.Session.GetString("Loggedin");
+            if (logInSession != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
 
-            ViewData["appliedMissions"] = _cidatabaseContext.MissionApplications.Where(x => x.UserId == userIdForStoryAdd).ToList();
-            ViewBag.profilename = HttpContext.Session.GetString("profile");
-            ViewData["missions"] = _cidatabaseContext.Missions.ToList();
-            return View();
+            else
+            {
+                var userIdForStoryAdd = (long)HttpContext.Session.GetInt32("farfavuserid");
+
+                ViewData["appliedMissions"] = _cidatabaseContext.MissionApplications.Where(x => x.UserId == userIdForStoryAdd).ToList();
+                ViewBag.profilename = HttpContext.Session.GetString("profile");
+                ViewBag.profilePhoto = HttpContext.Session.GetString("profilePhoto");
+                ViewData["missions"] = _cidatabaseContext.Missions.ToList();
+                return View();
+
+            }
         }
 
 
@@ -154,7 +180,7 @@ namespace CIPlatformIntegration.Controllers
                 draft.description = draftCheck.Description;
                 draft.date = draftCheck.PublishedAt.ToString();
                 draft.Paths = paths;
-                
+
                 var draftDetails = new { title = draft.title, description = draft.description, path = draft.Paths, date = draft.date };
 
                 return Json(draftDetails);
@@ -242,7 +268,7 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-                    StoryMedia(story_id,videoUrl);
+                    StoryMedia(story_id, videoUrl);
 
                     FileStream.Close();
                 }
@@ -282,12 +308,12 @@ namespace CIPlatformIntegration.Controllers
 
                 _cidatabaseContext.Stories.Update(story);
 
-            _cidatabaseContext.SaveChanges();
+                _cidatabaseContext.SaveChanges();
 
-            long story_id = story.StoryId;
+                long story_id = story.StoryId;
 
-            if (videoUrl != null)
-            {
+                if (videoUrl != null)
+                {
                     StoryMedium storyMedium = _cidatabaseContext.StoryMedia.FirstOrDefault(sm => sm.StoryId == story_id && sm.Type == "URL");
                     if (storyMedium != null)
                     {
@@ -304,53 +330,53 @@ namespace CIPlatformIntegration.Controllers
                         storyMedium.Type = "URL";
                         _cidatabaseContext.StoryMedia.Add(storyMedium);
                         _cidatabaseContext.SaveChanges();
-                    }             
+                    }
 
-            }
+                }
 
                 var storyMedia = _cidatabaseContext.StoryMedia.Where(sm => sm.StoryId == story_id).ToList();
                 foreach (var media in storyMedia)
                 {
                     if (media.Type != "URL")
-                    { 
-                    
-                    _cidatabaseContext.StoryMedia.Remove(media);
+                    {
+
+                        _cidatabaseContext.StoryMedia.Remove(media);
                     }
 
                 }
                 _cidatabaseContext.SaveChanges();
 
                 if (formFile.Count > 0)
-            {
-                foreach (var file in formFile)
                 {
-
-                   
-
-                    FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", Path.GetFileName(file.FileName)), FileMode.Create);
-
-                    
-                    string ImageURL = "\\images\\StoryImages\\" + Path.GetFileName(file.FileName);
-
-
-                    HttpContext.Session.SetString("uploadpath", ImageURL);
-
-                    
-
-                    file.CopyToAsync(FileStream);
+                    foreach (var file in formFile)
+                    {
 
 
 
-                    StoryMedia(story_id, videoUrl);
+                        FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
 
-                    FileStream.Close();
+                        string ImageURL = "\\images\\StoryImages\\" + Path.GetFileName(file.FileName);
 
+
+                        HttpContext.Session.SetString("uploadpath", ImageURL);
+
+
+
+                        file.CopyToAsync(FileStream);
+
+
+
+                        StoryMedia(story_id, videoUrl);
+
+
+                        FileStream.Close();
+
+
+                    }
 
                 }
-            
-            }
-                
+
 
             }
 
@@ -386,13 +412,13 @@ namespace CIPlatformIntegration.Controllers
                 if (formFile.Count > 0)
                 {
                     foreach (var file in formFile)
-                    {                                              
+                    {
                         FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", Path.GetFileName(file.FileName)), FileMode.Create);
-                                               
+
                         string ImageURL = "\\images\\StoryImages\\" + Path.GetFileName(file.FileName);
 
                         HttpContext.Session.SetString("uploadpath", ImageURL);
-                                          
+
 
                         file.CopyToAsync(FileStream);
 
@@ -402,9 +428,9 @@ namespace CIPlatformIntegration.Controllers
                     }
 
                 }
-               
 
-                
+
+
 
             }
             /*return View(model);*/
@@ -422,10 +448,10 @@ namespace CIPlatformIntegration.Controllers
             // Retrieve the current view count from the database
             var storyID = (long)HttpContext.Session.GetInt32("storyID");
             var story_Views = _cidatabaseContext.Stories.Where(s => s.StoryId == storyID).FirstOrDefault();
-            
-                story_Views.Views+=1;
-                _cidatabaseContext.Stories.Update(story_Views);
-                _cidatabaseContext.SaveChanges();                       
+
+            story_Views.Views += 1;
+            _cidatabaseContext.Stories.Update(story_Views);
+            _cidatabaseContext.SaveChanges();
 
             return Json(story_Views.Views);
 
@@ -436,10 +462,10 @@ namespace CIPlatformIntegration.Controllers
 
 
         public void StoryMedia(long story_id, string videoUrl)
-        {          
+        {
 
             StoryMedium storyMedium = new StoryMedium();
-          
+
             var path = HttpContext.Session.GetString("uploadpath");
             storyMedium.Path = path;
 
@@ -449,34 +475,43 @@ namespace CIPlatformIntegration.Controllers
             storyMedium.Type = ext;
 
             _cidatabaseContext.StoryMedia.Add(storyMedium);
-           
+
             _cidatabaseContext.SaveChanges();
-                     
-            
+
+
         }
 
         public IActionResult StoryDetailPage(int storyid)
         {
+            var logInSession = HttpContext.Session.GetString("Loggedin");
+            if (logInSession != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
 
-            ViewBag.profilename = HttpContext.Session.GetString("profile");
-            var userIdForStoryDetail = (long)HttpContext.Session.GetInt32("farfavuserid");
-            HttpContext.Session.SetInt32("storyID", storyid);
+            else
+            {
+                ViewBag.profilename = HttpContext.Session.GetString("profile");
+                ViewBag.profilePhoto = HttpContext.Session.GetString("profilePhoto");
+                var userIdForStoryDetail = (long)HttpContext.Session.GetInt32("farfavuserid");
+                HttpContext.Session.SetInt32("storyID", storyid);
 
-            StoryDetailViewModel storyDetailViewModel = new StoryDetailViewModel();
+                StoryDetailViewModel storyDetailViewModel = new StoryDetailViewModel();
 
-            var userID = _cidatabaseContext.Stories.FirstOrDefault(s => s.StoryId == storyid).UserId;
-            storyDetailViewModel.Users = _cidatabaseContext.Users.Where(u => u.UserId == userID).ToList();
+                var userID = _cidatabaseContext.Stories.FirstOrDefault(s => s.StoryId == storyid).UserId;
+                storyDetailViewModel.Users = _cidatabaseContext.Users.Where(u => u.UserId == userID).ToList();
 
-            storyDetailViewModel.recommendUser = _cidatabaseContext.Users.ToList();
+                storyDetailViewModel.recommendUser = _cidatabaseContext.Users.ToList();
 
-            var missionID = _cidatabaseContext.Stories.FirstOrDefault(s => s.StoryId == storyid).MissionId;
-            storyDetailViewModel.Missions = _cidatabaseContext.Missions.Where(m => m.MissionId == missionID).ToList();
+                var missionID = _cidatabaseContext.Stories.FirstOrDefault(s => s.StoryId == storyid).MissionId;
+                storyDetailViewModel.Missions = _cidatabaseContext.Missions.Where(m => m.MissionId == missionID).ToList();
 
-            storyDetailViewModel.Stories = _cidatabaseContext.Stories.Where(s => s.StoryId == storyid).ToList();
+                storyDetailViewModel.Stories = _cidatabaseContext.Stories.Where(s => s.StoryId == storyid).ToList();
 
-            storyDetailViewModel.storyMedia = _cidatabaseContext.StoryMedia.Where(sm => sm.StoryId == storyid).ToList();
+                storyDetailViewModel.storyMedia = _cidatabaseContext.StoryMedia.Where(sm => sm.StoryId == storyid).ToList();
 
-            return View(storyDetailViewModel);
+                return View(storyDetailViewModel);
+            }
         }
 
         [HttpPost]
@@ -514,132 +549,151 @@ namespace CIPlatformIntegration.Controllers
         [HttpGet]
         public IActionResult UserEditProfile()
         {
-            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
-            ViewBag.profilename = HttpContext.Session.GetString("profile");
+            var logInSession = HttpContext.Session.GetString("Loggedin");
+            if (logInSession != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else
+            {
+                var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+                ViewBag.profilename = HttpContext.Session.GetString("profile");
+                ViewBag.profilePhoto = HttpContext.Session.GetString("profilePhoto");
 
-            var userUpdate = _cidatabaseContext.Users.Where(u => u.UserId == userIdForUserEdit).FirstOrDefault();
+                var userUpdate = _cidatabaseContext.Users.Where(u => u.UserId == userIdForUserEdit).FirstOrDefault();
 
-            var userViewModel = new UserEditProfileViewModel();
-            userViewModel.IndividualUser = userUpdate;
-            userViewModel.skills = _cidatabaseContext.Skills.ToList();
-            userViewModel.userSkills = _cidatabaseContext.UserSkills.Where(us => us.UserId == userIdForUserEdit).ToList();
-            userViewModel.countries = _cidatabaseContext.Countries.ToList();
-            userViewModel.cities = _cidatabaseContext.Cities.Where(c => c.CityId == userUpdate.CityId).FirstOrDefault();
+                var userViewModel = new UserEditProfileViewModel();
+                userViewModel.IndividualUser = userUpdate;
+                userViewModel.skills = _cidatabaseContext.Skills.ToList();
+                userViewModel.userSkills = _cidatabaseContext.UserSkills.Where(us => us.UserId == userIdForUserEdit).ToList();
+                userViewModel.countries = _cidatabaseContext.Countries.ToList();
+                userViewModel.cities = _cidatabaseContext.Cities.Where(c => c.CityId == userUpdate.CityId).FirstOrDefault();
 
-            return View(userViewModel);
+                return View(userViewModel);
+            }
         }
 
         [HttpPost]
         public IActionResult UserEditProfile(string selectedValue, IFormFile file, string name, string surname, string employeeID, string manager, string title, string department, string profile, string linkedInUrl, string skillsAddition, string profileText, int CountryId, int CityId)
         {
-
-            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
-            ViewBag.profilename = HttpContext.Session.GetString("profile");
-
-            if (skillsAddition != null)
+            var logInSession = HttpContext.Session.GetString("Loggedin");
+            if (logInSession != "True")
             {
-                
-                var userskill1 = _cidatabaseContext.UserSkills.Where(u => u.UserId == userIdForUserEdit).ToList();
-                foreach (var i in userskill1)
-                { 
-                _cidatabaseContext.UserSkills.Remove(i);
-                _cidatabaseContext.SaveChanges();
-                
+                return RedirectToAction("Login", "Home");
+            }
+
+            else
+            {
+                var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+
+                ViewBag.profilename = HttpContext.Session.GetString("profile");
+                ViewBag.profilePhoto = HttpContext.Session.GetString("profilePhoto");
+
+                if (skillsAddition != null)
+                {
+
+                    var userskill1 = _cidatabaseContext.UserSkills.Where(u => u.UserId == userIdForUserEdit).ToList();
+                    foreach (var i in userskill1)
+                    {
+                        _cidatabaseContext.UserSkills.Remove(i);
+                        _cidatabaseContext.SaveChanges();
+
+                    }
+
+                    string[] skillsArray = skillsAddition.Split(", ");
+
+                    foreach (string skill in skillsArray)
+                    {
+                        var exists = _cidatabaseContext.Skills.FirstOrDefault(s => s.SkillName == skill).SkillId;
+                        var userskill = _cidatabaseContext.UserSkills.FirstOrDefault(u => u.SkillId == exists);
+                        if (userskill != null)
+                        {
+
+                            _cidatabaseContext.UserSkills.Remove(userskill);
+                            _cidatabaseContext.SaveChanges();
+                        }
+
+                    }
+                    foreach (string skill in skillsArray)
+                    {
+                        var selectedSkills = _cidatabaseContext.Skills.FirstOrDefault(s => s.SkillName == skill).SkillId;
+
+                        UserSkill model = new UserSkill();
+                        model.UserId = userIdForUserEdit;
+                        model.SkillId = selectedSkills;
+
+                        _cidatabaseContext.UserSkills.Add(model);
+                        _cidatabaseContext.SaveChanges();
+
+                    }
                 }
 
-                string[] skillsArray = skillsAddition.Split(", ");
 
-                foreach (string skill in skillsArray)
+                var userUpdate = _cidatabaseContext.Users.Where(u => u.UserId == userIdForUserEdit).FirstOrDefault();
+                userUpdate.FirstName = name;
+                userUpdate.LastName = surname;
+                userUpdate.EmployeeId = employeeID;
+                userUpdate.Title = title;
+                userUpdate.Department = department;
+                userUpdate.ProfileText = profileText;
+                userUpdate.LinkedInUrl = linkedInUrl;
+                userUpdate.Availability = selectedValue;
+                userUpdate.Manager = manager;
+
+
+                //For profile photo
+                if (file != null)
                 {
-                    var exists = _cidatabaseContext.Skills.FirstOrDefault(s => s.SkillName == skill).SkillId;
-                    var userskill = _cidatabaseContext.UserSkills.FirstOrDefault(u => u.SkillId == exists);
-                    if (userskill != null)
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\AvatarImages\\", Path.GetFileName(file.FileName));
+
+                    using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
                     {
-                       
-                        _cidatabaseContext.UserSkills.Remove(userskill);
-                        _cidatabaseContext.SaveChanges();
+                        string imageURL = "\\images\\AvatarImages\\" + Path.GetFileName(file.FileName);
+                        userUpdate.Avatar = imageURL;
+                        file.CopyToAsync(fileStream);
+                        fileStream.Close();
                     }
 
                 }
-                foreach (string skill in skillsArray)
+
+
+
+                //For Country
+                if (CountryId == 0)
                 {
-                    var selectedSkills = _cidatabaseContext.Skills.FirstOrDefault(s => s.SkillName == skill).SkillId;
-
-                    UserSkill model = new UserSkill();
-                    model.UserId = userIdForUserEdit;
-                    model.SkillId = selectedSkills;
-
-                    _cidatabaseContext.UserSkills.Add(model);
-                    _cidatabaseContext.SaveChanges();
-
+                    userUpdate.CountryId = userUpdate.CountryId;
                 }
-            }
-
-
-            var userUpdate = _cidatabaseContext.Users.Where(u => u.UserId == userIdForUserEdit).FirstOrDefault();
-            userUpdate.FirstName = name;
-            userUpdate.LastName = surname;
-            userUpdate.EmployeeId = employeeID;
-            userUpdate.Title = title;
-            userUpdate.Department = department;
-            userUpdate.ProfileText = profileText;
-            userUpdate.LinkedInUrl = linkedInUrl;
-            userUpdate.Availability = selectedValue;
-            userUpdate.Manager = manager;
-
-
-            //For profile photo
-            if (file != null)
-            {
-                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\AvatarImages\\", Path.GetFileName(file.FileName));
-
-                using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+                else
                 {
-                    string imageURL = "\\images\\AvatarImages\\" + Path.GetFileName(file.FileName);
-                    userUpdate.Avatar = imageURL;
-                    file.CopyToAsync(fileStream);
-                    fileStream.Close();
+                    userUpdate.CountryId = CountryId;
                 }
 
+                //For City
+                if (CityId == 0)
+                {
+                    userUpdate.CityId = userUpdate.CityId;
+                }
+                else
+                {
+                    userUpdate.CityId = CityId;
+                }
+
+
+
+                _cidatabaseContext.Users.Update(userUpdate);
+                _cidatabaseContext.SaveChanges();
+
+
+                var userViewModel = new UserEditProfileViewModel();
+                userViewModel.IndividualUser = userUpdate;
+                userViewModel.skills = _cidatabaseContext.Skills.ToList();
+                userViewModel.userSkills = _cidatabaseContext.UserSkills.Where(us => us.UserId == userIdForUserEdit).ToList();
+                userViewModel.countries = _cidatabaseContext.Countries.ToList();
+                userViewModel.cities = _cidatabaseContext.Cities.Where(c => c.CityId == userUpdate.CityId).FirstOrDefault();
+
+
+                return View(userViewModel);
             }
-
-
-
-            //For Country
-            if (CountryId == 0)
-            {
-                userUpdate.CountryId = userUpdate.CountryId;
-            }
-            else
-            {
-                userUpdate.CountryId = CountryId;
-            }
-
-            //For City
-            if (CityId == 0)
-            {
-                userUpdate.CityId = userUpdate.CityId;
-            }
-            else
-            {
-                userUpdate.CityId = CityId;
-            }
-
-
-
-            _cidatabaseContext.Users.Update(userUpdate);
-            _cidatabaseContext.SaveChanges();
-
-
-            var userViewModel = new UserEditProfileViewModel();
-            userViewModel.IndividualUser = userUpdate;
-            userViewModel.skills = _cidatabaseContext.Skills.ToList();
-            userViewModel.userSkills = _cidatabaseContext.UserSkills.Where(us => us.UserId == userIdForUserEdit).ToList();
-            userViewModel.countries = _cidatabaseContext.Countries.ToList();
-            userViewModel.cities = _cidatabaseContext.Cities.Where(c => c.CityId == userUpdate.CityId).FirstOrDefault();
-
-
-            return View(userViewModel);
 
         }
 
@@ -650,7 +704,7 @@ namespace CIPlatformIntegration.Controllers
         [HttpPost]
         public JsonResult GetCitiesByCountryId(int Country_id)
         {
-                var cities = _cidatabaseContext.Cities.Where(c => c.CountryId == Country_id).ToList();
+            var cities = _cidatabaseContext.Cities.Where(c => c.CountryId == Country_id).ToList();
 
             return Json(cities);
         }
@@ -698,6 +752,7 @@ namespace CIPlatformIntegration.Controllers
         {
             var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
             ViewBag.profilename = HttpContext.Session.GetString("profile");
+            ViewBag.profilePhoto = HttpContext.Session.GetString("profilePhoto");
 
             return View();
         }
@@ -706,62 +761,80 @@ namespace CIPlatformIntegration.Controllers
         [HttpGet]
         public IActionResult VolunteeringTimesheet()
         {
-            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
-            ViewBag.profilename = HttpContext.Session.GetString("profile");
+            var logInSession = HttpContext.Session.GetString("Loggedin");
+            if (logInSession != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else
+            {
+                var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+                ViewBag.profilename = HttpContext.Session.GetString("profile");
+                ViewBag.profilePhoto = HttpContext.Session.GetString("profilePhoto");
 
-            VolunteeringTimesheetViewModel volunteeringTimesheetViewModel = new VolunteeringTimesheetViewModel();
+                VolunteeringTimesheetViewModel volunteeringTimesheetViewModel = new VolunteeringTimesheetViewModel();
 
-            volunteeringTimesheetViewModel.missionsApplication = _cidatabaseContext.MissionApplications.Where(x => x.UserId == userIdForUserEdit).ToList();
-            volunteeringTimesheetViewModel.missions = _cidatabaseContext.Missions.ToList();
-            volunteeringTimesheetViewModel.timesheets = _cidatabaseContext.Timesheets.Where(t => t.UserId == userIdForUserEdit).ToList();
+                volunteeringTimesheetViewModel.missionsApplication = _cidatabaseContext.MissionApplications.Where(x => x.UserId == userIdForUserEdit).ToList();
+                volunteeringTimesheetViewModel.missions = _cidatabaseContext.Missions.ToList();
+                volunteeringTimesheetViewModel.timesheets = _cidatabaseContext.Timesheets.Where(t => t.UserId == userIdForUserEdit).ToList();
 
-            return View(volunteeringTimesheetViewModel);
+                return View(volunteeringTimesheetViewModel);
+            }
         }
 
         [HttpPost]
         public IActionResult VolunteeringTimesheet(int selectFromDropdown, string dateVolunteer, int hours, int minutes, string message, int timesheetCheckForTime)
         {
-            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
-            ViewBag.profilename = HttpContext.Session.GetString("profile");
-
-            Timesheet timesheet = new Timesheet();
-            TimeSpan time;
-            if (timesheetCheckForTime != 0)
+            var logInSession = HttpContext.Session.GetString("Loggedin");
+            if (logInSession != "True")
             {
-                var timesheetCheckForTimeForUpdate = _cidatabaseContext.Timesheets.Where(t => t.TimesheetId == timesheetCheckForTime).FirstOrDefault();
-
-
-                /* timesheetCheckForTimeForUpdate.MissionId = selectFromDropdown;*/
-                timesheetCheckForTimeForUpdate.Notes = message;
-                time = new TimeSpan(hours, minutes, 0);
-                timesheetCheckForTimeForUpdate.Time = time;
-                timesheetCheckForTimeForUpdate.DateVolunteered = Convert.ToDateTime(dateVolunteer);
-
-
-                _cidatabaseContext.Timesheets.Update(timesheetCheckForTimeForUpdate);
-                _cidatabaseContext.SaveChanges();
-
+                return RedirectToAction("Login", "Home");
             }
-
             else
             {
-                timesheet.UserId = userIdForUserEdit;
-                timesheet.MissionId = selectFromDropdown;
-                timesheet.Notes = message;
-                time = new TimeSpan(hours, minutes, 0);
-                timesheet.Time = time;
-                timesheet.DateVolunteered = Convert.ToDateTime(dateVolunteer);
+                var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+                ViewBag.profilename = HttpContext.Session.GetString("profile");
+                ViewBag.profilePhoto = HttpContext.Session.GetString("profilePhoto");
+
+                Timesheet timesheet = new Timesheet();
+                TimeSpan time;
+                if (timesheetCheckForTime != 0)
+                {
+                    var timesheetCheckForTimeForUpdate = _cidatabaseContext.Timesheets.Where(t => t.TimesheetId == timesheetCheckForTime).FirstOrDefault();
 
 
-                _cidatabaseContext.Timesheets.Add(timesheet);
-                _cidatabaseContext.SaveChanges();
+                    /* timesheetCheckForTimeForUpdate.MissionId = selectFromDropdown;*/
+                    timesheetCheckForTimeForUpdate.Notes = message;
+                    time = new TimeSpan(hours, minutes, 0);
+                    timesheetCheckForTimeForUpdate.Time = time;
+                    timesheetCheckForTimeForUpdate.DateVolunteered = Convert.ToDateTime(dateVolunteer);
+
+
+                    _cidatabaseContext.Timesheets.Update(timesheetCheckForTimeForUpdate);
+                    _cidatabaseContext.SaveChanges();
+
+                }
+
+                else
+                {
+                    timesheet.UserId = userIdForUserEdit;
+                    timesheet.MissionId = selectFromDropdown;
+                    timesheet.Notes = message;
+                    time = new TimeSpan(hours, minutes, 0);
+                    timesheet.Time = time;
+                    timesheet.DateVolunteered = Convert.ToDateTime(dateVolunteer);
+
+
+                    _cidatabaseContext.Timesheets.Add(timesheet);
+                    _cidatabaseContext.SaveChanges();
+                }
+
+                VolunteeringTimesheetViewModel volunteeringTimesheetViewModel = new VolunteeringTimesheetViewModel();
+
+                volunteeringTimesheetViewModel.timesheets = _cidatabaseContext.Timesheets.ToList();
+
+                return RedirectToAction("VolunteeringTimesheet", "StoryListing");
             }
-
-            VolunteeringTimesheetViewModel volunteeringTimesheetViewModel = new VolunteeringTimesheetViewModel();
-
-            volunteeringTimesheetViewModel.timesheets = _cidatabaseContext.Timesheets.ToList();
-
-            return RedirectToAction("VolunteeringTimesheet", "StoryListing");
         }
 
 
@@ -920,14 +993,16 @@ namespace CIPlatformIntegration.Controllers
         [HttpPost]
         public IActionResult ContactUsEmpty()
         {
-         var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+
 
             User user = _cidatabaseContext.Users.Where(u => u.UserId == userIdForUserEdit).FirstOrDefault();
 
             var name = user.FirstName;
             var email = user.Email;
 
-            var data = new {
+            var data = new
+            {
                 name,
                 email,
             };
@@ -935,15 +1010,17 @@ namespace CIPlatformIntegration.Controllers
         }
 
         [HttpPost]
-        public IActionResult ContactUs(string Name,string Email,string Subject,string Message) 
+        public IActionResult ContactUs(string Name, string Email, string Subject, string Message)
         {
-            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");        
-           
-                ContactU contactUs = new ContactU { 
-                    UserId= userIdForUserEdit,
-                    Subject=Subject,
-                    Message=Message
-                };
+            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+            ViewBag.profilePhoto = HttpContext.Session.GetString("profilePhoto");
+
+            ContactU contactUs = new ContactU
+            {
+                UserId = userIdForUserEdit,
+                Subject = Subject,
+                Message = Message
+            };
             _cidatabaseContext.ContactUs.Add(contactUs);
             _cidatabaseContext.SaveChanges();
 

@@ -140,22 +140,20 @@ $(document).ready(function () {
 
                     missionApplicationApprove.forEach(function (i) {
 
-                        console.log(i);
-
-
+                       
                         i.addEventListener('click', function () {
 
                             /*$('.missionApplicationApprove').on('click', function () {*/
 
-                            var value = $('.missionApplicationApprove').attr('id');
+                            var value = $(this).attr('value');
                             
-                                console.log(value);
+                                console.log("This is missionApplication Id="+value);
                                      
 
                                 $.ajax({
                                     url: '/Admin/AdminMissionApplicationApprove',
                                     type: "post",
-
+                                        
                                     data: {
                                         missionApplicationId: value
                                     },
@@ -183,13 +181,13 @@ $(document).ready(function () {
 
                     missionApplicationDelete.forEach(function (i) {
 
-                        console.log(i);
+                       
 
                         i.addEventListener('click', function () {
                                                       
 
-                            var value = $('.missionApplicationDelete').attr('id');
-                            console.log(value);
+                            var value = $(this).attr('value');
+                            console.log("This is missionApplicationDelete Id=" + value);
 
 
                             $.ajax({

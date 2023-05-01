@@ -1,14 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\CIPlatformIntegration",
-    "\\CIPlatformIntegration\\CIPlatformIntegration",
-    "\\CIPlatformIntegration\\CIPlatformIntegration\\Controllers",
-    "\\CIPlatformIntegration\\CIPlatformIntegration\\Views",
-    "\\CIPlatformIntegration\\CIPlatformIntegration\\Views\\StoryListing",
-    "\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot",
-    "\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\js"
+    ""
   ],
-  "SelectedNode": "\\CIPlatformIntegration\\CIPlatformIntegration.sln",
+  "SelectedNode": "\\CIPlatformIntegration.sln",
   "PreviewInSolutionExplorer": false
 }
