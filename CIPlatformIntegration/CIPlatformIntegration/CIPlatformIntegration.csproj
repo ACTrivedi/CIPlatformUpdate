@@ -41,6 +41,7 @@
     <Folder Include="wwwroot\Documents\" />
     <Folder Include="wwwroot\images\StoryImages\" />
     <Folder Include="wwwroot\MissionMedia\" />
+    <Folder Include="wwwroot\Banner\" />
   </ItemGroup>
 
 </Project>

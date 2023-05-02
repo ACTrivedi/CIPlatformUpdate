@@ -49,6 +49,8 @@ namespace CIPlatformIntegration.Entities.ViewModel
 
         public List<GoalMission> goalMissions { get; set; } 
 
+        public List<Banner> banners { get; set; }
+
 
 
 

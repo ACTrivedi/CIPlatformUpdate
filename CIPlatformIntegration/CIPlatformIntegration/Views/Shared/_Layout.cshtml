@@ -37,15 +37,39 @@
         </nav>
     </header>*@
     <div class="container-fluid">
-        <main role="main">
+        <main role="main" class="p-0 g-0 m-0">
             @RenderBody()
         </main>
     </div>
 
     @*<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - CIPlatformIntegration - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+        
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="copyright-menu">
+						<ul>
+							<li>
+								<a  asp-controller="Login" asp-action="PolicyPage" style="color:#acacac">Privacy Policy</a>
+							</li>
+							<li>
+								<a href="#" style="color:#acacac">Cookie Policy</a>
+							</li>
+							<li>
+								<a href="#" style="color:#acacac">Contact Us</a>
+							</li><li>
+								<a href="#" style="color:#acacac">Terms of Use</a>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-6 rights">
+					<span style="color:#acacac"> © 2019 Optimy.com. All Right Reserved</span>
+				</div>
+			</div>
+		</div>
+	
     </footer>*@
      <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script> 

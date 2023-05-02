@@ -777,38 +777,38 @@ namespace CIPlatformIntegration.Repository.Repository
 
 
                     }
-                   
-
-
-                        foreach (var file in missionImages)
-                        {
-
-
-                            MissionMedium missionMediumEditAdd = new MissionMedium();
-
-                            missionMediumEditAdd.MissionId = singleMissionIdCheck;
-                            missionMediumEditAdd.MediaName = file.FileName;
-                            missionMediumEditAdd.MediaType = file.ContentType;
-
-                            FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
-
-                            string path = "/MissionMedia/" + Path.GetFileName(file.FileName);
-
-                            missionMediumEditAdd.MediaPath = path;
-
-                            _cidatabaseContext.MissionMedia.Add(missionMediumEditAdd);
-
-                            file.CopyTo(FileStream);
-
-                            FileStream.Close();
 
 
 
+                    foreach (var file in missionImages)
+                    {
 
-                        }
+
+                        MissionMedium missionMediumEditAdd = new MissionMedium();
+
+                        missionMediumEditAdd.MissionId = singleMissionIdCheck;
+                        missionMediumEditAdd.MediaName = file.FileName;
+                        missionMediumEditAdd.MediaType = file.ContentType;
+
+                        FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MissionMedia\\", Path.GetFileName(file.FileName)), FileMode.Create);
+
+                        string path = "/MissionMedia/" + Path.GetFileName(file.FileName);
+
+                        missionMediumEditAdd.MediaPath = path;
+
+                        _cidatabaseContext.MissionMedia.Add(missionMediumEditAdd);
+
+                        file.CopyTo(FileStream);
+
+                        FileStream.Close();
 
 
-                    
+
+
+                    }
+
+
+
                     _cidatabaseContext.SaveChanges();
 
                 }
@@ -1122,6 +1122,95 @@ namespace CIPlatformIntegration.Repository.Repository
             return (List<IFormFile>)file;
 
         }*/
+
+
+        //For Banner
+
+        public AdminViewModel adminViewModelMainForBanner()
+        {
+
+            AdminViewModel adminViewModelMainForMissionObject = new AdminViewModel
+            {
+                countries = _cidatabaseContext.Countries.ToList(),
+                cities = _cidatabaseContext.Cities.ToList(),
+                User = _cidatabaseContext.Users.FirstOrDefault(),
+                users = _cidatabaseContext.Users.ToList(),
+                missionApplications = _cidatabaseContext.MissionApplications.ToList(),
+                missions = _cidatabaseContext.Missions.Where(m => m.DeletedAt == null).ToList(),
+                stories = _cidatabaseContext.Stories.ToList(),
+                missionThemes = _cidatabaseContext.MissionThemes.ToList(),
+                skills = _cidatabaseContext.Skills.ToList(),
+                cmsPages = _cidatabaseContext.CmsPages.ToList(),
+                goalMissions = _cidatabaseContext.GoalMissions.ToList(),
+                banners = _cidatabaseContext.Banners.Where(b=>b.DeletedAt==null).ToList(),
+            };
+
+            return adminViewModelMainForMissionObject;
+
+
+        }
+
+
+        public void addBanner(IFormFile formFile, string bannerText, int sortOrder)
+        {
+
+            Banner banner = new Banner();
+
+            banner.Text = bannerText;
+            banner.SortOrder = sortOrder;
+
+            FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Banner\\", Path.GetFileName(formFile.FileName)), FileMode.Create);
+
+            string path = "/Banner/" + Path.GetFileName(formFile.FileName);
+
+            banner.Image = path;
+
+            _cidatabaseContext.Banners.Add(banner);
+
+            formFile.CopyTo(FileStream);
+
+            FileStream.Close();
+
+
+            _cidatabaseContext.SaveChanges();
+        }
+
+
+        public void addEditBanner(long bannerId,IFormFile file, string bannerTextEdit, int sortOrderEdit)
+        {
+            Banner banner = _cidatabaseContext.Banners.FirstOrDefault(b => b.BannerId == bannerId);        
+            
+                                
+            banner.Text = bannerTextEdit;
+            banner.SortOrder = sortOrderEdit;
+
+            FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Banner\\", Path.GetFileName(file.FileName)), FileMode.Create);
+
+            string path = "/Banner/" + Path.GetFileName(file.FileName);
+
+            banner.Image = path;
+
+            _cidatabaseContext.Banners.Update(banner);
+
+            file.CopyTo(FileStream);
+
+            FileStream.Close();
+
+
+            _cidatabaseContext.SaveChanges();
+
+        }
+
+        public void bannerDelete(long bannerId)
+        {
+            Banner banner = _cidatabaseContext.Banners.FirstOrDefault(b => b.BannerId == bannerId);
+            banner.DeletedAt= DateTime.Now;
+
+            _cidatabaseContext.Banners.Update(banner);
+            _cidatabaseContext.SaveChanges();
+
+
+        }
 
     }
 }

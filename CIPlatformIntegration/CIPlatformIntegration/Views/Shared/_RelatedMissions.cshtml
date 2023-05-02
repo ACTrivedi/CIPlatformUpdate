@@ -109,9 +109,29 @@
 
 
                                 <div>
-                                    <a href="#" class="btn border-warning rounded-pill" style="position: relative;left: 30%;">
-                                        <span style="color:orange">Apply &nbsp; </span> <img src="~/images/right-arrow.png" />
-                                    </a>
+
+                                      @{
+                                        @foreach (var i in Model as IEnumerable<Mission>)
+                                        {
+                                            if (i.MissionId == @modeldetail.MissionId)
+                                            {
+                                                <a asp-controller="Home" asp-action="VolunteeringMissionPage" asp-route-missionid="@i.MissionId" class="btn border-warning rounded-pill" style="position: relative;left: 30%;">
+                                                    <span style="color:orange">Apply &nbsp; </span> <img src="~/images/right-arrow.png" />
+                                                </a>
+
+                                            }
+                                            else
+                                            {
+                                                
+                                            }
+
+                                            
+
+                                        }
+
+                                      }
+
+                                   
                                 </div>
                             </div>
                         </div>

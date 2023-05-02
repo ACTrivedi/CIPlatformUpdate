@@ -96,6 +96,14 @@ namespace CIPlatformIntegration.Repository.Interface
         //For Mission Images
         /* List<IFormFile> GetImageFileList(long missionId);*/
 
-       
+        //For Banner
+
+        AdminViewModel adminViewModelMainForBanner();
+
+        void addBanner(IFormFile formFile, string bannerText, int sortOrder);
+
+        void addEditBanner(long bannerId,IFormFile file, string bannerTextEdit, int sortOrderEdit);
+
+        void bannerDelete(long bannerId);
     }
 }

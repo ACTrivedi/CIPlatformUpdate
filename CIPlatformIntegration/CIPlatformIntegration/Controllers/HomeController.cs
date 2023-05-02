@@ -53,11 +53,13 @@ namespace CIPlatformIntegration.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            ViewBag.banner = _cidatabaseContext.Banners.OrderBy(b => b.SortOrder).ToList();
             return View();
         }
         [HttpPost]
         public IActionResult Login(User _user)
         {
+            ViewBag.banner = _cidatabaseContext.Banners.OrderBy(b => b.SortOrder).ToList();
             var status = _userRepository.userLogin(_user);
             if (status != null)
             {
@@ -82,6 +84,8 @@ namespace CIPlatformIntegration.Controllers
 
 
                     HttpContext.Session.SetString("profileEmail", status.Email);
+
+                    
 
                     return RedirectToAction("Homepage", "Home");
                 }

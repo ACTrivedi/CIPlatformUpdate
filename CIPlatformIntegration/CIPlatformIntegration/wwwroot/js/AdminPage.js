@@ -1443,9 +1443,7 @@ $(document).ready(function () {
     });
 
 
-    //For Mission 
-
-  
+    //For Mission   
 
 
     $('.missionClick').on('click', function () {
@@ -1479,7 +1477,49 @@ $(document).ready(function () {
 
                 }
         });
-    });     
+    });
+
+
+
+    //For Banner
+    $('.bannerClick').on('click', function () {
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'HTML',
+            url: '/Admin/bannerMain',
+
+            success:
+                function (res) {
+
+                    $('.bannerArea').html('');
+                    $('.bannerArea').append(res);
+
+
+                    let BannerDataTable = new DataTable('#BannerDataTable', {
+                        lengthChange: false,
+                        pageLength: 7,
+
+                    });
+
+
+
+
+                },
+            failure:
+                function () {
+
+                }
+        });
+    });
+
+
+
+
+
+
+
+
 });
 
 //Mission Add Start
@@ -1545,7 +1585,7 @@ function AddMission() {
 
 
 function EditMission(MissionId) { 
-    alert();
+   
         
     var missionId = MissionId;
 
@@ -1736,6 +1776,11 @@ function DeleteMission(MissionId) {
 
 
 
+
+
+
+
+
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const d = new Date();
@@ -1857,6 +1902,7 @@ $('.userDelete').on('click', function () {
             $('.userTableReload').html(newtable);*/
 
             location.reload();
+
             
            
             
@@ -1869,6 +1915,184 @@ $('.userDelete').on('click', function () {
     });
 
 });
+
+
+
+
+//For Banner
+function addBanner() {
+    var file_data = $("#bannerfileimg").prop("files")[0];
+    var form_data = new FormData();
+
+    form_data.append("files", file_data);
+    form_data.append("bannerText", $('#bannertext').val());
+    form_data.append("sortOrder", $('#bannersort').val());
+
+    console.log(form_data);
+    $.ajax({
+        url: '/Admin/AdminAddBanner',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,
+        type: 'post',
+        success:
+            function (res) {
+
+                
+                /*$("#exampleModalBannerAdd").hide();
+                $(".modal-backdrop").hide();*/
+
+                $('.bannerArea').html('');
+                $('.bannerArea').append(res);
+
+                location.reload();
+
+                let BannerDataTable = new DataTable('#BannerDataTable', {
+                    lengthChange: false,
+                    pageLength: 5,
+                });
+
+               
+
+
+
+            },
+        failure:
+            function () {
+
+            }
+    });
+
+
+}
+
+function bannerDetail(bannerId)
+{
+    var bannerId = bannerId;
+    console.log(bannerId);
+
+
+    $.ajax({
+        url: '/Admin/bannerDetail',
+        type: "post",
+        dataType: "json",
+        data: {
+            bannerId: bannerId
+        },
+        success: function (res) {
+            console.log(res);
+            console.log(res.bannerImage);
+
+            /*$('#bannerfileimgEdit').val(res.bannerImage);*/
+            
+            $("#bannerfileimgEdit").attr("src", res.bannerImage);
+            $('#bannerTextEdit').val(res.bannerText);
+            $('#bannersortEdit').val(res.sortOrder);
+
+            $('#bannerInputId').val(res.bannerId);
+           
+
+        },
+        failure: function (res) {
+            alert("Thase thase");
+        }
+
+
+    });
+    
+}
+
+
+function editBanner()
+{
+    var bannerId = $('#bannerInputId').val();
+
+
+    var file_data = $("#bannerfileimgEditNew").prop("files")[0];
+    var form_data = new FormData();
+
+    form_data.append("files", file_data);
+    form_data.append("bannerTextEdit", $('#bannerTextEdit').val());
+    form_data.append("sortOrderEdit", $('#bannersortEdit').val());
+    form_data.append("bannerId", bannerId);
+
+
+    console.log(form_data);
+    $.ajax({
+        url: '/Admin/AdminEditBanner',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,
+        type: 'post',
+        success:
+            function (res) {
+
+
+                location.reload();
+               
+                $('.bannerArea').html('');
+                $('.bannerArea').append(res);
+
+
+                let BannerDataTable = new DataTable('#BannerDataTable', {
+                    lengthChange: false,
+                    pageLength: 5,
+                });
+
+
+
+
+            },
+        failure:
+            function () {
+
+            }
+    });
+
+}
+
+
+
+
+
+function DeleteBanner(bannerId) {
+    var bannerId = bannerId;
+    console.log(bannerId);
+
+
+    $.ajax({
+        url: '/Admin/bannerDelete',
+        type: "post",
+        dataType: "HTML",
+        data: {
+            bannerId: bannerId
+        },
+        success: function (res) {
+           
+            $('.bannerArea').html('');
+            $('.bannerArea').html(res);
+            /*$('#bannerfileimgEdit').val(res.bannerImage);*/
+
+            let BannerDataTable = new DataTable('#BannerDataTable', {
+                lengthChange: false,
+                pageLength: 5,
+            });
+           
+
+
+        },
+        failure: function (res) {
+            alert("Thase thase");
+        }
+
+
+    });
+
+}
+
+
 
 
 /*

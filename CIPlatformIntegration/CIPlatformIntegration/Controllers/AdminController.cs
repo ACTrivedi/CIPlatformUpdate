@@ -520,5 +520,96 @@ namespace CIPlatformIntegration.Controllers
 
 
         }
+
+
+
+        // For Banner
+        
+
+       [HttpPost]
+       public IActionResult bannerMain()
+        {
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForBanner();
+
+            return PartialView("_adminBannerManagement", adminViewModelMain);
+        }
+
+
+        [HttpPost]
+        public IActionResult AdminAddBanner()
+        {
+            var bannerText = Request.Form.Where(x => x.Key == "bannerText").FirstOrDefault().Value;
+            string sort = Request.Form.Where(x => x.Key == "sortOrder").FirstOrDefault().Value;
+            int sortOrder = int.Parse(sort);
+            if (Request.Form.Files.Count() > 0)
+            {
+                IFormFile file = Request.Form.Files[0];
+                _adminRepository.addBanner(file, bannerText, sortOrder);
+            }
+                    
+
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForBanner();
+
+            return PartialView("_adminBannerManagement", adminViewModelMain);
+        }
+
+        
+
+        [HttpPost]
+        public IActionResult bannerDetail(long bannerId)
+        {
+
+            var banner = _cidatabaseContext.Banners.Where(b => b.BannerId == bannerId).FirstOrDefault();
+            
+
+            var myObject = new
+            {
+                bannerId= banner.BannerId,
+                bannerText = banner.Text,
+                sortOrder = banner.SortOrder,
+                bannerImage=banner.Image,
+
+            };
+
+            return Json(myObject);
+        }
+
+        
+
+        [HttpPost]
+        public IActionResult AdminEditBanner()
+        {
+            var bannerTextEdit = Request.Form.Where(x => x.Key == "bannerTextEdit").FirstOrDefault().Value;
+            string sortOrder = Request.Form.Where(x => x.Key == "sortOrderEdit").FirstOrDefault().Value;
+            string bannerIdWait= Request.Form.Where(x => x.Key == "bannerId").FirstOrDefault().Value;
+            long bannerId= Convert.ToInt64(bannerIdWait);
+            int sortOrderEdit = int.Parse(sortOrder);
+            if (Request.Form.Files.Count() > 0)
+            {
+                IFormFile file = Request.Form.Files[0];
+                _adminRepository.addEditBanner(bannerId,file, bannerTextEdit, sortOrderEdit);
+            }
+
+
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForBanner();
+
+            return PartialView("_adminBannerManagement", adminViewModelMain);
+        }
+
+
+        [HttpPost]
+        public IActionResult bannerDelete(long bannerId)
+        {
+            _adminRepository.bannerDelete(bannerId);
+
+
+            AdminViewModel adminViewModelMain = _adminRepository.adminViewModelMainForBanner();
+
+            return PartialView("_adminBannerManagement", adminViewModelMain);
+
+        }
+
     }
 }
