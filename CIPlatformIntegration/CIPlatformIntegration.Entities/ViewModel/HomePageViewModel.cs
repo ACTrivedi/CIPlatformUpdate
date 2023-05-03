@@ -24,6 +24,9 @@ namespace CIPlatformIntegration.Entities.ViewModel
         public List<GoalMission> GoalMission { get; set; }
 
         public List<MissionMedium> missionMedia { get; set; }
+
+        public List<User> usersRecommend { get; set; }
+
         public User Users { get; set; }
 
         public List<Timesheet> timesheets { get; set; }

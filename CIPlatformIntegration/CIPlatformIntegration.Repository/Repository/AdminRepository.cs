@@ -1212,5 +1212,28 @@ namespace CIPlatformIntegration.Repository.Repository
 
         }
 
+
+        //For Admin Login
+        public Admin adminLogin(Admin _admin)
+        {
+            if (_admin.Email != null && _admin.Password != null)
+            {
+                var emailstatus = _cidatabaseContext.Admins.FirstOrDefault(a => a.Email == _admin.Email && a.Password==_admin.Password);
+                             
+                
+                if (emailstatus == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return emailstatus;
+                }
+            }
+            return null;
+        }
+
+
+
     }
 }

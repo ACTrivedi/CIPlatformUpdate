@@ -105,6 +105,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 timesheets =_cidatabaseContext.Timesheets.ToList(),
                 skills=_cidatabaseContext.Skills.ToList(),
                 missionMedia=_cidatabaseContext.MissionMedia.ToList(),
+                usersRecommend=_cidatabaseContext.Users.ToList(),
                
             };
 
@@ -131,6 +132,7 @@ namespace CIPlatformIntegration.Repository.Repository
                 timesheets = _cidatabaseContext.Timesheets.ToList(),
                 skills = _cidatabaseContext.Skills.ToList(),
                 missionMedia = _cidatabaseContext.MissionMedia.ToList(),
+                usersRecommend = _cidatabaseContext.Users.ToList(),
             };
 
             List<Mission> miss = _cidatabaseContext.Missions.ToList();

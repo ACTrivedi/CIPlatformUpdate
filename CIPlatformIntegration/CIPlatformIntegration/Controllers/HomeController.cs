@@ -117,8 +117,6 @@ namespace CIPlatformIntegration.Controllers
 
 
 
-
-
         [HttpPost]
         public IActionResult Registration(User user)
         {
@@ -215,7 +213,7 @@ namespace CIPlatformIntegration.Controllers
                 };
                 using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                 {
-                    smtp.Credentials = new NetworkCredential("ciplatformmailsenderchintan@gmail.com", "wldqapfcryqgboua");
+                    smtp.Credentials = new NetworkCredential("ciplatformmailsenderchintan@gmail.com", "pmjfsnfycrhnygrw");
 
                     smtp.EnableSsl = true;
                     smtp.Send(message);
@@ -542,7 +540,7 @@ namespace CIPlatformIntegration.Controllers
             if (to_userID != null)
             {
                 MailMessage mail = new MailMessage();
-                mail.From = new MailAddress("ciplatformmailsender@gmail.com");
+                mail.From = new MailAddress("ciplatformmailsenderchintan@gmail.com");
                 mail.To.Add(new MailAddress(userEmail));
                 mail.Subject = "Test mail";
                 mail.Body = "<html><body>Click here<a href='" + "https://localhost:7296/Home/VolunteeringMissionPage?missionid=" + missionID + "'> to recommend this mission</a></body></html>";
@@ -552,7 +550,7 @@ namespace CIPlatformIntegration.Controllers
                 myclient.Host = "smtp.gmail.com";
                 myclient.Port = 587;
                 myclient.Credentials = new
-                System.Net.NetworkCredential("ciplatformmailsender@gmail.com", "muarmclnmmtdzxqh");
+                System.Net.NetworkCredential("ciplatformmailsenderchintan@gmail.com", "pmjfsnfycrhnygrw");
                 myclient.EnableSsl = true;
                 myclient.Send(mail);
 
@@ -575,7 +573,43 @@ namespace CIPlatformIntegration.Controllers
 
 
 
+        public IActionResult RecommendtoworkerByCard(string userEmail,long missionId)
+        {
+            var to_userID = _cidatabaseContext.Users.Where(u => u.Email == userEmail).Select(u => u.UserId).SingleOrDefault();
+            var userid = (long)HttpContext.Session.GetInt32("farfavuserid");
+           
+            if (to_userID != null)
+            {
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress("ciplatformmailsenderchintan@gmail.com");
+                mail.To.Add(new MailAddress(userEmail));
+                mail.Subject = "Test mail";
+                mail.Body = "<html><body>Click here<a href='" + "https://localhost:7296/Home/VolunteeringMissionPage?missionid=" + missionId + "'> to recommend this mission</a></body></html>";
+                mail.IsBodyHtml = true;
 
+                SmtpClient myclient = new SmtpClient();
+                myclient.Host = "smtp.gmail.com";
+                myclient.Port = 587;
+                myclient.Credentials = new
+                System.Net.NetworkCredential("ciplatformmailsenderchintan@gmail.com", "pmjfsnfycrhnygrw");
+                myclient.EnableSsl = true;
+                myclient.Send(mail);
+
+
+
+                MissionInvite inviteobj = new MissionInvite();
+                inviteobj.MissionId = missionId;
+                inviteobj.ToUserId = to_userID;
+                inviteobj.FromUserId = userid;
+
+                _cidatabaseContext.MissionInvites.Add(inviteobj);
+                _cidatabaseContext.SaveChanges();
+
+
+
+            }
+            return RedirectToAction("VolunteeringMissionPage", new { missionid = missionId });
+        }
 
 
 

@@ -26,14 +26,25 @@ namespace CIPlatformIntegration.Controllers
         [HttpGet]
         public IActionResult AdminPage()
         {
-            var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
+            var adminSession=HttpContext.Session.GetString("AdminSession");
+            if (adminSession == "True")
+            {
+                var userIdForUserEdit = (long)HttpContext.Session.GetInt32("farfavuserid");
 
-            var userUpdate = _adminRepository.user(userIdForUserEdit);
+                var userUpdate = _adminRepository.user(userIdForUserEdit);
 
 
-            AdminViewModel adminViewModel = _adminRepository.adminViewModel(userUpdate, userIdForUserEdit);
+                AdminViewModel adminViewModel = _adminRepository.adminViewModel(userUpdate, userIdForUserEdit);
 
-            return View(adminViewModel);
+                return View(adminViewModel);
+
+            }
+            else
+            {
+                return RedirectToAction("AdminLogin", "Admin");
+            }
+
+            
         }
 
         [HttpPost]
@@ -609,6 +620,52 @@ namespace CIPlatformIntegration.Controllers
 
             return PartialView("_adminBannerManagement", adminViewModelMain);
 
+        }
+
+
+        //For Admin Login
+        [HttpGet]
+        public IActionResult AdminLogin()
+        {
+            ViewBag.banner = _cidatabaseContext.Banners.OrderBy(b => b.SortOrder).ToList();
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AdminLogin(Admin _admin)
+        {
+            HttpContext.Session.SetString("AdminSession", "True");
+            ViewBag.banner = _cidatabaseContext.Banners.OrderBy(b => b.SortOrder).ToList();
+            var status = _adminRepository.adminLogin(_admin);
+            if (status != null)
+            {   
+                                
+                                  
+                   /* HttpContext.Session.SetString("profile", status.FirstName);    */                                  
+
+                    /*HttpContext.Session.SetString("profileEmail", status.Email);*/
+
+                    return RedirectToAction("AdminPage", "Admin");
+              
+            }
+            else
+            {
+               
+                return View();
+
+            }
+            /*return View();*/
+
+
+
+
+        }
+
+
+        public IActionResult AdminLogout()
+        {
+            
+            HttpContext.Session.Remove("AdminSession");
+            return RedirectToAction("AdminLogin", "Admin");
         }
 
     }

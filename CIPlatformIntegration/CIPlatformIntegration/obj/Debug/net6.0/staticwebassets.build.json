@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HFzrzuUfuLuCPmEfBQN0cc1zFegRULZOeYVQyd1lPlU=",
+  "Hash": "cs/uZIXnx6ve3jKIFY5anKrlJOP3NeQ9U1WhVR6/sY4=",
   "Source": "CIPlatformIntegration",
   "BasePath": "_content/CIPlatformIntegration",
   "Mode": "Default",
@@ -576,6 +576,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Animal-welfare-_-save-birds-campaign-1.png"
+    },
+    {
+      "Identity": "D:\\CIPlatformUpdate\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\AvatarImages\\AdminProfile.jpg",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CIPlatformUpdate\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "images/AvatarImages/AdminProfile.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\AvatarImages\\AdminProfile.jpg"
     },
     {
       "Identity": "D:\\CIPlatformUpdate\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\AvatarImages\\Avatar2.jfif",

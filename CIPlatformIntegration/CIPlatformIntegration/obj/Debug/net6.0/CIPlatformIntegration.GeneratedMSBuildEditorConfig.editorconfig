@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = D:\CIPlatformUpdate\CIPlatformIntegration\CIPlatformIntegration
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/CIPlatformUpdate/CIPlatformIntegration/CIPlatformIntegration/Views/Admin/AdminLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5Mb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/CIPlatformUpdate/CIPlatformIntegration/CIPlatformIntegration/Views/Admin/AdminPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5QYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

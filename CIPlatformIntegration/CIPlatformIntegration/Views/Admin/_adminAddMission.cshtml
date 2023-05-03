@@ -184,9 +184,17 @@
                 <select name="Skilllist" size="8" class="form-control" id="missionSkills" multiple>
                     @foreach (var item in @Model.skills)
                     {
-                        <option value="@item.SkillId">
-                            @item.SkillName
-                        </option>
+                        if (item.Status == 1)
+                        {
+                            <option value="@item.SkillId">
+                                @item.SkillName
+                            </option>
+                        }
+                        else
+                        {
+                            
+                        }
+
                     }
                 </select>
 

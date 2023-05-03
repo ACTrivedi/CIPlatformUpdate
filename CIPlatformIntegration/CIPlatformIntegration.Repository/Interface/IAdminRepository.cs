@@ -105,5 +105,10 @@ namespace CIPlatformIntegration.Repository.Interface
         void addEditBanner(long bannerId,IFormFile file, string bannerTextEdit, int sortOrderEdit);
 
         void bannerDelete(long bannerId);
+
+        //Admin Login
+
+        Admin adminLogin(Admin _admin);
+
     }
 }

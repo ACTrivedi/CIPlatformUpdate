@@ -70,13 +70,17 @@
                         <div class="dropdown">
                             <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" style="font-size:17px; margin-t:2vh;">
                                 <img src="/images/user-img.png" class="rounded-circle" style="width:40px; height:40px" />
-                                Profile
+                                
                             </a>
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="Login">
+                                    User Login
+                                </a>
+                                <a class="dropdown-item" asp-controller="Admin" asp-action="AdminLogout">
+                                    Logout
+                                </a>
                             </ul>
                         </div>
                     </div>
@@ -100,7 +104,7 @@
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModalAdminUserAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-xl">
-                            <form class="row g-5 needs-validation" novalidate method="post" action="AdminAddUser" enctype="multipart/form-data" >
+                            <form class="row g-5 needs-validation" novalidate method="post" action="AdminAddUser" enctype="multipart/form-data">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">User</h1>
@@ -117,7 +121,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
-                                                <label for="" class="form-label">Last Name</label>                                                
+                                                <label for="" class="form-label">Last Name</label>
                                                 <input type="text" class="form-control" id="surname" name="surname" placeholder="Enter your Surname" required>
                                                 <div class="invalid-feedback">
                                                     *Lastname is Required
@@ -184,24 +188,24 @@
                                                         }
                                                     </select>
                                                     <div class="invalid-feedback">
-                                                    *Country is Required
-                                                     </div>
+                                                        *Country is Required
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
                                                 <div class="form-group">
                                                     <label>City</label>
                                                     <select class="form-select city-drop" name="cityid" aria-label="Default select example" disabled>
-                                                          <option value=""> Select Country First! </option>
+                                                        <option value=""> Select Country First! </option>
                                                         @*@foreach (var item in Model.cities)
-                                                        {
+                                                            {
                                                             <option value="@Model.User.CityId" selected>@item.Name</option>
-                                                        }*@
+                                                            }*@
                                                     </select>
                                                     <div class="invalid-feedback">
-                                                    *City is Required
+                                                        *City is Required
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
 
@@ -213,7 +217,7 @@
                                                     *Profile Text is Required
                                                 </div>
                                             </div>
-                                                                                     
+
 
                                         </div>
                                     </div>
@@ -314,7 +318,7 @@
 
                                             <div class="col-lg-6">
                                                 <label for="avatar" class="form-label">Avatar</label>
-                                                <input type="file" class="form-control" id="Eavatar" name="avatar" accept="image/*" >
+                                                <input type="file" class="form-control" id="Eavatar" name="avatar" accept="image/*">
                                             </div>
 
                                             <div class="col-lg-6">
@@ -366,16 +370,16 @@
                                                 <div class="form-group">
                                                     <label>City</label>
                                                     <select class="form-select city-dropEdit" name="cityid" id="cityEdit" aria-label="Default select example">
-                                                                                                                                                                        
+
                                                         @*@foreach (var item in Model.cities)
-                                                        {
+                                                            {
                                                             <option value="@Model.User.CityId">@item.Name</option>
-                                                        }*@
+                                                            }*@
 
 
 
                                                     </select>
-                                                    
+
                                                 </div>
                                             </div>
 
@@ -443,7 +447,6 @@
 
                 @*For Banner start*@
                 <div class="tab-pane fade bannerArea" id="v-pills-banner" role="tabpanel" aria-labelledby="v-pills-banner-tab" tabindex="0">
-
                 </div>
                 @*For Banner End*@
 
@@ -461,8 +464,8 @@
     <script src="~/js/AdminPage.js"></script>
 
     <script>
-       
-       
+
+
     </script>
 
 
