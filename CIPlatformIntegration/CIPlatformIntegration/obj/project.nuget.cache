@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FGQ/ADiLprbtNhxtUtQpvGzcWua+MSmMe2jsNy4Y+S9nreMWp0jvJZWQHjue6ddVtHPHFhB8nd6QMTDUOPbbwQ==",
+  "dgSpecHash": "SBKKAYd6oYWfFXiMU0vXA/qKr6N1MCtHBjLJpuiDXDdHjOI0o8bR0C7mT/sjcjIvPXHsrd+dvn/vCs5djkFD0g==",
   "success": true,
   "projectFilePath": "D:\\CIPlatformUpdate\\CIPlatformIntegration\\CIPlatformIntegration\\CIPlatformIntegration.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,7 @@
     "C:\\Users\\pci234\\.nuget\\packages\\dotnetopenauth.oauth.core\\4.3.4.13329\\dotnetopenauth.oauth.core.4.3.4.13329.nupkg.sha512",
     "C:\\Users\\pci234\\.nuget\\packages\\dotnetopenauth.openid.core\\4.3.4.13329\\dotnetopenauth.openid.core.4.3.4.13329.nupkg.sha512",
     "C:\\Users\\pci234\\.nuget\\packages\\dotnetopenauth.openid.relyingparty\\4.3.4.13329\\dotnetopenauth.openid.relyingparty.4.3.4.13329.nupkg.sha512",
+    "C:\\Users\\pci234\\.nuget\\packages\\dropzone\\4.3.0\\dropzone.4.3.0.nupkg.sha512",
     "C:\\Users\\pci234\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
     "C:\\Users\\pci234\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\pci234\\.nuget\\packages\\jquery\\1.6.3\\jquery.1.6.3.nupkg.sha512",

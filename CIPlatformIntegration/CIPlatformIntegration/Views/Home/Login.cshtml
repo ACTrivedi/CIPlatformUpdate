@@ -1,9 +1,9 @@
 ﻿@model CIPlatformIntegration.Entities.Models.User;
 
 @*
-<!DOCTYPE html>
-<html lang="en">
-<head>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,167 +14,169 @@
 
     <link rel="stylesheet" href="~/css/Login.css">
     <title>Loginpage</title>
-</head>
-<body>
+    </head>
+    <body>
 *@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Roboto+Slab&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet" href="~/css/Login.css">
+<link rel="stylesheet" href="~/css/Login.css">
     @{
-        if (@ViewBag.userNotExist != null)
-        {
-            <script type="text/javascript">
-                 const Toast = Swal.mixin({
-                  toast: true,
-                  position: 'top-end',
-                  showConfirmButton: false,
-                  timer: 2000,
-                  timerProgressBar: true,
-                  didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                  }
-                })
+    if (@ViewBag.userNotExist != null)
+    {
+        <script type="text/javascript">
+             const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
 
-                Toast.fire({
-                  icon: 'error',
-                  title: 'User Not Exist!'
-                })
-            </script>
-        }
-
-
+            Toast.fire({
+              icon: 'error',
+              title: 'User Not Exist!'
+            })
+        </script>
     }
-  
+
+
+}
 
 
 
 
-    <div class="container-fluid p-0 g-0 m-0 h-100">
-        <div class="row align-items-center">
-            <div class="col-lg-8 p-0">
 
+<div class="container-fluid p-0 g-0 m-0 h-100">
+    <div class="row align-items-center">
+        <div class="col-lg-8 p-0">
 
-                <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                    @*<ol class="carousel-indicators">
-                        <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-ride="carousel">
+                @*<ol class="carousel-indicators">
+                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
                     </ol>*@
-                    <div class="carousel-inner">
-                        @{
-                            foreach (var i in @ViewBag.banner)
+                <div class="carousel-inner">
+                    @{
+                        foreach (var i in @ViewBag.banner)
+                        {
+                            if (i.SortOrder == 1)
                             {
-                                if (i.SortOrder == 1)
-                                {
-                                    <div class="carousel-item active">
-                                        <img src="@i.Image" class="d-block w-100 " style="height:100vh;filter: brightness(60%);" alt="...">
-                                        <div class="carousel-caption d-none d-md-block text-start" style="bottom:12vh;">
-                                            <h3 style="font-family:'EmojiOne Color';color: darkgray;">@i.Text</h3>
-                                        </div>
+                                <div class="carousel-item active">
+                                    <img src="@i.Image" class="d-block w-100 " style="height:100vh;filter: brightness(60%);" alt="...">
+                                    <div class="carousel-caption d-none d-md-block text-start" style="bottom:12vh;">
+                                        <h3 style="font-family:'EmojiOne Color';color: darkgray;">@i.Text</h3>
                                     </div>
-
-                                }
-                                else
-                                {
-                                     <div class="carousel-item">
-                                        <img src="@i.Image" class="d-block w-100 " style="height:100vh;filter: brightness(60%);" alt="...">
-                                        <div class="carousel-caption d-none d-md-block text-start"  style="bottom:12vh;">
-                                            <h3 style="font-family:'EmojiOne Color';color: darkgray;">@i.Text</h3>
-                                        </div>
-                                    </div>
-                                    
-
-                                }
+                                </div>
 
                             }
+                            else
+                            {
+                                <div class="carousel-item">
+                                    <img src="@i.Image" class="d-block w-100 " style="height:100vh;filter: brightness(60%);" alt="...">
+                                    <div class="carousel-caption d-none d-md-block text-start" style="bottom:12vh;">
+                                        <h3 style="font-family:'EmojiOne Color';color: darkgray;">@i.Text</h3>
+                                    </div>
+                                </div>
+
+
+                            }
+
                         }
-                       @* <div class="carousel-item">
-                            <img src="\MissionMedia\TreePlantation.jpg" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>First slide label</h5>
-                                <p>Some representative placeholder content for the first slide.</p>
-                            </div>
+                    }
+                    @* <div class="carousel-item">
+                        <img src="\MissionMedia\TreePlantation.jpg" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                        <h5>First slide label</h5>
+                        <p>Some representative placeholder content for the first slide.</p>
+                        </div>
                         </div>*@
 
+                </div>
+                <button class="carousel-control-prev d-none" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </button>
+                <button class="carousel-control-next d-none" type="button" data-target="#carouselExampleCaptions" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </button>
+            </div>
+
+
+
+        </div>
+        <div class="col-lg-4">
+
+            @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+            {
+                <div>
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    @Html.TextBoxFor(x=>x.Email,new {@class="form-control", @placeholder="Enter Your Email"})
+                    <div class="input-group-append" style="position: absolute;top: 37px;right: 19px; background-color:darkgray">
+                        <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </button>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+
+                </div>
+                <div class="mt-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    @Html.PasswordFor(m =>m.Password,new {@class="form-control", @placeholder="Enter Your Password"})
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                     <div class="input-group-append" style="position: absolute;top: 125px;right: 19px; background-color:darkgray">
+                        <span class="input-group-text"> <i class="fa-solid fa-lock" ></i></span>
+                    </div>
+                   
+
                 </div>
 
+                <input type="submit" class="mt-4 btn w-100 rounded-pill loginButton" value="Login" />
 
 
-            </div>
-            <div class="col-lg-4">
-
-                @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+                if (ViewBag.LoginStatus == 0)
                 {
-
-
-
-
-                    <div>
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        @Html.TextBoxFor(x=>x.Email,new {@class="form-control", @placeholder="Enter Your Email"})
-                        <span asp-validation-for="Email" class="text-danger"></span>
-
-
-
-                    </div>
-                    <div class="mt-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        @Html.PasswordFor(m =>m.Password,new {@class="form-control", @placeholder="Enter Your Password"})
-                        <span asp-validation-for="Password" class="text-danger"></span>
-
-
-
-                    </div>
-
-                    <input type="submit" class="mt-3 btn btn-outline-warning w-100 rounded-pill" value="Login" />
-
-
-                    if (ViewBag.LoginStatus == 0)
-                    {
-                        <div class="alert alert-danger mt-3"> Incorrect Details! </div>
-                    }
-
+                    <div class="alert alert-danger mt-3"> Incorrect Details! </div>
                 }
 
-                <div class="p1">
-                    <a href="~/Home/Forgotpassword" style="color:gray; text-decoration:none;">
-                        Lost your password?
-                    </a>
-                </div>
+            }
 
-                <div class="p2">
-                    <p>Don't have an account?<span><a href="~/Home/Registration" style="color:gray; text-decoration:none;">Create an account</a></span></p>
-                </div>
-
-
-
-                <div class="privacy1"><p>Privacy Policy</p></div>
-
-
-
+            <div class="p1">
+                <a href="~/Home/Forgotpassword" style="color:gray; text-decoration:none;">
+                    Lost your password?
+                </a>
             </div>
+
+            <div class="p2">
+                <p>Don't have an account?<span><a href="~/Home/Registration" style="color:gray; text-decoration:none;">Create an account</a></span></p>
+            </div>
+
+
+
+            <div class="privacy1"><p>Privacy Policy</p></div>
+
+
+
         </div>
     </div>
+</div>
 
 
 
 @*
 
 
-</body>
+    </body>
 
-</html>
+    </html>
 *@

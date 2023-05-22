@@ -81,6 +81,9 @@
           "lib/net45-full/DotNetOpenAuth.OpenId.RelyingParty.dll": {}
         }
       },
+      "dropzone/4.3.0": {
+        "type": "package"
+      },
       "Google.Protobuf/3.21.9": {
         "type": "package",
         "compile": {
@@ -4125,6 +4128,7 @@
           "Microsoft.Extensions.Identity.Core": "6.0.14",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.12",
           "MimeKit": "3.6.0",
+          "dropzone": "4.3.0",
           "toastr": "2.1.1"
         },
         "compile": {
@@ -4149,6 +4153,7 @@
           "Microsoft.Extensions.Identity.Core": "6.0.14",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.12",
           "MimeKit": "3.6.0",
+          "dropzone": "4.3.0",
           "toastr": "2.1.1"
         },
         "compile": {
@@ -4308,6 +4313,25 @@
         "lib/net40-full/DotNetOpenAuth.OpenId.RelyingParty.xml",
         "lib/net45-full/DotNetOpenAuth.OpenId.RelyingParty.dll",
         "lib/net45-full/DotNetOpenAuth.OpenId.RelyingParty.xml"
+      ]
+    },
+    "dropzone/4.3.0": {
+      "sha512": "erwoK0GJ+gDfphtbBOjUkdoe/MBDbTVwd2DvvgNdULgJmZvOHrnbZQJH6GnbMXf9wa463sASZG102ZYbSw+e/Q==",
+      "type": "package",
+      "path": "dropzone/4.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/Scripts/dropzone/basic.css",
+        "content/Scripts/dropzone/basic.min.css",
+        "content/Scripts/dropzone/dropzone-amd-module.js",
+        "content/Scripts/dropzone/dropzone-amd-module.min.js",
+        "content/Scripts/dropzone/dropzone.css",
+        "content/Scripts/dropzone/dropzone.js",
+        "content/Scripts/dropzone/dropzone.min.css",
+        "content/Scripts/dropzone/dropzone.min.js",
+        "dropzone.4.3.0.nupkg.sha512",
+        "dropzone.nuspec"
       ]
     },
     "Google.Protobuf/3.21.9": {
@@ -12034,6 +12058,7 @@
       "MySql.Data >= 8.0.32",
       "NToastNotify >= 8.0.0",
       "Swashbuckle.AspNetCore >= 6.3.0",
+      "dropzone >= 4.3.0",
       "toastr >= 2.1.1"
     ]
   },
@@ -12157,6 +12182,10 @@
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.3.0, )"
+          },
+          "dropzone": {
+            "target": "Package",
+            "version": "[4.3.0, )"
           },
           "toastr": {
             "target": "Package",

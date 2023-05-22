@@ -10,6 +10,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StoryAdding</title>
 
+    @*For Dropzone*@
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link href="dropzone/dropzone.css" rel="stylesheet" type="text/css" />
+    <script src="dropzone/dropzone.js" type="text/javascript"></script>
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     @*For Bootstrap*@
@@ -77,7 +84,7 @@
                 <label for="inputState" class="form-label">Date</label>
                 <input required type="date" class="form-control" placeholder="dd/mm/yyyy" id="date" name="postingdate">
                 <div class="invalid-feedback">
-                   *Please enter Date Volunteered!
+                    *Please enter Date Volunteered!
                 </div>
             </div>
 
@@ -101,15 +108,27 @@
 
 
 
-            <div class="col-lg-12 input-div d-flex flex-column">
+            @* <div class="col-lg-12 input-div d-flex flex-column">
                 <div class="image">
-                    <img src="~/images/add.png" />
+                <img src="~/images/add.png" />
                 </div>
                 <p>Drag & drop pictures here or <strong>Browse</strong></p>
                 <input type="file" id="selectedfile" class="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg" name="formFile" required>
-            </div>
+                </div>
 
-            <output></output>
+                <output></output>*@
+
+            @*For images*@
+
+
+            <form asp-controller="home" asp-action="upload" asp-antiforgery="false"
+                  class="dropzone" id="UploadForm" enctype="multipart/form-data">
+                <div class="fallback">
+                    <input name="file" type="file" multiple />
+                    <input type="submit" value="Upload" />
+                </div>
+            </form>
+
 
 
             <div class="col-lg-12 justify-content-between d-flex mt-0">
@@ -171,52 +190,77 @@
     </script>
 
     <script>
-        const inputDiv = document.querySelector(".input-div")
-        let input = document.querySelector("#selectedfile")
+                        const inputDiv = document.querySelector(".input-div")
+                        let input = document.querySelector("#selectedfile")
 
-        console.log(inputDiv)
-        const output = document.querySelector("output")
-        let imagesArray = []
+                        console.log(inputDiv)
+                        const output = document.querySelector("output")
+                        let imagesArray = []
 
-        input.addEventListener("change", () => {
+                        input.addEventListener("change", () => {
 
-            const files = input.files
-            console.log(files)
-            for (let i = 0; i < files.length; i++) {
-                imagesArray.push(files[i])
-            }
-            displayImages()
-        })
-
-
-        inputDiv.addEventListener("drop", () => {
-            e.preventDefault()
-            const files = e.dataTransfer.files
-            for (let i = 0; i < files.length; i++) {
-                if (!files[i].type.match("image")) continue;
-
-                if (imagesArray.every(image => image.name !== files[i].name))
-                    imagesArray.push(files[i])
-            }
-            displayImages()
-        })
-
-        function displayImages() {
-            let images = ""
-            imagesArray.forEach((image, index) => {
-                images += `<div class="image">
-                        <img src="${URL.createObjectURL(image)}" alt="image">
-                        <span onclick="deleteImage(${index})">&times;</span>
-                      </div>`
-            })
-            output.innerHTML = images
-        }
+                            const files = input.files
+                            console.log(files)
+                            for (let i = 0; i < files.length; i++) {
+                                imagesArray.push(files[i])
+                            }
+                            displayImages()
+                        })
 
 
-        function deleteImage(index) {
-            imagesArray.splice(index, 1)
-            displayImages()
-        }
+                        inputDiv.addEventListener("drop", () => {
+                            e.preventDefault()
+                            const files = e.dataTransfer.files
+                            for (let i = 0; i < files.length; i++) {
+                                if (!files[i].type.match("image")) continue;
+
+                                if (imagesArray.every(image => image.name !== files[i].name))
+                                    imagesArray.push(files[i])
+                            }
+                            displayImages()
+                        })
+
+                        function displayImages() {
+                            let images = ""
+                            imagesArray.forEach((image, index) => {
+                                images += `<div class="image">
+                                        <img src="${URL.createObjectURL(image)}" alt="image">
+                                        <span onclick="deleteImage(${index})">&times;</span>
+                                      </div>`
+                            })
+                            output.innerHTML = images
+                        }
+
+
+                        function deleteImage(index) {
+                            imagesArray.splice(index, 1)
+                            displayImages()
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                       Dropzone.options.UploadForm = {
+            maxFilesize: 20, // MB
+            acceptedFiles : "image/*"
+        };
+
+
+
+
+
     </script>
 
 

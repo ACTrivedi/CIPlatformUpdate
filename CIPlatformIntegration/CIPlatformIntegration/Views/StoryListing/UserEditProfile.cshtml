@@ -12,15 +12,12 @@
 
     @*For Bootstrap*@
 
+    <link rel="stylesheet" href="~/css/HeaderBar.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 
     @*CSS file for HeaderBar*@
-    <link rel="stylesheet" href="~/css/HeaderBar.css"></link>
-
-
-
-
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
@@ -28,6 +25,11 @@
     <script src="~/js/UserEditProfile.js"></script>
 
     <style>
+        .changePasswordButton:hover {
+            background-color: orange;
+            color: black !important;
+        }
+
         .dual-list .list-group {
             margin-top: 8px;
         }
@@ -66,8 +68,35 @@
         .form-select.is-valid, .was-validated .form-select:valid {
             border: none !important;
         }
+
+        .password-container {
+            position: relative;
+        }
+
+        #togglePassword {
+            position: absolute;
+            top: 50%;
+            right: 7px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+
+        .confirmPassword-container {
+            position: relative;
+        }
+
+        #toggleConfirmPassword {
+            position: absolute;
+            top: 50%;
+            right: 7px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
     </style>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -132,18 +161,38 @@
                                             <div id="oldPasswordAlert" style="color:red;font-size: 13px; margin-left: 5px;"></div>
 
                                             <label for="inputState" class="form-label mt-3 mb-0">Enter new password</label>
-                                            <input type="password" class="form-control " placeholder="Enter new password" id="newPassword" name="newPassword">
-                                            <div id="newPasswordAlert" style="color:red;font-size: 13px; margin-left: 5px;"></div>
 
-                                            <label for="inputState" class="form-label  mt-3 mb-0">Confirm password</label>
-                                            <input type="password" class="form-control" placeholder="Enter confirm password" id="confirmNewPassword" name="confirmNewPassword">
+                                            <div class="password-container">
+
+                                                <input type="password" class="form-control " placeholder="Enter new password" id="newPassword" name="newPassword" onkeyup="validatePassword()">
+                                                <i class="far fa-eye" id="togglePassword"></i>
+
+                                            </div>
+
+                                            <div id="newPasswordAlert" style="color:red;font-size: 13px; margin-left: 5px;"></div>
+                                            <div class="d-none" id="newPasswordAlert2" style="color:red;font-size: 13px; margin-left: 5px;">*Please Enter a strong Password!</div>
+
+
+
+                                            <label for="inputState" class="form-label mt-3 mb-0">Confirm password</label>
+
+                                            <div class="confirmPassword-container">
+
+
+                                                <input type="password" class="form-control" placeholder="Enter confirm password" id="confirmNewPassword" name="confirmNewPassword">
+                                                <i class="far fa-eye" id="toggleConfirmPassword"></i>
+
+                                            </div>
+
                                             <div id="confirmNewPasswordAlert" style="color:red;font-size: 13px; margin-left: 5px;"></div>
+
+
                                         </div>
                                         <div class="modal-footer">
 
                                             <button type="button" class="btn btn-outline-secondary rounded-pill" id="cancelPrompt" data-dismiss="modal">Cancel</button>
 
-                                            <a id="changePassword" class="btn btn-outline-warning rounded-pill">
+                                            <a id="changePassword" class="btn rounded-pill changePasswordButton" style="color:orange; border:2px solid orange;">
                                                 <span>Change Password </span>
                                             </a>
                                         </div>

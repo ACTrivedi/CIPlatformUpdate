@@ -13,8 +13,11 @@
     <link rel="stylesheet" href="~/CSS/Registration.css ">
 
     <script src="JS/bootstrap.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Roboto+Slab&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   
+
     <title>Registration</title>
 </head>
 <body>
@@ -114,7 +117,7 @@
                     <div class="form-group mt-3">
                         <label for="PhoneNumber">Phone Number</label>
                         @Html.TextBoxFor(x=>x.PhoneNumber,new {@class="form-control", @placeholder="Contact Number", required = "required", @type = "tel", pattern = "^\\d{10}$" })
-                         <div class="invalid-feedback">
+                        <div class="invalid-feedback">
                             *Please provide a valid Contact.
                         </div>
                     </div>
@@ -129,7 +132,7 @@
                     <div class="form-group mt-3">
                         <label for="exampleInputPassword1">Password</label>
                         @Html.PasswordFor(x=>x.Password,new {@class="form-control", required = "required", @placeholder="Password", id = "Password"})
-                         <div class="invalid-feedback">
+                        <div class="invalid-feedback">
                             *Please provide a valid Password.
                         </div>
                     </div>
@@ -137,20 +140,20 @@
                     <div class="form-group  mt-3">
                         <label for="exampleInputPassword1">Confirm New Password</label>
                         @Html.PasswordFor(x=>x.Confirmpassword,new {@class="form-control", required = "required", @placeholder="Confirmpassword", data_val_equalto = "#Password"})
-                         <div class="invalid-feedback">
+                        <div class="invalid-feedback">
                             *Please provide a valid Confirm Password.
                         </div>
                         @{
-                            if(@ViewData["PassConfirmCheck"]!=null)
-                        {                        
-                            <span style="color: red;font-size: 14px;"> @ViewData["PassConfirmCheck"]</span>
+                            if (@ViewData["PassConfirmCheck"] != null)
+                            {
+                                <span style="color: red;font-size: 14px;"> @ViewData["PassConfirmCheck"]</span>
+                            }
                         }
-                        }
-                        
+
                     </div>
 
 
-                    <button type="submit" class="btn btn-outline-warning w-100 rounded-pill mt-4">Register</button>
+                    <button type="submit" class="btn btn-outline-warning w-100 rounded-pill mt-4 RegisterButton">Register</button>
 
 
                     <p class="alreadylogin mt-3">Already Register?<span><a href="/Home/Login">Login Now</a></span></p>
@@ -170,27 +173,27 @@
     </div>
 
 
-     <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-    'use strict'
+    <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
 
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll('.needs-validation')
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
 
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms)
-        .forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
 
-                form.classList.add('was-validated')
-            }, false)
-        })
-})()
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
 
     </script>
 

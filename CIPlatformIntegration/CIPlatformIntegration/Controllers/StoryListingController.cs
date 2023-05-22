@@ -2,6 +2,7 @@
 using CIPlatformIntegration.Entities.Models;
 using CIPlatformIntegration.Entities.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -16,11 +17,13 @@ namespace CIPlatformIntegration.Controllers
         //CIDatabaseContext _cidatabaseContext = new CIDatabaseContext();
         private readonly CidatabaseContext _cidatabaseContext;
 
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public StoryListingController(ILogger<StoryListingController> logger, CidatabaseContext cIDatabaseContext)
+        public StoryListingController(ILogger<StoryListingController> logger, CidatabaseContext cIDatabaseContext, IWebHostEnvironment hostingEnvironment)
         {
             _logger = logger;
             _cidatabaseContext = cIDatabaseContext;
+            _hostingEnvironment = hostingEnvironment;
 
         }
 
@@ -255,18 +258,13 @@ namespace CIPlatformIntegration.Controllers
 
                     FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-                    /*                    string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", fileName);
-                    */
                     string ImageURL = "\\images\\StoryImages\\" + Path.GetFileName(file.FileName);
-
 
                     HttpContext.Session.SetString("uploadpath", ImageURL);
 
                     /*var stream = new FileStream(uploadpath, FileMode.Create);*/
 
                     file.CopyToAsync(FileStream);
-
-
 
                     StoryMedia(story_id, videoUrl);
 
@@ -1028,5 +1026,32 @@ namespace CIPlatformIntegration.Controllers
         }
 
 
-    }
+        [HttpPost]
+        public IActionResult Upload()
+        {
+            var files = HttpContext.Request.Form.Files;
+            var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+            foreach (var file in files)
+            {
+                if (file.Length > 0)
+                {
+                      FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\StoryImages\\", Path.GetFileName(file.FileName)), FileMode.Create);
+
+                        string ImageURL = "\\images\\StoryImages\\" + Path.GetFileName(file.FileName);
+
+                        HttpContext.Session.SetString("uploadpath", ImageURL);
+
+
+                        file.CopyToAsync(FileStream);                       
+
+                        FileStream.Close();
+                   
+                }
+            }
+
+            return Ok();
+        }
+
+    } 
+
 }

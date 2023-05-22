@@ -5,11 +5,12 @@
     "\\CIPlatformIntegration\\CIPlatformIntegration",
     "\\CIPlatformIntegration\\CIPlatformIntegration.Entities",
     "\\CIPlatformIntegration\\CIPlatformIntegration.Repository",
+    "\\CIPlatformIntegration\\CIPlatformIntegration\\Controllers",
     "\\CIPlatformIntegration\\CIPlatformIntegration\\Views",
     "\\CIPlatformIntegration\\CIPlatformIntegration\\Views\\Admin",
     "\\CIPlatformIntegration\\CIPlatformIntegration\\Views\\Home",
     "\\CIPlatformIntegration\\CIPlatformIntegration\\Views\\Shared"
   ],
-  "SelectedNode": "\\CIPlatformIntegration\\CIPlatformIntegration\\Views\\Admin\\_adminBannerManagement.cshtml",
+  "SelectedNode": "\\CIPlatformIntegration\\CIPlatformIntegration\\Views\\Shared\\_Cards.cshtml",
   "PreviewInSolutionExplorer": false
 }

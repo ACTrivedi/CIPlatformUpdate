@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "YU7LKLMX9xwaRi2qArk+UBL3HtdbDh5YEFqnCHVsuqDDtPGlKrv+rIFlV5HgMPS53GPerNMKYKM48+4GFta4IA==",
+  "dgSpecHash": "wLpo/Dvlo4fm6NXXSWKCXTxmkYeojezqzY/gLmHaCI9bHe8eYt5HVnQmnJtxSZqhxQuK7jRNOa2XodHvR7zy9w==",
   "success": true,
   "projectFilePath": "D:\\CIPlatformUpdate\\CIPlatformIntegration\\CIPlatformIntegration.Entities\\CIPlatformIntegration.Entities.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pci234\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\pci234\\.nuget\\packages\\dropzone\\4.3.0\\dropzone.4.3.0.nupkg.sha512",
     "C:\\Users\\pci234\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\pci234\\.nuget\\packages\\jquery\\1.6.3\\jquery.1.6.3.nupkg.sha512",
     "C:\\Users\\pci234\\.nuget\\packages\\mailkit\\3.6.0\\mailkit.3.6.0.nupkg.sha512",

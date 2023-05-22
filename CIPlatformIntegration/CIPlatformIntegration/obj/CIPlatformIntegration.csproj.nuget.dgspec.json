@@ -97,6 +97,10 @@
               "target": "Package",
               "version": "[3.6.0, )"
             },
+            "dropzone": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
             "toastr": {
               "target": "Package",
               "version": "[2.1.1, )"
@@ -217,6 +221,10 @@
             "MimeKit": {
               "target": "Package",
               "version": "[3.6.0, )"
+            },
+            "dropzone": {
+              "target": "Package",
+              "version": "[4.3.0, )"
             },
             "toastr": {
               "target": "Package",
@@ -357,6 +365,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.3.0, )"
+            },
+            "dropzone": {
+              "target": "Package",
+              "version": "[4.3.0, )"
             },
             "toastr": {
               "target": "Package",

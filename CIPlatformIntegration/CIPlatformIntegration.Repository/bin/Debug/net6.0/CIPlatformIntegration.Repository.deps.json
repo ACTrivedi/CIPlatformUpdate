@@ -21,6 +21,7 @@
           "Microsoft.Extensions.Identity.Core": "6.0.14",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.12",
           "MimeKit": "3.6.0",
+          "dropzone": "4.3.0",
           "toastr": "2.1.1"
         },
         "runtime": {
@@ -35,6 +36,7 @@
           }
         }
       },
+      "dropzone/4.3.0": {},
       "Humanizer.Core/2.8.26": {
         "runtime": {
           "lib/netstandard2.0/Humanizer.dll": {
@@ -2701,6 +2703,7 @@
           "Microsoft.Extensions.Identity.Core": "6.0.14",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.12",
           "MimeKit": "3.6.0",
+          "dropzone": "4.3.0",
           "toastr": "2.1.1"
         },
         "runtime": {
@@ -2721,6 +2724,13 @@
       "sha512": "sha512-W+U9WvmZQgi5cX6FS5GDtDoPzUCV4LkBLkywq/kRZhuDwcbavOzcDAr3LXJFqHUi952Yj3LEYoWW0jbEUQChsA==",
       "path": "bcrypt.net-next/4.0.3",
       "hashPath": "bcrypt.net-next.4.0.3.nupkg.sha512"
+    },
+    "dropzone/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-erwoK0GJ+gDfphtbBOjUkdoe/MBDbTVwd2DvvgNdULgJmZvOHrnbZQJH6GnbMXf9wa463sASZG102ZYbSw+e/Q==",
+      "path": "dropzone/4.3.0",
+      "hashPath": "dropzone.4.3.0.nupkg.sha512"
     },
     "Humanizer.Core/2.8.26": {
       "type": "package",

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cs/uZIXnx6ve3jKIFY5anKrlJOP3NeQ9U1WhVR6/sY4=",
+  "Hash": "DySXMqdeb47vUi5KCLkQD55AX8iC+KUnLJivtPxPMsw=",
   "Source": "CIPlatformIntegration",
   "BasePath": "_content/CIPlatformIntegration",
   "Mode": "Default",
@@ -219,6 +219,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Banner\\TreePlantation.jpg"
+    },
+    {
+      "Identity": "D:\\CIPlatformUpdate\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\Banner\\wallpaper3.jpg",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CIPlatformUpdate\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "Banner/wallpaper3.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Banner\\wallpaper3.jpg"
     },
     {
       "Identity": "D:\\CIPlatformUpdate\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\css\\AdminPage.css",
@@ -1239,6 +1256,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\StoryImages\\shimla.jfif"
+    },
+    {
+      "Identity": "D:\\CIPlatformUpdate\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\StoryImages\\TreePlantation.jpg",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CIPlatformUpdate\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "images/StoryImages/TreePlantation.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\StoryImages\\TreePlantation.jpg"
     },
     {
       "Identity": "D:\\CIPlatformUpdate\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\images\\user-img.png",
@@ -2599,6 +2633,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\MissionMedia\\DonationImage.png"
+    },
+    {
+      "Identity": "D:\\CIPlatformUpdate\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\MissionMedia\\DonationStationary.png",
+      "SourceId": "CIPlatformIntegration",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CIPlatformUpdate\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\",
+      "BasePath": "_content/CIPlatformIntegration",
+      "RelativePath": "MissionMedia/DonationStationary.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\MissionMedia\\DonationStationary.png"
     },
     {
       "Identity": "D:\\CIPlatformUpdate\\CIPlatformIntegration\\CIPlatformIntegration\\wwwroot\\MissionMedia\\download.jfif",

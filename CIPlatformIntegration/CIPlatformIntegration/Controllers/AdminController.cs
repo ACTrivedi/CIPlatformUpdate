@@ -599,7 +599,11 @@ namespace CIPlatformIntegration.Controllers
             if (Request.Form.Files.Count() > 0)
             {
                 IFormFile file = Request.Form.Files[0];
-                _adminRepository.addEditBanner(bannerId,file, bannerTextEdit, sortOrderEdit);
+                _adminRepository.addEditBanner(bannerId, file, bannerTextEdit, sortOrderEdit);
+            }
+            else
+            {
+                _adminRepository.addEditBanner(bannerId, null, bannerTextEdit, sortOrderEdit);
             }
 
 

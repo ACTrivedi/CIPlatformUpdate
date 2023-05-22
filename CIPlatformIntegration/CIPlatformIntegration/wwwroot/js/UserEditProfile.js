@@ -250,6 +250,70 @@ $(document).ready(function () {
 
 
 
+function validatePassword() {
+    var newPassword = $('#newPassword').val();
+    var Regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+
+    if (!Regex.test(newPassword)) {
+        $('#newPasswordAlert2').removeClass("d-none");
+      
+   }
+    else {
+        
+        $('#newPasswordAlert2').addClass("d-none");
+    }
+    
+
+}
 
 
+
+$(document).ready(function () {
+
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#newPassword");
+
+    togglePassword.addEventListener("click", function () {
+        // toggle the type attribute
+        if (password.getAttribute("type") === "password") {
+            togglePassword.classList.remove("fa-eye");
+            togglePassword.classList.add("fa-eye-slash");
+        }
+        else {
+           
+            togglePassword.classList.add("fa-eye");
+            togglePassword.classList.remove("fa-eye-slash");
+
+        }
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+
+    });
+
+
+
+
+
+
+    const toggleConfirmPassword = document.querySelector("#toggleConfirmPassword");
+    const confirmNewPassword = document.querySelector("#confirmNewPassword");
+
+    toggleConfirmPassword.addEventListener("click", function () {
+        // toggle the type attribute
+        if (confirmNewPassword.getAttribute("type") === "password") {
+            toggleConfirmPassword.classList.remove("fa-eye");
+            toggleConfirmPassword.classList.add("fa-eye-slash");
+        }
+        else {
+
+            toggleConfirmPassword.classList.add("fa-eye");
+            toggleConfirmPassword.classList.remove("fa-eye-slash");
+
+        }
+        const type = confirmNewPassword.getAttribute("type") === "password" ? "text" : "password";
+        confirmNewPassword.setAttribute("type", type);
+
+    });
+
+});
 

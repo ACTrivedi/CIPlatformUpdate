@@ -52,6 +52,7 @@
           "MySql.Data": "8.0.32",
           "NToastNotify": "8.0.0",
           "Swashbuckle.AspNetCore": "6.3.0",
+          "dropzone": "4.3.0",
           "toastr": "2.1.1",
           "Microsoft.AspNetCore.Antiforgery.Reference": "6.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "6.0.0.0",
@@ -436,6 +437,7 @@
           "lib/net45-full/DotNetOpenAuth.OpenId.RelyingParty.dll": {}
         }
       },
+      "dropzone/4.3.0": {},
       "Google.Protobuf/3.21.9": {
         "runtime": {
           "lib/net5.0/Google.Protobuf.dll": {
@@ -3517,6 +3519,7 @@
           "Microsoft.Extensions.Identity.Core": "6.0.14",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.13",
           "MimeKit": "3.6.0",
+          "dropzone": "4.3.0",
           "toastr": "2.1.1"
         },
         "runtime": {
@@ -3539,6 +3542,7 @@
           "Microsoft.Extensions.Identity.Core": "6.0.14",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.13",
           "MimeKit": "3.6.0",
+          "dropzone": "4.3.0",
           "toastr": "2.1.1"
         },
         "runtime": {
@@ -5296,6 +5300,13 @@
       "sha512": "sha512-2uME8eTovsaE+/EiDDkr82O7y7yl0LMyoQHuHCdOVizUHrUZewkF/vi7pn1F9pGqs8zeBQqI9y1AZ6XQ3s2REA==",
       "path": "dotnetopenauth.openid.relyingparty/4.3.4.13329",
       "hashPath": "dotnetopenauth.openid.relyingparty.4.3.4.13329.nupkg.sha512"
+    },
+    "dropzone/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-erwoK0GJ+gDfphtbBOjUkdoe/MBDbTVwd2DvvgNdULgJmZvOHrnbZQJH6GnbMXf9wa463sASZG102ZYbSw+e/Q==",
+      "path": "dropzone/4.3.0",
+      "hashPath": "dropzone.4.3.0.nupkg.sha512"
     },
     "Google.Protobuf/3.21.9": {
       "type": "package",

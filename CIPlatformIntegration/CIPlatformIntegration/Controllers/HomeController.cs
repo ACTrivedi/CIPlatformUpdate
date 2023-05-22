@@ -53,13 +53,13 @@ namespace CIPlatformIntegration.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            ViewBag.banner = _cidatabaseContext.Banners.OrderBy(b => b.SortOrder).ToList();
+            ViewBag.banner = _cidatabaseContext.Banners.Where(b => b.DeletedAt == null).OrderBy(b => b.SortOrder).ToList();
             return View();
         }
         [HttpPost]
         public IActionResult Login(User _user)
         {
-            ViewBag.banner = _cidatabaseContext.Banners.OrderBy(b => b.SortOrder).ToList();
+            ViewBag.banner = _cidatabaseContext.Banners.Where(b => b.DeletedAt == null).OrderBy(b => b.SortOrder).ToList();
             var status = _userRepository.userLogin(_user);
             if (status != null)
             {
@@ -90,8 +90,6 @@ namespace CIPlatformIntegration.Controllers
                     return RedirectToAction("Homepage", "Home");
                 }
 
-
-
             }
             else
             {
@@ -115,13 +113,11 @@ namespace CIPlatformIntegration.Controllers
             return View();
         }
 
-
-
         [HttpPost]
         public IActionResult Registration(User user)
         {
             if (user.Password != user.Confirmpassword)
-            {
+            {        
                 ViewData["PassConfirmCheck"]= "*Password and Confirm Password are not same!";
                 return View();
             }
@@ -368,8 +364,7 @@ namespace CIPlatformIntegration.Controllers
                 {
                     ViewData["missionMedia"]=missionMedia;
                 }
-                
-                
+                 
 
 
 

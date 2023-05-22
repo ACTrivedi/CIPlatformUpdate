@@ -1184,17 +1184,26 @@ namespace CIPlatformIntegration.Repository.Repository
             banner.Text = bannerTextEdit;
             banner.SortOrder = sortOrderEdit;
 
-            FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Banner\\", Path.GetFileName(file.FileName)), FileMode.Create);
+            if (file != null)
+            {
 
-            string path = "/Banner/" + Path.GetFileName(file.FileName);
+                FileStream FileStream = new(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Banner\\", Path.GetFileName(file.FileName)), FileMode.Create);
 
-            banner.Image = path;
+                string path = "/Banner/" + Path.GetFileName(file.FileName);
 
-            _cidatabaseContext.Banners.Update(banner);
+                banner.Image = path;
 
-            file.CopyTo(FileStream);
+                _cidatabaseContext.Banners.Update(banner);
 
-            FileStream.Close();
+                file.CopyTo(FileStream);
+
+                FileStream.Close();
+            }
+            else
+            {
+                _cidatabaseContext.Banners.Update(banner);
+            }
+
 
 
             _cidatabaseContext.SaveChanges();
